@@ -586,7 +586,7 @@ describe('<Unit test for feedback function>', function() {
       req
       // .set('Accept','application/json')
       .send({
-        courseId: 2,
+        courseId: 3,
         comment: 'feedback'
         })
       .end(function(err, res) {
