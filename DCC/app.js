@@ -23,17 +23,6 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 app.use(cookieParser());
-
-// Set Static Folder
-// app.use(express.static(path.join(__dirname, '/client/assets')));
-// app.use('/log', serveIndex('/client/assets/log'));
-// app.use('/angular', express.static(path.join(__dirname, '/client/angular')));
-// app.set('views', path.join(__dirname, '/client/views'));
-// Express Session
-// session will save user's credentials in 10 days
-app.set('partials', path.join(__dirname, '/client'));
-app.use(express.static(path.join(__dirname, '/client')));
-
 app.use(session({
     secret: 'secret',
     cookie: {
@@ -47,20 +36,30 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+//register static dir
+app.set('partials', path.join(__dirname, '/client'));
+app.use(express.static(path.join(__dirname, '/client')));
+
+//
+// function ensureAuthenticated(req, res, next) {
+//     if (req.isAuthenticated()) {
+//         res.send({
+//             success: false,
+//             msg: "You need to login first"
+//         });
+//     }
+//     next();
+// }
 //register router
 app.use('/', require('./server/routes/index'));
 app.use('/trainee', require('./server/traineeModule/route/traineeRoutes'));
 app.use('/users', require('./server/routes/users'));
-// app.use('/course', require('./server/routes/course'));
-// app.use('/feedback', require('./server/routes/feedback'));
-//app.use('/session',require('./server/routes/session'));
 
 //create database tables
 models.sequelize.sync({force:false});
 
 // Set Port
 app.set('port', (process.env.PORT || 3210));
-log.info('Server started on port ' + app.get('port'));
 var server = app.listen(app.get('port'), function() {
     console.log('Server started on port ' + app.get('port'));
 });

@@ -34,10 +34,10 @@ myApp.factory('userServices', ['$http', function($http) {
 
     var factoryDefinitions = {
         login: function(loginReq) {
-            return $http.post('/users/login', loginReq).success(function(data) { return data; });
+            return $http.post('/login', loginReq).success(function(data) { return data; });
         },
         logout: function() {
-            return $http.get('/users/logout').success(function(data) { return data; });
+            return $http.get('/logout').success(function(data) { return data; });
         },
         getUserProfile: function() {
             return $http.get('/users/getUserInfo').success(function(data) { return data; });
