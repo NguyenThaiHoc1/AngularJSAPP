@@ -1,11 +1,11 @@
 'use strict';
 
-angular.module('courseRegister', ['ui.toggle']);
+angular.module('trainee_courseRegister', ['ui.toggle']);
 
 //Routers
 myApp.config(function($stateProvider) {
-    $stateProvider.state('courseRegister', {
-        url: '/courseRegister',
+    $stateProvider.state('trainee_courseRegister', {
+        url: '/trainee_courseRegister',
         templateUrl: 'partials/traineeModule/courseRegister/courseRegister.html',
         data:{
             auth:true

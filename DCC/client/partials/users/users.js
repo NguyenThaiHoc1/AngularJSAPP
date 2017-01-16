@@ -59,14 +59,20 @@ myApp.controller('loginController', ['$scope', 'userServices', '$location', '$ro
         if ($scope.loginForm.$valid) {
             userServices.login($scope.login).then(function(result){
                 $scope.data = result;
-                console.log("use info: ");
-                console.log(result.data); //DEBUG
+
                 if (result.data.success) {
                     window.sessionStorage["userInfo"] = JSON.stringify(result.data);
                     $rootScope.userInfo = JSON.parse(window.sessionStorage["userInfo"]);
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
                     // redirect to dashboard after login
-                    $location.path("/dashboard");
+                    if ($rootScope.userInfo.role == 3){
+                        $location.path("/trainee_dashboard");
+                    }else if ($rootScope.userInfo.role == 2){
+                        $location.path("/trainer_dashboard");
+                    }else if ($rootScope.userInfo.role == 1){
+                        $location.path("/admin_dashboard");
+                    }
+
                 }else{
                     $rootScope.ShowPopupMessage(result.data.msg, "error");
                 }
@@ -78,7 +84,6 @@ myApp.controller('loginController', ['$scope', 'userServices', '$location', '$ro
 
 myApp.controller('logoutController', ['$scope', 'userServices', '$location', '$rootScope', function($scope, userServices, $location, $rootScope) {
     userServices.logout().then(function(){
-        console.log("----> logout success"); //DEBUG
         sessionStorage.clear();
         $rootScope.userInfo = false;
         $rootScope.ShowPopupMessage("Logout successfully", "success");

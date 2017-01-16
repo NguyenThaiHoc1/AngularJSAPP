@@ -16,8 +16,10 @@
         <div class="collapse navbar-rowmenu navbar-collapse" id="loginNavbar">
             <ul class="nav navbar-nav navbar-right">
 
-                <li ng-show="$state.current.name == 'home' && userInfo">
-                    <a id="button-dashboard" href="#dashboard">Dashboard</a>
+                <li ng-show="$state.current.name == 'home'">
+                    <a ng-show="userInfo.role == 3" id="button-dashboard" href="#trainee_dashboard">Dashboard</a>
+                    <a ng-show="userInfo.role == 2" id="button-dashboard" href="#trainer_dashboard">Dashboard</a>
+                    <a ng-show="userInfo.role == 1" id="button-dashboard" href="#admin_dashboard">Dashboard</a>
                 </li>
                 <li>
                     <a id="button-calendar" href="#calendar">Training Calendar</a>
