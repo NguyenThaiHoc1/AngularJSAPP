@@ -21,6 +21,29 @@ models.User.sync({
     force: false
 });
 
+router.get('/getUserInfo', function(req, res) {
+    log.info('GET /users/getUserInfo');
+    models.User.getUserByEmail(req.user.email, function(user) {
+        res.send({
+            username: user.username,
+            status: user.status,
+            dob: user.dob,
+            phone: user.phone,
+            location: user.location,
+            email: user.email,
+            avatar: user.avatar,
+            role: user.role,
+            trainer: user.trainer,
+            trainee: user.trainee,
+            belong2Team: user.belong2Team,
+            isExperienced: user.isExperienced,
+
+            success: true,
+            msg: 'You are authenticated!'
+        });
+    });
+});
+
 router.post('/updateUserProfile', function(req, res) {
     log.info('/routes/users: Save edit userprofile');
     models.User.update(

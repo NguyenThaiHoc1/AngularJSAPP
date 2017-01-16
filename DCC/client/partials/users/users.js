@@ -96,10 +96,15 @@ myApp.controller('userProfileCtrl', ['$scope', 'userServices', '$location', '$ro
         userServices.updateUserProfile($scope.userDetail).then(function(result){
             if (result.data.success){
                 //// clone $scope.userDetail to $rootScope.userInfo
-                $rootScope.userInfo = (JSON.parse(JSON.stringify($scope.userDetail)));
-                window.sessionStorage["userInfo"] = JSON.stringify($rootScope.userInfo);
-                $rootScope.ShowPopupMessage(result.data.msg, "success");
-                $location.path("/userProfile");
+                // $rootScope.userInfo =(JSON.parse(JSON.stringify($scope.userDetail)));
+                userServices.getUserProfile().then(function(userData){
+                    console.log(userData.data);
+                    $rootScope.userInfo = userData.data;
+                    window.sessionStorage["userInfo"] = JSON.stringify($rootScope.userInfo);
+                    $rootScope.ShowPopupMessage(result.data.msg, "success");
+                    $location.path("/userProfile");
+                })
+
             }else{
                 $rootScope.ShowPopupMessage(result.data.msg, "error");
             }
