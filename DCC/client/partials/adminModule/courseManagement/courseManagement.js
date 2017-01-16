@@ -5,7 +5,7 @@ angular.module('courseManagement', []);
 //Routers
 myApp.config(function($stateProvider) {
     $stateProvider.state('courseManagement', {
-        url: '/courseManagement',
+        url: '/admin_courseManagement',
         templateUrl: 'partials/adminModule/courseManagement/courseManagement.html',
         data:{
             auth:true
