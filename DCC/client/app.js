@@ -12,7 +12,7 @@ var myApp = angular.module('myApp', [
     'home',
     'calendarModule',
     'courseDetail',
-    'courseManager'
+    'courseManagement'
 ]);
 
 //Config phase

@@ -1,9 +1,8 @@
-<div ng-include="templates[0].url"></div>
-<div ng-include="templates[1].url"></div>
-<div ng-include="templates[2].url"></div>
 
 
-<div class="container">
+<div class="container" ng-controller ="courseListCtrl">
+    <div ng-include="'partials/adminModule/courseManagement/addEditCourse.html'"></div>
+    <div ng-include="'partials/adminModule/courseManagement/deleteCourse.html'"></div>
     <div class="container row">
         <div class="span12">
             <!-- SEARCH BOX -->
@@ -22,9 +21,10 @@
                                                     <tr class="tableheader" style="background-color: #363636">
                                                         <th style="font-size:20px; color: white; bold: true; text-align: center">Name</th>
                                                         <th style="font-size:20px; color: white; bold: true; text-align: center">Training Program</th>
+
                                                         <!-- <th>Trainer</th> -->
                                                         <th style="text-align:center" ng-hide="">
-                                                            <div class="btn btn-success" data-toggle="modal" href="#addCourseModal"><span class="glyphicon glyphicon-plus"></span></div>
+                                                            <div class="btn btn-success" data-toggle="modal" href="#addCourseModal"  ng-click="showAddCourseForm()"><span class="glyphicon glyphicon-plus"></span></div>
                                                         </th>
                                                     </tr>
                                                 </thead>
@@ -34,11 +34,11 @@
                                                             <a href="/#courseDetail">{{ course.name }}</a>
                                                             <!--<div class="descpopuptext" ng-bind-html="course.description">{{ course.description }}</div>-->
                                                         </td>
-                                                        <td>{{ course.trainingProgramId }}</td>
+                                                        <td>{{ course.trainingprogram }}</td>
                                                         <!-- <td>{{ course.trainerID }}</td> -->
                                                         <td style="text-align:center" ng-hide="">
-                                                            <a class="a-inside edit" data-toggle="modal" href="#addCourseModal" ><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                            <a class="a-inside delete" data-toggle="modal" href="#deleteCourseModal" ng-click="deleteCourse(course)"><span class="glyphicon glyphicon-trash"></span></a>
+                                                            <a class="a-inside edit" data-toggle="modal" href="#addCourseModal" ng-click="showUpdateCourseForm(course)"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                            <a class="a-inside delete" data-toggle="modal" href="#deleteCourseModal"><span class="glyphicon glyphicon-trash"></span></a>
                                                         </td>
                                                     </tr>
                                                 </tbody>

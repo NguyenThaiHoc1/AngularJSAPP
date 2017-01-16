@@ -40,6 +40,7 @@ router.post('/addCourse', function(req, res) {
 
 // update course in database
 router.post('/updateCourse', function(req, res) {
+    console.log("aaaaaaaaaa");
     log.info('/admin/updateCourse: Add course :' + req.body.name);
     models.Course.sync({
         force: false
@@ -100,15 +101,37 @@ router.get('/getCourseList', function(req, res) {
     //     res.send(datasend);
     // });
     models.Course.findAll({
-        where:{isDeleted: false}
-    }).then(function(courses) {
+        where:{isDeleted: false},
+
+    }).then(function(course) {
         var datasend = {
-            course: courses,
+            course: course,
             msg:'send list success'
         };
         res.send(datasend);
     })
 
+});
+
+//getCourseTypeList
+router.get('/getCourseTypeList', function(req, res) {
+    log.info('/admin/getCourseTypeList: get course type list data');
+    // models.Course.getCourses(function(courses) {
+    //     var datasend = {
+    //         courses: courses,
+    //         msg:'send list success'
+    //     };
+    //     res.send(datasend);
+    // });
+    var query = { include: [ models.Course ]};
+    models.CourseType.findAll(query).then(
+        function(courseType) {
+            var datasend = {
+                msg:'send list success',
+                courseType: courseType
+            };
+            res.send(datasend);
+        });
 });
 
 module.exports = router;

@@ -1,4 +1,4 @@
-<div class="modal fade" id="deleteCourseModal" role="dialog" ng-controller="IsDeletedCourseCtrl">
+<div class="modal fade" id="deleteCourseModal" role="dialog" ng-controller ="deleteCourseCtrl">
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
@@ -9,16 +9,14 @@
                 <form name="deleteCourseForm" role="form" class="form-horizontal" novalidate>
                     <div class="modal-body">
                         <div>
-                            <p name="courseNameDelete" ng-model="courseslistDelete.courseNameDelete">
+                            <p name="courseNameDelete">
                                 Are you sure to delete
-                                <span ng-bind="courseslistDelete.courseNameDelete">
-                                  </span> course?
+                                <span>{{course.name}} &nbsp</span> course?
                             </p>
                         </div>
-
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-default" ng-click="isDeletedCourse()" data-dismiss="modal" ng-disabled="editCourseForm.$invalid">Yes</button>
+                        <button type="submit" class="btn btn-danger" ng-click="deleteCourse(course.id)" data-dismiss="modal">Yes</button>
                         <button type="submit" class="btn btn-default" data-dismiss="modal">No</button>
                     </div>
                 </form>
