@@ -80,10 +80,7 @@ router.post('/photo', function(req, res){
                     where: { email: req.user.email }
                 }
             ).then(function(){
-                res.send({
-                    success: true,
-                    msg: "Uploaded your new profile image"
-                });
+                res.redirect('/#/editUserProfile');
             })
         }else{
             res.send({

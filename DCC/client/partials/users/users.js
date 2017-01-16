@@ -89,8 +89,11 @@ myApp.controller('logoutController', ['$scope', 'userServices', '$location', '$r
 
 //Get user information
 myApp.controller('userProfileCtrl', ['$scope', 'userServices', '$location', '$rootScope', function($scope, userServices, $location, $rootScope) {
-    // clone $rootScope.userInfo to $scope.userDetail
-    $scope.userDetail = (JSON.parse(JSON.stringify($rootScope.userInfo)));
+    userServices.getUserProfile().then(function(userData){
+        $rootScope.userInfo = userData.data;
+        $scope.userDetail = (JSON.parse(JSON.stringify($rootScope.userInfo)));
+    })
+
     //update User Profile
     $scope.updateUserProfile = function() {
         userServices.updateUserProfile($scope.userDetail).then(function(result){
@@ -98,7 +101,6 @@ myApp.controller('userProfileCtrl', ['$scope', 'userServices', '$location', '$ro
                 //// clone $scope.userDetail to $rootScope.userInfo
                 // $rootScope.userInfo =(JSON.parse(JSON.stringify($scope.userDetail)));
                 userServices.getUserProfile().then(function(userData){
-                    console.log(userData.data);
                     $rootScope.userInfo = userData.data;
                     window.sessionStorage["userInfo"] = JSON.stringify($rootScope.userInfo);
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
