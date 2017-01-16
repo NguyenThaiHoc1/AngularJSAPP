@@ -16,8 +16,10 @@
         <div class="collapse navbar-rowmenu navbar-collapse" id="loginNavbar">
             <ul class="nav navbar-nav navbar-right">
 
-                <li ng-show="$state.current.name == 'home' && userInfo">
-                    <a id="button-dashboard" href="#dashboard">Dashboard</a>
+                <li ng-show="$state.current.name == 'home'">
+                    <a ng-show="userInfo.role == 3" id="button-dashboard" href="#trainee_dashboard">Dashboard</a>
+                    <a ng-show="userInfo.role == 2" id="button-dashboard" href="#trainer_dashboard">Dashboard</a>
+                    <a ng-show="userInfo.role == 1" id="button-dashboard" href="#admin_dashboard">Dashboard</a>
                 </li>
                 <li>
                     <a id="button-calendar" href="#calendar">Training Calendar</a>
@@ -81,35 +83,35 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label class="col-sm-4 control-label">Username</label>
-                            <div class="col-sm-8">
-                                <input type="text" name="email"
-                                value=""
-                                placeholder="Email"
-                                class="login"
-                                ng-model="login.username"
-                                validator="required"
-                                required-error-message="Email is required"
-                                email-error-message="Invalid email address"
-                                valid-method="watch"/>
-                            </div>
+                            <label class="col-md-4 control-label">Username</label>
+
+                            <input class="col-md-6" type="text" name="email"
+                            value=""
+                            placeholder="Email"
+                            class="login"
+                            ng-model="login.username"
+                            validator="required"
+                            required-error-message="Email is required"
+                            email-error-message="Invalid email address"
+                            valid-method="watch"/>
+
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-4 control-label">Password</label>
-                            <div class="col-sm-8">
-                                <input type="password" name="password"
-                                value=""
-                                placeholder="Password"
-                                class="login "
-                                ng-model="login.password"
-                                validator="required"
-                                required-error-message="Password is required"
-                                valid-method="watch" />
-                            </div>
+                            <label class="col-md-4 control-label">Password</label>
+
+                            <input class="col-md-6" type="password" name="password"
+                            value=""
+                            placeholder="Password"
+                            class="login "
+                            ng-model="login.password"
+                            validator="required"
+                            required-error-message="Password is required"
+                            valid-method="watch" />
+
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-default"  ng-click="doLogin()" data-dismiss="modal" >Submit</button>
+                        <button type="submit" class="btn btn-success"  ng-click="doLogin()" data-dismiss="modal" >Login</button>
                     </div>
                 </form>
             </div>

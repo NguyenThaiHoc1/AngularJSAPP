@@ -1,11 +1,11 @@
 'use strict';
 
-angular.module('dashboard', []);
+angular.module('trainee_dashboard', []);
 
 //Routers
 myApp.config(function($stateProvider) {
-  $stateProvider.state('dashboard', {
-	url: '/dashboard',
+  $stateProvider.state('trainee_dashboard', {
+	url: '/trainee_dashboard',
     templateUrl: 'partials/traineeModule/dashboard/dashboard.html',
 	data:{
 		auth:true
@@ -38,6 +38,6 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices', function($scop
             });
         });
 		$scope.myTrainingProgramList = result.data;
-        
+
 	});
 }]);

@@ -14,7 +14,6 @@
                                     <form id="uploadForm" enctype="multipart/form-data" action="/users/photo" method="post">
                                         <input class="btn btn-default col-md-12 col-sm-12 col-xs-12" style="margin-top: 5px" type="file" name="userPhoto"/>
                                         <input class="btn btn-primary col-md-12 col-sm-12 col-xs-12" style="margin-top: 5px" type="submit" value="Upload Image" name="submit">
-                                        <span id="status"></span>
                                     </form>
                                 </div>
                                 <div class=" col-md-9 col-lg-9 ">
@@ -45,22 +44,15 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>role</td>
-                                                <td>
-                                                    <input id="loc" type="text" ng-model="userDetail.role">
-                                                </td>
-                                            </tr>
-                                            <tr>
                                                 <td>Email</td>
                                                 <td>
-                                                    <a ng-href="{{ userDetail.email }}">{{ userDetail.email }}</a>
+                                                    <a>{{ userDetail.email }}</a>
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <button type="button" class="btn btn-primary  pull-right" ng-click="updateUserProfile()">Save</button>
-                                    <button ng-click="cancel()" class="btn  pull-right">Cancel</button>
-
+                                    <button ng-click="updateUserProfile()" class="btn btn-primary pull-right" >Save</button>
+                                    <button ng-click="cancel()" class="btn pull-right" style="margin-right: 10px">Cancel</button>
                                 </div>
                             </div>
                         </div>

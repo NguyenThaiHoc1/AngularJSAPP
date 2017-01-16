@@ -69,9 +69,10 @@ router.post('/updateCourse', function(req, res) {
 });
 
 // mark course as deleted (isDeleted = true)
-router.post('/isDeletedCourse', function(req, res) {
+router.post('/deleteCourse', function(req, res) {
     log.info('Get Delete Command');
     models.Course.getByID(req.body.id, function(result) {
+        console.log(result);
         if (result) {
             models.Course.update({
                 isDeleted: true
@@ -81,10 +82,12 @@ router.post('/isDeletedCourse', function(req, res) {
                 }
             });
             res.send({
+                success: true,
                 msg: 'Delete success'
             });
         } else {
             res.send({
+                success: false,
                 msg: 'Delete failure'
             });
         }
@@ -132,6 +135,6 @@ router.get('/getCourseTypeList', function(req, res) {
             };
             res.send(datasend);
         });
-});
+    });
 
-module.exports = router;
+    module.exports = router;

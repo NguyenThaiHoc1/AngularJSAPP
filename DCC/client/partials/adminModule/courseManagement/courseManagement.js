@@ -32,8 +32,6 @@ myApp.factory('courseManagementServices', ['$http', function($http) {
             return $http.post('/admin/deleteCourse', courseId).success(function(data) { return data; });
         },
         getTrainingProgram: function() {
-            //return $http.get('partials/traineeModule/courseRegister/mock/trainingprogram.json').success(function(data) { return data; });
-            //return $http.get('course/traineeModule/courseRegister/mock/trainingprogram.json').success(function(data) { return data; });
             return $http.get('/trainee/getTrainingProgram').success(function(data) { return data; });
         },
         getCourseTypeList: function(){
@@ -53,45 +51,50 @@ myApp.controller('courseListCtrl', [ '$scope', '$rootScope','courseManagementSer
     });
 
     //dislay modal of edit & add course
-    $rootScope.addEditForm = {};
 
     $rootScope.showAddCourseForm=function(){
         $rootScope.addEditFormTitle = 'Add Course';
         $rootScope.addEditFormAction = 'Add';
         $rootScope.addEditFormIsEditForm = false;
+        $rootScope.courseModel = {
+            name: '',
+            description: '',
+            duration:'',
+            documents: '',
+            test: '',
+            courseTypeId:'',
+            trainingProgramId:''
+        };
     };
 
     $scope.showUpdateCourseForm = function(course){
         $rootScope.addEditFormTitle = 'Edit Course';
         $rootScope.addEditFormAction = 'Update';
         $rootScope.addEditFormIsEditForm = true;
-        console.log(course);
-    };
-    // edit course
-    $scope.editCourse = function(course) {
-        // clone $scope.coursesProperty to $scope.coursesPropertyEdit
-        $rootScope.courseModelEdit = (JSON.parse(JSON.stringify($rootScope.courseModel)));
-        $rootScope.courseModelEdit = {
+        console.log(course); //debug
+        $rootScope.courseModel = {
             id: course.id,
+            name: course.name,
+            description: course.description,
+            duration:course.duration,
+            documents:course.documents,
+            test: course.test,
+            courseTypeId:course.courseTypeId,
+            trainingProgramId:course.trainingProgramId
+        };
+        console.log($rootScope.courseModel);//debug
+    };
+
+    $scope.showDeleteForm = function(course){
+        $rootScope.courseModel = {
+            id: course.id
         };
     };
-
-
 }]);
 
 myApp.controller('addEditCourseCtrl', [ '$scope', '$rootScope','courseManagementServices', function($scope, $rootScope, courseManagementServices, $location) {
-    // Course Model
-    $rootScope.courseModel = {
-        name: '',
-        description: '',
-        duration:'',
-        documents: '',
-        test: '',
-        courseTypeId:'',
-        trainingProgramId:''
-    };
 
-    //get TP
+    //get TrainingProgram
     courseManagementServices.getTrainingProgram().then(function(result){
         $scope.trainingProgramList = result.data.data;
     });
@@ -110,7 +113,7 @@ myApp.controller('addEditCourseCtrl', [ '$scope', '$rootScope','courseManagement
                         $rootScope.coursesList = result;
                     });
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
-                    // $location.path("/userProfile");
+                    // $location.path("/courseManagement");
                 }else{
                     $rootScope.ShowPopupMessage(result.data.msg, "error");
                 }
@@ -131,29 +134,12 @@ myApp.controller('addEditCourseCtrl', [ '$scope', '$rootScope','courseManagement
             });
         }
     };
-
-
-    // $scope.updateCourse = function() {
-    //
-    //     // clone $scope.coursesProperty to $scope.coursesPropertyEdit
-    //     $scope.coursesPropertyEdit = (JSON.parse(JSON.stringify($scope.coursesModal)));
-    //
-    //     courseManagementServices.updateCourse($scope.coursesPropertyEdit).then(function(result){
-    //         if (result.data.success){
-    //             $rootScope.ShowPopupMessage(result.data.msg, "success");
-    //             // $location.path("/userProfile");
-    //         }else{
-    //             $rootScope.ShowPopupMessage(result.data.msg, "error");
-    //         }
-    //     });
-    // };
-
 }]);
 
 myApp.controller('deleteCourseCtrl', [ '$scope', '$rootScope','courseManagementServices', function($scope, $rootScope, courseManagementServices, $location) {
     //delete course
-    $scope.deleteCourse = function(id) {
-        courseManagementServices.deleteCourse(id).then(function(result){
+    $scope.deleteCourse = function() {
+        courseManagementServices.deleteCourse($rootScope.courseModel).then(function(result){
             if (result.data.success){
                 $rootScope.ShowPopupMessage(result.data.msg, "success");
                 //GetCourseList
