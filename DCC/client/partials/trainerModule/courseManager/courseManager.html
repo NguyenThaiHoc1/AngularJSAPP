@@ -17,20 +17,14 @@
                             <div class="control-group">
                                 <div class="controls">
                                     <div class="panel-group">
-
-                                        <!-- <button data-toggle="modal" data-target="#addCourseModal" >Add</button>
-                                        <button data-toggle="modal" data-target="#editCourseModal" >Edit</button>
-                                        <button data-toggle="modal" data-target="#deleteCourseModal" >Delete</button>-->
-
-
                                             <table class="table table-user-information" style="width:100%">
                                                 <thead>
                                                     <tr class="tableheader" style="background-color: #363636">
                                                         <th style="font-size:20px; color: white; bold: true; text-align: center">Name</th>
-                                                        <th style="font-size:20px; color: white; bold: true; text-align: center">Category</th>
+                                                        <th style="font-size:20px; color: white; bold: true; text-align: center">Training Program</th>
                                                         <!-- <th>Trainer</th> -->
                                                         <th style="text-align:center" ng-hide="">
-                                                            <div class="btn btn-success" data-toggle="modal" href="#addCourseModal" ng-click="addCourse()"><span class="glyphicon glyphicon-plus"></span></div>
+                                                            <div class="btn btn-success" data-toggle="modal" href="#addCourseModal"><span class="glyphicon glyphicon-plus"></span></div>
                                                         </th>
                                                     </tr>
                                                 </thead>
@@ -40,10 +34,10 @@
                                                             <a href="/#courseDetail">{{ course.name }}</a>
                                                             <!--<div class="descpopuptext" ng-bind-html="course.description">{{ course.description }}</div>-->
                                                         </td>
-                                                        <td>{{ course.name }}</td>
+                                                        <td>{{ course.trainingProgramId }}</td>
                                                         <!-- <td>{{ course.trainerID }}</td> -->
                                                         <td style="text-align:center" ng-hide="">
-                                                            <a class="a-inside edit" data-toggle="modal" href="#addCourseModal" ng-click="updateCourse()"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                            <a class="a-inside edit" data-toggle="modal" href="#addCourseModal" ><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                             <a class="a-inside delete" data-toggle="modal" href="#deleteCourseModal" ng-click="deleteCourse(course)"><span class="glyphicon glyphicon-trash"></span></a>
                                                         </td>
                                                     </tr>

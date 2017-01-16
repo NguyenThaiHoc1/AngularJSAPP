@@ -4,19 +4,19 @@ module.exports=
 {
     // 1: enrolled,
     // 2: passed
-    status:
+    userEmail:
     {
         type: SequelizeDatatypes.STRING,
         allowNull: true
     },
-    classId:
+    courseId:
     {
         type: SequelizeDatatypes.INTEGER,
         allowNull: true
     },
-    traineeEmail:
+    requestTime:
     {
-        type: SequelizeDatatypes.STRING,
+        type: SequelizeDatatypes.DATE,
         allowNull: true
     }
 }

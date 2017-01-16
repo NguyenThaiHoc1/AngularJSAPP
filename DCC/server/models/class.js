@@ -20,6 +20,21 @@ module.exports = function(sequelize, DataTypes) {
                 Class.findOne(query).then(cb);
             },
 
+            getOpeningClassByCourseID: function(id, cb)
+            {
+                var query = {
+                    where:
+                    {
+                        startTime:
+                        {
+                            $gt: Date.now()
+                        },
+                        courseId: id
+                    }
+                };
+                Class.findOne(query).then(cb);
+            },
+
             getClassByName: function(name, cb)
             {
                 log.info('/models/class: getClassByName()' + name);

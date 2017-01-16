@@ -9,7 +9,7 @@
                 <form name="addCourseForm"  role="form" class="form-horizontal" novalidate>
                     <div class="modal-body">
                         <!-- Course Name -->
-                        <div class="form-group" ng-class="{ 'has-error' : addCourseForm.courseName.$invalid && !addCourseForm.courseName.$pristine }">
+                        <div class="form-group" ng-class="{ 'has-error' : addCourseForm.name.$invalid && !addCourseForm.name.$pristine }">
                             <label class="col-sm-4 control-label">Course name</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" name="courseName" ng-model="coursesProperty.name" placeholder="Course name" required>
@@ -17,7 +17,7 @@
                             </div>
                         </div>
                         <!-- Course Category -->
-                        <div class="form-group" ng-class="{ 'has-error' : addCourseForm.courseCategory.$invalid && !addCourseForm.courseCategory.$pristine }">
+                        <!-- <div class="form-group" ng-class="{ 'has-error' : addCourseForm.belong2TrainingProgram.$invalid && !addCourseForm.belong2TrainingProgram.$pristine }">
                             <label class="col-sm-4 control-label">Category</label>
                             <div class="col-sm-8">
                                 <select class="form-control" name="courseCategory" ng-model="coursesProperty.belong2TrainingProgram">
@@ -30,23 +30,23 @@
                                     <option>On Demand</option>
                                 </select>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- Course Document -->
-                        <div class="form-group" ng-class="{ 'has-error' : addCourseForm.courseDocuments.$invalid && !addCourseForm.courseDocuments.$pristine }">
+                        <div class="form-group" ng-class="{ 'has-error' : addCourseForm.documents.$invalid && !addCourseForm.documents.$pristine }">
                             <label class="col-sm-4 control-label">Documents</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="courseDocuments" ng-model="coursesProperty.documents" placeholder="Course documents" required>
-                                <p ng-show="addCourseForm.documents.$invalid && !addCourseForm.courseDocuments.$pristine" class="help-block">Course documents is required.</p>
+                                <input type="text" class="form-control" name="documents" ng-model="coursesProperty.documents" placeholder="Course documents" required>
+                                <p ng-show="addCourseForm.documents.$invalid && !addCourseForm.documents.$pristine" class="help-block">Course documents is required.</p>
                             </div>
                         </div>
 
                         <!-- Course Test -->
-                        <div class="form-group" ng-class="{ 'has-error' : addCourseForm.courseTest.$invalid && !addCourseForm.courseTest.$pristine }">
+                        <div class="form-group" ng-class="{ 'has-error' : addCourseForm.test.$invalid && !addCourseForm.test.$pristine }">
                             <label class="col-sm-4 control-label">Test</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="courseTest" ng-model="courseslist.courseTest" placeholder="Course test" required>
-                                <p ng-show="addCourseForm.courseTest.$invalid && !addCourseForm.courseTest.$pristine" class="help-block">Course test is required.</p>
+                                <input type="text" class="form-control" name="test" ng-model="coursesProperty.test" placeholder="Course test" required>
+                                <p ng-show="addCourseForm.test.$invalid && !addCourseForm.test.$pristine" class="help-block">Course test is required.</p>
                             </div>
                         </div>
 
@@ -60,15 +60,25 @@
                         </div> -->
 
                         <!-- Course Description -->
-                        <div style="text-align:center" class="form-group" ng-class="{ 'has-error' : addCourseForm.courseDescription.$invalid && !addCourseForm.courseDescription.$pristine }">
+                        <!-- <div style="text-align:center" class="form-group" ng-class="{ 'has-error' : addCourseForm.courseDescription.$invalid && !addCourseForm.courseDescription.$pristine }">
                             <label class=" control-label">Course description</label>
                             <br>
                             <br>
                             <text-angular ng-model="course.description" style="height: 50px;"></text-angular>
+                        </div> -->
+                        <div class="form-group" ng-class="{ 'has-error' : addCourseForm.description.$invalid && !addCourseForm.description.$pristine }">
+                            <label class="col-sm-4 control-label">Test</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="description" ng-model="coursesProperty.description" placeholder="Course test" required>
+                                <p ng-show="addCourseForm.description.$invalid && !addCourseForm.description.$pristine" class="help-block">Course test is required.</p>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-default" ng-click="doneClick()" data-dismiss="modal" ng-disabled="addCourseForm.$invalid">{{functionDone}}</button>
+                        <button type="submit" class="btn btn-default" ng-click="addCourse()" data-dismiss="modal" ng-disabled="addCourseForm.$invalid">test add</button>
+                        <button type="submit" class="btn btn-default" ng-click="updateCourse()" data-dismiss="modal" >test update</button>
+                    </div>
                     </div>
                 </form>
             </div>

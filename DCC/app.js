@@ -53,6 +53,7 @@ app.use(express.static(path.join(__dirname, '/client')));
 //register router
 app.use('/', require('./server/routes/index'));
 app.use('/trainee', require('./server/traineeModule/route/traineeRoutes'));
+app.use('/admin', require('./server/adminModule/route/adminRoutes'));
 app.use('/users', require('./server/routes/users'));
 
 //create database tables

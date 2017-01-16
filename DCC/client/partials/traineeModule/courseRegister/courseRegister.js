@@ -29,6 +29,10 @@ myApp.factory('courseRegisterServices', ['$http', function($http) {
         getMyEnrolledCourse: function() {
             return $http.get('partials/traineeModule/courseRegister/mock/myEnroll.json').success(function(data) { return data; });
         },
+        registerCourse: function(requestOpening) {
+            //return $http.get('partials/traineeModule/courseRegister/mock/openingCourse.json').success(function(data) { return data; });
+            return $http.post('/trainee/registerCourse', requestOpening).success(function(data) { return data; });
+        },
     }
     return factoryDefinitions;
 }
@@ -36,7 +40,7 @@ myApp.factory('courseRegisterServices', ['$http', function($http) {
 
 
 //Controllers
-myApp.controller('courseRegisterCtrl', ['$scope', 'courseRegisterServices', function($scope, courseRegisterServices) {
+myApp.controller('courseRegisterCtrl', ['$rootScope', '$scope', 'courseRegisterServices', function($rootScope ,$scope, courseRegisterServices) {
     //Clone Object function
     function clone(obj) {
         var copy;
@@ -119,5 +123,26 @@ myApp.controller('courseRegisterCtrl', ['$scope', 'courseRegisterServices', func
             }
         }
         $scope.courseListSearchResult = courseListSearch;
-    }
+    };
+
+    $scope.registerCourse = function(courseId){
+        // courseRegisterStatus = true : unregister;
+        // courseRegisterStatus = false : register;
+        var requestOpening = {
+            courseId : courseId,
+            userEmail : $rootScope.userInfo.email
+        };
+        if (!$scope.courseRegisterStatus){
+            courseRegisterServices.registerCourse(requestOpening).then(
+                function(result)
+                {
+                    if (result.data.msg)
+                        $rootScope.ShowPopupMessage(result.data.msg, "success");
+                    else
+                        $rootScope.ShowPopupMessage("Can not register", "error");
+                }
+            );
+            $scope.test = courseId;
+        }
+    };
 }]);
