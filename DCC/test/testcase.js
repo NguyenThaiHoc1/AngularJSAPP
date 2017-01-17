@@ -78,7 +78,21 @@ describe('<Unit Test for Routing>', function() {
                 .expect(200, done)
         });
     });
-
+//Test for adminModule
+    describe('', function(){
+        return it('Test case 9: get /admin/getCourseList', function(done){
+            request(route)
+                .get('/admin/getCourseList')
+                .expect(200, done)
+        });
+    });
+    describe('', function(){
+        return it('Test case 10: get /admin/getCourseTypeList: get course type list data', function(done){
+            request(route)
+                .get('/admin/getCourseTypeList')
+                .expect(200, done)
+        });
+    });
 });
 
 //---------------------------------------------------------------------------------------
