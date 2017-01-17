@@ -29,7 +29,16 @@ myApp.factory('dashboardServices', ['$http', function($http) {
 
 //Controllers
 myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices', function($scope, dashboardServices) {
-	dashboardServices.getMyTraingPrograms().then(function(result){
+
+    //Init action text of button base on status of a course
+    $scope.actionOneText = {}; $scope.actionTwoText = {};
+    $scope.actionOneText['Enrolled'] = 'Give feedback';
+    $scope.actionTwoText['Enrolled'] = 'Re-enroll';
+    $scope.actionOneText['Learned'] = 'View Schedule';    
+    $scope.actionTwoText['Learned'] ='Un-enroll';
+
+    //get all courses and training programs
+    dashboardServices.getMyTraingPrograms().then(function(result){
         result.data.forEach(traningProgram => {
             traningProgram.myCourseList.forEach(course => {
                 if (course.status == 'Enrolled') {course.backgroundColor = '#4FC3F7'}
