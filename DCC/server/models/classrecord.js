@@ -6,7 +6,8 @@ module.exports = function(sequelize, DataTypes) {
             {
                 var query = {
                     traineeEmail : traineeEmail,
-                    classId : id
+                    classId : id,
+                    status: "Enrolled"
                 };
                 Classrecord.create(query).then(cb);
             },
