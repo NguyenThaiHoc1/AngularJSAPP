@@ -51,10 +51,11 @@ app.use(express.static(path.join(__dirname, '/client')));
 //     next();
 // }
 //register router
-app.use('/', require('./server/routes/index'));
-app.use('/trainee', require('./server/traineeModule/route/traineeRoutes'));
-app.use('/admin', require('./server/adminModule/route/adminRoutes'));
-app.use('/users', require('./server/routes/users'));
+app.use('/',        require('./server/routes/index'));
+app.use('/trainee', require('./server/routes/trainee'));
+app.use('/trainer', require('./server/routes/trainer'));
+app.use('/admin',   require('./server/routes/admin'));
+app.use('/user',    require('./server/routes/user'));
 
 //create database tables
 models.sequelize.sync({force:false});
