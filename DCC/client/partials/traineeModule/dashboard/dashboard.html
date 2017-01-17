@@ -62,3 +62,48 @@
         </div>
     </div>
 </div>
+
+<div class="container">
+    <div class="container row" ng-controller="requestOpenCourseCtrl">
+        <div class="span12">
+            <div class="widget widget-nopad">
+                <div class="widget-header">
+                    <center><font size="6px" style="color: black"><b>My Request Open Course</b></font></center>
+                </div>
+                <div class="widget-content" >
+                    <div class="widget big-stats-container" style="margin-bottom:0">
+                        <div class="widget-content">
+                            <div class="control-group">
+                                <div class="controls">
+                                    <div class="panel-group" style="margin-bottom: 0;">
+                                        <div class="panel panel-default" ng-repeat="requestOpenCourse in myRequestOpenCourseList">
+                                            <div class="row" style="padding-bottom:10px; margin-left: 90px; margin-right: 90px; border: 2px solid {{requestOpenCourse.backgroundColor}}; border-radius: 5px;">
+                                                <div class="col-md-10">
+                                                    <blockquote class="blockquote" style="border-left: none; padding-left:0px; padding-top: 20px">
+                                                        <a href="#courseDetail:{{requestOpenCourse.id}}" style="text-decoration: none">
+                                                            <img  style="float:left; clear:both; margin:8px;" alt="course-icon" class="img-responsive" src = "{{requestOpenCourse.imgLink}}" width="90px">
+                                                            <font size="6px" color="black" style="margin-top: 10px;">{{requestOpenCourse.name}}</font>
+                                                            <footer class="blockquote-footer" style="color: black;">{{requestOpenCourse.description}}</footer>
+                                                        </a>
+                                                    </blockquote>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <center>
+                                                        <h4 class="col-md-12" style="background-color: white;  border-radius: 9px;">Action</h4>
+                                                        <a href="javascript:;" class="col-md-12 col-sm-6 btn btn-md btn-primary" style="margin-top:5px;">actionTwo</a>
+                                                        <a href="javascript:;" class="col-md-12 col-sm-6 btn btn-md btn-warning" style="margin-top:5px;">actionThree</a>
+                                                    </center>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
