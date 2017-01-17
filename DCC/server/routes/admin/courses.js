@@ -1,5 +1,4 @@
-var express = require('express');
-var router = express.Router();
+var router = require('express').Router();
 var models = require('../../models');
 var log = require('../../../config/logConfig');
 
