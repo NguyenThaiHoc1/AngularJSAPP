@@ -4,7 +4,7 @@ var log = require('../../../config/logConfig');
 
 // add course to database
 router.post('/addCourse', function(req, res) {
-    log.info('/admin/course: Add course :' + req.body.name);
+    log.info('/admin/courses/addCourse: Add course :' + req.body.name);
     models.Course.sync({
         force: false
     }).then(function() {
@@ -51,8 +51,8 @@ router.post('/updateCourse', function(req, res) {
             test: req.body.test,
             documents: req.body.documents,
             isDeleted:  0,
-            courseTypeId: '1',
-            trainingProgramId: '1',
+            courseTypeId: req.body.courseTypeId.id,
+            trainingProgramId: req.body.trainingProgramId.id,
             imgLink: '/img/courses/training-icon-1.svg',
         }, {
             where: {

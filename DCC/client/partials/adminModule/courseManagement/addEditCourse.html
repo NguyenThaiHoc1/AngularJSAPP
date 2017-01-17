@@ -22,31 +22,23 @@
                     <div class="form-group" ng-class="{ 'has-error' : addEditForm.belong2TrainingProgram.$invalid && !addEditForm.belong2TrainingProgram.$pristine }">
                         <label class="col-sm-4 control-label">Training Program</label>
                         <div class="col-sm-8">
-                            <!-- <select class="form-control" ng-model="courseModel.trainingProgramId">
-                                <option ng-repeat="trainingProgram in trainingProgramList">{{trainingProgram.name}}</option>
-                            </select> -->
                             <select class="form-control" name="trainingProgramId"
                                 ng-options ="trainingProgram.name for trainingProgram in trainingProgramList track by trainingProgram.id "
                                 ng-model="courseModel.trainingProgramId">
-                            <!-- <option ng-repeat="session in sessionByTrainingProgramList" value={{session.id}} >{{ session.name }}</option> -->
                             </select>
-                            {{courseModel.trainingProgramId.id}}
+                            <!-- {{courseModel.trainingProgramId.id}} -->
                         </div>
                     </div>
 
                     <!--Course Type-->
                     <div class="form-group" ng-class="{ 'has-error' : addEditForm.courseTypeId.$invalid && !addEditForm.courseTypeId.$pristine }">
-                        <label class="col-sm-4 control-label">Course</label>
+                        <label class="col-sm-4 control-label">Trainee Type</label>
                         <div class="col-sm-8">
-                            <!-- <select class="form-control" name="courseTypeId" ng-model="courseModel.courseTypeId">
-                                    <option  ng-repeat="courseType in courseTypeList">{{courseType.name}}</option>
-                                </select> -->
                             <select class="form-control" name="courseTypeId"
                                 ng-options ="courseType.name for courseType in courseTypeList track by courseType.id "
                                 ng-model="courseModel.courseTypeId">
-                            <!-- <option ng-repeat="session in sessionByTrainingProgramList" value={{session.id}} >{{ session.name }}</option> -->
                             </select>
-                            {{courseModel.courseTypeId.id}}
+                            <!-- {{courseModel.courseTypeId.id}} -->
                         </div>
                     </div>
                     <!-- Course Document -->
