@@ -6,13 +6,16 @@ var myApp = angular.module('myApp', [
     'ui.bootstrap',
     'validation',
     'validation.rule',
+    'textAngular',
     'users',
     'trainee_dashboard',
     'trainee_courseRegister',
     'home',
     'calendarModule',
     'courseDetail',
-    'courseManagement'
+    'admin_courseManagement',
+    'admin_dashboard',
+    
 ]);
 
 //Config phase

@@ -24,8 +24,8 @@ router.post('/addCourse', function(req, res) {
                     test: req.body.test,
                     documents: req.body.documents,
                     isDeleted:  0,
-                    courseTypeId: '1',
-                    traingProgramId: '1',
+                    courseTypeId: req.body.courseTypeId.id,
+                    trainingProgramId: req.body.trainingProgramId.id,
                     imgLink: '/img/courses/training-icon-1.svg',
                 }).then(function() {
                     res.send({

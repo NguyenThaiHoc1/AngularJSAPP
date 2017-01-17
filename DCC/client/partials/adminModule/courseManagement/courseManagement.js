@@ -1,10 +1,10 @@
 'use strict';
 
-angular.module('courseManagement', []);
+angular.module('admin_courseManagement', ['textAngular']);
 
 //Routers
 myApp.config(function($stateProvider) {
-    $stateProvider.state('courseManagement', {
+    $stateProvider.state('admin_courseManagement', {
         url: '/admin_courseManagement',
         templateUrl: 'partials/adminModule/courseManagement/courseManagement.html',
         data:{
@@ -46,7 +46,7 @@ myApp.factory('courseManagementServices', ['$http', function($http) {
 //controller
 myApp.controller('courseListCtrl', [ '$scope', '$rootScope','courseManagementServices', function($scope, $rootScope, courseManagementServices, $location) {
     //GetCourseList
-    courseManagementServices.getCourseList().then(function(result){
+    courseManagementServices.getCourseList().then(function(result) {
         $rootScope.coursesList = result.data.course;
     });
 
@@ -62,9 +62,14 @@ myApp.controller('courseListCtrl', [ '$scope', '$rootScope','courseManagementSer
             duration:'',
             documents: '',
             test: '',
-            courseTypeId:'',
-            trainingProgramId:''
+            courseTypeId: {
+                id: ''
+            },
+            trainingProgramId: {
+                id: ''
+            }
         };
+        console.log($rootScope.courseModel.courseTypeId.id);
     };
 
     $scope.showUpdateCourseForm = function(course){
@@ -87,7 +92,8 @@ myApp.controller('courseListCtrl', [ '$scope', '$rootScope','courseManagementSer
 
     $scope.showDeleteForm = function(course){
         $rootScope.courseModel = {
-            id: course.id
+            id: course.id,
+            name: course.name
         };
     };
 }]);
@@ -110,10 +116,10 @@ myApp.controller('addEditCourseCtrl', [ '$scope', '$rootScope','courseManagement
             courseManagementServices.updateCourse($rootScope.courseModel).then(function(result){
                 if (result.data.success){
                     courseManagementServices.getCourseList().then(function(result) {
-                        $rootScope.coursesList = result;
+                        $rootScope.coursesList = result.data.course;
                     });
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
-                    // $location.path("/courseManagement");
+                    $location.path("#admin_courseManagement");
                 }else{
                     $rootScope.ShowPopupMessage(result.data.msg, "error");
                 }
@@ -124,7 +130,7 @@ myApp.controller('addEditCourseCtrl', [ '$scope', '$rootScope','courseManagement
             courseManagementServices.addCourse($rootScope.courseModel).then(function(result) {
                 if (result.data.success){
                     courseManagementServices.getCourseList().then(function(result) {
-                        $rootScope.coursesList = result;
+                        $rootScope.coursesList = result.data.course;
                     });
                     // $location.path("/userProfile");
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
@@ -141,11 +147,11 @@ myApp.controller('deleteCourseCtrl', [ '$scope', '$rootScope','courseManagementS
     $scope.deleteCourse = function() {
         courseManagementServices.deleteCourse($rootScope.courseModel).then(function(result){
             if (result.data.success){
-                $rootScope.ShowPopupMessage(result.data.msg, "success");
                 //GetCourseList
-                courseManagementServices.getCourseList().then(function(result){
-                    $scope.coursesList = result.data.course;
+                courseManagementServices.getCourseList().then(function(result) {
+                    $rootScope.coursesList = result.data.course;
                 });
+                $rootScope.ShowPopupMessage(result.data.msg, "success");
             } else {
                 $rootScope.ShowPopupMessage(result.data.msg, "error");
             }

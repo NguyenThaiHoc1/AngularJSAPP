@@ -41,7 +41,7 @@ module.exports=
         type: SequelizeDatatypes.INTEGER,
         allowNull: false
     },
-    traingProgramId:
+    trainingProgramId:
     {
         type: SequelizeDatatypes.INTEGER,
         allowNull: false

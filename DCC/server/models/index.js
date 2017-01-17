@@ -32,8 +32,8 @@ db.Sequelize = Sequelize;
 // define table associations
 
 // association of table session and training_program
-db.Course.belongsTo(db.TrainingProgram, { foreignKey: 'traingProgramId' });
-db.TrainingProgram.hasMany(db.Course, { foreignKey: 'traingProgramId' });
+db.Course.belongsTo(db.TrainingProgram, { foreignKey: 'trainingProgramId' });
+db.TrainingProgram.hasMany(db.Course, { foreignKey: 'trainingProgramId' });
 // association of table session and session_type
 db.Course.belongsTo(db.CourseType, { foreignKey: 'courseTypeId' });
 db.CourseType.hasMany(db.Course, { foreignKey: 'courseTypeId' });
