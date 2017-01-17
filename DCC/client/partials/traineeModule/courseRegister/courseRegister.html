@@ -19,10 +19,9 @@
                                                 <div class="input-group">
                                                     <input ng-model="courseSearchKey" type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term" onkeyup="findCourse()">
                                                     <div class="input-group-btn">
-                                                        <button ng-click="findCourse()" class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                                                        <button ng-click="findCourse(courseSearchKey)" class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                                                     </div>
                                                 </div>
-                                                {{test}}
                                             </div>
                                         </div>
                                     </form>
@@ -46,7 +45,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <br><br>
-                                                            <toggle ng-init="courseRegisterStatus=true" ng-model="courseRegisterStatus" ng-change="registerCourse(course.id)" onstyle="btn-success" offstyle="btn-danger" on="Register" off="Un-register"></toggle>
+                                                            <toggle ng-init="courseRegisterStatus = initCourseRegisterStatus(course.id)" ng-model="courseRegisterStatus" ng-change="registerCourse(course.id,courseRegisterStatus)" onstyle="btn-success" offstyle="btn-danger" on="Register" off="Un-register"></toggle>
                                                         </div>
                                                     </div>
                                                 </a>
@@ -62,7 +61,7 @@
             <!-- OPENNING COURSE -->
             <div class="widget widget-nopad" ng-show="!courseSearchKey">
                 <div class="widget-header">
-                    <center><font size="6px" style="color: black"><b>Opening courses</b></font></center>
+                    <center><font size="6px" style="color: black"><b>{{test}}Opening Courses</b></font></center>
                 </div>
                 <div class="widget-content" >
                     <div class="widget big-stats-container" style="margin-bottom:0">
@@ -84,7 +83,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <br><br>
-                                                            <toggle ng-init="courseRegisterStatus=true" ng-model="courseRegisterStatus" ng-change="registerCourse(course.id)" onstyle="btn-success" offstyle="btn-danger" on="Register" off="Un-register"></toggle>
+                                                            <toggle ng-init="courseRegisterStatus = true" ng-model="courseRegisterStatus" ng-change="registerCourse(course.id,courseRegisterStatus)" onstyle="btn-success" offstyle="btn-danger" on="Register" off="Un-register"></toggle>
                                                         </div>
                                                     </div>
                                                 </a>
@@ -134,7 +133,7 @@
                                                             </div>
                                                             <div class="col-md-2">
                                                                 <br><br>
-                                                                <toggle ng-init="courseRegisterStatus=true" ng-model="courseRegisterStatus" ng-change="registerCourse(course.id)" onstyle="btn-success" offstyle="btn-danger" on="Register" off="Un-register"></toggle>
+                                                                <toggle ng-init="courseRegisterStatus = initCourseRegisterStatus(course.id)" ng-model="courseRegisterStatus" ng-change="registerCourse(course.id,courseRegisterStatus)" onstyle="btn-success" offstyle="btn-danger" on="Register" off="Un-register"></toggle>
                                                             </div>
                                                         </div>
                                                     </li>
