@@ -22,11 +22,27 @@ router.get('/getTrainingProgram', function(req, res){
             }
         ]
     };
-
     models.TrainingProgram.findAll(query).then(function(trainingProgram) {
         var datasend = {
             msg:'send list success',
             data: trainingProgram
+        };
+        res.send(datasend);
+    });
+});
+
+router.get('/getRequestOpenCourse', function(req, res){
+    var query =
+    {
+        include:     [{
+            model: models.RequestOpening,
+            where: {userEmail: req.user.email }
+        }]
+    };
+    models.Course.findAll(query).then(function(course) {
+        var datasend = {
+            msg:'send list success',
+            data: course
         };
         res.send(datasend);
     });
