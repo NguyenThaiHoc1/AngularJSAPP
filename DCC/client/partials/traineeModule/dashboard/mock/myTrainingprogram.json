@@ -11,36 +11,28 @@
                 "name": "Training Overview ",
                 "description": "Brief overview for all training courses",
                 "imgLink":"/img/courses/training-icon-2.svg",
-                "status": "Enrolled",
-                "actionOne": "Skip class",
-                "actiontwo": "Course Detail"
+                "status": "Enrolled"
             },
             {
                 "id": "102",
                 "name": "DEK Organization and Culture ",
                 "description": "1. Who is D.E.K ? 2. DEK Offices 3. Site Organisation Chart",
                 "imgLink":"/img/courses/training-icon-3.svg",
-                "status": "Enrolled",
-                "actionOne": "Skip class",
-                "actiontwo": "Give feedback"
+                "status": "Enrolled"
             },
             {
                 "id": "103",
                 "name": "Our Customer Ericsson",
                 "description": "1. Ericsson Vision and Core Values",
                 "imgLink":"/img/courses/training-icon-4.svg",
-                "status": "Learned",
-                "actionOne": "<other action>",
-                "actiontwo": "Give feedback"
+                "status": "Learned"
             },
             {
                 "id": "104",
                 "name": "IT Policy and Infrastructure",
                 "description": "1. ICT policy",
                 "imgLink":"/img/courses/training-icon-1.svg",
-                "status": "Learned",
-                "actionOne": "Re-enroll",
-                "actiontwo": "Give feedback"
+                "status": "Learned"
             }
         ]
     },
@@ -56,18 +48,14 @@
                 "name": "Linux Programming Training Overview ",
                 "description": "Brief overview for all training courses",
                 "imgLink":"/img/courses/training-icon-3.svg",
-                "status": "Enrolled",
-                "actionOne": "Un-enroll",
-                "actiontwo": "Course Detail"
+                "status": "Enrolled"
             },
             {
                 "id": "203",
                 "name": "Our Customer Ericsson",
                 "description": "1. Ericsson Vision and Core Values  2. Ericsson Structure and where we fit",
                 "imgLink":"/img/courses/training-icon-1.svg",
-                "status": "Learned",
-                "actionOne": "<other action>",
-                "actiontwo": "Give feedback"
+                "status": "Learned"
             }
         ]
     }
