@@ -40,13 +40,13 @@ module.exports = function(sequelize) {
                 Course.findOne(query).then(cb);
             },
 
-            getByTraningProgramID: function(traingProgramId, cb)
+            getByTraningProgramID: function(trainingProgramId, cb)
             {
-                log.info('/models/course: getByTraningProgramID() : ' + traingProgramId);
+                log.info('/models/course: getByTraningProgramID() : ' + trainingProgramId);
                 var query = {
                     where: {
                         isDeleted: 0,
-                        traingProgramId: traingProgramId
+                        trainingProgramId: trainingProgramId
                     }
                 };
                 Course.findAll(query).then(cb);

@@ -52,7 +52,7 @@ router.post('/updateCourse', function(req, res) {
             documents: req.body.documents,
             isDeleted:  0,
             courseTypeId: '1',
-            traingProgramId: '1',
+            trainingProgramId: '1',
             imgLink: '/img/courses/training-icon-1.svg',
         }, {
             where: {
@@ -127,14 +127,24 @@ router.get('/getCourseTypeList', function(req, res) {
     //     res.send(datasend);
     // });
     var query = { include: [ models.Course ]};
-    models.CourseType.findAll(query).then(
-        function(courseType) {
-            var datasend = {
-                msg:'send list success',
-                courseType: courseType
-            };
-            res.send(datasend);
-        });
+    models.CourseType.findAll(query).then(function(courseType) {
+        var datasend = {
+            msg:'send list success',
+            courseType: courseType
+        };
+        res.send(datasend);
     });
+});
 
-    module.exports = router;
+router.get('/getTrainingProgramList', function(req, res){
+
+    models.TrainingProgram.findAll().then(function(trainingProgram) {
+        var datasend = {
+            msg:'send list success',
+            data: trainingProgram
+        };
+        res.send(datasend);
+    });
+});
+
+module.exports = router;

@@ -19,23 +19,23 @@ myApp.factory('courseManagementServices', ['$http', function($http) {
     var factoryDefinitions = {
         //done
         getCourseList: function() {
-            return $http.get('/admin/getCourseList').success(function(data) { return data; });
+            return $http.get('/admin/courses/getCourseList').success(function(data) { return data; });
         },
         //TODO
         addCourse: function(course){
-            return $http.post('/admin/addCourse',  course).success(function(data) { return data; });
+            return $http.post('/admin/courses/addCourse',  course).success(function(data) { return data; });
         },
         updateCourse: function(course){
-            return $http.post('/admin/updateCourse', course).success(function(data) { return data; });
+            return $http.post('/admin/courses/updateCourse', course).success(function(data) { return data; });
         },
         deleteCourse: function(courseId){
-            return $http.post('/admin/deleteCourse', courseId).success(function(data) { return data; });
+            return $http.post('/admin/courses/deleteCourse', courseId).success(function(data) { return data; });
         },
-        getTrainingProgram: function() {
-            return $http.get('/trainee/getTrainingProgram').success(function(data) { return data; });
+        getTrainingProgramList: function() {
+            return $http.get('/admin/courses/getTrainingProgramList').success(function(data) { return data; });
         },
         getCourseTypeList: function(){
-            return $http.get('/admin/getCourseTypeList').success(function(data) { return data; });
+            return $http.get('/admin/courses/getCourseTypeList').success(function(data) { return data; });
         }
     }
 
@@ -101,7 +101,7 @@ myApp.controller('courseListCtrl', [ '$scope', '$rootScope','courseManagementSer
 myApp.controller('addEditCourseCtrl', [ '$scope', '$rootScope','courseManagementServices', function($scope, $rootScope, courseManagementServices, $location) {
 
     //get TrainingProgram
-    courseManagementServices.getTrainingProgram().then(function(result){
+    courseManagementServices.getTrainingProgramList().then(function(result){
         $scope.trainingProgramList = result.data.data;
     });
 
