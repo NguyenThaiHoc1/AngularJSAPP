@@ -10,8 +10,8 @@ module.exports=
         type: SequelizeDatatypes.INTEGER,
         allowNull: true
     },
-    userId:{
-        type: SequelizeDatatypes.INTEGER,
+    userEmail:{
+        type: SequelizeDatatypes.STRING,
         allowNull: false
     },
     classId:{

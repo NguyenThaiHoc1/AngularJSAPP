@@ -1,3 +1,4 @@
+<div ng-include="'partials/traineeModule/dashboard/feedbackModal.html'"></div>
 <div class="container">
     <div class="container row" ng-controller="MyCoursesCtrl">
         <div class="span12">
@@ -40,9 +41,14 @@
                                                         <div class="col-md-2">
                                                             <center>
                                                                 <h4 class="col-md-12" style="background-color: white;  border-radius: 9px;">{{myCourse.status}} </h4>
-                                                                {{myCourse.id}}
-                                                                <a href="javascript:;" class="col-md-12 col-sm-6 btn btn-md btn-primary" style="margin-top:5px;" ng-click="actionOneTextClick()">{{actionOneText[myCourse.status]}}</a>
-                                                                <a href="javascript:;" class="col-md-12 col-sm-6 btn btn-md btn-warning" style="margin-top:5px;" ng-click="actionTwoTextClick(myCourse.classId, myCourse.id)">{{actionTwoText[myCourse.status]}}</a>
+                                                                <a class="col-md-12 col-sm-6 btn btn-md btn-primary"
+                                                                   style="margin-top:5px;"
+                                                                   ng-click="actionOneClick(myCourse)"
+                                                                   data-toggle="modal" href="#feedbackModal" >{{actionOneText[myCourse.status]}}</a>
+                                                                <a href="javascript:;"
+                                                                   class="col-md-12 col-sm-6 btn btn-md btn-warning"
+                                                                   style="margin-top:5px;"
+                                                                   ng-click="actionTwoClick(myCourse)">{{actionTwoText[myCourse.status]}}</a>
                                                             </center>
                                                         </div>
                                                     </div>

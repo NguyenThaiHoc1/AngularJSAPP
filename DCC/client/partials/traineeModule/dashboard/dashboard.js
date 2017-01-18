@@ -32,23 +32,28 @@ myApp.factory('dashboardServices', ['$http', function($http) {
         },
         requestOpening: function(request) {
             return $http.post('/trainee/courseRegister/requestOpening', request).success(function(data) { return data; });
-        }
+        },
+        //feedback
+        sendFeedback: function(req) {
+            return $http.post('/mock/giveFeedback', req).success(function(data) { return data; });
+        },
     }
 
     return factoryDefinitions;
 }]);
 
 //Controllers
-myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', function($scope, dashboardServices, $rootScope) {
+myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '$state', function($scope, dashboardServices, $rootScope, $state) {
+    const STATUS_ENROLLED = 'Enrolled';
+    const STATUS_LEARNED = 'Learned';
 
     //Init action text of button base on status of a course
     $scope.actionOneText = {}; $scope.actionTwoText = {};
-    $scope.actionOneText['Enrolled'] = 'Give feedback';
-    $scope.actionTwoText['Enrolled'] = 'Re-enroll';
-    $scope.actionOneText['Learned'] = 'View Schedule';
-    $scope.actionTwoText['Learned'] ='Un-enroll';
-    $scope.actionBool ['Learned'] = true;
-    $scope.actionBool ['Enrolled'] = false;
+    $scope.actionOneText[STATUS_LEARNED] = 'Give feedback';
+    $scope.actionTwoText[STATUS_LEARNED] = 'Re-enroll';
+    $scope.actionOneText[STATUS_ENROLLED] = 'View Schedule';
+    $scope.actionTwoText[STATUS_ENROLLED] ='Un-enroll';
+
 
     //get all courses and training programs
     dashboardServices.getMyTraingPrograms().then(function(result){
@@ -59,8 +64,8 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', f
                 course.classId = course.Classes[course.Classes.length - 1].ClassRecords[course.Classes[course.Classes.length - 1].ClassRecords.length - 1].classId;
                 course.status = course.Classes[course.Classes.length - 1].ClassRecords[course.Classes[course.Classes.length - 1].ClassRecords.length - 1].status;
                 // change color of courses base on its status (Learned/ Enrolled)
-                if (course.status == 'Enrolled') {course.backgroundColor = '#4FC3F7'}
-                else if (course.status == 'Learned')
+                if (course.status == STATUS_ENROLLED) {course.backgroundColor = '#4FC3F7'}
+                else if (course.status == STATUS_LEARNED)
                 {
                     course.backgroundColor = '#8BC34A';
                     traningProgram.count = traningProgram.count + 1;
@@ -72,10 +77,11 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', f
         $scope.myTrainingProgramList = result.data.data;
     });
     // un-Enroll or re-Enroll Course
-    $scope.actionTwoTextClick = function(classId, courseId){
-        if( $scope.actionBool  ){
+    $scope.actionTwoClick = function(myCourse){
+        if(myCourse.status == STATUS_ENROLLED ){
+            console.log("un-enroll");
             //un-enroll
-            dashboardServices.unEnrollCourse({traineeEmail: $rootScope.userInfo.email, classId: classId}).then(function(result){
+            dashboardServices.unEnrollCourse({traineeEmail: $rootScope.userInfo.email, classId: myCourse.classId}).then(function(result){
                 if (result.data.success){
                     //refrsh list
                     dashboardServices.getMyTraingPrograms().then(function(result){
@@ -104,9 +110,10 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', f
                     $rootScope.ShowPopupMessage(result.data.msg, "error");
                 }
             });
-        }else{
+        }else if(myCourse.status == STATUS_LEARNED){
+            console.log("re-enroll");
             //re-Enroll: function same function request Opening
-            dashboardServices.requestOpening({userEmail:$rootScope.userInfo.email, courseId: courseId}).then(function(result){
+            dashboardServices.requestOpening({userEmail:$rootScope.userInfo.email, courseId: myCourse.id}).then(function(result){
                 if(result.data.success){
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
                     //refesh list
@@ -132,14 +139,44 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', f
                     });
                     //
                 }else{
-                    $rootScope.ShowPopupMessage(result.data.msg, "error");
+                    $rootScope.ShowPopupMessage(result.data.msg, "success");
                 }
             });
         }
     };
     //Give feedback or View Schedule function
-    $scope.actionOneTextClick = function(){
+    $scope.actionOneClick = function(myCourse){
+        if (myCourse.status == STATUS_ENROLLED){
+            //View Schedule
 
+
+        }else if (myCourse.status == STATUS_LEARNED ){
+            console.log("feedback");
+            // give feedback
+            //Rating
+            $scope.rate = 1;
+            $scope.max = 5;
+            $scope.isReadonly = false;
+
+            $scope.hoveringOver = function(value) {
+                $scope.overStar = value;
+            };
+
+            $scope.giveFeedbackClick = function(){
+                var req = {
+                    email: $rootScope.userInfo.email,
+                    courseId:  myCourse.id,
+                    rating: $scope.rate
+                };
+                dashboardServices.sendFeedback(req).then(function(result){
+                    if(result.data.success){
+                        $rootScope.popUpMessage("Rating success", "success");
+                    }else{
+                        $rootScope.popUpMessage("Rating fail", "error");
+                    }
+                });
+            }
+        }
     };
 }]);
 
@@ -163,4 +200,10 @@ myApp.controller('requestOpenCourseCtrl', ['$scope', 'dashboardServices', '$root
             }
         });
     };
+}]);
+
+//Feedback controller
+myApp.controller('FeedbackCtrl',['$scope', 'dashboardServices', '$rootScope', function($scope, dashboardServices, $rootScope) {
+
+
 }]);
