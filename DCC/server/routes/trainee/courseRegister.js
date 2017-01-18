@@ -72,11 +72,13 @@ router.get('/getTrainingProgram', function(req, res){
     router.post('/deleteRequestOpening', function(req, res){
         var courseId = req.body.courseId;
         var userEmail = req.body.userEmail;
-        models.RequestOpening.deleteRequestOpening(userEmail,courseId);
-        var datasend = {
-            msg: 'Delete Request Opening Sucess'
-        }
-        res.send(datasend);
+        models.RequestOpening.deleteRequestOpening(userEmail,courseId, function(){
+            var datasend = {
+                success: true,
+                msg: 'Delete Request Opening Success'
+            }
+            res.send(datasend);
+        });
     });
 
     router.post('/getMyEnrolledClass', function(req, res){
