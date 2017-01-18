@@ -46,6 +46,7 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices', function($scop
             traningProgram.count = 0;
             traningProgram.Courses.forEach(course => {
                 course.status = course.Classes[course.Classes.length - 1].ClassRecords[course.Classes[course.Classes.length - 1].ClassRecords.length - 1].status;
+                // change color of courses base on its status (Learned/ Enrolled)
                 if (course.status == 'Enrolled') {course.backgroundColor = '#4FC3F7'}
                 else if (course.status == 'Learned')
                 {
@@ -54,7 +55,7 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices', function($scop
                 }
                 else {course.backgroundColor = 'black'}
             });
-            traningProgram.completePercent=((traningProgram.count)/(traningProgram.Courses.length))*100;
+            traningProgram.completePercent = Math.ceil(traningProgram.count / traningProgram.Courses.length * 100);
             console.log(traningProgram.completePercent);
         });
         $scope.myTrainingProgramList = result.data.data;
