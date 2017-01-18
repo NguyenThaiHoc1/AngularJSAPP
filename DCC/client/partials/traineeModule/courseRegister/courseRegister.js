@@ -28,9 +28,6 @@ myApp.factory('courseRegisterServices', ['$http', function($http) {
         requestOpening: function(request) {
             return $http.post('/trainee/courseRegister/requestOpening', request).success(function(data) { return data; });
         },
-        deleteRequestOpening: function(request) {
-            return $http.post('/trainee/courseRegister/deleteRequestOpening', request).success(function(data) { return data; });
-        },
         getRequestedOpeningCourse: function(request) {
             return $http.post('/trainee/courseRegister/getRequestedOpeningCourse', request).success(function(data) { return data; });
         },
@@ -52,17 +49,44 @@ myApp.controller('courseRegisterCtrl', ['$rootScope', '$scope', 'courseRegisterS
         $scope.myEnrolledCourse = myEnrolledCourse;
     });
 
+    courseRegisterServices.getRequestedOpeningCourse({userEmail:$rootScope.userInfo.email}).then(function(result){
+        $scope.requestedOpeningCourse = result.data.requestedOpeningCourse;
+    });
+
     courseRegisterServices.getTrainingProgram().then(function(result){
         var trainingProgram = result.data.data;
+        //Splice course user enrolled in training program list
         for(var i=trainingProgram.length-1; i>=0; i--){
             for(var j=trainingProgram[i].Courses.length-1; j>=0; j--){
                 for(var k=$scope.myEnrolledCourse.length-1; k>=0; k--){
                     if(trainingProgram[i].Courses[j].id == $scope.myEnrolledCourse[k].id){
                         trainingProgram[i].Courses.splice(j,1);
+                        break;
                     }
                 }
             }
         }
+
+        //Splice course user requested in training program
+        for(var i=trainingProgram.length-1; i>=0; i--){
+            for(var j=trainingProgram[i].Courses.length-1; j>=0; j--){
+                for(var k=$scope.requestedOpeningCourse.length-1; k>=0; k--){
+                    if(trainingProgram[i].Courses[j].id == $scope.requestedOpeningCourse[k].courseId)
+                    {
+                        trainingProgram[i].Courses.splice(j,1);
+                        break;
+                    }
+                }
+            }
+        }
+        //push hideKey property into course;
+
+        trainingProgram.forEach(trainingProgram => {
+            trainingProgram.Courses.forEach(course => {
+                course.hideKey = false;
+            });
+        });
+
         $scope.trainingProgramList = trainingProgram;
     });
 
@@ -74,23 +98,18 @@ myApp.controller('courseRegisterCtrl', ['$rootScope', '$scope', 'courseRegisterS
 
         for(var i=tempOpeningCourseList.length-1; i>=0; i--){
             for(var j=$scope.myEnrolledCourse.length-1; j>=0; j--){
-                if(tempOpeningCourseList[i].id == $scope.myEnrolledCourse[j].id) tempOpeningCourseList.splice(i,1);
+                if(tempOpeningCourseList[i].id == $scope.myEnrolledCourse[j].id) {
+                    tempOpeningCourseList.splice(i,1);
+                    break;
+                }
             }
         }
+        //push hideKey property into course;
+        tempOpeningCourseList.forEach(course => {
+            course.hideKey = false;
+        });
         $scope.openingCourseList = tempOpeningCourseList;
     });
-
-    courseRegisterServices.getRequestedOpeningCourse({userEmail:$rootScope.userInfo.email}).then(function(result){
-        $scope.requestedOpeningCourse = result.data.requestedOpeningCourse;
-    });
-
-    $scope.initCourseRegisterStatus = function(id){
-        for(var i=0; i<$scope.requestedOpeningCourse.length; i++){
-            if($scope.requestedOpeningCourse[i].courseId == id) return false;
-        }
-        return true;
-    };
-
 
     $scope.findCourse = function(courseSearchKey){
         var courseListSearchResult = []
@@ -102,36 +121,28 @@ myApp.controller('courseRegisterCtrl', ['$rootScope', '$scope', 'courseRegisterS
         $scope.courseListSearchResult = courseListSearchResult;
     };
 
-    $scope.registerCourse = function(courseId, courseRegisterStatus){
+    $scope.registerCourse = function(courseId){
         // courseRegisterStatus = true : unregister;
         // courseRegisterStatus = false : register;
         var request = {
             courseId : courseId,
             userEmail : $rootScope.userInfo.email
         };
-        if (courseRegisterStatus == false){
-            courseRegisterServices.requestOpening(request).then(
-                function(result)
-                {
-                    if (result.data.msg)
-                        $rootScope.ShowPopupMessage(result.data.msg, "success");
-                    else
-                        $rootScope.ShowPopupMessage("Register Error", "error");
+        courseRegisterServices.requestOpening(request).then(
+            function(result)
+            {
+                if (result.data.msg){
+                    $rootScope.ShowPopupMessage(result.data.msg, "success");
+                    $scope.trainingProgramList.forEach(trainingProgram => {
+                        trainingProgram.Courses.forEach(course =>{
+                            if(course.id == courseId) course.hideKey = true;
+                        });
+                    });
                 }
-            );
-        }
-        else{
-            courseRegisterServices.deleteRequestOpening(request).then(
-                function(result)
-                {
-                    $scope.test = "Un register";
+                else
+                $rootScope.ShowPopupMessage("Register Error", "error");
+            }
+        );
 
-                    if (result.data.msg)
-                        $rootScope.ShowPopupMessage(result.data.msg, "success");
-                    else
-                        $rootScope.ShowPopupMessage("Delete Regiser Request Error", "error");
-                }
-            );
-        }
     };
 }]);
