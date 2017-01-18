@@ -11,6 +11,17 @@ module.exports = function(sequelize, DataTypes) {
                 };
                 Classrecord.create(query).then(cb);
             },
+
+            unEnrollCourse: function(traineeEmail, classId, cb){
+                var query = {
+                    where:
+                    {
+                        traineeEmail: traineeEmail,
+                        classId: classId
+                    }
+                };
+                Classrecord.destroy(query).then(cb);
+            },
         },
         tableName: 'class_record'
     });
