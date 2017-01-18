@@ -921,36 +921,10 @@ However, delay the fade out process for 2.5 seconds */
     border-top: 0;
 }
 
-/*CSS for Search*/
-/*.context :not(p) {
-  background: #f1c40f;
-  padding: 0;
-}*/
-
-
-/**
- * The following is not related to the plugin
- */
-/*body {
-  background: #fbfcfc;
+/*Highlight text for findCourse() function in courseRegister*/
+.highlightedText {
+    background: yellow;
 }
-
-.container {
-  max-width: 700px;
+.highlightedText {
+    background: yellow;
 }
-
-.form-group {
-  margin-bottom: 5px;
-}
-
-.form-group:last-child {
-  margin-bottom: 0;
-}
-
-.form-group label {
-  display: block;
-}
-
-.form-group label.noTransform {
-  text-transform: none;
-}*/

@@ -40,6 +40,7 @@ app.use(express.static(path.join(__dirname, '/client')));
 
 //register router
 // app.use('/',        require('./server/routes/index'));
+// app.use('/common',        require('./server/routes/common'));
 // app.use('/trainee', ensureAuthenticated, require('./server/routes/trainee'));
 // app.use('/trainer', ensureAuthenticated, require('./server/routes/trainer'));
 // app.use('/admin',   ensureAuthenticated, require('./server/routes/admin'));
