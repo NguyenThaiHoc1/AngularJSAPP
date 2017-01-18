@@ -32,16 +32,16 @@
                                                     <div class="row">
                                                         <div class="col-md-10">
                                                             <blockquote class="blockquote" style="border-left: none; margin-bottom:0">
-                                                                <img  style="float:left; clear:both; margin-right: 10px;" alt="training-program-icon" class="img-responsive" src = "{{course.imgLink}}" width="95px">
-                                                                <font size="6px">{{course.name}}</font>
-                                                                <footer class="blockquote-footer" style="color: black; margin-bottom:20px"> {{course.description}}</footer>
-                                                                <br>
+                                                                    <img  style="float:left; clear:both; margin-right: 10px;" alt="training-program-icon" class="img-responsive" src = "{{course.imgLink}}" width="95px">
+                                                                    <font class="panel-body context" size="6px">{{course.name}}</font>
+                                                                    <footer class="blockquote-footer" style="color: black; margin-bottom:20px"> {{course.description}}</footer>
+                                                                    <br>
                                                             </blockquote>
                                                         </div>
                                                         <div class="col-md-2">
                                                             <br><br>
                                                             <center>
-                                                                <toggle ng-init="courseRegisterStatus = initCourseRegisterStatus(course.id)" ng-model="courseRegisterStatus" ng-change="registerCourse(course.id,courseRegisterStatus)" onstyle="btn-success" offstyle="btn-danger" on="Register" off="Un-register"></toggle>
+                                                                <toggle ng-init="courseRegisterStatus = true" ng-model="courseRegisterStatus" ng-change="registerCourse(course.id,courseRegisterStatus)" onstyle="btn-success" offstyle="btn-danger" on="Register" off="Un-register"></toggle>
                                                             </center>
                                                         </div>
                                                     </div>
@@ -50,6 +50,23 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!-- <script>
+                                $(function() {
+                                    var $context = $(".context");
+                                    var $form = $("form");
+                                    var $button = $form.find("button[name='findBtn']");
+                                    var $input = $form.find("input[name='srch-term']");
+
+                                    $button.on("click.findBtn", function() {
+                                        // Determine search term
+                                        var searchTerm = $input.val();
+                                        $context.unmark();
+                                        $context.mark(searchTerm);
+
+                                    });
+                                    $button.trigger("click.findBtn");
+                                });
+                                </script> -->
                             </div>
                         </div>
                     </div>
@@ -133,7 +150,7 @@
                                                             <div class="col-md-2">
                                                                 <br><br>
                                                                 <center>
-                                                                    <toggle ng-init="courseRegisterStatus = initCourseRegisterStatus(course.id)" ng-model="courseRegisterStatus" ng-change="registerCourse(course.id,courseRegisterStatus)" onstyle="btn-success" offstyle="btn-danger" on="Register" off="Un-register"></toggle>
+                                                                    <toggle ng-init="courseRegisterStatus = true" ng-model="courseRegisterStatus" ng-change="registerCourse(course.id,courseRegisterStatus)" onstyle="btn-success" offstyle="btn-danger" on="Register" off="Un-register"></toggle>
                                                                 </center>
                                                             </div>
                                                         </div>

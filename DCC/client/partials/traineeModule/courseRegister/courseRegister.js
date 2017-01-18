@@ -119,7 +119,24 @@ myApp.controller('courseRegisterCtrl', ['$rootScope', '$scope', 'courseRegisterS
             });
         });
         $scope.courseListSearchResult = courseListSearchResult;
+            // 
+            // var $context = $(".context");
+            // var $form = $("form");
+            // var $button = $form.find("button[name='findBtn']");
+            // var $input = $form.find("input[name='srch-term']");
+            //
+            // $button.on("click.findBtn", function() {
+            //     // Determine search term
+            //     var searchTerm = $input.val();
+            //     $context.unmark();
+            //     $context.mark(searchTerm);
+            //
+            // });
+            // $button.trigger("click.findBtn");
+
     };
+
+
 
     $scope.registerCourse = function(courseId){
         // courseRegisterStatus = true : unregister;

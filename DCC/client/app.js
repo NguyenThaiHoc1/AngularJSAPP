@@ -46,8 +46,6 @@ myApp.run(function($rootScope, $state) {
 
     //Check session and redirect to specific page
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
-
-
         if(toState && toState.data && toState.data.auth && !window.sessionStorage["userInfo"]){
             event.preventDefault();
             window.location.href = "#home";
