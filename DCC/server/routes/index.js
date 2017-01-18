@@ -9,16 +9,18 @@ var passport = require('passport');
 var LdapStrategy = require('passport-ldapauth').Strategy;
 // admin's credentials for connecting to openLDAP server
 var BASE_OPTS = require('../../config/LDAPconfig');
+
+
 // get homepage
 router.get('/', function(req, res) {
     res.render('./index');
 });
+
 router.get('/getEvents', function(req, res) {
     var events = null;
     gcal.getEvents(function( eventList)
     {
-        events = eventList;
-        res.send(events);
+        res.send(eventList);
     });
     //res.send(events)
 });
