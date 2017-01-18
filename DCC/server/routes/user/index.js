@@ -37,7 +37,6 @@ router.get('/getUserInfo', function(req, res) {
             isExperienced: user.isExperienced,
 
             success: true,
-            msg: 'You are authenticated!'
         });
     });
 });
@@ -89,5 +88,18 @@ router.post('/photo', function(req, res){
     });
 });
 
+router.get('/isLogin', function(req, res) {
+    if (req.isAuthenticated()){
+        res.send({
+            success: true,
+            msg: "You are logged in"
+        });
+    }else{
+        res.send({
+            success: false,
+            msg: "You are NOT logged in"
+        });
+    }
+})
 
 module.exports = router;

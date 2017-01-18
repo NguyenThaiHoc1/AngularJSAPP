@@ -24,11 +24,13 @@ myApp.factory('dashboardServices', ['$http', function($http) {
         getRequestOpenCourse: function() {
             return $http.get('/trainee/dashboard/getRequestOpenCourse').success(function(data) { return data; });
         },
+        deleteRequestOpenCourse: function(req){
+            return $http.post('/trainee/courseRegister/deleteRequestOpening', req).success(function(data) { return data; });
+        }
     }
 
     return factoryDefinitions;
-}
-]);
+}]);
 
 //Controllers
 myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices', function($scope, dashboardServices) {
@@ -46,6 +48,7 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices', function($scop
             traningProgram.count = 0;
             traningProgram.Courses.forEach(course => {
                 course.status = course.Classes[course.Classes.length - 1].ClassRecords[course.Classes[course.Classes.length - 1].ClassRecords.length - 1].status;
+                // change color of courses base on its status (Learned/ Enrolled)
                 if (course.status == 'Enrolled') {course.backgroundColor = '#4FC3F7'}
                 else if (course.status == 'Learned')
                 {
@@ -54,8 +57,7 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices', function($scop
                 }
                 else {course.backgroundColor = 'black'}
             });
-            traningProgram.completePercent=((traningProgram.count)/(traningProgram.Courses.length))*100;
-            console.log(traningProgram.completePercent);
+            traningProgram.completePercent = Math.ceil(traningProgram.count / traningProgram.Courses.length * 100);
         });
         $scope.myTrainingProgramList = result.data.data;
     });
@@ -63,9 +65,23 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices', function($scop
 }]);
 
 //Request Open Course controller
-myApp.controller('requestOpenCourseCtrl', ['$scope', 'dashboardServices', function($scope, dashboardServices) {
-        dashboardServices.getRequestOpenCourse().then(function(result){
-            $scope.myRequestOpenCourseList = result.data.data;
-        });
+myApp.controller('requestOpenCourseCtrl', ['$scope', 'dashboardServices', '$rootScope', function($scope, dashboardServices, $rootScope) {
+    dashboardServices.getRequestOpenCourse().then(function(result){
+        $scope.myRequestOpenCourseList = result.data.data;
+    });
 
+    $scope.cancelRequestClick = function(requestOpenCourseId){
+        dashboardServices.deleteRequestOpenCourse({courseId: requestOpenCourseId, userEmail: $rootScope.userInfo.email}).then(function(result){
+            if(result.data.success){
+                $rootScope.ShowPopupMessage(result.data.msg, "success");
+
+                //refesh the request open course list
+                dashboardServices.getRequestOpenCourse().then(function(result){
+                    $scope.myRequestOpenCourseList = result.data.data;
+                });
+            }else{
+                $rootScope.ShowPopupMessage(result.data.msg, "error");
+            }
+        });
+    };
 }]);

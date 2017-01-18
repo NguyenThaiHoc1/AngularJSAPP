@@ -40,22 +40,32 @@ app.use(passport.session());
 app.set('partials', path.join(__dirname, '/client'));
 app.use(express.static(path.join(__dirname, '/client')));
 
-//
-// function ensureAuthenticated(req, res, next) {
-//     if (req.isAuthenticated()) {
-//         res.send({
-//             success: false,
-//             msg: "You need to login first"
-//         });
-//     }
-//     next();
-// }
+
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }else{
+        console.log('Receive unauthenticated request');
+        res.send({
+            success: false,
+            msg: "You need to login first"
+        });
+        // res.redirect('/');
+    }
+}
+
 //register router
+// app.use('/',        require('./server/routes/index'));
+// app.use('/trainee', ensureAuthenticated, require('./server/routes/trainee'));
+// app.use('/trainer', ensureAuthenticated, require('./server/routes/trainer'));
+// app.use('/admin',   ensureAuthenticated, require('./server/routes/admin'));
+// app.use('/user',    ensureAuthenticated, require('./server/routes/user'));
+
 app.use('/',        require('./server/routes/index'));
 app.use('/trainee', require('./server/routes/trainee'));
 app.use('/trainer', require('./server/routes/trainer'));
-app.use('/admin',   require('./server/routes/admin'));
-app.use('/user',    require('./server/routes/user'));
+app.use('/admin', require('./server/routes/admin'));
+app.use('/user', require('./server/routes/user'));
 
 //create database tables
 models.sequelize.sync({force:false});
