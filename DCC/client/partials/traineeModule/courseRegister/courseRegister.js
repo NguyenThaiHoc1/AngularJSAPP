@@ -9,8 +9,7 @@ myApp.config(function($stateProvider) {
         templateUrl: 'partials/traineeModule/courseRegister/courseRegister.html',
         data:{
             auth:true
-        },
-
+        }
     });
 
 });
@@ -39,7 +38,7 @@ myApp.factory('courseRegisterServices', ['$http', function($http) {
 
 
 //Controllers
-myApp.controller('courseRegisterCtrl', ['$sce','$rootScope', '$scope', 'courseRegisterServices', function($sce, $rootScope ,$scope, courseRegisterServices) {
+myApp.controller('courseRegisterCtrl', ['$sce','$rootScope', '$scope', 'courseRegisterServices', function($sce,$rootScope ,$scope, courseRegisterServices) {
     courseRegisterServices.getMyEnrolledClass({userEmail:$rootScope.userInfo.email}).then(function(result){
         var myEnrolledCourse = [];
         result.data.classRecord.forEach(classRecord => {
@@ -122,12 +121,11 @@ myApp.controller('courseRegisterCtrl', ['$sce','$rootScope', '$scope', 'courseRe
         $scope.courseListSearchResult = courseListSearchResult;
     };
 
-    //code highlight
     $scope.highlight = function(text, search) {
         if (!search) {
             return $sce.trustAsHtml(text);
         }
-        return $sce.trustAsHtml(text.replace(new RegExp(search, 'gi'), '<font size="6px"><span class="highlightedText">$&</span></font>'));
+        return $sce.trustAsHtml(text.replace(new RegExp(search, 'gi'), '<span class="highlightedText">$&</span>'));
     };
 
 
@@ -150,7 +148,7 @@ myApp.controller('courseRegisterCtrl', ['$sce','$rootScope', '$scope', 'courseRe
                     });
                 }
                 else
-                $rootScope.ShowPopupMessage("Register Error", "error");
+                    $rootScope.ShowPopupMessage("Register Error", "error");
             }
         );
 
