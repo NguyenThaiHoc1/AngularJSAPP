@@ -47,8 +47,8 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', f
     $scope.actionTwoText['Enrolled'] = 'Re-enroll';
     $scope.actionOneText['Learned'] = 'View Schedule';
     $scope.actionTwoText['Learned'] ='Un-enroll';
-    $scope.actionBool ['Learned'] = true;
-    $scope.actionBool ['Enrolled'] = false;
+    // $scope.actionBool ['Learned'] = true;
+    // $scope.actionBool ['Enrolled'] = false;
 
     //get all courses and training programs
     dashboardServices.getMyTraingPrograms().then(function(result){
