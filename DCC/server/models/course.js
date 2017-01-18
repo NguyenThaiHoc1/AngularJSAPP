@@ -10,7 +10,7 @@ module.exports = function(sequelize) {
                 log.info('/models/course: getCourses()');
                 var query = {
                     where: {
-                        isDeleted: 0
+
                     }
                 };
                 Course.findAll(query).then(cb);
@@ -21,7 +21,7 @@ module.exports = function(sequelize) {
                 log.info('/models/course: getByID() : ' + id);
                 var query = {
                     where: {
-                        isDeleted: 0,
+
                         id: id
                     }
                 };
@@ -33,7 +33,7 @@ module.exports = function(sequelize) {
                 log.info('/models/course: getByName() : ' + name);
                 var query = {
                     where: {
-                        isDeleted: 0,
+
                         name: name
                     }
                 };
@@ -45,13 +45,13 @@ module.exports = function(sequelize) {
                 log.info('/models/course: getByTraningProgramID() : ' + trainingProgramId);
                 var query = {
                     where: {
-                        isDeleted: 0,
+                        
                         trainingProgramId: trainingProgramId
                     }
                 };
                 Course.findAll(query).then(cb);
             },
-            
+
         },
 
         tableName: 'course'

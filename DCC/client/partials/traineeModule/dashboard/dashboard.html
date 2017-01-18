@@ -5,11 +5,16 @@
                 <div class="widget-header">
                     <center><font size="6px" style="color: black"><b>My Courses</b></font></center>
                 </div>
-                <div class="widget-content" style="background-color:#c1c1a4;">
+                <div class="widget-content" >
                     <div class="widget big-stats-container" style="margin-bottom:0;">
                         <div class="control-group">
                             <div class="controls">
                                 <div class="panel-group" style="margin-bottom: 0;">
+                                    <center ng-show = "myTrainingProgramList.length == 0">
+                                        <h4>You did not learn any course.</h4>
+                                        <h5>To request to open new course, or register opening course,</h5>
+                                        <h5>go to register menu and choose a course.</h5>
+                                    </center>
                                     <div class="panel panel-default" ng-repeat="trainningProgram in myTrainingProgramList">
 
                                         <div class="panel-heading panel-title"  style="border: 1px solid grey; border-radius: 5px;">
@@ -30,7 +35,7 @@
                                                     <div class="row" style="padding-bottom:10px; margin-left: 90px; margin-right: 10px; border: 2px solid {{myCourse.backgroundColor}}; border-radius: 5px;">
                                                         <div class="col-md-10">
                                                             <blockquote class="blockquote" style="border-left: none; padding-left:0px; padding-top: 20px">
-                                                                <a href="#courseDetail:{{myCourse.id}}" style="text-decoration: none">
+                                                                <a ui-sref="courseDetail({courseId: myCourse.id})" href="#courseDetail:{{myCourse.id}}" style="text-decoration: none">
                                                                     <img  style="float:left; clear:both; margin:8px;" alt="course-icon" class="img-responsive" src = "{{myCourse.imgLink}}" width="90px">
                                                                     <font size="6px" color="black" style="margin-top: 10px;">{{myCourse.name}}</font>
                                                                     <footer class="blockquote-footer" style="color: black;">{{myCourse.description}}</footer>
@@ -72,11 +77,15 @@
                         <div class="control-group">
                             <div class="controls">
                                 <div class="panel-group" style="margin-bottom: 0;">
+                                    <center ng-show = "myRequestOpenCourseList.length == 0">
+                                        <h4>You did not request to open any course.</h4>
+                                        <h5>To request to open new course, go to register menu and choose a course.</h5>
+                                    </center>
                                     <div class="panel panel-default" ng-repeat="requestOpenCourse in myRequestOpenCourseList">
                                         <div class="row" style="padding-bottom:10px; margin: 0px; border: 1px solid grey; border-radius: 5px;">
                                             <div class="col-md-10">
                                                 <blockquote class="blockquote" style="border-left: none; padding-left:0px; padding-top: 20px">
-                                                    <a href="#courseDetail:{{requestOpenCourse.id}}" style="text-decoration: none">
+                                                    <a ui-sref="courseDetail({courseId: requestOpenCourse.id})" style="text-decoration: none">
                                                         <img  style="float:left; clear:both; margin:8px;" alt="course-icon" class="img-responsive" src = "{{requestOpenCourse.imgLink}}" width="90px">
                                                         <font size="6px" color="black" style="margin-top: 10px;">{{requestOpenCourse.name}}</font>
                                                         <footer class="blockquote-footer" style="color: black;">{{requestOpenCourse.description}}</footer>

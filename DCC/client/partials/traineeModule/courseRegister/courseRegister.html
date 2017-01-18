@@ -28,16 +28,16 @@
                                     <div class="panel-group">
                                         <div class="panel panel-default" ng-repeat="course in courseListSearchResult">
                                             <div ng-hide="course.hideKey" class="panel-heading panel-title"  style="border: 1px solid grey; border-radius: 5px;">
-                                                <a data-toggle="collapse" data-target="#collapse{{trainningProgram.id}}" style="text-decoration : none">
+                                                <div data-toggle="collapse" data-target="#collapse{{trainningProgram.id}}">
                                                     <div class="row">
-                                                        <div class="col-md-10">
+                                                        <a ui-sref="courseDetail({courseId: course.id})"  class="col-md-10" style="text-decoration : none">
                                                             <blockquote class="blockquote" style="border-left: none; margin-bottom:0">
                                                                     <img  style="float:left; clear:both; margin-right: 10px;" alt="training-program-icon" class="img-responsive" src = "{{course.imgLink}}" width="95px">
                                                                     <font ng-bind-html="highlight(course.name, courseSearchKey)" size="6px"></font>
                                                                     <footer class="blockquote-footer" style="color: black; margin-bottom:20px"> {{course.description}}</footer>
                                                                     <br>
                                                             </blockquote>
-                                                        </div>
+                                                        </a>
                                                         <div class="col-md-2">
                                                             <br><br>
                                                             <center>
@@ -45,7 +45,7 @@
                                                             </center>
                                                         </div>
                                                     </div>
-                                                </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -68,6 +68,9 @@
                                 });
                                 </script> -->
                             </div>
+                            <center ng-show = "courseListSearchResult.length == 0 && courseSearchKey">
+                                <h4>Could not find any course!</h4>
+                            </center>
                         </div>
                     </div>
                 </div>
@@ -83,18 +86,22 @@
                             <div class="control-group">
                                 <div class="controls">
                                     <div class="panel-group">
+                                        <center ng-show = "openingCourseList.length == 0">
+                                            <h4>There is not any course open currently.</h4>
+                                            <h5>Request open new course below</h5>
+                                        </center>
                                         <div class="panel panel-default" ng-repeat="course in openingCourseList">
                                             <div ng-hide="course.hideKey" class="panel-heading panel-title"  style="border: 1px solid grey; border-radius: 5px;">
-                                                <a data-toggle="collapse" data-target="#collapse{{trainningProgram.id}}" style="text-decoration : none">
+                                                <div  data-toggle="collapse" data-target="#collapse{{trainningProgram.id}}">
                                                     <div class="row">
-                                                        <div class="col-md-10">
+                                                        <a ui-sref="courseDetail({courseId: course.id})" class="col-md-10" style="text-decoration : none">
                                                             <blockquote class="blockquote" style="border-left: none; margin-bottom:0">
                                                                 <img  style="float:left; clear:both; margin-right: 10px;" alt="training-program-icon" class="img-responsive" src = "{{course.imgLink}}" width="95px">
                                                                 <font size="6px">{{course.name}}</font>
                                                                 <footer class="blockquote-footer" style="color: black; margin-bottom:20px"> {{course.description}}</footer>
                                                                 <br>
                                                             </blockquote>
-                                                        </div>
+                                                        </a>
                                                         <div class="col-md-2">
                                                             <br><br>
                                                             <center>
@@ -102,7 +109,7 @@
                                                             </center>
                                                         </div>
                                                     </div>
-                                                </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -140,13 +147,13 @@
                                                 <ul class="list-group">
                                                     <li class="list-group-item" ng-repeat="course in trainningProgram.Courses" style="border-top: 0 none;">
                                                         <div ng-hide="course.hideKey" class="row" style="padding-bottom:10px; margin-left: 30px; margin-right: 30px; border: 2px solid grey; border-radius: 5px;">
-                                                            <div class="col-md-10">
+                                                            <a ui-sref="courseDetail({courseId: course.id})" class="col-md-10" style="text-decoration : none">
                                                                 <blockquote class="blockquote" style="border-left: none; padding-left:0px; padding-top: 20px">
                                                                     <img  style="float:left; clear:both;margin:8px 8px 8px 8px;" alt="course-icon" class="img-responsive" src = "{{course.imgLink}}" width="90px">
                                                                     <font size="6px" color="black" style="margin-top: 10px;">{{course.name}}</font>
                                                                     <footer class="blockquote-footer" style="color: black;">{{course.description}}</footer>
                                                                 </blockquote>
-                                                            </div>
+                                                            </a>
                                                             <div class="col-md-2">
                                                                 <br><br>
                                                                 <center>
