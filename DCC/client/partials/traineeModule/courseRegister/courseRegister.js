@@ -38,7 +38,7 @@ myApp.factory('courseRegisterServices', ['$http', function($http) {
 
 
 //Controllers
-myApp.controller('courseRegisterCtrl', ['$rootScope', '$scope', 'courseRegisterServices', function($rootScope ,$scope, courseRegisterServices) {
+myApp.controller('courseRegisterCtrl', ['$sce','$rootScope', '$scope', 'courseRegisterServices', function($sce,$rootScope ,$scope, courseRegisterServices) {
     courseRegisterServices.getMyEnrolledClass({userEmail:$rootScope.userInfo.email}).then(function(result){
         var myEnrolledCourse = [];
         result.data.classRecord.forEach(classRecord => {
@@ -119,23 +119,14 @@ myApp.controller('courseRegisterCtrl', ['$rootScope', '$scope', 'courseRegisterS
             });
         });
         $scope.courseListSearchResult = courseListSearchResult;
-            // 
-            // var $context = $(".context");
-            // var $form = $("form");
-            // var $button = $form.find("button[name='findBtn']");
-            // var $input = $form.find("input[name='srch-term']");
-            //
-            // $button.on("click.findBtn", function() {
-            //     // Determine search term
-            //     var searchTerm = $input.val();
-            //     $context.unmark();
-            //     $context.mark(searchTerm);
-            //
-            // });
-            // $button.trigger("click.findBtn");
-
     };
 
+    $scope.highlight = function(text, search) {
+        if (!search) {
+            return $sce.trustAsHtml(text);
+        }
+        return $sce.trustAsHtml(text.replace(new RegExp(search, 'gi'), '<span class="highlightedText">$&</span>'));
+    };
 
 
     $scope.registerCourse = function(courseId){
@@ -157,7 +148,7 @@ myApp.controller('courseRegisterCtrl', ['$rootScope', '$scope', 'courseRegisterS
                     });
                 }
                 else
-                $rootScope.ShowPopupMessage("Register Error", "error");
+                    $rootScope.ShowPopupMessage("Register Error", "error");
             }
         );
 
