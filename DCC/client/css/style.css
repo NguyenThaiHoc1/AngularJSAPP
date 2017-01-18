@@ -954,3 +954,6 @@ However, delay the fade out process for 2.5 seconds */
 .form-group label.noTransform {
   text-transform: none;
 }*/
+.highlightedText {
+    background: yellow;
+}

@@ -9,7 +9,8 @@ myApp.config(function($stateProvider) {
         templateUrl: 'partials/traineeModule/courseRegister/courseRegister.html',
         data:{
             auth:true
-        }
+        },
+
     });
 
 });
@@ -38,7 +39,7 @@ myApp.factory('courseRegisterServices', ['$http', function($http) {
 
 
 //Controllers
-myApp.controller('courseRegisterCtrl', ['$rootScope', '$scope', 'courseRegisterServices', function($rootScope ,$scope, courseRegisterServices) {
+myApp.controller('courseRegisterCtrl', ['$sce','$rootScope', '$scope', 'courseRegisterServices', function($sce, $rootScope ,$scope, courseRegisterServices) {
     courseRegisterServices.getMyEnrolledClass({userEmail:$rootScope.userInfo.email}).then(function(result){
         var myEnrolledCourse = [];
         result.data.classRecord.forEach(classRecord => {
@@ -119,23 +120,15 @@ myApp.controller('courseRegisterCtrl', ['$rootScope', '$scope', 'courseRegisterS
             });
         });
         $scope.courseListSearchResult = courseListSearchResult;
-            // 
-            // var $context = $(".context");
-            // var $form = $("form");
-            // var $button = $form.find("button[name='findBtn']");
-            // var $input = $form.find("input[name='srch-term']");
-            //
-            // $button.on("click.findBtn", function() {
-            //     // Determine search term
-            //     var searchTerm = $input.val();
-            //     $context.unmark();
-            //     $context.mark(searchTerm);
-            //
-            // });
-            // $button.trigger("click.findBtn");
-
     };
 
+    //code highlight
+    $scope.highlight = function(text, search) {
+        if (!search) {
+            return $sce.trustAsHtml(text);
+        }
+        return $sce.trustAsHtml(text.replace(new RegExp(search, 'gi'), '<font size="6px"><span class="highlightedText">$&</span></font>'));
+    };
 
 
     $scope.registerCourse = function(courseId){

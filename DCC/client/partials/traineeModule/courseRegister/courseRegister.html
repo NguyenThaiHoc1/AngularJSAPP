@@ -14,9 +14,9 @@
                                 <center >
                                     <form class="navbar-form" role="search" style="border: 0px;">
                                         <div class="input-group">
-                                            <input ng-model="courseSearchKey" type="text" class="form-control" style="width: 400px" placeholder="Search" name="srch-term" id="srch-term" onkeyup="findCourse()">
+                                            <input ng-model="courseSearchKey" type="text" class="form-control" style="width: 400px" placeholder="Search" name="srch-term" id="srch-term">
                                             <div class="input-group-btn">
-                                                <button ng-click="findCourse(courseSearchKey)" class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                                                <button ng-click="findCourse(courseSearchKey)" class="btn btn-default" name="findBtn" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                                             </div>
                                         </div>
                                     </form>
@@ -32,11 +32,17 @@
                                                     <div class="row">
                                                         <div class="col-md-10">
                                                             <blockquote class="blockquote" style="border-left: none; margin-bottom:0">
+                                                                <img  style="float:left; clear:both; margin-right: 10px;" alt="training-program-icon" class="img-responsive" src = "{{course.imgLink}}" width="95px">
+                                                                <font ng-bind-html="highlight(course.name, courseSearchKey)" size="6px"></font>
+                                                                <footer class="blockquote-footer" style="color: black; margin-bottom:20px"> {{course.description}}</footer>
+                                                                <br>
+                                                            </blockquote>
+                                                            <!-- <blockquote class="blockquote" style="border-left: none; margin-bottom:0">
                                                                     <img  style="float:left; clear:both; margin-right: 10px;" alt="training-program-icon" class="img-responsive" src = "{{course.imgLink}}" width="95px">
-                                                                    <font class="panel-body context" size="6px">{{course.name}}</font>
+                                                                    <font ng-bind-html="highlight(textToSearchThrough, searchText)" class="panel-body context" size="6px">{{course.name}}</font>
                                                                     <footer class="blockquote-footer" style="color: black; margin-bottom:20px"> {{course.description}}</footer>
                                                                     <br>
-                                                            </blockquote>
+                                                            </blockquote> -->
                                                         </div>
                                                         <div class="col-md-2">
                                                             <br><br>
@@ -52,20 +58,28 @@
                                 </div>
                                 <!-- <script>
                                 $(function() {
-                                    var $context = $(".context");
-                                    var $form = $("form");
-                                    var $button = $form.find("button[name='findBtn']");
-                                    var $input = $form.find("input[name='srch-term']");
-
-                                    $button.on("click.findBtn", function() {
-                                        // Determine search term
-                                        var searchTerm = $input.val();
-                                        $context.unmark();
-                                        $context.mark(searchTerm);
-
-                                    });
-                                    $button.trigger("click.findBtn");
+                                    // var $context = $(".context");
+                                    // var $form = $("form");
+                                    // var $button = $form.find("button[name='findBtn']");
+                                    // var $input = $form.find("input[name='srch-term']");
+                                    //
+                                    // $button.on("click.findBtn", function() {
+                                    //     // Determine search term
+                                    //     var searchTerm = $input.val();
+                                    //     $context.unmark();
+                                    //     $context.mark(searchTerm);
+                                    //
+                                    // });
+                                    // $button.trigger("click.findBtn");
+                                    // window.location.href = "/#/trainee_courseRegister";
+                                    $scope.highlight = function(text, search) {
+                                        if (!search) {
+                                            return $sce.trustAsHtml(text);
+                                        }
+                                        return $sce.trustAsHtml(text.replace(new RegExp(search, 'gi'), '<span class="highlightedText">$&</span>'));
+                                    };
                                 });
+
                                 </script> -->
                             </div>
                         </div>
