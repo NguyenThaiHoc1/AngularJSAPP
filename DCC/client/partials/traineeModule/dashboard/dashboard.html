@@ -40,9 +40,9 @@
                                                         <div class="col-md-2">
                                                             <center>
                                                                 <h4 class="col-md-12" style="background-color: white;  border-radius: 9px;">{{myCourse.status}} </h4>
-                                                                <a href="javascript:;" class="col-md-12 col-sm-6 btn btn-md btn-primary" style="margin-top:5px;">{{actionOneText[myCourse.status]}}</a>
-                                                                {{myCourse.classId}}
-                                                                <a href="javascript:;" class="col-md-12 col-sm-6 btn btn-md btn-warning" style="margin-top:5px;" ng-click="unEnrollCourse(myCourse.classId)">{{actionTwoText[myCourse.status]}}</a>
+                                                                {{myCourse.id}}
+                                                                <a href="javascript:;" class="col-md-12 col-sm-6 btn btn-md btn-primary" style="margin-top:5px;" ng-click="actionOneTextClick()">{{actionOneText[myCourse.status]}}</a>
+                                                                <a href="javascript:;" class="col-md-12 col-sm-6 btn btn-md btn-warning" style="margin-top:5px;" ng-click="actionTwoTextClick(myCourse.classId, myCourse.id)">{{actionTwoText[myCourse.status]}}</a>
                                                             </center>
                                                         </div>
                                                     </div>
@@ -90,7 +90,6 @@
                                                 </center>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>

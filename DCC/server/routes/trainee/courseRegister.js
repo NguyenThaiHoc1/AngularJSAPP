@@ -53,6 +53,7 @@ router.get('/getTrainingProgram', function(req, res){
                 if(!openingClass){
                     models.RequestOpening.addRequestOpeningCourse(userEmail,courseId);
                     var datasend = {
+                        success: true,
                         msg:'send request opening success'
                     };
                     res.send(datasend);
