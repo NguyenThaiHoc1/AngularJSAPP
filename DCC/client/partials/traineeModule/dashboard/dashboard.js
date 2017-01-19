@@ -148,8 +148,13 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
         }
     };
     //Give feedback or View Schedule function
+    $scope.hoveringOver = function(value) {
+        $rootScope.overStar = value;
+    };
+
 
     $scope.actionOneClick = function(myCourse){
+        console.log('actionOneClick: ', myCourse.classId );
         dashboardServices.getMyFeedbackByClass(myCourse).then(function(result){
             $rootScope.courseFeedbackModel = result.data.feedback;
         });
@@ -165,14 +170,14 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
     };
 
     $scope.giveFeedbackClick = function(cmodel){
-        console.log(cmodel);
+        console.log('giveFeedbackClick: ',cmodel.classId);
         dashboardServices.sendFeedback(cmodel).then(function(result){
             if(result.data.success){
                 $rootScope.ShowPopupMessage("Rating success", "success");
             }else{
                 $rootScope.ShowPopupMessage("Rating fail", "error");
             }
-            $scope.courseFeedbackModel = {};
+
         });
     };
 

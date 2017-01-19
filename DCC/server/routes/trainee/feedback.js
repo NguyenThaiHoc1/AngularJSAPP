@@ -12,8 +12,8 @@ router.post ('/getMyFeedbackByClass', function(req, res){
     models.Feedback.findOne(query).then(function(feedback) {
         if(!feedback){
             models.Feedback.create({
-                comments: 'test',
-                rating: '5',
+                comments: '',
+                rating: '',
                 userEmail: req.user.email,
                 classId: req.body.classId
 
