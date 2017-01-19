@@ -39,6 +39,7 @@ myApp.factory('courseRegisterServices', ['$http', function($http) {
 
 //Controllers
 myApp.controller('courseRegisterCtrl', ['$sce','$rootScope', '$scope', 'courseRegisterServices', function($sce,$rootScope ,$scope, courseRegisterServices) {
+
     courseRegisterServices.getMyEnrolledClass({userEmail:$rootScope.userInfo.email}).then(function(result){
         var myEnrolledCourse = [];
         result.data.classRecord.forEach(classRecord => {
@@ -50,10 +51,12 @@ myApp.controller('courseRegisterCtrl', ['$sce','$rootScope', '$scope', 'courseRe
     });
 
     courseRegisterServices.getRequestedOpeningCourse({userEmail:$rootScope.userInfo.email}).then(function(result){
+        $scope.requestedOpeningCourse = {};
         $scope.requestedOpeningCourse = result.data.requestedOpeningCourse;
     });
 
     courseRegisterServices.getOpeningClass().then(function(result){
+        $scope.openingCourseList = {};
         var tempOpeningCourseList = [];
         result.data.openingClass.forEach(openingClass => {
             tempOpeningCourseList.push(openingClass.Course);
@@ -63,22 +66,25 @@ myApp.controller('courseRegisterCtrl', ['$sce','$rootScope', '$scope', 'courseRe
 
 
     courseRegisterServices.getTrainingProgram().then(function(result){
+        $scope.trainingProgramList = {};
         var trainingProgram = result.data.data;
 
         trainingProgram.forEach(trainingProgram => {
             trainingProgram.Courses.forEach(course => {
                 course.hideKey = false;
                 course.isOpening = false;
+                course.buttonName = "Register";
+                course.buttonColor = "btn-success";
             });
         });
 
         $scope.openingCourseList.forEach(openingCourseListElement=>{
             trainingProgram.forEach(trainingProgramElement =>{
                 trainingProgramElement.Courses.forEach(function(courseElement, courseElementIndex, Courses){
-                    $scope.index = false;
                     if(courseElement.id == openingCourseListElement.id) {
                         Courses[courseElementIndex].isOpening = true;
-                        $scope.index = true;
+                        Courses[courseElementIndex].buttonName = "Join";
+                        Courses[courseElementIndex].buttonColor = "btn-primary";
                     }
                 });
             });
