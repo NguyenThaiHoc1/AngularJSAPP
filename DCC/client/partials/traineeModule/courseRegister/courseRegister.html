@@ -30,7 +30,7 @@
                                                     <a ui-sref="courseDetail({courseId: course.id})" class="col-md-10" style="text-decoration : none">
                                                         <blockquote class="blockquote" style="border-left: none; margin-bottom:0">
                                                             <img  style="float:left; clear:both; margin-right: 10px;" alt="training-program-icon" class="img-responsive" src = "{{course.imgLink}}" width="95px">
-                                                            <font size="6px">{{course.name}}</font>
+                                                            <font ng-bind-html="highlight(course.name, courseSearchKey)" size="6px"></font>
                                                             <footer class="blockquote-footer" style="color: black; margin-bottom:20px"> {{course.description}}</footer>
                                                             <br>
                                                         </blockquote>
