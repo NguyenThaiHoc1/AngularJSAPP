@@ -13,11 +13,21 @@ module.exports = function(sequelize, DataTypes) {
                 };
                 Feedback.findAll(query).then(cb);
             },
-            getFeedbackByCommentedBy: function(commentedBy, cb) {
-                log.info('/models/feedback: getFeedbackByCommentedBy() : ' + commentedBy);
+            // getFeedbackByCommentedBy: function(commentedBy, cb) {
+            //     log.info('/models/feedback: getFeedbackByCommentedBy() : ' + commentedBy);
+            //     var query = {
+            //         where: {
+            //             commentedBy: commentedBy
+            //         }
+            //     };
+            //     Feedback.findOne(query).then(cb);
+            // },
+            getFeedbackByClassIDByUserID: function(ClassId, UserId, cb) {
+                log.info('/models/feedback: getFeedbackByCommentedBy() : ');
                 var query = {
                     where: {
-                        commentedBy: commentedBy
+                        ClassId: ClassId,
+                        UserId: UserId
                     }
                 };
                 Feedback.findOne(query).then(cb);

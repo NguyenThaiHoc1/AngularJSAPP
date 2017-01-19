@@ -53,63 +53,58 @@ myApp.controller('courseRegisterCtrl', ['$sce','$rootScope', '$scope', 'courseRe
         $scope.requestedOpeningCourse = result.data.requestedOpeningCourse;
     });
 
-    courseRegisterServices.getTrainingProgram().then(function(result){
-        var trainingProgram = result.data.data;
-        //Splice course user enrolled in training program list
-        for(var i=trainingProgram.length-1; i>=0; i--){
-            for(var j=trainingProgram[i].Courses.length-1; j>=0; j--){
-                for(var k=$scope.myEnrolledCourse.length-1; k>=0; k--){
-                    if(trainingProgram[i].Courses[j].id == $scope.myEnrolledCourse[k].id){
-                        trainingProgram[i].Courses.splice(j,1);
-                        break;
-                    }
-                }
-            }
-        }
-
-        //Splice course user requested in training program
-        for(var i=trainingProgram.length-1; i>=0; i--){
-            for(var j=trainingProgram[i].Courses.length-1; j>=0; j--){
-                for(var k=$scope.requestedOpeningCourse.length-1; k>=0; k--){
-                    if(trainingProgram[i].Courses[j].id == $scope.requestedOpeningCourse[k].courseId)
-                    {
-                        trainingProgram[i].Courses.splice(j,1);
-                        break;
-                    }
-                }
-            }
-        }
-        //push hideKey property into course;
-
-        trainingProgram.forEach(trainingProgram => {
-            trainingProgram.Courses.forEach(course => {
-                course.hideKey = false;
-            });
-        });
-
-        $scope.trainingProgramList = trainingProgram;
-    });
-
     courseRegisterServices.getOpeningClass().then(function(result){
         var tempOpeningCourseList = [];
         result.data.openingClass.forEach(openingClass => {
             tempOpeningCourseList.push(openingClass.Course);
         });
-
-        for(var i=tempOpeningCourseList.length-1; i>=0; i--){
-            for(var j=$scope.myEnrolledCourse.length-1; j>=0; j--){
-                if(tempOpeningCourseList[i].id == $scope.myEnrolledCourse[j].id) {
-                    tempOpeningCourseList.splice(i,1);
-                    break;
-                }
-            }
-        }
-        //push hideKey property into course;
-        tempOpeningCourseList.forEach(course => {
-            course.hideKey = false;
-        });
         $scope.openingCourseList = tempOpeningCourseList;
     });
+
+
+    courseRegisterServices.getTrainingProgram().then(function(result){
+        var trainingProgram = result.data.data;
+
+        trainingProgram.forEach(trainingProgram => {
+            trainingProgram.Courses.forEach(course => {
+                course.hideKey = false;
+                course.isOpening = false;
+            });
+        });
+
+        $scope.openingCourseList.forEach(openingCourseListElement=>{
+            trainingProgram.forEach(trainingProgramElement =>{
+                trainingProgramElement.Courses.forEach(function(courseElement, courseElementIndex, Courses){
+                    $scope.index = false;
+                    if(courseElement.id == openingCourseListElement.id) {
+                        Courses[courseElementIndex].isOpening = true;
+                        $scope.index = true;
+                    }
+                });
+            });
+        });
+        //Splice course user enrolled in training program list
+        $scope.myEnrolledCourse.forEach(myEnrolledCourseElement=>{
+            trainingProgram.forEach(trainingProgramElement=>{
+                trainingProgramElement.Courses.forEach(function(courseElement, courseElementIndex, Courses){
+                    if(courseElement.id == myEnrolledCourseElement.id) Courses.splice(courseElementIndex, 1);
+                });
+            });
+        });
+
+        //Splice course user requested in training program
+        $scope.requestedOpeningCourse.forEach(requestedOpeningCourseElement=>{
+            trainingProgram.forEach(trainingProgramElement=>{
+                trainingProgramElement.Courses.forEach(function(courseElement, courseElementIndex, Courses){
+                    if(courseElement.id == requestedOpeningCourseElement.id) Courses.splice(courseElementIndex, 1);
+                });
+            });
+        });
+
+
+        $scope.trainingProgramList = trainingProgram;
+    });
+
 
     $scope.findCourse = function(courseSearchKey){
         var courseListSearchResult = []
