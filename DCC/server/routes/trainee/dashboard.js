@@ -14,7 +14,7 @@ router.get('/getTrainingProgram', function(req, res){
                         include: [
                             {
                                 model: models.ClassRecord,
-                                where: {traineeEmail: req.user.email}
+                                where: {traineeEmail: 'thach@gmail.com'} //req.user.email
                             }
                         ]
                     }
@@ -24,8 +24,9 @@ router.get('/getTrainingProgram', function(req, res){
     };
     models.TrainingProgram.findAll(query).then(function(trainingProgram) {
         var datasend = {
+            success : true,
             msg:'send list success',
-            data: trainingProgram
+            trainingProgram: trainingProgram
         };
         res.send(datasend);
     });
@@ -41,6 +42,7 @@ router.get('/getRequestOpenCourse', function(req, res){
     };
     models.Course.findAll(query).then(function(course) {
         var datasend = {
+            success:true,
             msg:'send list success',
             data: course
         };
