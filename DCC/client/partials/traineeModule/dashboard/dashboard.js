@@ -35,7 +35,10 @@ myApp.factory('dashboardServices', ['$http', function($http) {
         },
         //feedback
         sendFeedback: function(req) {
-            return $http.post('/mock/giveFeedback', req).success(function(data) { return data; });
+            return $http.post('/trainee/feedback/sendFeedback', req).success(function(data) { return data; });
+        },
+        getMyFeedbackByClass: function( classId) {
+            return $http.post('/trainee/feedback/getMyFeedbackByClass', classId).success(function(data) { return data; });
         },
     }
 
@@ -57,7 +60,7 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
 
     //get all courses and training programs
     dashboardServices.getMyTraingPrograms().then(function(result){
-        result.data.data.forEach(traningProgram => {
+        result.data.trainingProgram.forEach(traningProgram => {
             traningProgram.count = 0;
             traningProgram.Courses.forEach(course => {
                 // class id and status in class Record
@@ -74,7 +77,7 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
             });
             traningProgram.completePercent = Math.ceil(traningProgram.count / traningProgram.Courses.length * 100);
         });
-        $scope.myTrainingProgramList = result.data.data;
+        $scope.myTrainingProgramList = result.data.trainingProgram;
     });
     // un-Enroll or re-Enroll Course
     $scope.actionTwoClick = function(myCourse){
@@ -145,39 +148,34 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
         }
     };
     //Give feedback or View Schedule function
+
     $scope.actionOneClick = function(myCourse){
-        if (myCourse.status == STATUS_ENROLLED){
-            //View Schedule
+        dashboardServices.getMyFeedbackByClass(myCourse).then(function(result){
+            $rootScope.courseFeedbackModel = result.data.feedback;
+        });
 
 
-        }else if (myCourse.status == STATUS_LEARNED ){
-            console.log("feedback");
-            // give feedback
-            //Rating
-            $scope.rate = 1;
-            $scope.max = 5;
-            $scope.isReadonly = false;
-
-            $scope.hoveringOver = function(value) {
-                $scope.overStar = value;
-            };
-
-            $scope.giveFeedbackClick = function(){
-                var req = {
-                    email: $rootScope.userInfo.email,
-                    courseId:  myCourse.id,
-                    rating: $scope.rate
-                };
-                dashboardServices.sendFeedback(req).then(function(result){
-                    if(result.data.success){
-                        $rootScope.popUpMessage("Rating success", "success");
-                    }else{
-                        $rootScope.popUpMessage("Rating fail", "error");
-                    }
-                });
-            }
-        }
+        // if (myCourse.status == STATUS_ENROLLED){
+        //     //View Schedule
+        // }else if (myCourse.status == STATUS_LEARNED ){
+        //     console.log("feedback");
+        //     console.log (myCourse.classId);
+        //     // show feedback modal
+        // }
     };
+
+    $scope.giveFeedbackClick = function(cmodel){
+        console.log(cmodel);
+        dashboardServices.sendFeedback(cmodel).then(function(result){
+            if(result.data.success){
+                $rootScope.ShowPopupMessage("Rating success", "success");
+            }else{
+                $rootScope.ShowPopupMessage("Rating fail", "error");
+            }
+            $scope.courseFeedbackModel = {};
+        });
+    };
+
 }]);
 
 //Request Open Course controller

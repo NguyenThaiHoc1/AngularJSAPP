@@ -536,14 +536,14 @@ describe("SetFeatureCtrl Unit testing #7", function() {
         controller = createController.setFeature();
         var data = {
             courseDocuments : 'This is document',
-            courseFeedback : 'This is Feedback',
+            courseFeedbackModel : 'This is Feedback',
             courseTest : 'This is test',
             courseRating :'This is rating'
         };
         $httpBackend.whenGET('/course/features').respond(data);
         $httpBackend.flush();
         expect($rootScope.courseDocuments).toBe(data.courseDocuments);
-        expect($rootScope.courseFeedback).toBe(data.courseFeedback);
+        expect($rootScope.courseFeedbackModel).toBe(data.courseFeedbackModel);
         expect($rootScope.courseTest).toBe(data.courseTest);
         expect($rootScope.courseRating).toBe(data.courseRating);
 
