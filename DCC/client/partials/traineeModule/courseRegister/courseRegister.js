@@ -25,8 +25,8 @@ myApp.factory('courseRegisterServices', ['$http', function($http) {
         getMyEnrolledClass: function(request) {
             return $http.post('trainee/courseRegister/getMyEnrolledClass', request).success(function(data) { return data; });
         },
-        requestOpening: function(request) {
-            return $http.post('/trainee/courseRegister/requestOpening', request).success(function(data) { return data; });
+        sendRegisterRequest: function(request) {
+            return $http.post('/trainee/courseRegister/sendRegisterRequest', request).success(function(data) { return data; });
         },
         getRequestedOpeningCourse: function(request) {
             return $http.post('/trainee/courseRegister/getRequestedOpeningCourse', request).success(function(data) { return data; });
@@ -131,7 +131,7 @@ myApp.controller('courseRegisterCtrl', ['$sce','$rootScope', '$scope', 'courseRe
             courseId : courseId,
             userEmail : $rootScope.userInfo.email
         };
-        courseRegisterServices.requestOpening(request).then(
+        courseRegisterServices.sendRegisterRequest(request).then(
             function(result)
             {
                 if (result.data.msg){

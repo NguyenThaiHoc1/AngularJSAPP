@@ -30,8 +30,8 @@ myApp.factory('dashboardServices', ['$http', function($http) {
         unEnrollCourse: function(req){
             return $http.post('/trainee/courseRegister/unEnrollCourse', req).success(function(data) { return data; });
         },
-        requestOpening: function(request) {
-            return $http.post('/trainee/courseRegister/requestOpening', request).success(function(data) { return data; });
+        sendRegisterRequest: function(request) {
+            return $http.post('/trainee/courseRegister/sendRegisterRequest', request).success(function(data) { return data; });
         },
         //feedback
         sendFeedback: function(req) {
@@ -113,7 +113,7 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
         }else if(myCourse.status == STATUS_LEARNED){
             console.log("re-enroll");
             //re-Enroll: function same function request Opening
-            dashboardServices.requestOpening({userEmail:$rootScope.userInfo.email, courseId: myCourse.id}).then(function(result){
+            dashboardServices.sendRegisterRequest({userEmail:$rootScope.userInfo.email, courseId: myCourse.id}).then(function(result){
                 if(result.data.success){
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
                     //refesh list

@@ -45,7 +45,7 @@ router.get('/getTrainingProgram', function(req, res){
         });
     });
 
-    router.post('/requestOpening', function(req, res){
+    router.post('/sendRegisterRequest', function(req, res){
         var courseId = req.body.courseId;
         var userEmail = req.body.userEmail;
         models.Class.getOpeningClassByCourseID(courseId,
