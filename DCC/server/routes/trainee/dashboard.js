@@ -24,6 +24,7 @@ router.get('/getTrainingProgram', function(req, res){
     };
     models.TrainingProgram.findAll(query).then(function(trainingProgram) {
         var datasend = {
+            success : true,
             msg:'send list success',
             data: trainingProgram
         };
@@ -41,6 +42,7 @@ router.get('/getRequestOpenCourse', function(req, res){
     };
     models.Course.findAll(query).then(function(course) {
         var datasend = {
+            success:true,
             msg:'send list success',
             data: course
         };
