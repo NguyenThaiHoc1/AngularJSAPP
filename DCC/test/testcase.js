@@ -17,81 +17,11 @@ function isEmpty(str) {
     return (!str || 0 === str.length);
 }
 
-describe('<Unit Test for Routing>', function() {
-    describe('', function() {
-        return it('Test case 1 : get / ', function(done) {
-            request(route)
-                .get('/')
-                .expect(200, done)
-        });
-    });
-
-    describe('', function() {
-        return it('Test case 2 : get /course ', function(done) {
-            request(route)
-                .get('/course')
-                .expect(200, done)
-        });
-    });
-
-    describe('', function() {
-        return it('Test case 3 : get /course/coursedetail ', function(done) {
-            request(route)
-                .get('/course/coursedetail')
-                .expect(200, done)
-        });
-    });
-    describe('', function() {
-        return it('Test case 4 : get /course/coursedetail/:id ', function(done) {
-            request(route)
-                .get('/course/coursedetail/1')
-                .expect(200, done)
-        });
-    });
-    // describe('', function() {
-    //     return it('Test case 5 : get /course/trainerdashboard ', function(done) {
-    //         request(route)
-    //             .get('/course/trainerdashboard')
-    //             .expect(200,done)
-    //     });
-    // });
-    describe('', function() {
-        return it('Test case 6 : get /users/userprofile When user not logged in ', function(done) {
-            request(route)
-                .get('/users/userprofile')
-                .expect(200,done)
-        });
-    });
-
-    describe('', function() {
-        return it('Test case 7 : get /getEvents ', function(done) {
-            request(route)
-                .get('/getEvents')
-                .expect(200, done)
-        });
-    });
-
-    describe('', function() {
-        return it('Test case 8 : get /users/trainingprogram ', function(done) {
-            request(route)
-                .get('/users/trainingprogram')
-                .expect(200, done)
-        });
-    });
-//Test for adminModule
-    describe('', function(){
-        return it('Test case 9: get /admin/getCourseList', function(done){
-            request(route)
-                .get('/admin/getCourseList')
-                .expect(200, done)
-        });
-    });
-    describe('', function(){
-        return it('Test case 10: get /admin/getCourseTypeList: get course type list data', function(done){
-            request(route)
-                .get('/admin/getCourseTypeList')
-                .expect(200, done)
-        });
+describe('Unit test for get index', function() {
+    return it('should return 200 status', function(done) {
+        request(route)
+        .get('/')
+        .expect(200, done)
     });
 });
 
@@ -102,29 +32,29 @@ describe('<Unit test for Login>', function() {
         var Cookies;
         beforeEach(function(done) {
             request(route)
-                .post('/users/login')
-                .set('Accept', 'application/json')
-                .send({
-                    username: 'qwe@gmail.com',
-                    password: 'qwe'
-                })
-                .end(function(err, res) {
-                    Cookies = res.headers['set-cookie'].pop().split(';')[0];
-                    if(err)
-                      return done(err);
-                    done();
-                });
+            .post('/login')
+            .set('Accept', 'application/json')
+            .send({
+                username: 'qwe@gmail.com',
+                password: 'qwe'
+            })
+            .end(function(err, res) {
+                Cookies = res.headers['set-cookie'].pop().split(';')[0];
+                if(err)
+                return done(err);
+                done();
+            });
         });
         return it('Test case 0 : Check authenticated: Logged in', function(done) {
             var req = request(route).get('/isLogged');
             req.cookies = Cookies;
             req.set('Accept', 'application/json')
-                .end(function(err, res) {
-                    assert.equal(res.text, 'qwe@gmail.com');
-                    if(err)
-                      return done(err);
-                    done();
-                });
+            .end(function(err, res) {
+                assert.equal(res.text, 'qwe@gmail.com');
+                if(err)
+                return done(err);
+                done();
+            });
         });
     });
     describe('', function() {
@@ -133,132 +63,132 @@ describe('<Unit test for Login>', function() {
             var req = request(route).get('/isLogged');
             req.cookies = Cookies;
             req.set('Accept', 'application/json')
-                .end(function(err, res) {
-                    assert.equal(res.text, '');
-                    if(err)
-                      return done(err);
-                    done();
-                });
+            .end(function(err, res) {
+                assert.equal(res.text, '');
+                if(err)
+                return done(err);
+                done();
+            });
         });
     });
     describe('', function() {
         return it('Test case 1 : Login success', function(done) {
             request(route)
-                .post('/users/login')
-                .send({
-                    username: 'qwe@gmail.com',
-                    password: 'qwe'
-                })
-                .end(function(err, res) {
-                    assert.equal(res.body.userid, 'qwe@gmail.com');
-                    globalCookies = res.headers['set-cookie'].pop().split(';')[0];
-                    if(err)
-                      return done(err);
-                    done();
-                });
+            .post('/users/login')
+            .send({
+                username: 'qwe@gmail.com',
+                password: 'qwe'
+            })
+            .end(function(err, res) {
+                assert.equal(res.body.userid, 'qwe@gmail.com');
+                globalCookies = res.headers['set-cookie'].pop().split(';')[0];
+                if(err)
+                return done(err);
+                done();
+            });
         });
     });
 
     describe('', function() {
         return it('Test case 2 : Login fail, username true, password false', function(done) {
             request(route)
-                .post('/users/login')
-                .send({
-                    username: 'qwe@gmail.com',
-                    password: 'thach13'
-                })
-                .end(function(err, res) {
-                    assert.equal(res.body.userid,null); // edit for HEY's testing
-                    if(err)
-                      return done(err);
-                    done();
-                });
-          });
-      });
-        describe('', function() {
-            return it('Test case 3 : Login fail, username false, password true', function(done) {
-                request(route)
-                    .post('/users/login')
-                    .send({
-                        username: 'thach1',
-                        password: 'qwe'
-                    })
-                    .end(function(err, res) {
-                        assert.equal(res.body.userid, null);
-                        if(err)
-                          return done(err);
-                        done();
-                    });
+            .post('/users/login')
+            .send({
+                username: 'qwe@gmail.com',
+                password: 'thach13'
+            })
+            .end(function(err, res) {
+                assert.equal(res.body.userid,null); // edit for HEY's testing
+                if(err)
+                return done(err);
+                done();
             });
         });
+    });
+    describe('', function() {
+        return it('Test case 3 : Login fail, username false, password true', function(done) {
+            request(route)
+            .post('/users/login')
+            .send({
+                username: 'thach1',
+                password: 'qwe'
+            })
+            .end(function(err, res) {
+                assert.equal(res.body.userid, null);
+                if(err)
+                return done(err);
+                done();
+            });
+        });
+    });
 
-        describe('', function() {
-            return it('Test case 4 : Login fail, username null, password true', function(done) {
-                request(route)
-                    .post('/users/login')
-                    .send({
-                        username: null,
-                        password: 'qwe'
-                    })
-                    .end(function(err, res) {
-                        assert.equal(res.body.userid, null);
-                        if(err)
-                          return done(err);
-                        done();
-                    });
+    describe('', function() {
+        return it('Test case 4 : Login fail, username null, password true', function(done) {
+            request(route)
+            .post('/users/login')
+            .send({
+                username: null,
+                password: 'qwe'
+            })
+            .end(function(err, res) {
+                assert.equal(res.body.userid, null);
+                if(err)
+                return done(err);
+                done();
             });
         });
+    });
 
-        describe('', function() {
-            return it('Test case 5 : Login fail, username true, password null', function(done) {
-                request(route)
-                    .post('/users/login')
-                    .send({
-                        username: 'qwe@gmail.com',
-                        password: null
-                    })
-                    .end(function(err, res) {
-                        assert.equal(res.body.userid, null);
-                        if(err)
-                          return done(err);
-                        done();
-                    });
+    describe('', function() {
+        return it('Test case 5 : Login fail, username true, password null', function(done) {
+            request(route)
+            .post('/users/login')
+            .send({
+                username: 'qwe@gmail.com',
+                password: null
+            })
+            .end(function(err, res) {
+                assert.equal(res.body.userid, null);
+                if(err)
+                return done(err);
+                done();
             });
         });
+    });
 
-        describe('', function() {
-            return it('Test case 6 : Login fail, username false, password null', function(done) {
-                request(route)
-                    .post('/users/login')
-                    .send({
-                        username: 'thach2',
-                        password: null
-                    })
-                    .end(function(err, res) {
-                        assert.equal(res.body.userid, null);
-                        if(err)
-                          return done(err);
-                        done();
-                    });
+    describe('', function() {
+        return it('Test case 6 : Login fail, username false, password null', function(done) {
+            request(route)
+            .post('/users/login')
+            .send({
+                username: 'thach2',
+                password: null
+            })
+            .end(function(err, res) {
+                assert.equal(res.body.userid, null);
+                if(err)
+                return done(err);
+                done();
             });
         });
+    });
 
-        describe('', function() {
-            return it('Test case 7 : Login fail, username null, password false', function(done) {
-                request(route)
-                    .post('/users/login')
-                    .send({
-                        username: null,
-                        password: '123'
-                    })
-                    .end(function(err, res) {
-                        assert.equal(res.body.userid, null);
-                        if(err)
-                          return done(err);
-                        done();
-                    });
+    describe('', function() {
+        return it('Test case 7 : Login fail, username null, password false', function(done) {
+            request(route)
+            .post('/users/login')
+            .send({
+                username: null,
+                password: '123'
+            })
+            .end(function(err, res) {
+                assert.equal(res.body.userid, null);
+                if(err)
+                return done(err);
+                done();
             });
         });
+    });
 
 });
 
@@ -271,11 +201,12 @@ describe('<Logout Function>', function() {
         .end(function(err, res) {
             assert.equal(res.status, '302');
             if(err)
-              return done(err);
+            return done(err);
             done();
         });
     });
 });
+
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
@@ -541,7 +472,7 @@ describe('<Unit test for userProfile function>', function() {
                 assert.equal(res.body.username, 'Test Account');
                 assert.equal(res.body.email, 'qwe@gmail.com');
                 if(err)
-                  return done(err);
+                return done(err);
                 done();
             });
         });
@@ -550,8 +481,8 @@ describe('<Unit test for userProfile function>', function() {
     describe('Route for editUserProfile page', function() {
         return it('Get /users/edituserprofile ', function(done) {
             request(route)
-                .get('/users/edituserprofile')
-                .expect(200, done)
+            .get('/users/edituserprofile')
+            .expect(200, done)
         });
     });
 
@@ -568,7 +499,7 @@ describe('<Unit test for userProfile function>', function() {
             .end(function(err, res) {
                 assert.equal(res.body.msg, 'Success');
                 if(err)
-                  return done(err);
+                return done(err);
                 done();
             });
         });
@@ -581,11 +512,11 @@ describe('<Unit test for userProfile function>', function() {
             req
             .set('Accept','application/json')
             .field('filename', 'test file')
-        		.attach('userPhoto', 'test/test.jpg')
+            .attach('userPhoto', 'test/test.jpg')
             .end(function(err, res) {
                 assert.equal(res.status, '200');
                 if(err)
-                  return done(err);
+                return done(err);
                 done();
             });
         });
@@ -594,126 +525,126 @@ describe('<Unit test for userProfile function>', function() {
 
 describe('<Unit test for feedback function>', function() {
 
-  describe('', function() {
-    return it('Test case 1 : Create a comment for course that doesnt have comment ', function(done) {
-      var req = request(route).post('/feedback/comment');
-      req.cookies = globalCookies;
-      req
-      // .set('Accept','application/json')
-      .send({
-        classId: 9,
-        comment: 'feedback test',
-        userId:1,
-        })
-      .end(function(err, res) {
-        assert.equal('create successfully', 'create successfully');
-        if(err)
-          return done(err);
-        done();
-      });
-      });
-  });
+    describe('', function() {
+        return it('Test case 1 : Create a comment for course that doesnt have comment ', function(done) {
+            var req = request(route).post('/feedback/comment');
+            req.cookies = globalCookies;
+            req
+            // .set('Accept','application/json')
+            .send({
+                classId: 9,
+                comment: 'feedback test',
+                userId:1,
+            })
+            .end(function(err, res) {
+                assert.equal('create successfully', 'create successfully');
+                if(err)
+                return done(err);
+                done();
+            });
+        });
+    });
 
     describe('', function() {
-      return it('Test case 2 : Update comment for course having comment already', function(done) {
-        var req = request(route).post('/feedback/comment');
-        req.cookies = globalCookies;
-        req
-        .send({
-            classId: 1,
-            comment: 'update feedback',
-            userId:1,
-        })
-        .end(function(err,res){
-          assert.equal(res.body.msg,'update successfully');
-          if(err)
-            return done(err);
-          done();
-        })
-      });
+        return it('Test case 2 : Update comment for course having comment already', function(done) {
+            var req = request(route).post('/feedback/comment');
+            req.cookies = globalCookies;
+            req
+            .send({
+                classId: 1,
+                comment: 'update feedback',
+                userId:1,
+            })
+            .end(function(err,res){
+                assert.equal(res.body.msg,'update successfully');
+                if(err)
+                return done(err);
+                done();
+            })
+        });
     });
 
     describe('', function() {
         return it('Test case 3 : show feedbacks of a class by its ID', function(done) {
-          var req = request(route).post('/feedback/getClassFeedbacks');
-          req.cookies = globalCookies;
-          req
-          .send({
-              classId: 1,
-          })
-          .end(function(err,res) {
-            //assert.equal(res.body[0].comment, 'show feedbacks of a course by its ID');
-            assert.equal('', '');
-            if(err)
-              return done(err);
-            done();
-          });
-                      courseID: 10
-          afterEach(function() {
-              models.Feedback.destroy({
-                  where: {
-                      courseID: 10
+            var req = request(route).post('/feedback/getClassFeedbacks');
+            req.cookies = globalCookies;
+            req
+            .send({
+                classId: 1,
+            })
+            .end(function(err,res) {
+                //assert.equal(res.body[0].comment, 'show feedbacks of a course by its ID');
+                assert.equal('', '');
+                if(err)
+                return done(err);
+                done();
+            });
+            courseID: 10
+            afterEach(function() {
+                models.Feedback.destroy({
+                    where: {
+                        courseID: 10
                     }
-              });
-          });
+                });
+            });
         });
     });
 
     describe('', function() {
-      return it('Test case 4 : Create a rating for course that doesnt have rating', function(done) {
-          var req = request(route).post('/feedback/rating');
-          req.cookies = globalCookies;
-          req
-          .send({
-            classId: 99,
-            userId:1,
-            rating: 3
-          })
-          .end(function(err,res){
-            assert.equal('create successfully', 'create successfully');
-            if(err)
-              return done(err);
-            done();
-          });
+        return it('Test case 4 : Create a rating for course that doesnt have rating', function(done) {
+            var req = request(route).post('/feedback/rating');
+            req.cookies = globalCookies;
+            req
+            .send({
+                classId: 99,
+                userId:1,
+                rating: 3
+            })
+            .end(function(err,res){
+                assert.equal('create successfully', 'create successfully');
+                if(err)
+                return done(err);
+                done();
+            });
         });
     });
 
     describe('', function() {
-      return it('Test case 5 : Update rating for course having rating already', function(done) {
-          var req = request(route).post('/feedback/rating');
-          req.cookies = globalCookies;
-          req
-          .send({
-            userId: 1,
-            classId: 1,
-            rating: 4
-          })
-          .end(function(err,res){
-            assert.equal(res.body.msg,'update successfully');
-            if(err)
-              return done(err);
-            done();
-          });
+        return it('Test case 5 : Update rating for course having rating already', function(done) {
+            var req = request(route).post('/feedback/rating');
+            req.cookies = globalCookies;
+            req
+            .send({
+                userId: 1,
+                classId: 1,
+                rating: 4
+            })
+            .end(function(err,res){
+                assert.equal(res.body.msg,'update successfully');
+                if(err)
+                return done(err);
+                done();
+            });
         });
     });
 
     describe('', function() {
-      return it('Test case 6 : show average rating', function(done) {
-          var req = request(route).post('/feedback/showAverageRating');
-          req.cookies = globalCookies;
-          req
-          .send({
-            classId: 1,
-          })
-          .end(function(err,res){
-            assert.equal(res.body.result, res.body.result);
-            if(err)
-              return done(err);
-            done();
-          });
+        return it('Test case 6 : show average rating', function(done) {
+            var req = request(route).post('/feedback/showAverageRating');
+            req.cookies = globalCookies;
+            req
+            .send({
+                classId: 1,
+            })
+            .end(function(err,res){
+                assert.equal(res.body.result, res.body.result);
+                if(err)
+                return done(err);
+                done();
+            });
         });
     });
 
-  });
+});
 
 //-----------------------------------------------------------------------

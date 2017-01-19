@@ -103,9 +103,7 @@ router.get('/getCourseList', function(req, res) {
     //     res.send(datasend);
     // });
     models.Course.findAll({
-        where:{isDeleted: false},
-        include: [ models.TrainingProgram ],
-
+        include: [ models.TrainingProgram ]
     }).then(function(course) {
         var datasend = {
             course: course,

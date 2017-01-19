@@ -32,7 +32,7 @@ passport.use(new LdapStrategy(BASE_OPTS, function(user, callback) {
 }));
 
 router.post('/login', function(req, res, next) {
-    log.info('GET /login');
+    log.info('Post /login');
     passport.authenticate('ldapauth', {
         // using session to save user's credentials
         session: true
@@ -108,6 +108,20 @@ router.post('/login', function(req, res, next) {
         }
     }) (req, res, next);
 });
+
+router.get('/isLogin', function(req, res) {
+    if (req.isAuthenticated()){
+        res.send({
+            success: true,
+            msg: "You are logged in"
+        });
+    }else{
+        res.send({
+            success: false,
+            msg: "You are NOT logged in"
+        });
+    }
+})
 
 router.get('/logout', function(req, res) {
     // destroy session and redirect to homepage when logout
