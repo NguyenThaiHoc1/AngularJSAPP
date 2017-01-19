@@ -48,7 +48,7 @@ router.post ('/sendFeedback', function(req, res){
         models.Feedback.getFeedbackByClassIDByUserID(req.body.classId, req.body.userEmail, function(feedback){
                 models.Feedback.update({
                     comments: req.body.comments,
-                    rating: req.body.rate
+                    rating: req.body.rating
                 }, {
                     where: {
                         userEmail: req.user.email,

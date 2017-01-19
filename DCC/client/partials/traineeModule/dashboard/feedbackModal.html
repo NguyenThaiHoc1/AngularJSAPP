@@ -12,15 +12,18 @@
                         <label class="col-md-4 control-label">Your rating: &nbsp</label>
                         <div class="col-sm-8" >
                             <font size="3px">
-                                <div ng-init="courseFeedbackModel.rate">
-                                    <span uib-rating ng-model="courseFeedbackModel.rate"
+                                <div >
+                                    <span uib-rating ng-model="courseFeedbackModel.rating"
                                     max="5"
                                     read-only="false"
-                                    on-hover="hoveringOver(courseFeedbackModel.rate)"
+                                    on-hover="hoveringOver(courseFeedbackModel.rating)"
                                     on-leave="overStar = null"
                                     aria-labelledby="default-rating"></span>
                                 </div>
-                                <span class="label" ng-class="{'label-warning': courseFeedbackModel.rate<2, 'label-info': courseFeedbackModel.rate>=2 && courseFeedbackModel.rate<5, 'label-success': courseFeedbackModel.rate>=5}" >{{courseFeedbackModel.rate}}&nbsp stars</span>
+                                <span class="label"
+                                      ng-class="{'label-warning': courseFeedbackModel.rating<2,
+                                                 'label-info': courseFeedbackModel.rating>=2 && courseFeedbackModel.rating<5,
+                                                 'label-success': courseFeedbackModel.rating>=5}" >{{courseFeedbackModel.rating}}&nbsp stars</span>
                             </font>
                         </div>
                     </div>
