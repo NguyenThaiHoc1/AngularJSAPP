@@ -40,10 +40,10 @@ myApp.factory('userServices', ['$http', function($http) {
             return $http.get('/logout').success(function(data) { return data; });
         },
         getUserProfile: function() {
-            return $http.get('/user/getUserInfo').success(function(data) { return data; });
+            return $http.get('/user/userProfile/getUserInfo').success(function(data) { return data; });
         },
         updateUserProfile: function(emailReq) {
-            return $http.post('/user/updateUserProfile', emailReq).success(function(data) { return data; });
+            return $http.post('/user/userProfile/updateUserProfile', emailReq).success(function(data) { return data; });
         },
     }
 
