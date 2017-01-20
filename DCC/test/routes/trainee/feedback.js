@@ -1,90 +1,64 @@
-// header
-//
-// describe('<Unit test for feedback function>', function() {
-//
-//     describe('', function() {
-//         return it('Test case 1 : Create a Feedback (cmt & rating) for Class that doesnt have comment ', function(done) {
-//             var req = request(route).post('/trainee/feedback/getMyFeedbackByClass');
-//             req.cookies = globalCookies;
-//             req
-//             .send({
-//                 classId: 9,
-//                 comment: 'feedback test',
-//                 userEmail: 'thach@gmail.com',
-//                 rating: 3
-//             })
-//             .end(function(err, res) {
-//                 assert.equal('create successfully', 'create successfully');
-//                 if(err)
-//                 return done(err);
-//                 done();
-//             });
-//         });
-//     });
-//
-//     describe('', function() {
-//         return it('Test case 2 : Update Feedback (cmt & rating) for Class having comment already', function(done) {
-//             var req = request(route).post('/trainee/feedback/sendFeedback');
-//             req.cookies = globalCookies;
-//             req
-//             .send({
-//                 classId: 1,
-//                 comment: 'update feedback',
-//                 userEmail: 'thach@gmail.com',
-//                 rating: 3
-//             })
-//             .end(function(err,res){
-//                 assert.equal(res.body.msg,'update successfully');
-//                 if(err)
-//                 return done(err);
-//                 done();
-//             })
-//         });
-//     });
-
-    // describe('', function() {
-    //     return it('Test case 3 : show feedbacks of a class by its ID', function(done) {
-    //         var req = request(route).post('/feedback/getClassFeedbacks');
-    //         req.cookies = globalCookies;
-    //         req
-    //         .send({
-    //             classId: 1,
-    //         })
-    //         .end(function(err,res) {
-    //             //assert.equal(res.body[0].comment, 'show feedbacks of a course by its ID');
-    //             assert.equal('', '');
-    //             if(err)
-    //             return done(err);
-    //             done();
-    //         });
-    //         courseID: 10
-    //         afterEach(function() {
-    //             models.Feedback.destroy({
-    //                 where: {
-    //                     courseID: 10
-    //                 }
-    //             });
-    //         });
-    //     });
-    // });
+var request = require('supertest');
+var assert = require('chai').assert;
+var expect = require('chai').expect;
+process.env.NODE_ENV = 'test';
+var DCC_Server = require('../../../app.js');
 
 
 
-    // describe('', function() {
-    //     return it('Test case 6 : show average rating', function(done) {
-    //         var req = request(route).post('/feedback/showAverageRating');
-    //         req.cookies = globalCookies;
-    //         req
-    //         .send({
-    //             classId: 1,
-    //         })
-    //         .end(function(err,res){
-    //             assert.equal(res.body.result, res.body.result);
-    //             if(err)
-    //             return done(err);
-    //             done();
-    //         });
-    //     });
-    // });
-// 
-// });
+describe('<Unit test for trainee-feedback>', function() {
+    var Cookies;
+
+    beforeEach(function(done) {
+        request(DCC_Server)
+        .post('/login')
+        .set('Accept', 'application/json')
+        .send({
+            username: 'qwe@gmail.com',
+            password: 'qwe'
+        })
+        .end(function(err, res) {
+            Cookies = res.headers['set-cookie'].pop().split(';')[0];
+            if(err)
+            return done(err);
+            done();
+        });
+    });
+
+    afterEach(function(done) {
+        // Cleanup
+
+        //logout
+        request(DCC_Server).get('/logout')
+        done();
+    });
+
+    describe('Test case 1 : Get /trainee/feedback/getMyFeedbackByClass', function() {
+        return it('Should return success==true', function(done) {
+            var req = request(DCC_Server).post('/trainee/feedback/getMyFeedbackByClass');
+            req.cookies = Cookies;
+            req.send({classId: 1});
+            req.end(function(err, res) {
+
+                assert.equal(res.body.success, true);
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
+
+    describe('Test case 2 : Get /trainee/feedback/sendFeedback', function() {
+        return it('Should return success==true', function(done) {
+            var req = request(DCC_Server).post('/trainee/feedback/sendFeedback', {classId: 1, comments: 'test comments', rating: 5});
+            req.cookies = Cookies;
+            req.end(function(err, res) {
+
+                assert.equal(res.body.success, true);
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
+
+
+});
