@@ -32,6 +32,7 @@ router.get('/getAdminRequestOpenCourse', function(req, res) {
         });
 
         var datasend = {
+            success: true,
             msg:'send list success',
             data: resData
         };
