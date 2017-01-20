@@ -38,7 +38,6 @@ router.get('/getOpeningClass', function(req, res){
 
 router.post('/getRequestedOpeningCourse', function(req, res){
     var userEmail = req.body.userEmail;
-    console.log(userEmail);
     models.RequestOpening.getRequestedOpeningCourse(userEmail, function(requestedOpeningCourse){
         var datasend = {
             success: true,
@@ -52,8 +51,6 @@ router.post('/getRequestedOpeningCourse', function(req, res){
 router.post('/sendRegisterRequest', function(req, res){
     var courseId = req.body.courseId;
     var userEmail = req.body.userEmail;
-    console.log(userEmail);
-    console.log(courseId);
     //If request is already existed, don't add request to request_course table
     //If not, add request to request_course table
     models.RequestOpening.findOne({where:{userEmail:userEmail,courseId:courseId}}).then(function(requestOpening){
@@ -137,40 +134,85 @@ router.post('/getMyEnrolledClass', function(req, res){
     });
 });
 
-router.get('/createTest', function(req, res){
-    models.TrainingProgram.bulkCreate([
-        {id: '7', name: 'General Orientation test', description: 'description of trainning program 1 ', imgLink: '/img/courses/training-icon-1.svg'},
-        {id: '8', name: 'Linux Programming test', description: 'Description of Linux Programming ', imgLink: '/img/courses/training-icon-2.svg'}
-    ])
-    .then(function(){
-        
-    });
-    // models.Course.bulkCreate([
-    //     {id: '50', name: 'General Orientation test', description: 'description of trainning program 1 ', imgLink: '/img/courses/training-icon-1.svg', trainingProgramId: '7'},
-    //     {id: '51', name: 'Linux Programming test', description: 'Description of Linux Programming ', imgLink: '/img/courses/training-icon-2.svg', trainingProgramId: '8'},
-    //     {id: '52', name: 'Course for test', description: 'Description of test Programming ', imgLink: '/img/courses/training-icon-2.svg', trainingProgramId: '8'}
-    // ]);
-    // models.Class.bulkCreate([
-    //     {id: '50', courseId: '50', startTime: '2017-02-28 00:00:00'},
-    //     {id: '51', courseId: '51', startTime: '2017-01-15 00:00:00'}
-    // ]);
-    // models.ClassRecord.bulkCreate([
-    //     {id: '50', classId: '50', status: 'Learned', traineeEmail: 'qwe@gmail.com'},
-    //     {id: '51', classId: '51', status: 'Learned', traineeEmail: 'qwe@gmail.com'}
-    // ]);
-    // models.RequestOpening.create(
-    //     {id: '50', courseId: '52', requestType: 'Join', userEmail: 'qwe@gmail.com'}
-    // );
-
-
-});
-
-router.get('/destroyTest', function(req, res){
-    models.TrainingProgram.destroy({where: {id: [7, 8]}});
-    models.Course.destroy({where: {id: [50, 51, 52]}});
-    models.Class.destroy({where: {id: [50, 51]}});
-    models.ClassRecord.destroy({where: {id: [50, 51]}});
-    models.RequestOpening.destroy({where: {id: [50]}});
-});
+// router.get('/createTest', function(req, res){
+//     models.TrainingProgram.bulkCreate([
+//         {id: '7', name: 'General Orientation test', description: 'description of trainning program 1 ', imgLink: '/img/courses/training-icon-1.svg'},
+//         {id: '8', name: 'Linux Programming test', description: 'Description of Linux Programming ', imgLink: '/img/courses/training-icon-2.svg'}
+//     ]);
+//     models.Course.bulkCreate([
+//         {id: '50', name: 'General Orientation test', description: 'description of trainning program 1 ', imgLink: '/img/courses/training-icon-1.svg', trainingProgramId: '7'},
+//         {id: '51', name: 'Linux Programming test', description: 'Description of Linux Programming ', imgLink: '/img/courses/training-icon-2.svg', trainingProgramId: '8'},
+//         {id: '52', name: 'Course for test', description: 'Description of test Programming ', imgLink: '/img/courses/training-icon-2.svg', trainingProgramId: '8'}
+//     ]);
+//     models.Class.bulkCreate([
+//         {id: '50', courseId: '50', startTime: '2017-02-28 00:00:00'},
+//         {id: '51', courseId: '51', startTime: '2017-01-15 00:00:00'}
+//     ]);
+//     models.ClassRecord.bulkCreate([
+//         {id: '50', classId: '50', status: 'Learned', traineeEmail: 'qwe@gmail.com'},
+//         {id: '51', classId: '51', status: 'Learned', traineeEmail: 'qwe@gmail.com'}
+//     ]);
+//     models.RequestOpening.create(
+//         {id: '50', courseId: '52', requestType: 'Join', userEmail: 'qwe@gmail.com'}
+//     )
+//     .then(function(){
+//         var datasend = {
+//             success: true,
+//             msg: 'create test Success'
+//         }
+//         res.send(datasend);
+//     });;
+// });
+//
+// router.get('/destroyTest', function(req, res){
+//     models.TrainingProgram.destroy({where: {id: [7, 8]}})
+//     .then(function(){
+//         var datasend = {
+//             success: true,
+//             msg: 'destroy training program test Success'
+//         }
+//         res.send(datasend);
+//     })
+//     .then(function(){
+//         models.Course.destroy({where: {id: [50, 51, 52]}})
+//     })
+//     .then(function(){
+//         var datasend = {
+//             success: true,
+//             msg: 'destroy course test Success'
+//         }
+//         res.send(datasend);
+//     })
+//     .then(function(){
+//         models.Class.destroy({where: {id: [50, 51]}})
+//     })
+//     .then(function(){
+//         var datasend = {
+//             success: true,
+//             msg: 'destroy class test Success'
+//         }
+//         res.send(datasend);
+//     })
+//     .then(function(){
+//         models.ClassRecord.destroy({where: {id: [50, 51]}})
+//     })
+//     .then(function(){
+//         var datasend = {
+//             success: true,
+//             msg: 'destroy class record test Success'
+//         }
+//         res.send(datasend);
+//     })
+//     .then(function(){
+//         models.RequestOpening.destroy({where: {id: [50]}});
+//     })
+//     .then(function(){
+//         var datasend = {
+//             success: true,
+//             msg: 'destroy request opening test Success'
+//         }
+//         res.send(datasend);
+//     });
+// });
 
 module.exports = router;

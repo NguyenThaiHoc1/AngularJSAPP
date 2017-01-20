@@ -3,6 +3,7 @@ var assert = require('chai').assert;
 var expect = require('chai').expect;
 // process.env.NODE_ENV = 'test';
 var DCC_Server = require('../../../app.js');
+var models = require('../../../server/models');
 
 
 
@@ -19,17 +20,6 @@ describe('<Unit test for trainee-courseRegister>', function() {
         })
         .end(function(err, res) {
             Cookies = res.headers['set-cookie'].pop().split(';')[0];
-            if(err)
-            return done(err);
-            done();
-        });
-    });
-
-    beforeEach(function(done) {
-        request(DCC_Server)
-        .get('/trainee/courseRegister/createTest')
-        .set('Accept', 'application/json')
-        .end(function(err, res) {
             if(err)
             return done(err);
             done();
@@ -58,7 +48,7 @@ describe('<Unit test for trainee-courseRegister>', function() {
     describe('Test case 2 : Get Opening Class', function() {
         return it('Should return success==true', function(done) {
             var req = request(DCC_Server).get('/trainee/courseRegister/getOpeningClass')
-            .set('Accept', 'application/json')
+            // .set('Accept', 'application/json')
             .end(function(err, res) {
                 assert.equal(res.body.success, true);
                 if (err) return done(err);
@@ -90,6 +80,80 @@ describe('<Unit test for trainee-courseRegister>', function() {
             .send({userEmail:"qwe@gmail.com", courseId: 5})
             .end(function(err, res) {
                 assert.equal(res.body.success, false);
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
+
+    describe('Test case 5 : Send Register Request: Request is not existed, request-type is join (class is opening)', function() {
+        return it('Should return success==true', function(done) {
+            var req = request(DCC_Server)
+            .post('/trainee/courseRegister/sendRegisterRequest')
+            .set('Accept', 'application/json')
+            .send({userEmail:"qwe@gmail.com", courseId: 3})
+            .end(function(err, res) {
+                assert.equal(res.body.success, true);
+                models.RequestOpening.destroy({where: {userEmail:"qwe@gmail.com", courseId: 3}});
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
+
+    describe('Test case 6 : Send Register Request: Request is not existed, request-type is register (class is not opening)', function() {
+        return it('Should return success==true', function(done) {
+            var req = request(DCC_Server)
+            .post('/trainee/courseRegister/sendRegisterRequest')
+            .set('Accept', 'application/json')
+            .send({userEmail:"qwe@gmail.com", courseId: 4})
+            .end(function(err, res) {
+                assert.equal(res.body.success, true);
+                models.RequestOpening.destroy({where: {userEmail:"qwe@gmail.com", courseId: 4}});
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
+
+    describe('Test case 7 : Delete Request Course', function() {
+        return it('Should return success==true', function(done) {
+            var req = request(DCC_Server)
+            .post('/trainee/courseRegister/deleteRequestOpening')
+            .set('Accept', 'application/json')
+            .send({userEmail:"qwe@gmail.com", courseId: 2})
+            .end(function(err, res) {
+                assert.equal(res.body.success, true);
+                models.RequestOpening.create({userEmail:"qwe@gmail.com", courseId: 2, requestType: 'register'});
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
+
+    describe('Test case 8 : Un-enroll Course', function() {
+        return it('Should return success==true', function(done) {
+            var req = request(DCC_Server)
+            .post('/trainee/courseRegister/unEnrollCourse')
+            .set('Accept', 'application/json')
+            .send({traineeEmail:"qwe@gmail.com", classId: 1})
+            .end(function(err, res) {
+                assert.equal(res.body.success, true);
+                models.ClassRecord.create({traineeEmail:"qwe@gmail.com", classId: 1});
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
+
+    describe('Test case 9 : Get my enroll class', function() {
+        return it('Should return success==true', function(done) {
+            var req = request(DCC_Server)
+            .post('/trainee/courseRegister/getMyEnrolledClass')
+            .set('Accept', 'application/json')
+            .send({traineeEmail:"qwe@gmail.com"})
+            .end(function(err, res) {
+                assert.equal(res.body.success, true);
                 if (err) return done(err);
                 done();
             });
