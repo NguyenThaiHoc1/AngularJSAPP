@@ -1,4 +1,4 @@
-var _courseModel = require('./DataObjects/course');
+var _courseModel = require('./DataObjects/Course');
 var log = require('../../config/logConfig');
 var models = require("./index");
 
