@@ -33,20 +33,20 @@ describe('<Unit test for admin-course>', function() {
 
     describe('Test case 1 : Post /admin/courses/addCourse', function() {
         return it('Should return success==true', function(done) {
+
+            var req = request(DCC_Server).post('/admin/courses/addCourse');
             req.cookies = Cookies;
-            var req = request(DCC_Server)
-            .post('/admin/courses/addCourse')
-            .send({
+            req.send({
                 name: 'test creat name course',
                 description: 'test creat name description',
-                duration: 'test duration',
-                test: 'test test',
-                documents: 'test documents',
+                duration: 'test creat duration',
+                test: 'test creat test',
+                documents: 'test creat documents',
                 isDeleted:  0,
-                courseTypeId: 1,
-                trainingProgramId: 1,
-            })
-            .end(function(err, res) {
+                courseTypeId: {id:1},
+                trainingProgramId:{id:1},
+            });
+            req.end(function(err, res) {
 
                 assert.equal(res.body.success, true);
                 if (err) return done(err);
@@ -67,8 +67,8 @@ describe('<Unit test for admin-course>', function() {
                 test: 'test update test',
                 documents: 'test update documents',
                 isDeleted:  0,
-                courseTypeId: 1,
-                trainingProgramId: 1,
+                courseTypeId: {id:1},
+                trainingProgramId:{id:1},
             });
             req.end(function(err, res) {
 
