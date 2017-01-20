@@ -3,6 +3,7 @@ var assert = require('chai').assert;
 var expect = require('chai').expect;
 process.env.NODE_ENV = 'test';
 var DCC_Server = require('../../../app.js');
+var models = require('../../../server/models');
 
 
 
@@ -49,15 +50,19 @@ describe('<Unit test for user profile>', function() {
         return it('Should return success==true', function(done) {
             var req = request(DCC_Server).post('/user/userProfile/updateUserProfile');
             req.send({
+                email: 'qwe@gmail.com',
                 username: 'Thao test',
-                status: 'test status',
-                dob: 28/04/1995,
-                phone: 09090909,
-                role: 1
+                status: 'test status'
             });
             req.cookies = Cookies;
             req.end(function(err, res) {
                 assert.equal(res.body.success, true);
+                models.User.update({
+                    username: 'Your name',
+                    status: 'some status'
+                },{
+                    where:{email:'qwe@gmail.com'}
+                });
                 if (err) return done(err);
                 done();
             });
@@ -67,10 +72,13 @@ describe('<Unit test for user profile>', function() {
         return it('Should return success==true', function(done) {
             var req = request(DCC_Server).post('/user/userProfile/photo');
             req.cookies = Cookies;
+            req.send({
+                email: 'qwe@gmail.com'
+            });
             req.field('filename', 'test file');
-            req.attach('userPhoto', 'test/routes/user/test.jpg')
+            req.attach('userPhoto', 'test/routes/user/test.jpg');
             req.end(function(err, res) {
-                assert.equal(res.redirect,true);
+                assert.equal(res.status, '302');
                 if (err) return done(err);
                 done();
             });
