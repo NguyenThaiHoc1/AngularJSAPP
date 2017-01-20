@@ -3,6 +3,7 @@ var assert = require('chai').assert;
 var expect = require('chai').expect;
 //process.env.NODE_ENV = 'test';
 var DCC_Server = require('../../../app.js');
+var models = require('../../../server/models');
 
 describe('<Unit test for admin-course>', function() {
     var Cookies;
@@ -49,6 +50,7 @@ describe('<Unit test for admin-course>', function() {
             req.end(function(err, res) {
 
                 assert.equal(res.body.success, true);
+                models.Course.destroy({where: {name:"test creat name course"}});
                 if (err) return done(err);
                 done();
             });
@@ -62,17 +64,24 @@ describe('<Unit test for admin-course>', function() {
             req.send({
                 id: 1,
                 name: 'test update name course',
-                description: 'test update name description',
-                duration: 'test update duration',
-                test: 'test update test',
-                documents: 'test update documents',
-                isDeleted:  0,
-                courseTypeId: {id:1},
-                trainingProgramId:{id:1},
+                // description: 'test update name description',
+                // duration: 'test update duration',
+                // test: 'test update test',
+                // documents: 'test update documents',
+                // isDeleted:  0,
+                // courseTypeId: {id:1},
+                // trainingProgramId:{id:1},
             });
             req.end(function(err, res) {
 
                 assert.equal(res.body.success, true);
+                models.Course.update({
+                    name: 'Training Overview',
+                } ,{
+                    where: {
+                        id: 1
+                    }
+                });
                 if (err) return done(err);
                 done();
             });
@@ -90,6 +99,13 @@ describe('<Unit test for admin-course>', function() {
             req.end(function(err, res) {
 
                 assert.equal(res.body.success, true);
+                models.Course.update({
+                    isDeleted: false,
+                } ,{
+                    where: {
+                        id: 1
+                    }
+                });
                 if (err) return done(err);
                 done();
             });
