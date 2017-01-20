@@ -1,6 +1,6 @@
 module.exports =
 {
-    "development": {
+    "dev": {
         "dialect": "mysql",
         "username": "root",
         "password": "root",
@@ -28,7 +28,7 @@ module.exports =
         port: 3311,
         "logging": false
    },
-    "production": {
+    "development": {
         "dialect": "mysql",
         "username": "root",
         "password": "dekvn@123321",
