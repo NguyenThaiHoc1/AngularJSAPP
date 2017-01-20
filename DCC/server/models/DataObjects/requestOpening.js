@@ -14,6 +14,11 @@ module.exports=
         type: SequelizeDatatypes.INTEGER,
         allowNull: true
     },
+    requestType:
+    {
+        type: SequelizeDatatypes.STRING,
+        allowNullL: false
+    },
     requestTime:
     {
         type: SequelizeDatatypes.DATE,

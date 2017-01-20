@@ -12,8 +12,8 @@ router.post ('/getMyFeedbackByClass', function(req, res){
     models.Feedback.findOne(query).then(function(feedback) {
         if(!feedback){
             models.Feedback.create({
-                comments: 'test',
-                rating: '5',
+                comments: '',
+                rating: '',
                 userEmail: req.user.email,
                 classId: req.body.classId
 
@@ -48,7 +48,7 @@ router.post ('/sendFeedback', function(req, res){
         models.Feedback.getFeedbackByClassIDByUserID(req.body.classId, req.body.userEmail, function(feedback){
                 models.Feedback.update({
                     comments: req.body.comments,
-                    rating: req.body.rate
+                    rating: req.body.rating
                 }, {
                     where: {
                         userEmail: req.user.email,

@@ -2,11 +2,22 @@ var _requestOpeningModel = require('./DataObjects/requestOpening');
 module.exports = function(sequelize, DataTypes) {
     var RequestOpening = sequelize.define('RequestOpening', _requestOpeningModel, {
         classMethods: {
-            addRequestOpeningCourse: function(userEmail, courseId, cb)
+            addRequestRegister: function(userEmail, courseId, cb)
             {
                 var query = {
                     userEmail : userEmail,
                     courseId : courseId,
+                    requestType: "register",
+                    requestTime : Date.now()
+                };
+                RequestOpening.create(query).then(cb);
+            },
+            addRequestJoin: function(userEmail, courseId, cb)
+            {
+                var query = {
+                    userEmail : userEmail,
+                    courseId : courseId,
+                    requestType: "join",
                     requestTime : Date.now()
                 };
                 RequestOpening.create(query).then(cb);
