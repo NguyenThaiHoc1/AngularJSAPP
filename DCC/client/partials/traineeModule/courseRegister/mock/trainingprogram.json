@@ -1,0 +1,80 @@
+[
+    {
+        "id":"1",
+        "name": "General Orientation",
+        "description": "description of trainning program 1        some more description        some more description",
+        "imgLink":"/img/courses/training-icon-1.svg",
+        "completePercent": "60",
+        "myCourseList":[
+            {
+                "id": "101",
+                "name": "Training Overview ",
+                "description": "Brief overview for all training courses",
+                "imgLink":"/img/courses/training-icon-2.svg",
+                "status": "Enrolled",
+                "actionOne": "Un-enroll",
+                "actiontwo": "Course Detail",
+                "isOpening": 0
+            },
+            {
+                "id": "102",
+                "name": "DEK Organization and Culture ",
+                "description": "1. Who is D.E.K ? 2. DEK Offices 3. Site Organisation Chart",
+                "imgLink":"/img/courses/training-icon-3.svg",
+                "status": "Learning",
+                "actionOne": "Skip a class",
+                "actiontwo": "Give feedback",
+                "isOpening": 1
+            },
+            {
+                "id": "103",
+                "name": "Our Customer Ericsson",
+                "description": "1. Ericsson Vision and Core Values",
+                "imgLink":"/img/courses/training-icon-4.svg",
+                "status": "Not test",
+                "actionOne": "<other action>",
+                "actiontwo": "Give feedback",
+                "isOpening": 0
+            },
+            {
+                "id": "104",
+                "name": "IT Policy and Infrastructure",
+                "description": "1. ICT policy",
+                "imgLink":"/img/courses/training-icon-1.svg",
+                "status": "Learned",
+                "actionOne": "Re-enroll",
+                "actiontwo": "Give feedback",
+                "isOpening": 1
+            }
+        ]
+    },
+    {
+        "id":"2",
+        "name": "Linux Programming",
+        "description": "Description of Linux Programming",
+        "imgLink":"/img/courses/training-icon-2.svg",
+        "completePercent": "40",
+        "myCourseList":[
+            {
+                "id": "201",
+                "name": "Linux Programming Training Overview ",
+                "description": "Brief overview for all training courses",
+                "imgLink":"/img/courses/training-icon-3.svg",
+                "status": "Enrolled",
+                "actionOne": "Un-enroll",
+                "actiontwo": "Course Detail",
+                "isOpening": 1
+            },
+            {
+                "id": "203",
+                "name": "Our Customer Ericsson",
+                "description": "1. Ericsson Vision and Core Values  2. Ericsson Structure and where we fit",
+                "imgLink":"/img/courses/training-icon-1.svg",
+                "status": "Not test",
+                "actionOne": "<other action>",
+                "actiontwo": "Give feedback",
+                "isOpening": 0
+            }
+        ]
+    }
+]

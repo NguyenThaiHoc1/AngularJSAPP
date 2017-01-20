@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="container row">
+        <div class="span12">
+            <!-- SEARCH BOX -->
+            <div class="widget widget-nopad" ng-controller="adminDashboardCtrl">
+                <div class="widget-header">
+                    <center><font size="6px" style="color: black"><b>Request Open Courses</b></font></center>
+                </div>
+                <div class="widget-content" >
+                    <div class="widget big-stats-container" style="margin-bottom:0">
+                        <div class="widget-content">
+                            <div class="control-group">
+                                <div class="controls">
+                                    <div class="panel-group" style="margin-bottom: 0;">
+                                        <div class="panel panel-default" ng-repeat="adminRequestOpenCourse in adminRequestOpenCourseList">
+                                            <div class="row" style="padding-bottom:10px; margin: 0px; border: 1px solid grey; border-radius: 5px;">
+                                                <div class="col-md-10">
+                                                    <blockquote class="blockquote" style="border-left: none; padding-left:0px; padding-top: 20px">
+                                                        <a ui-sref="courseDetail({courseId: adminRequestOpenCourse.course.id})" style="text-decoration: none">
+                                                            <img  style="float:left; clear:both; margin:8px;" alt="course-icon" class="img-responsive" src = "{{adminRequestOpenCourse.course.imgLink}}" width="90px">
+                                                            <font size="6px" color="black" style="margin-top: 10px;">{{adminRequestOpenCourse.course.name}}</font>
+                                                            <footer class="blockquote-footer" style="color: black;">{{adminRequestOpenCourse.course.description}}</footer>
+                                                        </a>
+                                                    </blockquote>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <center>
+                                                        <br>
+                                                        <div>{{adminRequestOpenCourse.numberOfRequest}} <i class="glyphicon glyphicon-user"></i></div>
+                                                        <br>
+                                                        <a ng-click="cancelRequestClick(adminRequestOpenCourse.id)" class="col-md-12 col-sm-6 btn btn-md btn-warning" style="margin-top:5px;">Cancel Request</a>
+                                                    </center>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

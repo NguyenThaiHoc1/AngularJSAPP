@@ -1,36 +1,49 @@
 var SequelizeDatatypes = require('sequelize');
 
-module.exports =
+module.exports=
 {
     name:
     {
-      type: SequelizeDatatypes.STRING,
-      allowNull: false
+        type: SequelizeDatatypes.TEXT,
+        allowNull: false
     },
     description:
     {
-      type: SequelizeDatatypes.TEXT,
-      allowNull: true
+        type: SequelizeDatatypes.TEXT,
+        allowNull: true
     },
-    category:
+    duration:
     {
-      type: SequelizeDatatypes.STRING,
-      allowNull: false
+        type: SequelizeDatatypes.TIME,
+        allowNull: true
+    },
+    imgLink:
+    {
+        type: SequelizeDatatypes.TEXT,
+        allowNull: false
     },
     documents:
     {
-      type: SequelizeDatatypes.STRING,
-      allowNull: true
+        type: SequelizeDatatypes.TEXT,
+        allowNull: true
     },
     test:
     {
-      type: SequelizeDatatypes.STRING,
-      allowNull: true
+        type: SequelizeDatatypes.TEXT,
+        allowNull: true
     },
-    isDeleted:
+    isDeleted:{
+        type: SequelizeDatatypes.BOOLEAN,
+        allowNull: true
+    },
+    courseTypeId:
     {
-      type: SequelizeDatatypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: false
-    }
-};
+        type: SequelizeDatatypes.INTEGER,
+        allowNull: false
+    },
+    trainingProgramId:
+    {
+        type: SequelizeDatatypes.INTEGER,
+        allowNull: false
+    },
+}
