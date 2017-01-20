@@ -14,7 +14,7 @@ router.get('/getTrainingProgram', function(req, res){
                         include: [
                             {
                                 model: models.ClassRecord,
-                                where: {traineeEmail: req.user.email} //req.user.email
+                                where: {traineeEmail: req.user.email}
                             }
                         ]
                     }
