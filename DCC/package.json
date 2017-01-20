@@ -6,6 +6,7 @@
   "dependencies": {
     "acl": "^0.4.9",
     "acl-mongodb": "^0.1.0",
+    "angular-bootstrap-toggle": "^0.1.2",
     "bcryptjs": "^2.3.0",
     "body-parser": "^1.15.2",
     "chai": "^3.4.1",
@@ -52,6 +53,7 @@
     "karma-mocha": "^1.1.1",
     "karma-phantomjs-launcher": "^1.0.1",
     "karma-sinon-chai": "^1.2.3",
+    "mark.js": "github:julmot/mark.js",
     "mocha": "^2.5.3"
   },
   "scripts": {

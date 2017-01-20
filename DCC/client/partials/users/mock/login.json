@@ -1,0 +1,9 @@
+{
+	"success": true,
+	"data":{
+        "userRole": "1",
+		"firstName" : "John",
+		"lastName" : "Smith",
+		"email": "mail2asik@gmail.com"
+	}
+}
