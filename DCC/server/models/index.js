@@ -58,5 +58,7 @@ db.Class.hasMany(db.Feedback, { foreignKey: 'classId' });
 //association of table RequestOpening and course
 db.RequestOpening.belongsTo(db.Course, { foreignKey: 'courseId' });
 db.Course.hasMany(db.RequestOpening, { foreignKey: 'courseId' });
+db.RequestOpening.belongsTo(db.User, { foreignKey: 'userEmail' });
+db.User.hasMany(db.RequestOpening, { foreignKey: 'userEmail' });
 
 module.exports = db;
