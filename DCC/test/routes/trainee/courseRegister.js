@@ -35,8 +35,9 @@ describe('<Unit test for trainee-courseRegister>', function() {
 
     describe('Test case 1 : Get training programs', function() {
         return it('Should return success==true', function(done) {
-            var req = request(DCC_Server).get('/trainee/courseRegister/getTrainingProgram')
-            .set('Accept', 'application/json')
+            var req = request(DCC_Server).get('/trainee/courseRegister/getTrainingProgram');
+            req.cookies = Cookies;
+            req.set('Accept', 'application/json')
             .end(function(err, res) {
                 assert.equal(res.body.success, true);
                 if (err) return done(err);
@@ -47,9 +48,9 @@ describe('<Unit test for trainee-courseRegister>', function() {
 
     describe('Test case 2 : Get Opening Class', function() {
         return it('Should return success==true', function(done) {
-            var req = request(DCC_Server).get('/trainee/courseRegister/getOpeningClass')
-            // .set('Accept', 'application/json')
-            .end(function(err, res) {
+            var req = request(DCC_Server).get('/trainee/courseRegister/getOpeningClass');
+            req.cookies = Cookies;
+            req.end(function(err, res) {
                 assert.equal(res.body.success, true);
                 if (err) return done(err);
                 done();
@@ -60,8 +61,9 @@ describe('<Unit test for trainee-courseRegister>', function() {
     describe('Test case 3 : Get Request Course', function() {
         return it('Should return success==true', function(done) {
             var req = request(DCC_Server)
-            .post('/trainee/courseRegister/getRequestedOpeningCourse')
-            .set('Accept', 'application/json')
+            .post('/trainee/courseRegister/getRequestedOpeningCourse');
+            req.cookies = Cookies;
+            req.set('Accept', 'application/json')
             .send({userEmail: "qwe@gmail.com"})
             .end(function(err, res) {
 
@@ -75,8 +77,9 @@ describe('<Unit test for trainee-courseRegister>', function() {
     describe('Test case 4 : Send Register Request: Request is existed', function() {
         return it('Should return success==false', function(done) {
             var req = request(DCC_Server)
-            .post('/trainee/courseRegister/sendRegisterRequest')
-            .set('Accept', 'application/json')
+            .post('/trainee/courseRegister/sendRegisterRequest');
+            req.cookies = Cookies;
+            req.set('Accept', 'application/json')
             .send({userEmail:"qwe@gmail.com", courseId: 5})
             .end(function(err, res) {
                 assert.equal(res.body.success, false);
@@ -89,8 +92,9 @@ describe('<Unit test for trainee-courseRegister>', function() {
     describe('Test case 5 : Send Register Request: Request is not existed, request-type is join (class is opening)', function() {
         return it('Should return success==true', function(done) {
             var req = request(DCC_Server)
-            .post('/trainee/courseRegister/sendRegisterRequest')
-            .set('Accept', 'application/json')
+            .post('/trainee/courseRegister/sendRegisterRequest');
+            req.cookies = Cookies;
+            req.set('Accept', 'application/json')
             .send({userEmail:"qwe@gmail.com", courseId: 3})
             .end(function(err, res) {
                 assert.equal(res.body.success, true);
@@ -104,8 +108,9 @@ describe('<Unit test for trainee-courseRegister>', function() {
     describe('Test case 6 : Send Register Request: Request is not existed, request-type is register (class is not opening)', function() {
         return it('Should return success==true', function(done) {
             var req = request(DCC_Server)
-            .post('/trainee/courseRegister/sendRegisterRequest')
-            .set('Accept', 'application/json')
+            .post('/trainee/courseRegister/sendRegisterRequest');
+            req.cookies = Cookies;
+            req.set('Accept', 'application/json')
             .send({userEmail:"qwe@gmail.com", courseId: 4})
             .end(function(err, res) {
                 assert.equal(res.body.success, true);
@@ -119,8 +124,9 @@ describe('<Unit test for trainee-courseRegister>', function() {
     describe('Test case 7 : Delete Request Course', function() {
         return it('Should return success==true', function(done) {
             var req = request(DCC_Server)
-            .post('/trainee/courseRegister/deleteRequestOpening')
-            .set('Accept', 'application/json')
+            .post('/trainee/courseRegister/deleteRequestOpening');
+            req.cookies = Cookies;
+            req.set('Accept', 'application/json')
             .send({userEmail:"qwe@gmail.com", courseId: 2})
             .end(function(err, res) {
                 assert.equal(res.body.success, true);
@@ -134,8 +140,9 @@ describe('<Unit test for trainee-courseRegister>', function() {
     describe('Test case 8 : Un-enroll Course', function() {
         return it('Should return success==true', function(done) {
             var req = request(DCC_Server)
-            .post('/trainee/courseRegister/unEnrollCourse')
-            .set('Accept', 'application/json')
+            .post('/trainee/courseRegister/unEnrollCourse');
+            req.cookies = Cookies;
+            req.set('Accept', 'application/json')
             .send({traineeEmail:"qwe@gmail.com", classId: 1})
             .end(function(err, res) {
                 assert.equal(res.body.success, true);
@@ -149,8 +156,9 @@ describe('<Unit test for trainee-courseRegister>', function() {
     describe('Test case 9 : Get my enroll class', function() {
         return it('Should return success==true', function(done) {
             var req = request(DCC_Server)
-            .post('/trainee/courseRegister/getMyEnrolledClass')
-            .set('Accept', 'application/json')
+            .post('/trainee/courseRegister/getMyEnrolledClass');
+            req.cookies = Cookies;
+            req.set('Accept', 'application/json')
             .send({traineeEmail:"qwe@gmail.com"})
             .end(function(err, res) {
                 assert.equal(res.body.success, true);

@@ -3,7 +3,7 @@ var log = require('../../config/logConfig');
 
 function getUserRole(userEmail){
     models.User.findOne({where:{email: userEmail}}).then(user =>{
-        console.log(user);
+        // console.log(user);
         return user.role;
     })
 }
