@@ -13,6 +13,7 @@ var myApp = angular.module('myApp', [
     'home',
     'calendarModule',
     'courseDetail',
+    'modalModule',
     'admin_courseManagement',
     'admin_dashboard',
 
