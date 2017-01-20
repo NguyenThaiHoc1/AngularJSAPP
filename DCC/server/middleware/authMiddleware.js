@@ -1,18 +1,60 @@
+var models = require('../models');
+var log = require('../../config/logConfig');
+
+function getUserRole(){
+    models.User.findOne({where:{email: req.user.email}}).then(user =>{
+        return user.role;
+    })
+}
+
 var authMiddleware = {
     ensureAuthenticated: function ensureAuthenticated(req, res, next) {
         if (req.isAuthenticated()) {
             return next();
         }else{
-            console.log('Receive unauthenticated request');
+            log.info('Receive unauthenticated request');
             res.send({
                 success: false,
                 msg: "You need to login first"
             });
-            // res.redirect('/');
+        }
+    },
+    ensureAdminPrivilege: function ensureAdminPrivilege(req, res, next){
+        if (req.isAuthenticated() && getUserRole() == 1) {
+            return next();
+        }else{
+            log.info('Receive under-privilege request to admin route');
+            res.send({
+                success: false,
+                msg: "You need Admin privilege to access this route"
+            });
+        }
+    },
+    ensureTrainerPrivilege: function ensureTrainerPrivilege(req, res, next){
+        if (req.isAuthenticated() && getUserRole() == 1) {
+            return next();
+        }else{
+            log.info('Receive under-privilege request to trainer route');
+            res.send({
+                success: false,
+                msg: "You need Trainer privilege to access this route"
+            });
+        }
+    },
+    ensureTraineePrivilege: function ensureTraineePrivilege(req, res, next){
+        if (req.isAuthenticated() && getUserRole() == 1) {
+            return next();
+        }else{
+            log.info('Receive under-privilege request to trainee route');
+            res.send({
+                success: false,
+                msg: "You need Trainee privilege to access this route"
+            });
         }
     },
 
-}
+
+};
 
 
 module.exports = authMiddleware;
