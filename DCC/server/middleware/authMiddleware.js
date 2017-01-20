@@ -1,8 +1,9 @@
 var models = require('../models');
 var log = require('../../config/logConfig');
 
-function getUserRole(){
-    models.User.findOne({where:{email: req.user.email}}).then(user =>{
+function getUserRole(userEmail){
+    models.User.findOne({where:{email: userEmail}}).then(user =>{
+        console.log(user);
         return user.role;
     })
 }
@@ -20,7 +21,7 @@ var authMiddleware = {
         }
     },
     ensureAdminPrivilege: function ensureAdminPrivilege(req, res, next){
-        if (req.isAuthenticated() && getUserRole() == 1) {
+        if (req.isAuthenticated() && getUserRole(req.user.email) == 1) {
             return next();
         }else{
             log.info('Receive under-privilege request to admin route');
@@ -31,7 +32,7 @@ var authMiddleware = {
         }
     },
     ensureTrainerPrivilege: function ensureTrainerPrivilege(req, res, next){
-        if (req.isAuthenticated() && getUserRole() == 1) {
+        if (req.isAuthenticated() && getUserRole(req.user.email) == 1) {
             return next();
         }else{
             log.info('Receive under-privilege request to trainer route');
@@ -42,7 +43,7 @@ var authMiddleware = {
         }
     },
     ensureTraineePrivilege: function ensureTraineePrivilege(req, res, next){
-        if (req.isAuthenticated() && getUserRole() == 1) {
+        if (req.isAuthenticated() && getUserRole(req.user.email) == 1) {
             return next();
         }else{
             log.info('Receive under-privilege request to trainee route');

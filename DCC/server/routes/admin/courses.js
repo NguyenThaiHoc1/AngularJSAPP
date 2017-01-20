@@ -39,7 +39,6 @@ router.post('/addCourse', function(req, res) {
 
 // update course in database
 router.post('/updateCourse', function(req, res) {
-    console.log("aaaaaaaaaa");
     log.info('/admin/updateCourse: Add course :' + req.body.name);
     models.Course.sync({
         force: false
@@ -106,6 +105,7 @@ router.get('/getCourseList', function(req, res) {
         include: [ models.TrainingProgram ]
     }).then(function(course) {
         var datasend = {
+            success: true,
             course: course,
             msg:'send list success'
         };
@@ -127,6 +127,7 @@ router.get('/getCourseTypeList', function(req, res) {
     var query = { include: [ models.Course ]};
     models.CourseType.findAll(query).then(function(courseType) {
         var datasend = {
+            success: true,
             msg:'send list success',
             courseType: courseType
         };
@@ -138,6 +139,7 @@ router.get('/getTrainingProgramList', function(req, res){
 
     models.TrainingProgram.findAll().then(function(trainingProgram) {
         var datasend = {
+            success: true,
             msg:'send list success',
             data: trainingProgram
         };

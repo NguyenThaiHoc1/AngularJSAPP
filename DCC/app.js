@@ -38,7 +38,7 @@ app.set('partials', path.join(__dirname, '/client'));
 app.use(express.static(path.join(__dirname, '/client')));
 
 //register router
-app.use('/',        require('./server/routes/index.js'));
+app.use('/', require('./server/routes/index.js'));
 
 //create database tables
 models.sequelize.sync({force:false});
