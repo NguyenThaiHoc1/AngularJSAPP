@@ -12,3 +12,20 @@ myApp.config(function($stateProvider) {
         },
     });
 });
+
+//factory
+myApp.factory('adminDashboardServices', ['$http', function($http) {
+    var factoryDefinitions={
+        getAdminRequestOpenCourse: function(){
+            return $http.get('/admin/dashboard/getAdminRequestOpenCourse').success(function(data) { return data; });
+        }
+    }
+    return factoryDefinitions;
+}]);
+
+//Controllers
+myApp.controller('adminDashboardCtrl', ['$scope', 'adminDashboardServices','$rootScope', '$state', function($scope, adminDashboardServices, $rootScope, $state) {
+    adminDashboardServices.getAdminRequestOpenCourse().then(function(result){
+        $scope.adminRequestOpenCourseList = result.data.data;
+    });
+}]);

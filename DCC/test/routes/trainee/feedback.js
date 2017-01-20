@@ -1,4 +1,3 @@
-// header
 
 // describe('<Unit test for feedback function>', function() {
 //
@@ -42,49 +41,5 @@
 //         });
 //     });
 
-    // describe('', function() {
-    //     return it('Test case 3 : show feedbacks of a class by its ID', function(done) {
-    //         var req = request(route).post('/feedback/getClassFeedbacks');
-    //         req.cookies = globalCookies;
-    //         req
-    //         .send({
-    //             classId: 1,
-    //         })
-    //         .end(function(err,res) {
-    //             //assert.equal(res.body[0].comment, 'show feedbacks of a course by its ID');
-    //             assert.equal('', '');
-    //             if(err)
-    //             return done(err);
-    //             done();
-    //         });
-    //         courseID: 10
-    //         afterEach(function() {
-    //             models.Feedback.destroy({
-    //                 where: {
-    //                     courseID: 10
-    //                 }
-    //             });
-    //         });
-    //     });
-    // });
-
-
-
-    // describe('', function() {
-    //     return it('Test case 6 : show average rating', function(done) {
-    //         var req = request(route).post('/feedback/showAverageRating');
-    //         req.cookies = globalCookies;
-    //         req
-    //         .send({
-    //             classId: 1,
-    //         })
-    //         .end(function(err,res){
-    //             assert.equal(res.body.result, res.body.result);
-    //             if(err)
-    //             return done(err);
-    //             done();
-    //         });
-    //     });
-    // });
 
 // });

@@ -19,6 +19,7 @@ router.post ('/getMyFeedbackByClass', function(req, res){
 
             }).then(function() {
                 var datasend = {
+                    success: true,
                     msg:'for test: create done',
                     feedback: {
                         comments: 'test',
@@ -32,6 +33,7 @@ router.post ('/getMyFeedbackByClass', function(req, res){
         }
         else{
             var datasend = {
+                success: true,
                 msg:'give feedback success',
                 feedback: feedback
             };
@@ -41,28 +43,24 @@ router.post ('/getMyFeedbackByClass', function(req, res){
 });
 
 router.post ('/sendFeedback', function(req, res){
-    models.Feedback.sync({
-        force: false
-    }).then(function() {
-        // this function check if the user used comment for class
-        models.Feedback.getFeedbackByClassIDByUserID(req.body.classId, req.body.userEmail, function(feedback){
-                models.Feedback.update({
-                    comments: req.body.comments,
-                    rating: req.body.rating
-                }, {
-                    where: {
-                        userEmail: req.user.email,
-                        classId: req.body.classId
-                    }
-                }).then(function() {
-                    res.send({
-                        feedback:feedback,
-                        success: true,
-                        msg: 'update Feedback success!'
-                    });
-                });
-
+    // this function check if the user used comment for class
+    models.Feedback.getFeedbackByClassIDByUserID(req.body.classId, req.body.userEmail, function(feedback){
+        models.Feedback.update({
+            comments: req.body.comments,
+            rating: req.body.rating
+        }, {
+            where: {
+                userEmail: req.user.email,
+                classId: req.body.classId
+            }
+        }).then(function() {
+            res.send({
+                feedback:feedback,
+                success: true,
+                msg: 'update Feedback success!'
+            });
         });
+
     });
 });
 
