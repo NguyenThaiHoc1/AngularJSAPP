@@ -19,11 +19,8 @@ p {
 .h1 .h2 .h3 .h4{
     color: black;
 }
-input,
-button,
-select,
-textarea {
-  font-family: 'Open Sans';
+input,button,select,textarea {
+      font-family: 'Open Sans';
 }
 
 .dropdown .dropdown-menu {
@@ -56,12 +53,6 @@ textarea {
 	color: #444;
 	text-transform: uppercase;
 }
-
-
-
-
-
-
 
 /*------------------------------------------------------------------
 [2. Navbar / .navbar]
@@ -123,7 +114,7 @@ textarea {
     }
 
 .subnavbar-inner {
-	height: 60px;
+	height: 50px;
 	background: #fff;
 	border-bottom: 1px solid #d6d6d6;
 }
@@ -131,7 +122,7 @@ textarea {
 .subnavbar .container > ul {
 	display: inline-block;
 
-	height: 80px;
+    height: 50px;
 	padding: 0;
 	margin: 0;
 
@@ -141,7 +132,7 @@ textarea {
 	float: left;
 
 	min-width: 90px;
-	height: 60px;
+	height: 50px;
 	padding: 0;
 	margin: 0;
 
@@ -157,15 +148,15 @@ textarea {
 	display: block;
     text-decoration: none;
 	height: 100%;
-	padding: 0 15px;
+	padding: 0 5px;
 
-	font-size: 15px;
+	font-size: 12px;
 	font-weight: bold;
-	color: #b2afaa;
+	color: black;
 }
 
 .subnavbar .container > ul > li > a:hover {
-	color: black;
+	color: #ff7f74;
 	text-decoration: none;
 }
 
@@ -174,9 +165,9 @@ textarea {
     text-decoration: none;
 	width: 24px;
 	height: 24px;
-	margin-top: 11px;
+	margin-top: 5px;
 	margin-bottom: -3px;
-	font-size: 25px;
+	font-size: 20px;
 }
 
 .subnavbar .container > ul > li > a > span {
@@ -186,9 +177,9 @@ textarea {
 
 
 .subnavbar .container > ul > li.active > a {
-
-	border-bottom:3px solid #ff7f74;
-	color: #383838;
+    background-color: #ff7f74;
+	/*border-bottom:3px solid #ff7f74;*/
+	color: white;
 }
 
 
@@ -352,22 +343,22 @@ textarea {
 
 	position: relative;
 
-	height: 60px;
-	line-height: 60px;
+	height: 30px;
+	line-height: 30px;
 
-	background: #66CFFF;
-	background:-moz-linear-gradient(top, #66CFFF 0%, #FFFFF 100%); /* FF3.6+ */
+	background: #00356B;
+	background:-moz-linear-gradient(top, #00356B 0%, #FFFFF 100%); /* FF3.6+ */
 	background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFFFF), color-stop(100%,#FFFFF)); /* Chrome,Safari4+ */
-	background:-webkit-linear-gradient(top, #66CFFF 0%,#FFFFF 100%); /* Chrome10+,Safari5.1+ */
-	background:-o-linear-gradient(top, #66CFFF 0%,#FFFFF 100%); /* Opera11.10+ */
-	background:-ms-linear-gradient(top, #66CFFF 0%,#FFFFF 100%); /* IE10+ */
-	background:linear-gradient(top, #66CFFF 0%,#FFFFF 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#66CFFF', endColorstr='#f2efea');
-	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#66CFFF', endColorstr='#f2efea')";
+	background:-webkit-linear-gradient(top, #00356B 0%,#FFFFF 100%); /* Chrome10+,Safari5.1+ */
+	background:-o-linear-gradient(top, #00356B 0%,#FFFFF 100%); /* Opera11.10+ */
+	background:-ms-linear-gradient(top, #00356B 0%,#FFFFF 100%); /* IE10+ */
+	background:linear-gradient(top, #00356B 0%,#FFFFF 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00356B', endColorstr='#f2efea');
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#00356B', endColorstr='#f2efea')";
 
 
-	border: 1px solid #d6d6d6;
-    border-radius: 30px 30px 0px 0px;
+
+    border-radius: 10px 10px 0px 0px;
 
 	-webkit-background-clip: padding-box;
 }
@@ -376,17 +367,16 @@ textarea {
 
 		position: relative;
 		top: 2px;
-		left: 10px;
-
+		left: 20px;
+        margin-top:0;
 		display: inline-block;
 		margin-right: 3em;
 
 		font-size: 14px;
-		font-weight: 800;
-		color: #525252;
-		line-height: 18px;
 
-		text-shadow: 1px 1px 2px rgba(255,255,255,.5);
+		color: white;
+		line-height: 30px;
+
 	}
 
 		.widget-header [class^="icon-"], .widget-header [class*=" icon-"] {
@@ -407,12 +397,12 @@ textarea {
 
 
 .widget-content {
-	padding: 20px 15px 15px;
+	/*padding: 20px 15px 15px;*/
 
 	background: #FFF;
 
 
-	border: 1px solid #D5D5D5;
+	/*border: 1px solid #00356B;*/
 
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
@@ -430,9 +420,9 @@ textarea {
 	border-top-right-radius: 0;
 }
 
-.widget-nopad .widget-content {
+/*.widget-nopad .widget-content {
 	padding: 0;
-}
+}*/
 
 /* Widget Content Clearfix */
 .widget-content:before,
@@ -732,7 +722,8 @@ color: #333;
 
     .subnavbar .container > ul > li.active > a {
 		font-size: 11px;
-    	background: transparent;
+    	background: #ff7f74;
+
     }
 
 	.subnavbar .container > ul > li > a > i {
@@ -855,7 +846,7 @@ table + div[ng-include] { padding: 0 5px; }
 
 /* Show the snackbar when clicking on a button (class added with JavaScript) */
 #popUpMessage.error {
-    background-color: #EC7063;/* Black background color */
+    background-color: #EC7063;/* 00356B background color */
     visibility: visible; /* Show the snackbar */
 
 /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
@@ -927,4 +918,43 @@ However, delay the fade out process for 2.5 seconds */
 }
 .highlightedText {
     background: yellow;
+}
+
+@media (max-width: 767px) {
+  .container-fluid, .row {
+    padding:0px;
+  }
+  .navbar-header {
+    margin:0px;
+  }
+}
+@media (max-width: 979px){
+    .navbar .nav>li>a:hover, .navbar .dropdown-menu a:hover {
+        background-color: white;
+    }
+    .container {
+        padding:0;
+        margin: 0;
+    }
+    .body {
+        padding:0;
+        margin: 0;
+    }
+}
+a {
+    text-decoration: none !important;
+}
+blockquote{
+    margin: 2px;
+    /*padding: 0;*/
+    border: none;
+}
+
+.round-wrap{
+    border:1px solid #D3D3D3; border-radius: 6px;
+}
+.Absolute-Center {
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
 }

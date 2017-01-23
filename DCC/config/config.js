@@ -20,6 +20,7 @@ module.exports =
         "password": "root",
         "database": "dcc_test",
         "host": "127.0.0.1",
+        "storage": "test_database.sqlite",
         "pool": {
             "max": 5,
             "min": 0,
