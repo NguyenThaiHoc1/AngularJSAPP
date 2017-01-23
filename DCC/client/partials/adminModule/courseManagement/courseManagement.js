@@ -92,7 +92,7 @@ myApp.controller('courseManagementCtrl', [ '$scope', '$rootScope','courseManagem
         $rootScope.addEditCourseFormTitle = 'Add Course';
         $rootScope.addEditCourseFormAction = 'Add';
         $rootScope.courseModel = {
-            name: ''
+            name: '',
             description: '',
             duration:'',
             documents: '',
