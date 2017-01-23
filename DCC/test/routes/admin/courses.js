@@ -43,7 +43,6 @@ describe('<Unit test for admin-course>', function() {
                 duration: 'test creat duration',
                 test: 'test creat test',
                 documents: 'test creat documents',
-                isDeleted:  0,
                 courseTypeId: {id:1},
                 trainingProgramId:{id:1},
             });
@@ -93,18 +92,21 @@ describe('<Unit test for admin-course>', function() {
             var req = request(DCC_Server).post('/admin/courses/deleteCourse');
             req.cookies = Cookies;
             req.send({
-                isDeleted:  true,
                 id: 1,
             });
             req.end(function(err, res) {
 
                 assert.equal(res.body.success, true);
-                models.Course.update({
-                    isDeleted: false,
-                } ,{
-                    where: {
-                        id: 1
-                    }
+                models.Course.create({
+                    id: 1,
+                    name: 'Training Overview',
+                    description: 'Brief overview for all training courses',
+                    duration: '',
+                    test: '',
+                    documents: '',
+                    courseTypeId: 0,
+                    trainingProgramId: 1,
+                    imgLink: '/img/courses/training-icon-2.svg',
                 });
                 if (err) return done(err);
                 done();
