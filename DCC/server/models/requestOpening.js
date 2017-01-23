@@ -12,12 +12,12 @@ module.exports = function(sequelize, DataTypes) {
                 };
                 RequestOpening.create(query).then(cb);
             },
-            addRequestJoin: function(userEmail, courseId, cb)
+            addRequestEnroll: function(userEmail, courseId, cb)
             {
                 var query = {
                     userEmail : userEmail,
                     courseId : courseId,
-                    requestType: "join",
+                    requestType: "enroll",
                     requestTime : Date.now()
                 };
                 RequestOpening.create(query).then(cb);
