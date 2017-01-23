@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
       classMethods:{
         getTraining: function(cb)
         {
-          log.info('/models/course: getCourses() : ');
+          log.info('/models/trainingprogram: getTraining() : ');
           var query =
           {
                 include: [ models.Course ]
@@ -15,10 +15,21 @@ module.exports = function(sequelize, DataTypes) {
           Trainingprogram.findAll(query).then(cb);
         },
           getTrainingByID: function(idTP,cb){
-              log.info('/models/user: getTrainingByID :'+ idTP);
+              log.info('/models/trainingprogram: getTrainingByID :'+ idTP);
               var query={
+                  where:{
+                      id: idTP
+                  }
               };
               Trainingprogram.findOne(query).then(cb);
+          },
+          getTrainingByName: function(nameTP, cb){
+            log.info('/models/trainingprogram: getTrainingByName:'+nameTP);
+            var query={
+                where: {
+                    name: nameTP
+                }
+            };
           },
       },
       tableName: 'training_program'
