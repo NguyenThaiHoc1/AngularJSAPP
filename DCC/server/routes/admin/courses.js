@@ -159,7 +159,6 @@ router.post('/addTrainingProgram', function(req, res) {
                 models.TrainingProgram.create({
                     name: req.body.name,
                     description: req.body.description,
-                    duration: req.body.duration,
                     imgLink: '/img/trainingProgram/training-icon-1.svg',
                 }).then(function() {
                     res.send({

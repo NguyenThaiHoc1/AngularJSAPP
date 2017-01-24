@@ -86,7 +86,7 @@ myApp.controller('courseManagementCtrl', [ '$scope', '$rootScope','courseManagem
 
     //dislay modal of edit & add course, trainning program or class
 
-    $scope.showAddForm=function(){
+    $scope.showAddCourseForm=function(trainingProgram){
         $rootScope.addEditFormIsEditForm =  false;
         //course
         $rootScope.addEditCourseFormTitle = 'Add Course';
@@ -100,20 +100,23 @@ myApp.controller('courseManagementCtrl', [ '$scope', '$rootScope','courseManagem
             courseTypeId: {
                 id: ''
             },
-            trainingProgramId: ''
+            trainingProgramId: trainingProgram.id
 
         };
-        console.log($rootScope.courseModel.courseTypeId.id);
-
+        console.log(trainingProgram.id);//debug
+    };
+    $scope.showAddTPForm=function(){
+        $rootScope.addEditFormIsEditForm =  false;
         // trainingProgram
         $rootScope.addEditTPFormTitle = 'Add Training Program';
         $rootScope.addEditTPFormAction = 'Add';
         $rootScope.adminTrainingProgramModel = {
             name: '',
             description: '',
-            duration:''
         };
-
+    };
+    $scope.showAddClassForm=function(adminClass){
+        $rootScope.addEditFormIsEditForm =  false;
         //Class
         $rootScope.addEditClassFormTitle = 'Add Class';
         $rootScope.addEditClassFormAction = 'Add';
@@ -129,12 +132,12 @@ myApp.controller('courseManagementCtrl', [ '$scope', '$rootScope','courseManagem
         };
     };
 
-    $scope.showUpdateForm = function(trainingProgram, course, adminclass){
+    $scope.showUpdateCourseForm = function(trainingProgram, course){
         $rootScope.addEditFormIsEditForm =  true;
         //course
-        $rootScope.addEditFormTitle = 'Edit Course';
-        $rootScope.addEditFormAction = 'Update';
-        console.log(course); //debug
+        $rootScope.addEditCourseFormTitle = 'Edit Course';
+        $rootScope.addEditCourseFormAction = 'Update';
+        // console.log( course); //debug
         $rootScope.courseModel = {
             id: course.id,
             name: course.name,
@@ -143,11 +146,14 @@ myApp.controller('courseManagementCtrl', [ '$scope', '$rootScope','courseManagem
             documents: course.documents,
             test: course.test,
             //TODO
+            // trainerId: adminclass.trainerId,
             courseTypeId: course.CourseType.id,
             trainingProgramId: trainingProgram.id
         };
-        console.log($rootScope.courseModel);//debug
-
+        // console.log($rootScope.courseModel);//debug
+    };
+    $scope.showUpdateTPForm = function(trainingProgram){
+        $rootScope.addEditFormIsEditForm =  true;
         //trainingProgram
         $rootScope.addEditTPFormTitle = 'Edit Training Program';
         $rootScope.addEditTPFormAction = 'Update Training Program';
@@ -155,12 +161,14 @@ myApp.controller('courseManagementCtrl', [ '$scope', '$rootScope','courseManagem
             id: trainingProgram.id,
             name: trainingProgram.name,
             description: trainingProgram.description,
-            duration:trainingProgram.duration
         };
-
+    };
+    $scope.showUpdateClassForm = function(course, adminclass){
+        $rootScope.addEditFormIsEditForm =  true;
         //Class
         $rootScope.addEditClassFormTitle = 'Edit Class';
         $rootScope.addEditClassFormAction = 'Update Class';
+        console.log(  adminclass); //debug
         $rootScope.adminClassModel = {
             id: adminclass.id,
             courseId: course.id,
@@ -174,22 +182,28 @@ myApp.controller('courseManagementCtrl', [ '$scope', '$rootScope','courseManagem
         };
     };
 
-    $scope.showDeleteForm = function(trainingProgram){
+    $scope.showDeleteCourseForm = function(course){
+        $rootScope.deleteClickId = 1;
         //course
         $rootScope.courseModel = {
             id: course.id,
-            name: course.name
         };
-
+    };
+    $scope.showDeleteTPForm = function(trainingProgram){
+        $rootScope.deleteClickId = 2;
         //training Program
         $rootScope.adminTrainingProgramModel = {
             id: trainingProgram.id,
         };
+    };
+    $scope.showDeleteClassForm = function(adminclass){
+        $rootScope.deleteClickId = 3;
         //Class
         $rootScope.adminClassModel = {
             id: adminclass.id,
         };
     };
+
 
 
 }]);
@@ -205,7 +219,8 @@ myApp.controller('addEditCourseCtrl', [ '$scope', '$rootScope','courseManagement
         $scope.courseTypeList = result.data.courseType;
     });
 
-    $scope.addEditClick = function(){
+    $scope.addEditCourseClick = function(){
+        console.log($rootScope.courseModel);
         if ($rootScope.addEditFormIsEditForm){
             //edit course
             courseManagementServices.updateCourse($rootScope.courseModel).then(function(result){
@@ -215,7 +230,7 @@ myApp.controller('addEditCourseCtrl', [ '$scope', '$rootScope','courseManagement
                         $rootScope.adminTrainingProgramList = result.data.trainingProgram;
                     });
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
-                    $location.path("#admin_courseManagement");
+                    // $location.path("#admin_courseManagement");
                 }else{
                     $rootScope.ShowPopupMessage(result.data.msg, "error");
                 }
@@ -242,7 +257,7 @@ myApp.controller('addEditCourseCtrl', [ '$scope', '$rootScope','courseManagement
 //Add and Edit Training Program Control
 myApp.controller('addEditTPCtrl', [ '$scope', '$rootScope','courseManagementServices', function($scope, $rootScope, courseManagementServices, $location) {
 
-    $scope.addEditClick = function(){
+    $scope.addEditTPClick = function(){
         if ($rootScope.addEditFormIsEditForm){
             //edit trainning program
             courseManagementServices.updateTrainingProgram($rootScope.adminTrainingProgramModel).then(function(result){
@@ -259,6 +274,7 @@ myApp.controller('addEditTPCtrl', [ '$scope', '$rootScope','courseManagementServ
             });
         }
         else {
+            console.log($rootScope.adminTrainingProgramModel);
             //add trainning program
             courseManagementServices.addTrainingProgram($rootScope.adminTrainingProgramModel).then(function(result) {
                 if (result.data.success){
@@ -279,7 +295,7 @@ myApp.controller('addEditTPCtrl', [ '$scope', '$rootScope','courseManagementServ
 //Add and Edit Class Control
 myApp.controller('addEditClassCtrl', [ '$scope', '$rootScope','courseManagementServices', function($scope, $rootScope, courseManagementServices, $location) {
 
-    $scope.addEditClick = function(){
+    $scope.addEditClassClick = function(){
         if ($rootScope.addEditFormIsEditForm){
             //edit class
             courseManagementServices.updateClass($rootScope.adminClassModel).then(function(result){
@@ -314,19 +330,49 @@ myApp.controller('addEditClassCtrl', [ '$scope', '$rootScope','courseManagementS
 }]);
 
 //TODO
-myApp.controller('deleteCourseCtrl', [ '$scope', '$rootScope','courseManagementServices', function($scope, $rootScope, courseManagementServices, $location) {
-    //delete course
-    $scope.deleteCourse = function() {
-        courseManagementServices.deleteCourse($rootScope.courseModel).then(function(result){
-            if (result.data.success){
-                //GetCourseList
-                courseManagementServices.getCourseList().then(function(result) {
-                    $rootScope.coursesList = result.data.course;
-                });
-                $rootScope.ShowPopupMessage(result.data.msg, "success");
-            } else {
-                $rootScope.ShowPopupMessage(result.data.msg, "error");
-            }
-        });
+myApp.controller('deleteCtrl', [ '$scope', '$rootScope','courseManagementServices', function($scope, $rootScope, courseManagementServices, $location) {
+
+    $scope.deleteClick = function() {
+        if( $rootScope.deleteClickId == 1 ){
+            //delete course
+            courseManagementServices.deleteCourse($rootScope.courseModel).then(function(result){
+                if (result.data.success){
+                    //get TrainingProgram
+                    courseManagementServices.getTrainingProgramList().then(function(result){
+                        $scope.trainingProgramList = result.data.data;
+                    });
+                    $rootScope.ShowPopupMessage(result.data.msg, "success");
+                } else {
+                    $rootScope.ShowPopupMessage(result.data.msg, "error");
+                }
+            });
+        }else if ( $rootScope.deleteClickId == 2 ){
+            //delete TP
+            courseManagementServices.deleteTrainingProgram($rootScope.adminTrainingProgramModel).then(function(result){
+                if (result.data.success){
+                    //get TrainingProgram
+                    courseManagementServices.getTrainingProgramList().then(function(result){
+                        $scope.trainingProgramList = result.data.data;
+                    });
+                    $rootScope.ShowPopupMessage(result.data.msg, "success");
+                } else {
+                    $rootScope.ShowPopupMessage(result.data.msg, "error");
+                }
+            });
+        }else if ( $rootScope.deleteClickId == 3 ){
+            //delete Class
+            courseManagementServices.deleteClass($rootScope.adminClassModel).then(function(result){
+                if (result.data.success){
+                    //get TrainingProgram
+                    courseManagementServices.getTrainingProgramList().then(function(result){
+                        $scope.trainingProgramList = result.data.data;
+                    });
+                    $rootScope.ShowPopupMessage(result.data.msg, "success");
+                } else {
+                    $rootScope.ShowPopupMessage(result.data.msg, "error");
+                }
+            });
+        }
+
     };
 }]);

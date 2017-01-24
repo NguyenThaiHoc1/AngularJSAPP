@@ -12,22 +12,22 @@
                     <h5>To request to open new course, or register opening course,</h5>
                     <h5>go to register menu and choose a course.</h5>
                 </center>
-                <div ng-repeat="trainningProgram in myTrainingProgramList" style="margin-top: 5px">
+                <div ng-repeat="trainingProgram in myTrainingProgramList" style="margin-top: 5px">
                     <div class="round-wrap">
-                        <a data-toggle="collapse" data-target="#collapse{{trainningProgram.id}}">
+                        <a data-toggle="collapse" data-target="#collapse{{trainingProgram.id}}">
                             <blockquote class="blockquote">
-                                <img  style="float:left; clear:both; margin-right: 10px;" alt="training-program-icon" class="img-responsive" src = "{{trainningProgram.imgLink}}" width="70px">
-                                {{trainningProgram.name}}
-                                <footer class="blockquote-footer"> {{trainningProgram.description}}</footer>
-                                <uib-progressbar style="margin:0" class="progress-striped" max="100" value=trainningProgram.completePercent type="success"><i>{{trainningProgram.completePercent}}% completed</i></uib-progressbar>
+                                <img  style="float:left; clear:both; margin-right: 10px;" alt="training-program-icon" class="img-responsive" src = "{{trainingProgram.imgLink}}" width="70px">
+                                {{trainingProgram.name}}
+                                <footer class="blockquote-footer"> {{trainingProgram.description}}</footer>
+                                <uib-progressbar style="margin:0" class="progress-striped" max="100" value=trainingProgram.completePercent type="success"><i>{{trainingProgram.completePercent}}% completed</i></uib-progressbar>
                                 <center><span class="glyphicon glyphicon-menu-down"></span></center>
                             </blockquote>
                         </a>
                     </div>
 
-                    <div  id="collapse{{trainningProgram.id}}" class="panel-collapse collapse" >
+                    <div  id="collapse{{trainingProgram.id}}" class="panel-collapse collapse" >
                         <ul class="list-group">
-                            <li class="row" ng-repeat="myCourse in trainningProgram.Courses">
+                            <li class="row" ng-repeat="myCourse in trainingProgram.Courses">
                                 <div class="col-md-1"></div>
                                 <div class="col-md-9 col-sm-8" style="border-left:2px solid {{myCourse.backgroundColor}};">
                                     <blockquote class="blockquote">
