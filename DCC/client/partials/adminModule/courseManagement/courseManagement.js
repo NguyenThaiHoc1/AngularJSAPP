@@ -187,7 +187,7 @@ myApp.controller('addEditCourseCtrl', [ '$scope', '$rootScope','courseManagement
     });
 
     $scope.addEditCourseClick = function(){
-        console.log($rootScope.courseModel);
+        $rootScope.courseModel.courseTypeId = $rootScope.courseModel.courseTypeId.id;
         if ($rootScope.addEditFormIsEditForm){
             //edit course
             courseManagementServices.updateCourse($rootScope.courseModel).then(function(result){
