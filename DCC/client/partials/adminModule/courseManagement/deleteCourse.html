@@ -4,14 +4,14 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Delete Course</h4>
+                    <h4 class="modal-title">Delete </h4>
                 </div>
                 <form name="deleteCourseForm" role="form" class="form-horizontal" novalidate>
-                    <div class="modal-body">
+                    <div class="modal-body" ng-controller ="courseManagementCtrl">
                         <div>
                             <p name="courseNameDelete">
                                 Are you sure to delete
-                                <span><b>{{courseModel.name}} </b></span> course?
+                                <span><b>{{deleteName}}</b></span>
                             </p>
                         </div>
                     </div>

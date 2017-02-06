@@ -65,7 +65,7 @@ router.post('/updateCourse', function(req, res) {
     });
 });
 
-// mark course as deleted (isDeleted = true)
+// destroy Course
 router.post('/deleteCourse', function(req, res) {
     log.info('Get Delete Command');
     models.Course.destroy({
@@ -75,26 +75,10 @@ router.post('/deleteCourse', function(req, res) {
     });
     res.send({
         success: true,
-        msg: 'Delete success'
+        msg: 'Delete Course success'
     });
 });
 
-// //Get Course List
-// router.get('/getCourseList', function(req, res) {
-//     log.info('/admin/getCourseList: get course list data');
-//     models.Course.findAll({
-//         include: [ models.TrainingProgram ]
-//     }).then(function(course) {
-//         var datasend = {
-//             success: true,
-//             course: course,
-//             msg:'send list success'
-//         };
-//         res.send(datasend);
-//     })
-//
-// });
-//
 //getCourseTypeList
 router.get('/getCourseTypeList', function(req, res) {
     log.info('/admin/getCourseTypeList: get course type list data');
@@ -205,7 +189,7 @@ router.post('/deleteTrainingProgram', function(req, res) {
     });
     res.send({
         success: true,
-        msg: 'Delete success'
+        msg: 'Delete Training Program success'
     });
 });
 
@@ -301,7 +285,7 @@ router.post('/deleteClass', function(req, res) {
     // });
     res.send({
         success: true,
-        msg: 'Delete success'
+        msg: 'Delete Class success'
     });
 });
 
