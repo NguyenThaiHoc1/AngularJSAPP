@@ -129,9 +129,6 @@ router.get('/getTrainingProgramList', function(req, res){
 //Add Training programs
 router.post('/addTrainingProgram', function(req, res) {
     log.info('/admin/courses/addTrainingProgram: Add Training Program :' + req.body.name);
-    models.TrainingProgram.sync({
-        force: false
-    }).then(function() {
         // this function check if the courseName is already existed
         models.TrainingProgram.getTrainingByName(req.body.name, function(result) {
             if (result) {
@@ -152,7 +149,7 @@ router.post('/addTrainingProgram', function(req, res) {
                 });
             }
         });
-    });
+
 });
 
 //Updtae Training Program
