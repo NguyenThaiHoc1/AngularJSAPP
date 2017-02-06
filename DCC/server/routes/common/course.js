@@ -11,5 +11,22 @@ router.post('/getCourseDetail', function(req, res) {
     });
 });
 
+router.post('/getClassByCourseID', function(req, res) {
+    var query =
+    {
+        where: {
+            courseId : req.body.courseId
+        }
+    };
+
+    models.Class.findAll(query).then(function(classes) {
+        var datasend = {
+            success: true,
+            msg:'send list success',
+            data: classes
+        };
+        res.send(datasend);
+    });
+});
 
 module.exports = router;
