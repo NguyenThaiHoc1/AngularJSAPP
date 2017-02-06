@@ -69,35 +69,36 @@ myApp.controller('courseDetailCtrl', ['$scope', '$rootScope', '$stateParams', 'c
         $scope.overStar = value;
     };
 
+
+
+    //Add and Edit Class Control
+    $scope.showUpdateClassForm = function(course, adminclass){
+        $rootScope.addEditFormIsEditForm =  true;
+        //Class
+        $rootScope.addEditClassFormTitle = 'Edit Class';
+        $rootScope.addEditClassFormAction = 'Update Class';
+        console.log(  adminclass); //debug
+        $rootScope.adminClassModel = {
+            id: adminclass.id,
+            courseId: course.id,
+            location: adminclass.location,
+            //TODO
+            // trainerId: adminclass.trainerId,
+            startTime: adminclass.startTime,
+            duration: adminclass.duration,
+            maxAttendant: adminclass.maxAttendant,
+            note: adminclass.note
+        };
+    };
+
+    $scope.showDeleteClassForm = function(adminclass){
+        $rootScope.deleteClickId = 3;
+        //Class
+        $rootScope.adminClassModel = {
+            id: adminclass.id,
+        };
+    };
 }]);
-
-//Add and Edit Class Control
-$scope.showUpdateClassForm = function(course, adminclass){
-    $rootScope.addEditFormIsEditForm =  true;
-    //Class
-    $rootScope.addEditClassFormTitle = 'Edit Class';
-    $rootScope.addEditClassFormAction = 'Update Class';
-    console.log(  adminclass); //debug
-    $rootScope.adminClassModel = {
-        id: adminclass.id,
-        courseId: course.id,
-        location: adminclass.location,
-        //TODO
-        // trainerId: adminclass.trainerId,
-        startTime: adminclass.startTime,
-        duration: adminclass.duration,
-        maxAttendant: adminclass.maxAttendant,
-        note: adminclass.note
-    };
-};
-
-$scope.showDeleteClassForm = function(adminclass){
-    $rootScope.deleteClickId = 3;
-    //Class
-    $rootScope.adminClassModel = {
-        id: adminclass.id,
-    };
-};
 
 myApp.controller('addEditClassCtrl', [ '$scope', '$rootScope','courseManagementServices', function($scope, $rootScope, courseManagementServices, $location) {
 
