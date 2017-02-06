@@ -30,8 +30,16 @@ module.exports=
         type: SequelizeDatatypes.STRING,
         allowNull: false
     },
-    role: {
-        type: SequelizeDatatypes.INTEGER,
+    isAdmin: {
+        type: SequelizeDatatypes.BOOLEAN,
+        allowNull: true
+    },
+    isTrainee: {
+        type: SequelizeDatatypes.BOOLEAN,
+        allowNull: true
+    },
+    isTrainer: {
+        type: SequelizeDatatypes.BOOLEAN,
         allowNull: true
     },
     belong2Team:
