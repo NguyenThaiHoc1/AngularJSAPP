@@ -67,7 +67,8 @@ myApp.controller('courseRegisterCtrl', ['$sce','$rootScope', '$scope', 'courseRe
 
     courseRegisterServices.getTrainingProgram().then(function(result){
         $scope.trainingProgramList = {};
-        var trainingProgram = result.data.data;
+        var trainingProgram = {};
+        trainingProgram = result.data.data;
 
         trainingProgram.forEach(trainingProgram => {
             trainingProgram.Courses.forEach(course => {

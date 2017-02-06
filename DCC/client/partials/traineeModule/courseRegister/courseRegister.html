@@ -53,7 +53,7 @@
                 </div>
             </div>
 <!-- ALL COURSE -->
-<div class="widget widget-nopad" ng-show="!courseSearchKey">
+<div class="widget" ng-show="!courseSearchKey">
     <div class="widget-header">
         <div class="row">
             <div class="col-md-1">
@@ -79,17 +79,13 @@
     <div class="widget-content" >
         <div class="widget big-stats-container" style="margin-bottom:0">
             <div class="widget-content">
-
-                <div class="control-group">
-                    <div class="controls">
-                        <div class="panel-group" style="margin-bottom: 0;">
-                            <div class="panel panel-default" ng-repeat="trainingProgram in trainingProgramList">
-                                <div class="panel-heading panel-title"  style="border: 1px solid grey; border-radius: 5px;">
+                            <div ng-repeat="trainingProgram in trainingProgramList"  style="margin-top: 5px">
+                                <div class="round-wrap">
                                     <a data-toggle="collapse" data-target="#collapse{{trainingProgram.id}}" style="text-decoration : none">
                                         <blockquote class="blockquote" style="border-left: none; margin-bottom:0">
-                                            <img  style="float:left; clear:both; margin-right: 10px;" alt="training-program-icon" class="img-responsive" src = "{{trainingProgram.imgLink}}" width="95px">
-                                            <font size="6px">{{trainingProgram.name}}</font>
-                                            <footer class="blockquote-footer" style="color: black; margin-bottom:20px"> {{trainingProgram.description}}</footer>
+                                            <img  style="float:left; clear:both; margin-right: 10px;" alt="training-program-icon" class="img-responsive" src = "{{trainingProgram.imgLink}}" width="70px">
+                                            {{trainingProgram.name}}
+                                            <footer class="blockquote-footer"> {{trainingProgram.description}}</footer>
                                             <br/>
                                         </blockquote>
                                         <center><span class="glyphicon glyphicon-menu-down"></span></center>
@@ -97,29 +93,34 @@
                                 </div>
                                 <div id="collapse{{trainingProgram.id}}" class="panel-collapse collapse" >
                                     <ul class="list-group">
-                                        <li class="list-group-item" ng-repeat="course in trainingProgram.Courses" style="border: 0;">
-                                            <div ng-hide="course.hideKey||!course.isOpening&&openingCourseFilter" class="row" style="padding-bottom:10px; margin-left: 90px; margin-right: 10px; border: 2px solid {{myCourse.backgroundColor}}; border-radius: 100px 5px 5px 100px; background-color: #f7f7f7;">
-                                                <a ui-sref="courseDetail({courseId: course.id})" class="col-md-10" style="text-decoration : none">
-                                                    <blockquote class="blockquote" style="border-left: none; padding-left:0px; padding-top: 20px">
-                                                        <img  style="float:left; clear:both;margin:8px 8px 8px 8px;" alt="course-icon" class="img-responsive" src = "{{course.imgLink}}" width="90px">
-                                                        <font size="6px" color="black" style="margin-top: 10px;">{{course.name}}</font>
-                                                        <footer class="blockquote-footer" style="color: black;">{{course.description}}</footer>
+                                        <li class="row" ng-repeat="course in trainingProgram.Courses">
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-9 col-sm-8" style="border-left:2px solid" ng-hide="course.hideKey||!course.isOpening&&openingCourseFilter" class="row" style="padding-bottom:10px; margin-left: 90px; margin-right: 10px; border: 2px solid {{myCourse.backgroundColor}}; border-radius: 100px 5px 5px 100px; background-color: #f7f7f7;">
+
+                                                    <blockquote class="blockquote">
+                                                        <a ui-sref="courseDetail({courseId: course.id})">
+                                                        <img style="float:left; clear:both; margin-right:10px;" alt="course-icon" class="img-responsive" src = "{{course.imgLink}}" width="70px">
+                                                        {{course.name}}
+                                                        <footer class="blockquote-footer">{{course.description}}</footer>
+                                                        </a>
                                                     </blockquote>
-                                                </a>
-                                                <div class="col-md-2">
-                                                    <center>
-                                                        <br><br>
-                                                        <a ng-click="registerCourse(course.id,courseRegisterStatus)" class="col-md-12 col-sm-6 btn btn-md {{course.buttonColor}}" style="margin-top:5px;">{{course.buttonName}}</a>
-                                                    </center>
-                                                </div>
+                                            </div>
+                                            <div ng-hide="course.hideKey||!course.isOpening&&openingCourseFilter" class="col-md-2 col-sm-4">
+                                                <center>
+                                                    <div class="btn-group">
+                                                        <button ng-click="registerCourse(course.id,courseRegisterStatus)" class="btn Absolute-Center {{course.buttonColor}} " type="button" aria-haspopup="true" aria-expanded="true">
+                                                            {{course.buttonName}}<i aria-hidden="true"></i>
+                                                        </button>
+                                                    </div>
+
+                                                    <!-- <a ng-click="registerCourse(course.id,courseRegisterStatus)" type="button" aria-haspopup="true" aria-expanded="true" class="btn btn-secondary Absolute-Center {{course.buttonColor}}" style="margin-top:5px;">{{course.buttonName}}</a> -->
+                                                </center>
                                             </div>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>

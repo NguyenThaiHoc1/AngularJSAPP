@@ -65,7 +65,7 @@ router.post('/updateCourse', function(req, res) {
     });
 });
 
-// mark course as deleted (isDeleted = true)
+// destroy Course
 router.post('/deleteCourse', function(req, res) {
     log.info('Get Delete Command');
     models.Course.destroy({
@@ -75,26 +75,10 @@ router.post('/deleteCourse', function(req, res) {
     });
     res.send({
         success: true,
-        msg: 'Delete success'
+        msg: 'Delete Course success'
     });
 });
 
-// //Get Course List
-// router.get('/getCourseList', function(req, res) {
-//     log.info('/admin/getCourseList: get course list data');
-//     models.Course.findAll({
-//         include: [ models.TrainingProgram ]
-//     }).then(function(course) {
-//         var datasend = {
-//             success: true,
-//             course: course,
-//             msg:'send list success'
-//         };
-//         res.send(datasend);
-//     })
-//
-// });
-//
 //getCourseTypeList
 router.get('/getCourseTypeList', function(req, res) {
     log.info('/admin/getCourseTypeList: get course type list data');
@@ -145,9 +129,6 @@ router.get('/getTrainingProgramList', function(req, res){
 //Add Training programs
 router.post('/addTrainingProgram', function(req, res) {
     log.info('/admin/courses/addTrainingProgram: Add Training Program :' + req.body.name);
-    models.TrainingProgram.sync({
-        force: false
-    }).then(function() {
         // this function check if the courseName is already existed
         models.TrainingProgram.getTrainingByName(req.body.name, function(result) {
             if (result) {
@@ -168,7 +149,7 @@ router.post('/addTrainingProgram', function(req, res) {
                 });
             }
         });
-    });
+
 });
 
 //Updtae Training Program
@@ -205,7 +186,7 @@ router.post('/deleteTrainingProgram', function(req, res) {
     });
     res.send({
         success: true,
-        msg: 'Delete success'
+        msg: 'Delete Training Program success'
     });
 });
 
@@ -301,7 +282,7 @@ router.post('/deleteClass', function(req, res) {
     // });
     res.send({
         success: true,
-        msg: 'Delete success'
+        msg: 'Delete Class success'
     });
 });
 
