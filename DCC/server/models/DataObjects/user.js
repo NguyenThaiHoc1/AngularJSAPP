@@ -47,6 +47,10 @@ module.exports=
         type: SequelizeDatatypes.STRING,
         allowNull: true
     },
+    userType:{
+        type: SequelizeDatatypes.STRING,
+        allowNull: true
+    },
     isExperienced:{
         type: SequelizeDatatypes.BOOLEAN,
         allowNull: true

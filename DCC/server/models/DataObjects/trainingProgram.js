@@ -16,5 +16,9 @@ module.exports =
     {
         type: SequelizeDatatypes.TEXT,
         allowNull: true
+    },
+    traineeType:{
+        type: SequelizeDatatypes.STRING,
+        allowNull: false
     }
 };
