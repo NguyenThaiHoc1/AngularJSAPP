@@ -139,7 +139,9 @@ myApp.controller('courseManagementCtrl', [ '$scope', '$rootScope','courseManagem
             test: course.test,
             //TODO
             // trainerId: adminclass.trainerId,
-            courseTypeId: course.CourseType.id,
+            courseTypeId: {
+                id: course.CourseType,
+            },
             trainingProgramId: trainingProgram.id
         };
         // console.log($rootScope.courseModel);//debug

@@ -31,20 +31,20 @@
                                                                 <!-- <center><span class="glyphicon glyphicon-menu-down"></span></center>
                                                                 <!-- TODO Edit add Training Program -->
                                                                 <!-- <a class="a-inside edit" data-toggle="modal" href="#addEditTPModal" ng-click="showUpdateTPForm(trainingProgram)"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                                <a class="a-inside delete" data-toggle="modal" href="#deleteModal" ng-click="showDeleteTPForm(trainingProgram)"><span class="glyphicon glyphicon-trash"></span></a> --> --> -->
+                                                                <a class="a-inside delete" data-toggle="modal" href="#deleteModal" ng-click="showDeleteTPForm(trainingProgram)"><span class="glyphicon glyphicon-trash"></span></a> -->
 
                                                                 <div class="col-md-4">
-                                                                    feedback
+                                                                    Rating av
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <div class="col-md-4">
-                                                                        {{class.location}}
+                                                                        Location: {{class.location}}
                                                                     </div>
                                                                     <div class="col-md-4">
-                                                                        {{class.trainerId}}
+                                                                        Trainer: {{class.trainerId}}
                                                                     </div>
                                                                     <div class="col-md-4">
-                                                                        {{class.startTime}}
+                                                                        Start Time: {{class.startTime | date: "dd/MM/yyyy"}}
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-2">
