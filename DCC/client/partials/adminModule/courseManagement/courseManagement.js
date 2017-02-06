@@ -234,7 +234,7 @@ myApp.controller('addEditTPCtrl', [ '$scope', '$rootScope','courseManagementServ
                         $rootScope.adminTrainingProgramList = result.data.trainingProgram;
                     });
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
-                    $location.path("#admin_courseManagement");
+                    // $location.path("#admin_courseManagement");
                 }else{
                     $rootScope.ShowPopupMessage('Edit Training Program FAIL!',"error");
                 }
