@@ -39,15 +39,15 @@
                                     </blockquote>
                                 </div>
                                 <div class="col-md-2 col-sm-4">
-                                    <center >
-                                        <div class="btn-group dropdown">
-                                            <button class="btn btn-secondary dropdown-toggle Absolute-Center " style="background-color: {{myCourse.backgroundColor}}" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                {{myCourse.status}} &nbsp <i class="fa fa-bars" aria-hidden="true"></i>
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item" href="#feedbackModal" ng-click="actionOneClick(myCourse)"> &nbsp {{actionOneText[myCourse.status]}}</a><br />
-                                                <a class="dropdown-item" href="#" ng-click="actionTwoClick(myCourse)"> &nbsp {{actionTwoText[myCourse.status]}}</a>
-                                            </div>
+                                    <center>
+                                        <div class="dropdown">
+                                            <a class="dropdown-toggle btn" style="background-color: {{myCourse.backgroundColor}}" data-toggle="dropdown">
+                                                {{myCourse.status}} &nbsp <i class="fa fa-caret-down" aria-hidden="true"></i>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li ng-click="actionOneClick(myCourse)"><a data-toggle="modal" data-target="#feedbackModal">{{actionOneText[myCourse.status]}}</a></li>
+                                                <li ng-click="actionTwoClick(myCourse)"><a>{{actionTwoText[myCourse.status]}}</a></li>
+                                            </ul>
                                         </div>
 
                                     </center>
