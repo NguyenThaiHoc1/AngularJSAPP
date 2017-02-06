@@ -77,8 +77,9 @@
                             <li ng-click="openingCourseFilter = 0" role="menuitem"><a>All Course</a></li>
                         </ul> -->
                         <select ng-model="opt" ng-change="filtCourse()">
+                            <option value="">--Please Select--</option>
                             <option value="openingCourse">Opening Course</option>
-                            <option selected="selected" value="allCourse">All Course</option>
+                            <option value="allCourse">All Course</option>
                         </select>
                         <!-- <select class="form-control" ng-model="selected" ng-options="opt for opt in option"></select> -->
                     </div>
