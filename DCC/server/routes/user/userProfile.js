@@ -22,6 +22,14 @@ models.User.sync({
 router.get('/getUserInfo', function(req, res) {
     log.info('GET /users/getUserInfo');
     models.User.getUserByEmail(req.user.email, function(user) {
+        var currentRole;
+        if(user.isAdmin){
+            currentRole = 1;
+        } else if(user.isTrainer){
+            currentRole= 2;
+        }else if(user.isTrainee){
+            currentRole = 3
+        }
         res.send({
             username: user.username,
             status: user.status,
@@ -30,9 +38,10 @@ router.get('/getUserInfo', function(req, res) {
             location: user.location,
             email: user.email,
             avatar: user.avatar,
-            role: user.role,
-            trainer: user.trainer,
-            trainee: user.trainee,
+            role: currentRole,
+            isAdmin: user.isAdmin,
+            isTrainer: user.isTrainer,
+            isTrainee: user.isTrainee,
             belong2Team: user.belong2Team,
             isExperienced: user.isExperienced,
 
