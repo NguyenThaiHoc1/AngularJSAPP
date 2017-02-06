@@ -301,13 +301,14 @@ input,button,select,textarea {
 
 .footer {
 	margin-top: 0;
-
-	border-top: 1px solid #292929;
 }
 
 .footer-inner {
-	padding: 15px 0;
-
+	padding:15px 0;
+	position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
 	font-size: 12px;
 	background: #111;
 	color: #999;
