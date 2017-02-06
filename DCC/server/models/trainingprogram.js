@@ -30,6 +30,7 @@ module.exports = function(sequelize, DataTypes) {
                     name: nameTP
                 }
             };
+            Trainingprogram.findOne(query).then(cb);
           },
       },
       tableName: 'training_program'

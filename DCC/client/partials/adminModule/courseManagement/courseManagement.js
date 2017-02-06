@@ -185,6 +185,7 @@ myApp.controller('courseManagementCtrl', [ '$scope', '$rootScope','courseManagem
     $scope.showDeleteCourseForm = function(course){
         $rootScope.deleteClickId = 1;
         //course
+        $rootScope.deleteName = course.name + 'course';
         $rootScope.courseModel = {
             id: course.id,
         };
@@ -192,6 +193,7 @@ myApp.controller('courseManagementCtrl', [ '$scope', '$rootScope','courseManagem
     $scope.showDeleteTPForm = function(trainingProgram){
         $rootScope.deleteClickId = 2;
         //training Program
+        $rootScope.deleteName = trainingProgram.name + 'training program';
         $rootScope.adminTrainingProgramModel = {
             id: trainingProgram.id,
         };
@@ -203,9 +205,6 @@ myApp.controller('courseManagementCtrl', [ '$scope', '$rootScope','courseManagem
             id: adminclass.id,
         };
     };
-
-
-
 }]);
 
 //Add and Edit Course Control
@@ -329,7 +328,7 @@ myApp.controller('addEditClassCtrl', [ '$scope', '$rootScope','courseManagementS
     };
 }]);
 
-//TODO
+//deletel Course, Class, Training program
 myApp.controller('deleteCtrl', [ '$scope', '$rootScope','courseManagementServices', function($scope, $rootScope, courseManagementServices, $location) {
 
     $scope.deleteClick = function() {
