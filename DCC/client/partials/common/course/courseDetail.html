@@ -13,7 +13,7 @@
                                     <div class="panel-group">
 
                                         <uib-tabset active="activeJustified" justified="true" style="margin:10px;">
-                                            <uib-tab index="0"><uib-tab-heading><i class="glyphicon glyphicon-edit"></i> Description</uib-tab-heading>{{courseDetail.description}}</uib-tab>
+                                            <uib-tab index="0"><uib-tab-heading><i class="glyphicon glyphicon-edit"></i>Description</uib-tab-heading>{{courseDetail.description}}</uib-tab>
                                             <uib-tab index="1"><uib-tab-heading><i class="glyphicon glyphicon-equalizer"></i> Document</uib-tab-heading>{{courseDetail.document}}</uib-tab>
                                             <uib-tab index="2"><uib-tab-heading><i class="glyphicon glyphicon-education"></i> Test</uib-tab-heading>{{courseDetail.test}}</uib-tab>
 
@@ -22,17 +22,6 @@
                                                     <div class="round-wrap">
                                                         <a data-toggle="collapse" data-target="#collapse{{class.id}}">
                                                             <blockquote class="blockquote">
-
-                                                                <!-- <img  style="float:left; clear:both; margin-right: 10px;" alt="training-program-icon" class="img-responsive" src = "{{trainingProgram.imgLink}}" width="70px">
-                                                                {{trainingProgram.name}}
-                                                                <footer class="blockquote-footer"> {{trainingProgram.description}}</footer>
-                                                                <!-- <uib-progressbar style="margin:0" class="progress-striped" max="100" value=trainingProgram.completePercent type="success"><i>{{trainingProgram.completePercent}}% completed</i></uib-progressbar> -->
-
-                                                                <!-- <center><span class="glyphicon glyphicon-menu-down"></span></center>
-                                                                <!-- TODO Edit add Training Program -->
-                                                                <!-- <a class="a-inside edit" data-toggle="modal" href="#addEditTPModal" ng-click="showUpdateTPForm(trainingProgram)"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                                <a class="a-inside delete" data-toggle="modal" href="#deleteModal" ng-click="showDeleteTPForm(trainingProgram)"><span class="glyphicon glyphicon-trash"></span></a> -->
-
                                                                 <div class="col-md-4">
                                                                     Rating av
                                                                 </div>
@@ -41,7 +30,7 @@
                                                                         Location: {{class.location}}
                                                                     </div>
                                                                     <div class="col-md-4">
-                                                                        Trainer: {{class.trainerId}}
+                                                                        Trainer: {{class.trainerName}}
                                                                     </div>
                                                                     <div class="col-md-4">
                                                                         Start Time: {{class.startTime | date: "dd/MM/yyyy"}}
@@ -58,17 +47,16 @@
                                                     <div  id="collapse{{class.id}}" class="panel-collapse collapse" >
                                                         <ul class="list-group">
                                                             List of trainee
-                                                            <li class="row" ng-repeat="classRecord in classRecordList">
+                                                            <li class="row" ng-repeat="trainee in class.traineeList">
                                                                 <blockquote class="blockquote">
                                                                 <div class="col-md-4">
-                                                                    {{classRecord.traneeEmail}}
+                                                                    {{trainee.traineeName}}
                                                                 </div>
                                                                 <div class="col-md-6 col-sm-8" style="border-left:2px solid {{course.backgroundColor}};">
-                                                                    {{classRecord.comments}}
+                                                                    {{trainee.status}}
                                                                 </div>
-                                                                <!-- Class -->
                                                                 <div class="col-md-2 col-sm-4">
-                                                                    {{classRecord.rating}}
+                                                                    {{trainee.rating}}
                                                                 </div>
                                                                 </blockquote>
                                                                 <br />

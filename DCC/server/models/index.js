@@ -49,12 +49,6 @@ db.Class.hasMany(db.ClassRecord, { foreignKey: 'classId' });
 //association of table class_record and user
 db.ClassRecord.belongsTo(db.User, { foreignKey: 'traineeId' });
 db.User.hasMany(db.ClassRecord, { foreignKey: 'traineeId' });
-//association of table feedback and user
-db.Feedback.belongsTo(db.User, { foreignKey: 'userId' });
-db.User.hasMany(db.Feedback, { foreignKey: 'userId' });
-//association of table feedback and class
-db.Feedback.belongsTo(db.Class, { foreignKey: 'classId' });
-db.Class.hasMany(db.Feedback, { foreignKey: 'classId' });
 //association of table RequestOpening and course
 db.RequestOpening.belongsTo(db.Course, { foreignKey: 'courseId' });
 db.Course.hasMany(db.RequestOpening, { foreignKey: 'courseId' });
