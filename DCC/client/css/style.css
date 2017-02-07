@@ -301,13 +301,14 @@ input,button,select,textarea {
 
 .footer {
 	margin-top: 0;
-
-	border-top: 1px solid #292929;
 }
 
 .footer-inner {
-	padding: 15px 0;
-
+	padding:15px 0;
+	position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
 	font-size: 12px;
 	background: #111;
 	color: #999;
@@ -957,4 +958,29 @@ blockquote{
   margin: auto;
   position: absolute;
   top: 0; left: 0; bottom: 0; right: 0;
+}
+
+html,
+body {
+	margin:0;
+	padding:0;
+	height:100%;
+}
+#wrapper {
+	min-height:100%;
+	position:relative;
+}
+#header {
+	
+}
+#content {
+	padding-bottom:51px; /* Height of the footer element */
+}
+#footer {
+
+	width:100%;
+	height:50px;
+	position:absolute;
+	bottom:0;
+	left:0;
 }

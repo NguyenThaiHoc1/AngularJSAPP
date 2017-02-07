@@ -106,7 +106,7 @@ myApp.controller('courseRegisterCtrl', ['$sce','$rootScope', '$scope', 'courseRe
         for(var i=$scope.requestedOpeningCourse.length-1; i>=0; i--){
             for(var j=trainingProgram.length-1; j>=0; j--){
                 for(var k=trainingProgram[j].Courses.length-1; k>=0; k--){
-                    if(trainingProgram[j].Courses[k].id == $scope.requestedOpeningCourse[i].id){
+                    if(trainingProgram[j].Courses[k].id == $scope.requestedOpeningCourse[i].courseId){
                         trainingProgram[j].Courses.splice(k,1);
                     }
                 }
@@ -115,6 +115,7 @@ myApp.controller('courseRegisterCtrl', ['$sce','$rootScope', '$scope', 'courseRe
 
 
         $scope.trainingProgramList = trainingProgram;
+        // console.log(trainingProgram);
     });
 
 
