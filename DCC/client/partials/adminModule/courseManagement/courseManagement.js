@@ -187,7 +187,7 @@ myApp.controller('addEditCourseCtrl', [ '$scope', '$rootScope','courseManagement
     });
 
     $scope.addEditCourseClick = function(){
-        console.log($rootScope.courseModel);
+        $rootScope.courseModel.courseTypeId = $rootScope.courseModel.courseTypeId.id;
         if ($rootScope.addEditFormIsEditForm){
             //edit course
             courseManagementServices.updateCourse($rootScope.courseModel).then(function(result){
@@ -234,7 +234,7 @@ myApp.controller('addEditTPCtrl', [ '$scope', '$rootScope','courseManagementServ
                         $rootScope.adminTrainingProgramList = result.data.trainingProgram;
                     });
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
-                    $location.path("#admin_courseManagement");
+                    // $location.path("#admin_courseManagement");
                 }else{
                     $rootScope.ShowPopupMessage('Edit Training Program FAIL!',"error");
                 }

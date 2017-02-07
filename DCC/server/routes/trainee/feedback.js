@@ -9,7 +9,7 @@ router.post ('/getMyFeedbackByClass', function(req, res){
             classId: req.body.classId
         }
     };
-    models.Feedback.findOne(query).then(function(feedback) {
+    models.ClassRecord.findOne(query).then(function(feedback) {
         if(!feedback){
             models.Feedback.create({
                 comments: '',
