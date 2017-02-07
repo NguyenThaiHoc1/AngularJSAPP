@@ -16,7 +16,7 @@
                     <div class="round-wrap">
                         <a data-toggle="collapse" data-target="#collapse{{trainingProgram.id}}">
                             <blockquote class="blockquote">
-                                <img  style="float:left; clear:both; margin-right: 10px;" alt="training-program-icon" class="img-responsive" src = "{{trainingProgram.imgLink}}" width="70px">
+                                <img  style="float:left; clear:both; margin-right: 10px;" alt="training-program-icon" class="img-responsive" ng-src = "{{trainingProgram.imgLink}}" width="70px">
                                 {{trainingProgram.name}}
                                 <footer class="blockquote-footer"> {{trainingProgram.description}}</footer>
                                 <uib-progressbar style="margin:0" class="progress-striped" max="100" value=trainingProgram.completePercent type="success"><i>{{trainingProgram.completePercent}}% completed</i></uib-progressbar>
@@ -32,22 +32,22 @@
                                 <div class="col-md-9 col-sm-8" style="border-left:2px solid {{myCourse.backgroundColor}};">
                                     <blockquote class="blockquote">
                                         <a ui-sref="courseDetail({courseId: myCourse.id})">
-                                            <img  style="float:left; clear:both; margin-right:10px;" alt="course-icon" class="img-responsive" src = "{{myCourse.imgLink}}" width="70px">
+                                            <img  style="float:left; clear:both; margin-right:10px;" alt="course-icon" class="img-responsive" ng-src = "{{myCourse.imgLink}}" width="70px">
                                             {{myCourse.name}}
                                             <footer class="blockquote-footer">{{myCourse.description}}</footer>
                                         </a>
                                     </blockquote>
                                 </div>
                                 <div class="col-md-2 col-sm-4">
-                                    <center >
-                                        <div class="btn-group dropdown">
-                                            <button class="btn btn-secondary dropdown-toggle Absolute-Center " style="background-color: {{myCourse.backgroundColor}}" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                {{myCourse.status}} &nbsp <i class="fa fa-bars" aria-hidden="true"></i>
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item" href="#feedbackModal" ng-click="actionOneClick(myCourse)"> &nbsp {{actionOneText[myCourse.status]}}</a><br />
-                                                <a class="dropdown-item" href="#" ng-click="actionTwoClick(myCourse)"> &nbsp {{actionTwoText[myCourse.status]}}</a>
-                                            </div>
+                                    <center>
+                                        <div class="dropdown">
+                                            <a class="dropdown-toggle btn" style="background-color: {{myCourse.backgroundColor}}" data-toggle="dropdown">
+                                                {{myCourse.status}} &nbsp <i class="fa fa-caret-down" aria-hidden="true"></i>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li ng-click="actionOneClick(myCourse)"><a data-toggle="modal" data-target="#feedbackModal">{{actionOneText[myCourse.status]}}</a></li>
+                                                <li ng-click="actionTwoClick(myCourse)"><a>{{actionTwoText[myCourse.status]}}</a></li>
+                                            </ul>
                                         </div>
 
                                     </center>
@@ -80,7 +80,7 @@
                     <div class="col-md-8 col-sm-6">
                         <blockquote class="blockquote">
                             <a ui-sref="courseDetail({courseId: requestOpenCourse.id})" style="text-decoration: none">
-                                <img  style="float:left; clear:both; margin:8px;" alt="course-icon" class="img-responsive" src = "{{requestOpenCourse.imgLink}}" width="70px">
+                                <img  style="float:left; clear:both; margin:8px;" alt="course-icon" class="img-responsive" ng-src = "{{requestOpenCourse.imgLink}}" width="70px">
                                 {{requestOpenCourse.name}}
                                 <footer class="blockquote-footer" style="color: black;">{{requestOpenCourse.description}}</footer>
                             </a>
