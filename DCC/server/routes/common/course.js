@@ -16,13 +16,9 @@ router.post('/getClassByCourseID', function(req, res) {
     var query =
     {
         include: [  models.User,
-
             {
                 model: models.ClassRecord,
-                include: [models.User, {
-                    model: models.Class,
-                    include: [models.Feedback]
-                }]
+                include: [models.User]
             }
         ],
         where: {
@@ -34,17 +30,14 @@ router.post('/getClassByCourseID', function(req, res) {
         var resData = [];
         classes.forEach( classByCourseId =>{
             var traineeList = [];
-
             classByCourseId.ClassRecords.forEach(classRecord =>{
-
                 traineeList.push({
                     traineeName: classRecord.User.username,
                     //status: classRecord.status
-
+                    comment: classRecord.comments,
+                    rating: classRecord.rating,
                 });
             });
-
-
 
             resData.push({
                 id: classByCourseId.id,
@@ -55,13 +48,10 @@ router.post('/getClassByCourseID', function(req, res) {
             });
         });
 
-
-        console.log(resData);
         var datasend = {
             success: true,
             msg:'send list success',
-            data: resData,
-            a:classes
+            data: resData
         };
         res.send(datasend);
     });
