@@ -1,0 +1,10 @@
+/home/admin.sh
+cd DCC
+#npm install karma karma-coverage karma-junit-reporter karma-jasmine jasmine karma-sinon-chai
+#npm install phantomjs-prebuilt karma-phantomjs-launcher
+#npm install sqlite3
+./node_modules/karma/bin/karma start karma.conf.js
+istanbul cover _mocha -- -R spec
+cat coverage_angular/lcov-report/lcov.info coverage/lcov.info > coverage/lcov.dat
+#cat coverage/lcov.info > coverage/lcov.dat
+#SET process.env.NODE_ENV = test

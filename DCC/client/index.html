@@ -33,20 +33,32 @@
     <![endif]-->
 </head>
 <body>
-    <div ng-include="'partials/common/loginHeader.html'"></div> <!-- loginHeader -->
-    <div ng-show="$state.current.name != 'home'">
-        <div ng-include="'partials/common/adminHeader.html'" ng-show="userInfo.role == 1"></div> <!-- adminHeader -->
-        <div ng-include="'partials/common/trainerHeader.html'" ng-show="userInfo.role == 2"></div> <!-- trainerHeader -->
-        <div ng-include="'partials/common/traineeHeader.html'" ng-show="userInfo.role == 3"></div> <!-- traineeHeader -->
-    </div>
-    <div class="main">
-        <div class="main-inner">
-            <div class="" ui-view>
+    <div id="wrapper">
+
+        <div id="header">
+            <div ng-include="'partials/common/loginHeader.html'"></div> <!-- loginHeader -->
+            <div ng-show="$state.current.name != 'home'">
+                <div ng-include="'partials/common/adminHeader.html'" ng-show="userInfo.role == 1"></div> <!-- adminHeader -->
+                <div ng-include="'partials/common/trainerHeader.html'" ng-show="userInfo.role == 2"></div> <!-- trainerHeader -->
+                <div ng-include="'partials/common/traineeHeader.html'" ng-show="userInfo.role == 3"></div> <!-- traineeHeader -->
             </div>
-        </div>
-    </div>
-    <div id="popUpMessage">{{popUpMessage}}</div> <!-- Show popup mesage when needed-->
-    <div ng-include="'partials/common/footer.html'"></div> <!-- footer -->
+        </div><!-- #header -->
+
+        <div id="content">
+            <div class="main">
+                <div class="main-inner">
+                    <div class="" ui-view>
+                    </div>
+                </div>
+            </div>
+        </div><!-- #content -->
+
+        <div id="footer">
+            <div id="popUpMessage">{{popUpMessage}}</div> <!-- Show popup mesage when needed-->
+            <div ng-include="'partials/common/footer.html'"></div> <!-- footer -->
+        </div><!-- #footer -->
+
+    </div><!-- #wrapper -->
 
     <script src="bower_components/jquery/jquery-1.11.0.js"></script>
     <script src="bower_components/angular-chart/Chart.min.js"></script>
