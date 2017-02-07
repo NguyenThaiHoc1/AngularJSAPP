@@ -30,9 +30,14 @@ router.post('/getClassByCourseID', function(req, res) {
         var resData = [];
         classes.forEach( classByCourseId =>{
             var traineeList = [];
+            var ratingAverage=0;
+            var count=0;
             classByCourseId.ClassRecords.forEach(classRecord =>{
+                count++;
+                ratingAverage = Math.ceil(ratingAverage + classRecord.rating)/count;
                 traineeList.push({
                     traineeName: classRecord.User.username,
+                    traineeAvatar: classRecord.User.avatar,
                     //status: classRecord.status
                     comment: classRecord.comments,
                     rating: classRecord.rating,
@@ -44,7 +49,10 @@ router.post('/getClassByCourseID', function(req, res) {
                 location: classByCourseId.location,
                 trainerName: classByCourseId.User.username,
                 startTime: classByCourseId.startTime,
-                traineeList: traineeList
+                trainerAvatar: classByCourseId.User.avatar,
+                traineeList: traineeList,
+                ratingAverage: ratingAverage,
+                numTrainee: count
             });
         });
 
