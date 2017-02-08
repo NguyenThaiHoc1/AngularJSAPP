@@ -107,7 +107,7 @@ myApp.controller('courseManagementCtrl', [ '$scope', '$rootScope','courseManagem
             }
         };
     };
-    $scope.showAddClassForm=function(adminClass){
+    $scope.showAddClassForm=function(course){
         $rootScope.addEditFormIsEditForm =  false;
         //Class
         $rootScope.addEditClassFormTitle = 'Add Class';

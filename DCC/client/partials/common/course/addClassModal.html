@@ -1,0 +1,71 @@
+<div class="modal fade" id="addClassModal" role="dialog" ng-controller ="addEditTPCtrl">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" >{{addEditClassFormTitle}}</h4>
+            </div>
+
+            <form name="addForm"  role="form" class="form-horizontal" novalidate>
+                <div class="modal-body">
+                    <!-- Course Name -->
+                    <div class="form-group" ng-class="{ 'has-error' : addForm.location.$invalid && !addForm.location.$pristine }">
+                        <label class="col-sm-4 control-label">Location</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="location" ng-model="adminClassModel.location"  required>
+                            <p ng-show="addForm.location.$invalid && !addForm.location.$pristine" class="help-block">Class location is required.</p>
+                        </div>
+                    </div>
+
+                    <!--Course Type-->
+                    <!-- <div class="form-group" ng-class="{ 'has-error' : addForm.courseTypeId.$invalid && !addForm.courseTypeId.$pristine }">
+                        <label class="col-sm-4 control-label">Trainer</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" name="courseTypeId"
+                            ng-options ="courseType.name for courseType in courseTypeList track by courseType.id "
+                            ng-model="adminTrainingProgramModel.courseTypeId">
+                        </select>
+                     </div>
+                </div> -->
+                <div class="form-group" ng-class="{ 'has-error' : addForm.startTime.$invalid && !addForm.startTime.$pristine }">
+                    <label class="col-sm-4 control-label">Start time</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="startTime" ng-model="adminClassModel.startTime"  required>
+                        <p ng-show="addForm.startTime.$invalid && !addForm.startTime.$pristine" class="help-block">Start time is required.</p>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-class="{ 'has-error' : addForm.duration.$invalid && !addForm.duration.$pristine }">
+                    <label class="col-sm-4 control-label">Duration</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="duration" ng-model="adminClassModel.duration"  required>
+                        <p ng-show="addForm.duration.$invalid && !addForm.duration.$pristine" class="help-block">Duration is required.</p>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-class="{ 'has-error' : addForm.maxAttendant.$invalid && !addForm.maxAttendant.$pristine }">
+                    <label class="col-sm-4 control-label">Max Attendant</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="maxAttendant" ng-model="adminClassModel.maxAttendant"  required>
+                        <p ng-show="addForm.maxAttendant.$invalid && !addForm.maxAttendant.$pristine" class="help-block">Max Attendant is required.</p>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-class="{ 'has-error' : addForm.note.$invalid && !addForm.note.$pristine }">
+                    <center><label>Note</label><center>
+                    <br>
+                    <div text-angular ng-model="adminClassModel.note"  required></div>
+                    <p ng-show="addForm.note.$invalid && !addForm.note.$pristine" class="help-block">Note is required.</p>
+                </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" ng-click="addEditTPClick()" data-dismiss="modal" ng-disabled="addForm.$invalid">{{addEditClassFormAction}}</button>
+                    <button type="submit" class="btn btn-default" ng-click="cancel()" data-dismiss="modal" >Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

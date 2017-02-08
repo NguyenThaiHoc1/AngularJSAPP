@@ -218,7 +218,7 @@ router.get('/getClass', function(req, res){
 
 //Add Class
 router.post('/addClass', function(req, res) {
-    log.info('/admin/courses/addClass: Add Class :');
+    log.info('/admin/courses/addClass: Add Class :' + req.body.location);
     models.Class.sync({
         force: false
     }).then(function() {
@@ -226,7 +226,7 @@ router.post('/addClass', function(req, res) {
             courseId: req.body.courseId,
             location: req.body.location,
             //TODO
-            // trainerId: req.body.trainerId,
+            // trainerId: req.body.trainerId.id,
             startTime: req.body.startTime,
             duration: req.body.duration,
             maxAttendant: req.body.maxAttendant,

@@ -26,5 +26,9 @@ module.exports=
     rating: {
         type: SequelizeDatatypes.INTEGER,
         allowNull: true
+    },
+    traineeId:{
+        type: SequelizeDatatypes.INTEGER,
+        allowNull: false
     }
 }
