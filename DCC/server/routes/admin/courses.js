@@ -93,13 +93,6 @@ router.post('/deleteCourse', function(req, res) {
 
 router.get('/getCourseList', function(req, res) {
     log.info('/admin/getCourseList: get course list data');
-    // models.Course.getCourses(function(courses) {
-    //     var datasend = {
-    //         courses: courses,
-    //         msg:'send list success'
-    //     };
-    //     res.send(datasend);
-    // });
     models.Course.findAll({
         include: [ models.TrainingProgram ]
     }).then(function(course) {
@@ -116,13 +109,6 @@ router.get('/getCourseList', function(req, res) {
 //getCourseTypeList
 router.get('/getCourseTypeList', function(req, res) {
     log.info('/admin/getCourseTypeList: get course type list data');
-    // models.Course.getCourses(function(courses) {
-    //     var datasend = {
-    //         courses: courses,
-    //         msg:'send list success'
-    //     };
-    //     res.send(datasend);
-    // });
     var query = { include: [ models.Course ]};
     models.CourseType.findAll(query).then(function(courseType) {
         var datasend = {

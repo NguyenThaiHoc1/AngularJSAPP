@@ -5,17 +5,6 @@ var models = require("./index");
 module.exports = function(sequelize) {
     var Course = sequelize.define('Course', _courseModel, {
         classMethods: {
-            getCourses: function(cb)
-            {
-                log.info('/models/course: getCourses()');
-                var query = {
-                    where: {
-
-                    }
-                };
-                Course.findAll(query).then(cb);
-            },
-
             getByID: function(id, cb)
             {
                 log.info('/models/course: getByID() : ' + id);
