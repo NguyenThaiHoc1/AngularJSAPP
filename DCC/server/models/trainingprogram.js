@@ -14,12 +14,12 @@ module.exports = function(sequelize, DataTypes) {
           };
           Trainingprogram.findAll(query).then(cb);
         },
-        //   getTrainingByID: function(idTP,cb){
-        //       log.info('/models/user: getTrainingByID :'+ idTP);
-        //       var query={
-        //       };
-        //       Trainingprogram.findOne(query).then(cb);
-        //   },
+          getTrainingByID: function(idTP,cb){
+              log.info('/models/user: getTrainingByID :'+ idTP);
+              var query={
+              };
+              Trainingprogram.findOne(query).then(cb);
+          },
       },
       tableName: 'training_program',
       timestamps: false
