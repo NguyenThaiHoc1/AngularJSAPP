@@ -81,7 +81,7 @@ myApp.controller('courseRegisterCtrl', ['$sce','$rootScope', '$scope', 'courseRe
                     trainingProgramElement.Courses.forEach(function(courseElement, courseElementIndex, Courses){
                         if(courseElement.id == openingCourseListElement.id) {
                             Courses[courseElementIndex].isOpening = true;
-                            Courses[courseElementIndex].buttonName = "Enroll";
+                            Courses[courseElementIndex].buttonName = "Register";
                             Courses[courseElementIndex].buttonColor = "#4FC3F7";
                         }
                     });
