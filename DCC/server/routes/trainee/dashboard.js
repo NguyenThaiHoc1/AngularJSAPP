@@ -74,10 +74,8 @@ router.post('/getTrainingProgramByTPType', function(req, res){
                         trainingProgram.Courses.forEach(course =>{
                             for ( var i = 0; i < course.Classes.length ; i++)
                             {
-                                console.log(course.Classes.length);
                                 for ( var j = 0; j < course.Classes[i].ClassRecords.length  ; j++ )
                                 {
-                                    console.log(course.Classes[i].ClassRecords.length);
                                     if ( course.Classes[i].ClassRecords[j].traineeEmail == req.body.email )
                                     {
                                         resData.push( trainingProgram);

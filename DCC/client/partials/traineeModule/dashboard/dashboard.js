@@ -69,10 +69,11 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
                 traningProgram.Courses.forEach(course => {
                     if ( course.Classes.length == 0)
                     {
-
+                            course.backgroundColor = 'red';
+                            course.status = 'not learn';
                     }
                     else
-                    {   
+                    {
                         // class id and status in class Record
                         course.classId = course.Classes[course.Classes.length - 1].ClassRecords[course.Classes[course.Classes.length - 1].ClassRecords.length - 1].classId;
                         course.status = course.Classes[course.Classes.length - 1].ClassRecords[course.Classes[course.Classes.length - 1].ClassRecords.length - 1].status;
