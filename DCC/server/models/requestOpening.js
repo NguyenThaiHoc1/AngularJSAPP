@@ -1,5 +1,5 @@
 var _requestOpeningModel = require('./DataObjects/requestOpening');
-module.exports = function(sequelize, DataTypes) {
+module.exports = function(sequelize) {
     var RequestOpening = sequelize.define('RequestOpening', _requestOpeningModel, {
         classMethods: {
             addRequestRegister: function(userEmail, courseId, cb)

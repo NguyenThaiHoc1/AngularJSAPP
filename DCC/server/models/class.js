@@ -1,5 +1,5 @@
 var _classModel = require("./DataObjects/class");
-module.exports = function(sequelize, DataTypes) {
+module.exports = function(sequelize) {
     var Class = sequelize.define('Class', _classModel, {
         classMethods: {
             getClass: function(cb)
@@ -49,7 +49,6 @@ module.exports = function(sequelize, DataTypes) {
 
             getOpeningClass: function(cb)
             {
-                //log.info('/models/class: getOpeningClass()');
                 var query = {
                     where:
                     {

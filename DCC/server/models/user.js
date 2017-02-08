@@ -1,6 +1,6 @@
 var log = require('../../config/logConfig');
 var _userModel=require('./DataObjects/user');
-module.exports = function(sequelize, DataTypes) {
+module.exports = function(sequelize) {
     var User = sequelize.define('User', _userModel, {
         classMethods: {
             getUserByID: function(id,cb){

@@ -1,7 +1,7 @@
 var _feedbackModel = require('./DataObjects/feedback');
 var log = require('../../config/logConfig');
 
-module.exports = function(sequelize, DataTypes) {
+module.exports = function(sequelize) {
     var Feedback = sequelize.define('Feedback', _feedbackModel,{
         classMethods: {
             getFeedbackByClassID: function(id, cb) {
