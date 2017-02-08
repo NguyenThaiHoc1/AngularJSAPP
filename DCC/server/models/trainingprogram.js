@@ -2,7 +2,7 @@ var log = require('../../config/logConfig');
 var _trainingprogramModel= require('./DataObjects/trainingProgram');
 var Sequelize = require('sequelize');
 
-module.exports = function(sequelize, DataTypes) {
+module.exports = function(sequelize) {
   var Trainingprogram = sequelize.define('TrainingProgram', _trainingprogramModel,{
       classMethods:{
         getTraining: function(cb)
