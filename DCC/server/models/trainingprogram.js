@@ -21,7 +21,8 @@ module.exports = function(sequelize, DataTypes) {
               Trainingprogram.findOne(query).then(cb);
           },
       },
-      tableName: 'training_program'
+      tableName: 'training_program',
+      timestamps: false
   });
     return Trainingprogram;
 };

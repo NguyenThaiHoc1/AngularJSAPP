@@ -34,7 +34,8 @@ module.exports = function(sequelize, DataTypes) {
             }
         },
 
-        tableName: 'feedback'
+        tableName: 'feedback',
+        timestamps: false
     });
     return Feedback;
 };

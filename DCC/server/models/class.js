@@ -63,7 +63,8 @@ module.exports = function(sequelize, DataTypes) {
             }
         },
 
-        tableName: 'class'
+        tableName: 'class',
+        timestamps: false
     });
     return Class;
 };

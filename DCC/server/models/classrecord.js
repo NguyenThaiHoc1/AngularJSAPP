@@ -23,7 +23,8 @@ module.exports = function(sequelize, DataTypes) {
                 Classrecord.destroy(query).then(cb);
             },
         },
-        tableName: 'class_record'
+        tableName: 'class_record',
+        timestamps: false
     });
     return Classrecord;
 };

@@ -43,7 +43,8 @@ module.exports = function(sequelize, DataTypes) {
                 RequestOpening.destroy(query).then(cb);
             }
         },
-        tableName: 'request_opening'
+        tableName: 'request_opening',
+        timestamps: false
     });
     return RequestOpening;
 };

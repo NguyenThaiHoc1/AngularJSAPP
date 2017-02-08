@@ -32,7 +32,8 @@ module.exports = function(sequelize, DataTypes) {
             }
         },
 
-        tableName: 'user'
+        tableName: 'user',
+        timestamps: false
     });
     return User;
 };

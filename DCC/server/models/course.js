@@ -45,7 +45,7 @@ module.exports = function(sequelize) {
                 log.info('/models/course: getByTraningProgramID() : ' + trainingProgramId);
                 var query = {
                     where: {
-                        
+
                         trainingProgramId: trainingProgramId
                     }
                 };
@@ -54,7 +54,8 @@ module.exports = function(sequelize) {
 
         },
 
-        tableName: 'course'
+        tableName: 'course',
+        timestamps: false
     });
     return Course;
 };

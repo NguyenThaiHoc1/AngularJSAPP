@@ -7,7 +7,8 @@ module.exports = function(sequelize) {
         classMethods: {
         },
 
-        tableName: 'course_type'
+        tableName: 'course_type',
+        timestamps: false
     });
     return courseType;
 };
