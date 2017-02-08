@@ -83,6 +83,7 @@ router.post('/login', function(req, res, next) {
                         isTrainee: true, //default user is a trainee
                         belong2Team: 'Team 7Up',
                         isExperienced: 0,
+                        courseTypeId: 'CBA'
                     }
                 })
                 .then(function(user) {
@@ -111,6 +112,7 @@ router.post('/login', function(req, res, next) {
                         trainee: user[0].dataValues.trainee,
                         belong2Team: user[0].dataValues.belong2Team,
                         isExperienced: user[0].dataValues.isExperienced,
+                        userType:  user[0].dataValues.userType,
 
                         success: true,
                         msg: 'You are authenticated!'
