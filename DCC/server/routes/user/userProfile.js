@@ -44,7 +44,7 @@ router.get('/getUserInfo', function(req, res) {
             isTrainee: user.isTrainee,
             belong2Team: user.belong2Team,
             isExperienced: user.isExperienced,
-
+            userType: user.userType,
             success: true,
         });
     });

@@ -32,10 +32,13 @@ router.get('/getTrainingProgram', function(req, res){
     });
 });
 
-router.get('/getTrainingProgramByTPType', function(req, res){
+router.post('/getTrainingProgramByTPType', function(req, res){
     var query =
     {
         include: [
+            {
+                model: models.CourseType,
+            },
             {
                 model: models.Course,
                 include: [
@@ -51,22 +54,56 @@ router.get('/getTrainingProgramByTPType', function(req, res){
             }
         ]
     };
+    console.log(req.body);
     models.TrainingProgram.findAll(query).then(function(trainingPrograms) {
         var resData =[];
         trainingPrograms.forEach(trainingProgram =>{
-
-            // course.Class[course.Class.length-1].ClassRecord.traineeEmail
-            if( trainingProgram.traineeType == 'CBA' || trainingProgram.traineeType == 'EVERYONE' ){
-
+            if( trainingProgram.CourseType.name == req.body.userType || trainingProgram.CourseType.name == 'EVERYONE' )
+            {
                 resData.push( trainingProgram);
             }
-            else{
-                trainingProgram.Courses.forEach(course =>{
-                    if ( course.Classes[course.Classes.length - 1].ClassRecords[course.Classes[course.Classes.length - 1].ClassRecords.length - 1].traineeEmail == 'thach@gmail.com' )
+            else
+            {
+                if( !req.body.isExperienced  )
+                {
+                    if(  trainingProgram.CourseType.name == 'OPTIONAL' )
                     {
                         resData.push( trainingProgram);
                     }
-                });
+                    else{
+                        trainingProgram.Courses.forEach(course =>{
+                            for ( var i = 0; i < course.Classes.length ; i++)
+                            {
+                                console.log(course.Classes.length);
+                                for ( var j = 0; j < course.Classes[i].ClassRecords.length  ; j++ )
+                                {
+                                    console.log(course.Classes[i].ClassRecords.length);
+                                    if ( course.Classes[i].ClassRecords[j].traineeEmail == req.body.email )
+                                    {
+                                        resData.push( trainingProgram);
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }
+                else
+                {
+                    trainingProgram.Courses.forEach(course =>{
+
+                        for ( var i = 0; i < course.Classes[i].length ; i++)
+                        {
+                            console.log(course.Classes[i].length);
+                            for ( var j = 0; j < course.Classes[i].ClassRecords[j].length - 1 ; j++ )
+                            {
+                                if ( course.Classes[i].ClassRecords[j].traineeEmail == req.body.email )
+                                {
+                                    resData.push( trainingProgram);
+                                }
+                            }
+                        }
+                    });
+                }
             }
 
         });
@@ -74,7 +111,6 @@ router.get('/getTrainingProgramByTPType', function(req, res){
             success : true,
             msg:'send list success',
             trainingProgram: resData,
-
         };
         res.send(datasend);
     });
