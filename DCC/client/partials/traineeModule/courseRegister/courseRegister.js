@@ -64,7 +64,6 @@ myApp.controller('courseRegisterCtrl', ['$sce','$rootScope', '$scope', 'courseRe
         $scope.openingCourseList = tempOpeningCourseList;
     });
 
-
     courseRegisterServices.getTrainingProgram().then(function(result){
         $scope.trainingProgramList = {};
         var trainingProgram = {};
@@ -72,7 +71,6 @@ myApp.controller('courseRegisterCtrl', ['$sce','$rootScope', '$scope', 'courseRe
 
         trainingProgram.forEach(trainingProgram => {
             trainingProgram.Courses.forEach(course => {
-                course.hideKey = false;
                 course.isOpening = false;
                 course.buttonName = "Register";
                 course.buttonColor = "#8BC34A";
@@ -158,11 +156,13 @@ myApp.controller('courseRegisterCtrl', ['$sce','$rootScope', '$scope', 'courseRe
             {
                 if (result.data.msg){
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
-                    $scope.trainingProgramList.forEach(trainingProgram => {
-                        trainingProgram.Courses.forEach(course =>{
-                            if(course.id == courseId) course.hideKey = true;
-                        });
-                    });
+                    for(var i=$scope.trainingProgramList.length-1; i>=0; i--){
+                        for(var j=$scope.trainingProgramList[i].Courses.length-1; j>=0; j--){
+                            if($scope.trainingProgramList[i].Courses[j].id==courseId) {
+                                $scope.trainingProgramList[i].Courses.splice(j,1);
+                            }
+                        }
+                    }
                 }
                 else
                     $rootScope.ShowPopupMessage("Register Error", "error");

@@ -19,7 +19,7 @@
                             <div   class="control-group">
                                 <div class="controls">
                                     <div class="ppanel-group" ng-repeat="course in courseListSearchResult" >
-                                        <div ng-hide="course.hideKey" class="panel-heading panel-title"  style="margin-bottom:10px; border: 0px solid grey; border-radius: 5px;">
+                                        <div class="panel-heading panel-title"  style="margin-bottom:10px; border: 0px solid grey; border-radius: 5px;">
                                             <div class="round-wrap">
                                                 <div class="row">
                                                     <a ui-sref="courseDetail({courseId: course.id})" class="col-md-10" style="text-decoration : none">
@@ -107,7 +107,7 @@
                                                 </a>
                                             </blockquote>
                                         </div>
-                                        <div ng-hide="course.hideKey||!course.isOpening&&openingCourseFilter" class="col-md-2 col-sm-4">
+                                        <div ng-hide="!course.isOpening&&openingCourseFilter" class="col-md-2 col-sm-4">
                                             <center>
                                                 <div class="btn-group">
                                                     <button ng-click="registerCourse(course.id,courseRegisterStatus)" style="background-color: {{course.buttonColor}}" class="btn Absolute-Center {{course.buttonColor}} " type="button" aria-haspopup="true" aria-expanded="true">
