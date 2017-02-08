@@ -17,8 +17,9 @@ module.exports =
         type: SequelizeDatatypes.TEXT,
         allowNull: true
     },
-    traineeType:{
-        type: SequelizeDatatypes.STRING,
-        allowNull: false
-    }
+    courseTypeId:
+    {
+        type: SequelizeDatatypes.INTEGER,
+        allowNull: true
+    },
 };

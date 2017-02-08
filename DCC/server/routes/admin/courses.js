@@ -22,7 +22,6 @@ router.post('/addCourse', function(req, res) {
                     duration: req.body.duration,
                     test: req.body.test,
                     documents: req.body.documents,
-                    courseTypeId: req.body.courseTypeId.id,
                     trainingProgramId: req.body.trainingProgramId,
                     imgLink: '/img/courses/training-icon-1.svg',
                 }).then(function() {
@@ -49,7 +48,7 @@ router.post('/updateCourse', function(req, res) {
             duration: req.body.duration,
             test: req.body.test,
             documents: req.body.documents,
-            courseTypeId: req.body.courseTypeId.id,
+
             trainingProgramId: req.body.trainingProgramId,
             imgLink: '/img/courses/training-icon-1.svg',
         }, {
@@ -82,7 +81,7 @@ router.post('/deleteCourse', function(req, res) {
 //getCourseTypeList
 router.get('/getCourseTypeList', function(req, res) {
     log.info('/admin/getCourseTypeList: get course type list data');
-    var query = { include: [ models.Course ]};
+    var query = { include: [ models.TrainingProgram ]};
     models.CourseType.findAll(query).then(function(courseType) {
         var datasend = {
             success: true,
@@ -99,6 +98,9 @@ router.get('/getTrainingProgramList', function(req, res){
     {
         include: [
             {
+                model: models.CourseType,
+            },
+            {
                 model: models.Course,
                 include: [
                     {
@@ -108,9 +110,6 @@ router.get('/getTrainingProgramList', function(req, res){
                                 model: models.ClassRecord,
                             }
                         ]
-                    },
-                    {
-                        model: models.CourseType,
                     }
                 ]
             }
@@ -140,6 +139,7 @@ router.post('/addTrainingProgram', function(req, res) {
                 models.TrainingProgram.create({
                     name: req.body.name,
                     description: req.body.description,
+                    courseTypeId: req.body.courseTypeId.id,
                     imgLink: '/img/trainingProgram/training-icon-1.svg',
                 }).then(function() {
                     res.send({
@@ -162,6 +162,7 @@ router.post('/updateTrainingProgram', function(req, res) {
             name: req.body.name,
             description: req.body.description,
             duration: req.body.duration,
+            courseTypeId: req.body.courseTypeId.id,
             imgLink: '/img/trainingProgram/training-icon-1.svg',
         }, {
             where: {

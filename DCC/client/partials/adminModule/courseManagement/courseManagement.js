@@ -89,9 +89,6 @@ myApp.controller('courseManagementCtrl', [ '$scope', '$rootScope','courseManagem
             duration:'',
             documents: '',
             test: '',
-            courseTypeId: {
-                id: ''
-            },
             trainingProgramId: trainingProgram.id
 
         };
@@ -105,6 +102,9 @@ myApp.controller('courseManagementCtrl', [ '$scope', '$rootScope','courseManagem
         $rootScope.adminTrainingProgramModel = {
             name: '',
             description: '',
+            courseTypeId:{
+                id: ''
+            }
         };
     };
     $scope.showAddClassForm=function(adminClass){
@@ -139,9 +139,6 @@ myApp.controller('courseManagementCtrl', [ '$scope', '$rootScope','courseManagem
             test: course.test,
             //TODO
             // trainerId: adminclass.trainerId,
-            courseTypeId: {
-                id: course.CourseType,
-            },
             trainingProgramId: trainingProgram.id
         };
         // console.log($rootScope.courseModel);//debug
@@ -155,6 +152,9 @@ myApp.controller('courseManagementCtrl', [ '$scope', '$rootScope','courseManagem
             id: trainingProgram.id,
             name: trainingProgram.name,
             description: trainingProgram.description,
+            courseTypeId:{
+                id: trainingProgram.CourseType
+            }
         };
     };
     $scope.showDeleteCourseForm = function(course){
@@ -181,13 +181,8 @@ myApp.controller('addEditCourseCtrl', [ '$scope', '$rootScope','courseManagement
     courseManagementServices.getTrainingProgramList().then(function(result){
         $scope.trainingProgramList = result.data.data;
     });
-    //getCourseTypeList
-    courseManagementServices.getCourseTypeList().then(function(result){
-        $scope.courseTypeList = result.data.courseType;
-    });
 
     $scope.addEditCourseClick = function(){
-        $rootScope.courseModel.courseTypeId = $rootScope.courseModel.courseTypeId.id;
         if ($rootScope.addEditFormIsEditForm){
             //edit course
             courseManagementServices.updateCourse($rootScope.courseModel).then(function(result){
@@ -223,6 +218,11 @@ myApp.controller('addEditCourseCtrl', [ '$scope', '$rootScope','courseManagement
 
 //Add and Edit Training Program Control
 myApp.controller('addEditTPCtrl', [ '$scope', '$rootScope','courseManagementServices', function($scope, $rootScope, courseManagementServices, $location) {
+
+    //getCourseTypeList
+    courseManagementServices.getCourseTypeList().then(function(result){
+        $scope.courseTypeList = result.data.courseType;
+    });
 
     $scope.addEditTPClick = function(){
         if ($rootScope.addEditFormIsEditForm){

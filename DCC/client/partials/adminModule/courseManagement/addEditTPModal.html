@@ -19,6 +19,17 @@
                         </div>
                     </div>
 
+                    <!--Course Type-->
+                    <div class="form-group" ng-class="{ 'has-error' : addEditForm.courseTypeId.$invalid && !addEditForm.courseTypeId.$pristine }">
+                        <label class="col-sm-4 control-label">Trainee Type</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" name="courseTypeId"
+                            ng-options ="courseType.name for courseType in courseTypeList track by courseType.id "
+                            ng-model="adminTrainingProgramModel.courseTypeId">
+                        </select>
+                     </div>
+                </div>
+
                     <div class="form-group" ng-class="{ 'has-error' : addEditForm.description.$invalid && !addEditForm.description.$pristine }">
                         <center><label>Description</label></center><br>
                         <div text-angular ng-model="adminTrainingProgramModel.description"  required></div>
