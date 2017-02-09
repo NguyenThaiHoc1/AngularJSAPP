@@ -2,7 +2,7 @@ var _classModel = require("./DataObjects/class");
 module.exports = function(sequelize) {
     var Class = sequelize.define('Class', _classModel, {
         classMethods: {
-            getOpeningClassByCourseID: function(id, cb)
+            getOpeningClassByCourseID: function(courseId, cb)
             {
                 var query = {
                     where:
@@ -11,7 +11,7 @@ module.exports = function(sequelize) {
                         {
                             $gt: Date.now()
                         },
-                        courseId: id
+                        courseId: courseId
                     }
                 };
                 Class.findOne(query).then(cb);

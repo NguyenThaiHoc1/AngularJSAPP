@@ -2,11 +2,11 @@ var _classrecordModel = require('./DataObjects/classRecord');
 module.exports = function(sequelize) {
     var Classrecord = sequelize.define('ClassRecord', _classrecordModel, {
         classMethods: {
-            addTraineeToClass: function(traineeEmail, id, cb)
+            addTraineeToClass: function(traineeEmail, classId, cb)
             {
                 var query = {
                     traineeEmail : traineeEmail,
-                    classId : id,
+                    classId : classId,
                     status: "Enrolled"
                 };
                 Classrecord.create(query).then(cb);
