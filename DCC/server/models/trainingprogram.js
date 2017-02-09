@@ -10,6 +10,14 @@ module.exports = function(sequelize) {
                     include: [ models.Course ]
                 };
                 Trainingprogram.findAll(query).then(cb);
+            },
+            getTrainingByName: function(TPname, cb){
+                var query = {
+                    where: {
+                        name: TPname
+                    }
+                };
+                Trainingprogram.findOne(query).then(cb);
             }
         },
         tableName: 'training_program',

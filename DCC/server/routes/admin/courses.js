@@ -76,7 +76,7 @@ router.post('/deleteCourse', function(req, res) {
 
 //getCourseTypeList
 router.get('/getCourseTypeList', function(req, res) {
-    var query = { include: [ models.Course ]};
+    var query = {};
     models.CourseType.findAll(query).then(function(courseType) {
         var datasend = {
             success: true,
