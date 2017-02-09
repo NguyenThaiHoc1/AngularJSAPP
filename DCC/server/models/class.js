@@ -32,17 +32,6 @@ module.exports = function(sequelize) {
                 };
                 Class.findOne(query).then(cb);
             },
-
-            getClassByName: function(name, cb)
-            {
-                var query ={
-                    where:
-                    {
-                        className: name
-                    }
-                };
-                Class.findOne(query).then(cb);
-            },
         },
 
         tableName: 'class',
