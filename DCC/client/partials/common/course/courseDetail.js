@@ -30,7 +30,7 @@ myApp.factory('courseDetailServices', ['$http', function($http) {
             return $http.post('/admin/courses/addClass', Class).success(function(data){return data;});
         },
         updateClass: function(Class){
-            return $http.post('/admin/courses/updateTrainingProgram', Class).success(function(data){return data;});
+            return $http.post('/admin/courses/updateClass', Class).success(function(data){return data;});
         },
         deleteClass: function(Class){
             return $http.post('/admin/courses/deleteClass', Class).success(function(data){return data;});
@@ -149,19 +149,20 @@ myApp.controller('courseDetailCtrl', ['$scope', '$rootScope', '$stateParams', 'c
 //     };
 // };
 
-myApp.controller('addEditClassCtrl', [ '$scope', '$rootScope','courseManagementServices', function($scope, $rootScope, courseManagementServices, $location) {
+myApp.controller('addEditClassCtrl', [ '$scope', '$rootScope','courseDetailServices', function($scope, $rootScope, courseDetailServices, $location) {
 
+    //Class
     $scope.addEditClassClick = function(){
         if ($rootScope.addEditFormIsEditForm){
             //edit class
             courseManagementServices.updateClass($rootScope.adminClassModel).then(function(result){
                 if (result.data.success){
-                    //Get Training Program
-                    courseManagementServices.getTrainingProgramList().then(function(result) {
-                        $rootScope.adminTrainingProgramList = result.data.trainingProgram;
+                    //Get Class List
+                    courseDetailServices.getClassByCourseID($stateParams.courseId).then(function(result){
+                        $scope.classList = result.data.data;
                     });
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
-                    $location.path("#admin_courseManagement");
+                    $location.path("#courseDetail");
                 }else{
                     $rootScope.ShowPopupMessage('Add Class FAIL!',"error");
                 }
@@ -171,9 +172,9 @@ myApp.controller('addEditClassCtrl', [ '$scope', '$rootScope','courseManagementS
             //add Class
             courseManagementServices.addClass($rootScope.adminClassModel).then(function(result) {
                 if (result.data.success){
-                    //GetTrainingProgram
-                    courseManagementServices.getTrainingProgramList().then(function(result) {
-                        $rootScope.adminTrainingProgramList = result.data.trainingProgram;
+                    //Get Class List
+                    courseDetailServices.getClassByCourseID($stateParams.courseId).then(function(result){
+                        $scope.classList = result.data.data;
                     });
                     // $location.path("/userProfile");
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
@@ -183,4 +184,101 @@ myApp.controller('addEditClassCtrl', [ '$scope', '$rootScope','courseManagementS
             });
         }
     };
+}]);
+
+myApp.controller('DatePickerCtrl', [ '$scope', function($scope) {
+    //DatePicker
+    $scope.today = function() {
+        $scope.dt = new Date();
+    };
+    $scope.today();
+
+    $scope.clear = function() {
+        $scope.dt = null;
+    };
+
+    $scope.inlineOptions = {
+        customClass: getDayClass,
+        minDate: new Date(),
+        showWeeks: true
+    };
+
+    $scope.dateOptions = {
+        dateDisabled: disabled,
+        formatYear: 'yy',
+        maxDate: new Date(2020, 5, 22),
+        minDate: new Date(),
+        startingDay: 1
+    };
+
+    // Disable weekend selection
+    function disabled(data) {
+        var date = data.date,
+        mode = data.mode;
+        return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+    }
+
+    $scope.toggleMin = function() {
+        $scope.inlineOptions.minDate = $scope.inlineOptions.minDate ? null : new Date();
+        $scope.dateOptions.minDate = $scope.inlineOptions.minDate;
+    };
+
+    $scope.toggleMin();
+
+    $scope.open1 = function() {
+        $scope.popup1.opened = true;
+    };
+
+    $scope.open2 = function() {
+        $scope.popup2.opened = true;
+    };
+
+    $scope.setDate = function(year, month, day) {
+        $scope.dt = new Date(year, month, day);
+    };
+
+    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+    $scope.format = $scope.formats[1];
+    $scope.altInputFormats = ['M!/d!/yyyy'];
+
+    $scope.popup1 = {
+        opened: false
+    };
+
+    $scope.popup2 = {
+        opened: false
+    };
+
+    var tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    var afterTomorrow = new Date();
+    afterTomorrow.setDate(tomorrow.getDate() + 1);
+    $scope.events = [
+        {
+            date: tomorrow,
+            status: 'full'
+        },
+        {
+            date: afterTomorrow,
+            status: 'partially'
+        }
+    ];
+
+    function getDayClass(data) {
+        var date = data.date,
+        mode = data.mode;
+        if (mode === 'day') {
+            var dayToCheck = new Date(date).setHours(0,0,0,0);
+
+            for (var i = 0; i < $scope.events.length; i++) {
+                var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
+
+                if (dayToCheck === currentDay) {
+                    return $scope.events[i].status;
+                }
+            }
+        }
+
+        return '';
+    }
 }]);
