@@ -4,7 +4,7 @@ module.exports = function(sequelize) {
         classMethods: {
             getOpeningClassByCourseID: function(id, cb)
             {
-                var query = {
+                Class.findOne({
                     where:
                     {
                         startTime:
@@ -12,14 +12,12 @@ module.exports = function(sequelize) {
                             $gt: Date.now()
                         },
                         courseId: id
-                    }
-                };
-                Class.findOne(query).then(cb);
+                    }}).then(cb);
+                },
             },
-        },
 
-        tableName: 'class',
-        timestamps: false
-    });
-    return Class;
-};
+            tableName: 'class',
+            timestamps: false
+        });
+        return Class;
+    };
