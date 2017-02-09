@@ -18,5 +18,17 @@ module.exports=
     {
         type: SequelizeDatatypes.STRING,
         allowNull: true
+    },
+    comments: {
+        type: SequelizeDatatypes.TEXT,
+        allowNull: true
+    },
+    rating: {
+        type: SequelizeDatatypes.INTEGER,
+        allowNull: true
+    },
+    traineeId:{
+        type: SequelizeDatatypes.INTEGER,
+        allowNull: false
     }
 }

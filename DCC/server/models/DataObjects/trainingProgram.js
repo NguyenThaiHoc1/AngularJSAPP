@@ -16,5 +16,10 @@ module.exports =
     {
         type: SequelizeDatatypes.TEXT,
         allowNull: true
-    }
+    },
+    courseTypeId:
+    {
+        type: SequelizeDatatypes.INTEGER,
+        allowNull: true
+    },
 };

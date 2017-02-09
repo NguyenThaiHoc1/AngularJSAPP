@@ -62,10 +62,10 @@ router.post('/sendRegisterRequest', function(req, res){
             res.send(datasend);
         }else{
             models.Class.getOpeningClassByCourseID(courseId, function(openingClass){
-                //If class is opening, add user request to request_course table with requestType = "join"
+                //If class is opening, add user request to request_course table with requestType = "enroll"
                 //If not, add user request to request_course table with requestType = "register"
                 if(openingClass){
-                    models.RequestOpening.addRequestJoin(userEmail, courseId, function(){
+                    models.RequestOpening.addRequestEnroll(userEmail, courseId, function(){
                         var datasend = {
                             success: true,
                             msg: 'Send Request Successfully'

@@ -33,6 +33,7 @@
     "passport": "^0.3.2",
     "passport-ldapauth": "*",
     "passport-local": "^1.0.0",
+    "qs": "^6.3.0",
     "sequelize": "^3.24.1",
     "sequelize-cli": "^2.4.0",
     "serve-index": "^1.8.0",
@@ -54,9 +55,13 @@
     "karma-phantomjs-launcher": "^1.0.1",
     "karma-sinon-chai": "^1.2.3",
     "mark.js": "github:julmot/mark.js",
-    "mocha": "^2.5.3"
+    "mocha": "^2.5.3",
+    "browser-sync": "^1.2.1",
+    "gulp": "^3.8.6",
+    "gulp-nodemon": "^1.0.4"
   },
   "scripts": {
+    "start": "gulp",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "thach",

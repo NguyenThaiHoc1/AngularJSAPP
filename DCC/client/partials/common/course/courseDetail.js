@@ -23,6 +23,18 @@ myApp.factory('courseDetailServices', ['$http', function($http) {
         // sendFeedback: function(req) {
         //     return $http.post('/course/giveFeedback', req).success(function(data) { return data; });
         // },
+        getClassByCourseID: function(courseId){
+            return $http.post('/common/course/getClassByCourseID', {courseId : courseId}).success(function(data) { return data; });
+        },
+        addClass: function(Class){
+            return $http.post('/admin/courses/addClass', Class).success(function(data){return data;});
+        },
+        updateClass: function(Class){
+            return $http.post('/admin/courses/updateClass', Class).success(function(data){return data;});
+        },
+        deleteClass: function(Class){
+            return $http.post('/admin/courses/deleteClass', Class).success(function(data){return data;});
+        }
     }
 
     return factoryDefinitions;
@@ -36,6 +48,12 @@ myApp.controller('courseDetailCtrl', ['$scope', '$rootScope', '$stateParams', 'c
     courseDetailServices.getCourseDetailById($stateParams.courseId).then(function(result){
         $scope.courseDetail = result.data.data;
     });
+
+    $scope.classList = {};
+    courseDetailServices.getClassByCourseID($stateParams.courseId).then(function(result){
+        $scope.classList = result.data.data;
+    });
+
     //
     // $scope.giveFeedback = function(){
     //     var req = {
@@ -60,5 +78,179 @@ myApp.controller('courseDetailCtrl', ['$scope', '$rootScope', '$stateParams', 'c
     $scope.hoveringOver = function(value) {
         $scope.overStar = value;
     };
+    //Class
+    $scope.showAddClassForm=function(){
+        $rootScope.addEditFormIsEditForm =  false;
+        //Class
+        $rootScope.addEditClassFormTitle = 'Add Class';
+        $rootScope.addEditClassFormAction = 'Add';
+        $rootScope.adminClassModel = {
+            courseId: $stateParams.courseId,
+            location: '',
+            //TODO
+            // trainerId: '',
+            startTime: $rootScope.dt,
+            duration: '',
+            maxAttendant: '',
+            note: ''
+        };
+    };
+    $scope.showUpdateClassForm = function(Class){
+        $rootScope.addEditFormIsEditForm =  true;
+        $rootScope.addEditClassFormTitle = 'Edit Class';
+        $rootScope.addEditClassFormAction = 'Update Class';
+        $rootScope.adminClassModel = {
+            id: Class.id,
+            location: Class.location ,
+            startTime: Class.startTime,
+            duration: Class.duration,
+            maxAttendant: Class.maxAttendant,
+            note: Class.note,
+            courseId:{
+                id: Class.courseId
+            }
+        };
+    };
+    $scope.showDeleteClassForm = function(Class){
+        $rootScope.deleteClass = Class.location + ' class';
+        $rootScope.adminClassModel = {
+            id: Class.id
+        };
+    };
+}]);
 
+
+myApp.controller('addEditClassCtrl', [ '$scope', '$rootScope','courseDetailServices', function($scope, $rootScope, courseDetailServices, $location) {
+
+    //Class
+    $scope.addEditClassClick = function(){
+
+        if ($rootScope.addEditFormIsEditForm){
+            //edit class
+            courseDetailServices.updateClass($rootScope.adminClassModel).then(function(result){
+                if (result.data.success){
+                    //Get Class List
+                    courseDetailServices.getClassByCourseID($rootScope.adminClassModel.courseId).then(function(result){
+                        $scope.classList = result.data.data;
+                    });
+                    $rootScope.ShowPopupMessage(result.data.msg, "success");
+                    $location.path("#courseDetail");
+                }else{
+                    $rootScope.ShowPopupMessage('Edit Class FAIL!',"error");
+                }
+            });
+        }
+        else {
+            //add Class
+            courseDetailServices.addClass($rootScope.adminClassModel).then(function(result) {
+                if (result.data.success){
+                    //Get Class List
+                    courseDetailServices.getClassByCourseID($rootScope.adminClassModel.courseId).then(function(result){
+                        $scope.classList = result.data.data;
+                    });
+                    // $location.path("/userProfile");
+                    $rootScope.ShowPopupMessage(result.data.msg, "success");
+                } else {
+                    $rootScope.ShowPopupMessage('Add Class Info FAIL!', "error");
+                }
+            });
+        }
+    };
+}]);
+
+myApp.controller('DatePickerCtrl', [ '$scope', '$rootScope', function( $rootScope, $scope) {
+    //DatePicker
+    $rootScope.dt = '';
+    $scope.today = function() {
+        $rootScope.dt = new Date();
+    };
+
+    $scope.clear = function() {
+        $rootScope.dt = null;
+    };
+
+    $scope.inlineOptions = {
+        customClass: getDayClass,
+        minDate: new Date(),
+        showWeeks: true
+    };
+
+    $scope.dateOptions = {
+        // dateDisabled: disabled,
+        formatYear: 'yy',
+        maxDate: new Date(2020, 5, 22),
+        minDate: new Date(),
+        startingDay: 1
+    };
+
+    // Disable weekend selection
+    // function disabled(data) {
+    //     var date = data.date,
+    //     mode = data.mode;
+    //     return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+    // }
+
+    $scope.toggleMin = function() {
+        $scope.inlineOptions.minDate = $scope.inlineOptions.minDate ? null : new Date();
+        $scope.dateOptions.minDate = $scope.inlineOptions.minDate;
+    };
+
+    $scope.toggleMin();
+
+    $scope.open1 = function() {
+        $scope.popup1.opened = true;
+    };
+
+    $scope.open2 = function() {
+        $scope.popup2.opened = true;
+    };
+
+    $scope.setDate = function(year, month, day) {
+        $rootScope.dt = new Date(year, month, day);
+    };
+
+    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+    $scope.format = $scope.formats[1];
+    $scope.altInputFormats = ['M!/d!/yyyy'];
+
+    $scope.popup1 = {
+        opened: false
+    };
+
+    $scope.popup2 = {
+        opened: false
+    };
+
+    var tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    var afterTomorrow = new Date();
+    afterTomorrow.setDate(tomorrow.getDate() + 1);
+    $scope.events = [
+        {
+            date: tomorrow,
+            status: 'full'
+        },
+        {
+            date: afterTomorrow,
+            status: 'partially'
+        }
+    ];
+
+    function getDayClass(data) {
+        var date = data.date,
+        mode = data.mode;
+        if (mode === 'day') {
+            var dayToCheck = new Date(date).setHours(0,0,0,0);
+
+            for (var i = 0; i < $scope.events.length; i++) {
+                var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
+
+                if (dayToCheck === currentDay) {
+                    return $scope.events[i].status;
+                }
+            }
+        }
+
+        return '';
+    }
 }]);

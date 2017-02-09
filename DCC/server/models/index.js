@@ -34,9 +34,9 @@ db.Sequelize = Sequelize;
 // association of table session and training_program
 db.Course.belongsTo(db.TrainingProgram, { foreignKey: 'trainingProgramId' });
 db.TrainingProgram.hasMany(db.Course, { foreignKey: 'trainingProgramId' });
-// association of table session and session_type
-db.Course.belongsTo(db.CourseType, { foreignKey: 'courseTypeId' });
-db.CourseType.hasMany(db.Course, { foreignKey: 'courseTypeId' });
+// association of table trainingProgram and CourseType
+db.TrainingProgram.belongsTo(db.CourseType, { foreignKey: 'courseTypeId' });
+db.CourseType.hasMany(db.TrainingProgram, { foreignKey: 'courseTypeId' });
 //association of table class and course
 db.Class.belongsTo(db.Course, { foreignKey: 'courseId' });
 db.Course.hasMany(db.Class, { foreignKey: 'courseId' });
@@ -49,12 +49,6 @@ db.Class.hasMany(db.ClassRecord, { foreignKey: 'classId' });
 //association of table class_record and user
 db.ClassRecord.belongsTo(db.User, { foreignKey: 'traineeId' });
 db.User.hasMany(db.ClassRecord, { foreignKey: 'traineeId' });
-//association of table feedback and user
-db.Feedback.belongsTo(db.User, { foreignKey: 'userId' });
-db.User.hasMany(db.Feedback, { foreignKey: 'userId' });
-//association of table feedback and class
-db.Feedback.belongsTo(db.Class, { foreignKey: 'classId' });
-db.Class.hasMany(db.Feedback, { foreignKey: 'classId' });
 //association of table RequestOpening and course
 db.RequestOpening.belongsTo(db.Course, { foreignKey: 'courseId' });
 db.Course.hasMany(db.RequestOpening, { foreignKey: 'courseId' });

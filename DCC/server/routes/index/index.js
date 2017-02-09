@@ -77,12 +77,24 @@ router.post('/login', function(req, res, next) {
                         location: 'DEK Vietnam',
                         email: req.user.mail,
                         avatar: '/img/profiles/defaultProfile.jpg',
-                        role: 3, //default user is a trainee
+                        isAdmin: false,
+                        isTrainer: false,
+                        isTrainee: true, //default user is a trainee
                         belong2Team: 'Team 7Up',
                         isExperienced: 0,
+                        courseTypeId: 'CBA'
                     }
                 })
                 .then(function(user) {
+                    var currentRole;
+                    if(user[0].dataValues.isAdmin){
+                        currentRole = 1;
+                    } else if(user[0].dataValues.isTrainer){
+                        currentRole= 2;
+                    }else if(user[0].dataValues.isTrainee){
+                        currentRole = 3
+                    }
+
                     res.send({
                         username: user[0].dataValues.username,
                         status: user[0].dataValues.status,
@@ -91,11 +103,15 @@ router.post('/login', function(req, res, next) {
                         location: user[0].dataValues.location,
                         email: user[0].dataValues.email,
                         avatar: user[0].dataValues.avatar,
-                        role: user[0].dataValues.role,
+                        role: currentRole,
+                        isAdmin: user[0].dataValues.isAdmin,
+                        isTrainer: user[0].dataValues.isTrainer,
+                        isTrainee: user[0].dataValues.isTrainee, //default user is a trainee
                         trainer: user[0].dataValues.trainer,
                         trainee: user[0].dataValues.trainee,
                         belong2Team: user[0].dataValues.belong2Team,
                         isExperienced: user[0].dataValues.isExperienced,
+                        userType:  user[0].dataValues.userType,
 
                         success: true,
                         msg: 'You are authenticated!'

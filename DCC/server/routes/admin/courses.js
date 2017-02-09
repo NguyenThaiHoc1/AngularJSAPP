@@ -21,9 +21,7 @@ router.post('/addCourse', function(req, res) {
                     duration: req.body.duration,
                     test: req.body.test,
                     documents: req.body.documents,
-                    isDeleted:  0,
-                    courseTypeId: req.body.courseTypeId.id,
-                    trainingProgramId: req.body.trainingProgramId.id,
+                    trainingProgramId: req.body.trainingProgramId,
                     imgLink: '/img/courses/training-icon-1.svg',
                 }).then(function() {
                     res.send({
@@ -47,9 +45,8 @@ router.post('/updateCourse', function(req, res) {
             duration: req.body.duration,
             test: req.body.test,
             documents: req.body.documents,
-            isDeleted:  0,
-            courseTypeId: req.body.courseTypeId.id,
-            trainingProgramId: req.body.trainingProgramId.id,
+
+            trainingProgramId: req.body.trainingProgramId,
             imgLink: '/img/courses/training-icon-1.svg',
         }, {
             where: {
@@ -64,42 +61,17 @@ router.post('/updateCourse', function(req, res) {
     });
 });
 
-// mark course as deleted (isDeleted = true)
+// destroy Course
 router.post('/deleteCourse', function(req, res) {
-    models.Course.getByID(req.body.id, function(result) {
-        if (result) {
-            models.Course.update({
-                isDeleted: true
-            }, {
-                where: {
-                    id: req.body.id
-                }
-            });
-            res.send({
-                success: true,
-                msg: 'Delete success'
-            });
-        } else {
-            res.send({
-                success: false,
-                msg: 'Delete failure'
-            });
+    models.Course.destroy({
+        where:{
+            id: req.body.id
         }
     });
-});
-
-router.get('/getCourseList', function(req, res) {
-    models.Course.findAll({
-        include: [ models.TrainingProgram ]
-    }).then(function(course) {
-        var datasend = {
-            success: true,
-            course: course,
-            msg:'send list success'
-        };
-        res.send(datasend);
-    })
-
+    res.send({
+        success: true,
+        msg: 'Delete Course success'
+    });
 });
 
 //getCourseTypeList
@@ -117,13 +89,197 @@ router.get('/getCourseTypeList', function(req, res) {
 
 router.get('/getTrainingProgramList', function(req, res){
 
-    models.TrainingProgram.findAll().then(function(trainingProgram) {
+    var query =
+    {
+        include: [
+            {
+                model: models.CourseType,
+            },
+            {
+                model: models.Course,
+                include: [
+                    {
+                        model: models.Class,
+                        include: [
+                            {
+                                model: models.ClassRecord,
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    };
+    models.TrainingProgram.findAll(query).then(function(trainingProgram) {
         var datasend = {
-            success: true,
+            success : true,
             msg:'send list success',
-            data: trainingProgram
+            trainingProgram: trainingProgram
         };
         res.send(datasend);
+    });
+});
+
+//Add Training programs
+router.post('/addTrainingProgram', function(req, res) {
+    log.info('/admin/courses/addTrainingProgram: Add Training Program :' + req.body.name);
+        // this function check if the courseName is already existed
+        models.TrainingProgram.getTrainingByName(req.body.name, function(result) {
+            if (result) {
+                res.send({
+                    success: false,
+                    msg: 'Name already existed. Add fail!'
+                });
+            } else {
+                models.TrainingProgram.create({
+                    name: req.body.name,
+                    description: req.body.description,
+                    courseTypeId: req.body.courseTypeId.id,
+                    imgLink: '/img/trainingProgram/training-icon-1.svg',
+                }).then(function() {
+                    res.send({
+                        success: true,
+                        msg: "Add Training Program Success"
+                    });
+                });
+            }
+        });
+
+});
+
+//Updtae Training Program
+router.post('/updateTrainingProgram', function(req, res) {
+    log.info('/admin/updateTrainingProgram: Update Training Program :' + req.body.name);
+    models.TrainingProgram.sync({
+        force: false
+    }).then(function() {
+        models.TrainingProgram.update({
+            name: req.body.name,
+            description: req.body.description,
+            duration: req.body.duration,
+            courseTypeId: req.body.courseTypeId.id,
+            imgLink: '/img/trainingProgram/training-icon-1.svg',
+        }, {
+            where: {
+                id: req.body.id
+            }
+        }).then(function() {
+            res.send({
+                success: true,
+                msg: 'Edit Training Program success!'
+            });
+        });
+    });
+});
+
+//delete Training Program
+router.post('/deleteTrainingProgram', function(req, res) {
+    log.info('Get Delete Command');
+    models.TrainingProgram.destroy({
+        where:{
+            id: req.body.id
+        }
+    });
+    res.send({
+        success: true,
+        msg: 'Delete Training Program success'
+    });
+});
+
+//Get Class
+router.get('/getClass', function(req, res){
+
+    var query =
+    {
+        include: [
+            {
+                model: models.Course
+            }
+        ],
+        where:{
+            courseId: req.body.courseId
+        }
+    };
+    models.Class.findAll(query).then(function(Class) {
+        var datasend = {
+            success : true,
+            msg:'send list success',
+            Class: Class
+        };
+        res.send(datasend);
+    });
+});
+
+//Add Class
+router.post('/addClass', function(req, res) {
+    log.info('/admin/courses/addClass: Add Class :' + req.body.location);
+    console.log(req.body);
+    models.Class.sync({
+        force: false
+    }).then(function() {
+        models.Class.create({
+            courseId: req.body.courseId,
+            location: req.body.location,
+            //TODO
+            // trainerId: req.body.trainerId.id,
+            startTime: req.body.startTime,
+            duration: req.body.duration,
+            maxAttendant: req.body.maxAttendant,
+            note: req.body.note
+        }).then(function() {
+            res.send({
+                success: true,
+                msg: "Add Class Success"
+            });
+        });
+    });
+});
+
+//Update Class
+router.post('/updateClass', function(req, res) {
+    console.log(req.body);
+    log.info('/admin/updateClass: update Class :' + req.body.id);
+    // TODO : add trainee to class record
+    models.Class.sync({
+        force: false
+    }).then(function() {
+        models.Class.update({
+            location: req.body.location,
+            //TODO
+            // trainerId: req.body.trainerId,
+            startTime: req.body.startTime,
+            duration: req.body.duration,
+            maxAttendant: req.body.maxAttendant,
+            note: req.body.note
+        }, {
+            where: {
+                id: req.body.id,
+            }
+        }).then(function() {
+            res.send({
+                success: true,
+                msg: 'Edit Class Info success!'
+            });
+        });
+    });
+});
+
+// Delete Class
+router.post('/deleteClass', function(req, res) {
+    log.info('Get Delete Command');
+    models.Class.destroy({
+        where:{
+            id: req.body.id
+        }
+    });
+    // models.ClassRecord.destroy({
+    //     where:{
+    //         classId: req.body.id
+    //     }
+    // });
+    res.send({
+        success: true,
+        msg: 'Delete Class success'
     });
 });
 
