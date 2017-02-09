@@ -36,10 +36,8 @@ module.exports = function(sequelize) {
                     }
                 };
                 Course.findAll(query).then(cb);
-            },
-
+            }
         },
-
         tableName: 'course',
         timestamps: false
     });
