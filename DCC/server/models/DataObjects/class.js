@@ -15,7 +15,7 @@ module.exports=
     trainerId:
     {
         type: SequelizeDatatypes.INTEGER,
-        allowNull: false
+        allowNull: true
     },
     startTime:
     {
