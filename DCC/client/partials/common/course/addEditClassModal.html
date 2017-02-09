@@ -18,60 +18,49 @@
                             <p ng-show="addEditForm.location.$invalid && !addEditForm.location.$pristine" class="help-block">Class location is required.</p>
                         </div>
                     </div>
+                    <div class="form-group" ng-class="{ 'has-error' : addEditForm.startTime.$invalid && !addEditForm.startTime.$pristine }" ng-controller="DatePickerCtrl">
+                        <label class="col-sm-4 control-label">Start time</label>
 
-                    <!--Course Type-->
-                    <!-- <div class="form-group" ng-class="{ 'has-error' : addEditForm.courseTypeId.$invalid && !addEditForm.courseTypeId.$pristine }">
-                    <label class="col-sm-4 control-label">Trainer</label>
-                    <div class="col-sm-8">
-                    <select class="form-control" name="courseTypeId"
-                    ng-options ="courseType.name for courseType in courseTypeList track by courseType.id "
-                    ng-model="adminTrainingProgramModel.courseTypeId">
-                </select>
-            </div>
-        </div> -->
-        <div class="form-group" ng-class="{ 'has-error' : addEditForm.startTime.$invalid && !addEditForm.startTime.$pristine }" ng-controller="DatePickerCtrl">
-            <label class="col-sm-4 control-label">Start time</label>
+                        <div class="col-sm-8">
+                            <p class="input-group">
+                                <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ngValue="{{adminClassModel.startTime | date: 'dd/MM/yyyy'}}" ng-model="adminClassModel.startTime" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                            </p>
+                            <p ng-show="addEditForm.startTime.$invalid && !addEditForm.startTime.$pristine" class="help-block">Start time is required.</p>
+                        </div>
+                    </div>
 
-            <div class="col-sm-8">
-                <p class="input-group">
-                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
-                    </span>
-                </p>
-                <p ng-show="addEditForm.startTime.$invalid && !addEditForm.startTime.$pristine" class="help-block">Start time is required.</p>
+                    <div class="form-group" ng-class="{ 'has-error' : addEditForm.duration.$invalid && !addEditForm.duration.$pristine }">
+                        <label class="col-sm-4 control-label">Duration</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="duration" ng-model="adminClassModel.duration"  required>
+                            <p ng-show="addEditForm.duration.$invalid && !addEditForm.duration.$pristine" class="help-block">Duration is required.</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-class="{ 'has-error' : addEditForm.maxAttendant.$invalid && !addEditForm.maxAttendant.$pristine }">
+                        <label class="col-sm-4 control-label">Max Attendant</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="maxAttendant" ng-model="adminClassModel.maxAttendant"  required>
+                            <p ng-show="addEditForm.maxAttendant.$invalid && !addEditForm.maxAttendant.$pristine" class="help-block">Max Attendant is required.</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-class="{ 'has-error' : addEditForm.note.$invalid && !addEditForm.note.$pristine }">
+                        <center><label>Note</label><center>
+                            <br>
+                            <div text-angular ng-model="adminClassModel.note"  required></div>
+                            <p ng-show="addEditForm.note.$invalid && !addEditForm.note.$pristine" class="help-block">Note is required.</p>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success" ng-click="addEditClassClick()" data-dismiss="modal" ng-disabled="addEditForm.$invalid">{{addEditClassFormAction}}</button>
+                        <button type="submit" class="btn btn-default" ng-click="cancel()" data-dismiss="modal" >Cancel</button>
+                    </div>
+                </form>
             </div>
         </div>
-
-        <div class="form-group" ng-class="{ 'has-error' : addEditForm.duration.$invalid && !addEditForm.duration.$pristine }">
-            <label class="col-sm-4 control-label">Duration</label>
-            <div class="col-sm-8">
-                <input type="text" class="form-control" name="duration" ng-model="adminClassModel.duration"  required>
-                <p ng-show="addEditForm.duration.$invalid && !addEditForm.duration.$pristine" class="help-block">Duration is required.</p>
-            </div>
-        </div>
-
-        <div class="form-group" ng-class="{ 'has-error' : addEditForm.maxAttendant.$invalid && !addEditForm.maxAttendant.$pristine }">
-            <label class="col-sm-4 control-label">Max Attendant</label>
-            <div class="col-sm-8">
-                <input type="text" class="form-control" name="maxAttendant" ng-model="adminClassModel.maxAttendant"  required>
-                <p ng-show="addEditForm.maxAttendant.$invalid && !addEditForm.maxAttendant.$pristine" class="help-block">Max Attendant is required.</p>
-            </div>
-        </div>
-
-        <div class="form-group" ng-class="{ 'has-error' : addEditForm.note.$invalid && !addEditForm.note.$pristine }">
-            <center><label>Note</label><center>
-                <br>
-                <div text-angular ng-model="adminClassModel.note"  required></div>
-                <p ng-show="addEditForm.note.$invalid && !addEditForm.note.$pristine" class="help-block">Note is required.</p>
-            </div>
-
-        </div>
-        <div class="modal-footer">
-            <button type="submit" class="btn btn-success" ng-click="addEditClassClick()" data-dismiss="modal" ng-disabled="addEditForm.$invalid">{{addEditClassFormAction}}</button>
-            <button type="submit" class="btn btn-default" ng-click="cancel()" data-dismiss="modal" >Cancel</button>
-        </div>
-    </form>
-</div>
-</div>
-</div>
+    </div>
