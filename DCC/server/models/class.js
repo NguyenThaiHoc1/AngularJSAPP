@@ -44,19 +44,19 @@ module.exports = function(sequelize) {
                 Class.findOne(query).then(cb);
             },
 
-            getOpeningClass: function(cb)
-            {
-                var query = {
-                    where:
-                    {
-                        startTime:
-                        {
-                            $gt: Date.now()
-                        }
-                    }
-                };
-                Class.findAll(query).then(cb);
-            }
+            // getOpeningClass: function(cb)
+            // {
+            //     var query = {
+            //         where:
+            //         {
+            //             startTime:
+            //             {
+            //                 $gt: Date.now()
+            //             }
+            //         }
+            //     };
+            //     Class.findAll(query).then(cb);
+            // }
         },
 
         tableName: 'class',
