@@ -59,7 +59,7 @@ router.post('/getTrainingProgramByTPType', function(req, res){
         trainingPrograms.forEach(trainingProgram =>{
             if( trainingProgram.CourseType.name === req.body.userType || trainingProgram.CourseType.name === 'EVERYONE' )
             {
-                resData.push( trainingProgram);
+                resData.push(trainingProgram);
             }
             else
             {
@@ -67,7 +67,7 @@ router.post('/getTrainingProgramByTPType', function(req, res){
                 {
                     if(  trainingProgram.CourseType.name === 'OPTIONAL' )
                     {
-                        resData.push( trainingProgram);
+                            resData.push( trainingProgram);
                     }
                     else{
                         trainingProgram.Courses.forEach(course =>{
@@ -77,11 +77,27 @@ router.post('/getTrainingProgramByTPType', function(req, res){
                                 {
                                     if ( course.Classes[i].ClassRecords[j].traineeEmail === req.body.email )
                                     {
-                                        resData.push( trainingProgram);
+                                        if ( course.Classes[i].ClassRecords.length != 0 ){
+                                            for ( var j = 0; j < course.Classes[i].ClassRecords.length  ; j++ )
+                                            {
+                                                if ( course.Classes[i].ClassRecords[j].traineeEmail == req.body.email )
+                                                {
+                                                    resData.push({
+                                                        id: trainingProgram.id,
+                                                        name: trainingProgram.name,
+                                                        description: trainingProgram.description,
+                                                        imgLink: trainingProgram.imgLink,
+                                                        courseTypeId: trainingProgram.courseTypeId,
+                                                        CourseType: trainingProgram.CourseType,
+                                                        Courses: [course]
+                                                    });
+                                                }
+                                            }
+                                        }
                                     }
                                 }
-                            }
-                        });
+                            });
+                        }
                     }
                 }
                 else
@@ -94,11 +110,28 @@ router.post('/getTrainingProgramByTPType', function(req, res){
                             {
                                 if ( course.Classes[i].ClassRecords[j].traineeEmail === req.body.email )
                                 {
-                                    resData.push( trainingProgram);
+                                    if ( course.Classes[i].ClassRecords.length != 0 ){
+                                        for ( var j = 0; j < course.Classes[i].ClassRecords.length  ; j++ )
+                                        {
+                                            if ( course.Classes[i].ClassRecords[j].traineeEmail == req.body.email )
+                                            {
+                                                resData.push({
+                                                    id: trainingProgram.id,
+                                                    name: trainingProgram.name,
+                                                    description: trainingProgram.description,
+                                                    imgLink: trainingProgram.imgLink,
+                                                    courseTypeId: trainingProgram.courseTypeId,
+                                                    CourseType: trainingProgram.CourseType,
+                                                    Courses: [course]
+                                                });
+                                            }
+                                        }
+                                    }
                                 }
                             }
-                        }
-                    });
+                        });
+                    }
+
                 }
             }
 
