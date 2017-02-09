@@ -54,7 +54,6 @@ router.post('/getTrainingProgramByTPType', function(req, res){
             }
         ]
     };
-    console.log(req.body);
     models.TrainingProgram.findAll(query).then(function(trainingPrograms) {
         var resData =[];
         trainingPrograms.forEach(trainingProgram =>{
@@ -91,7 +90,6 @@ router.post('/getTrainingProgramByTPType', function(req, res){
 
                         for ( var i = 0; i < course.Classes[i].length ; i++)
                         {
-                            console.log(course.Classes[i].length);
                             for ( var j = 0; j < course.Classes[i].ClassRecords[j].length - 1 ; j++ )
                             {
                                 if ( course.Classes[i].ClassRecords[j].traineeEmail == req.body.email )

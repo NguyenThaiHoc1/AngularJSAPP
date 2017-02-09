@@ -95,7 +95,6 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
     // un-Enroll or re-Enroll Course
     $scope.actionTwoClick = function(myCourse){
         if(myCourse.status == STATUS_ENROLLED ){
-            console.log("un-enroll");
             //un-enroll
             dashboardServices.unEnrollCourse({traineeEmail: $rootScope.userInfo.email, classId: myCourse.classId}).then(function(result){
                 if (result.data.success){
@@ -167,7 +166,6 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
 
 
     $scope.actionOneClick = function(myCourse){
-        console.log('actionOneClick: ', myCourse.classId );
         dashboardServices.getMyFeedbackByClass(myCourse).then(function(result){
             $rootScope.courseFeedbackModel = result.data.feedback;
         });
@@ -183,7 +181,6 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
     };
 
     $scope.giveFeedbackClick = function(cmodel){
-        console.log('giveFeedbackClick: ',cmodel.classId);
         dashboardServices.sendFeedback(cmodel).then(function(result){
             if(result.data.success){
                 $rootScope.ShowPopupMessage("Rating success", "success");

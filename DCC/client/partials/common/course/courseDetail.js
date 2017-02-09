@@ -53,8 +53,6 @@ myApp.controller('courseDetailCtrl', ['$scope', '$rootScope', '$stateParams', 'c
     courseDetailServices.getClassByCourseID($stateParams.courseId).then(function(result){
         $scope.classList = result.data.data;
     });
-    console.log($scope.classList);
-
 
     //
     // $scope.giveFeedback = function(){
