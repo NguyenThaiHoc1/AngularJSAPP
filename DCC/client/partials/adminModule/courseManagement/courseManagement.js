@@ -92,7 +92,6 @@ myApp.controller('courseManagementCtrl', [ '$scope', '$rootScope','courseManagem
             trainingProgramId: trainingProgram.id
 
         };
-        
     };
     $scope.showAddTPForm=function(){
         $rootScope.addEditFormIsEditForm =  false;
@@ -225,7 +224,6 @@ myApp.controller('addEditTPCtrl', [ '$scope', '$rootScope','courseManagementServ
             });
         }
         else {
-            console.log($rootScope.adminTrainingProgramModel);
             //add trainning program
             courseManagementServices.addTrainingProgram($rootScope.adminTrainingProgramModel).then(function(result) {
                 if (result.data.success){
