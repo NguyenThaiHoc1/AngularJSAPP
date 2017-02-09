@@ -57,7 +57,7 @@ router.post('/getTrainingProgramByTPType', function(req, res){
     models.TrainingProgram.findAll(query).then(function(trainingPrograms) {
         var resData =[];
         trainingPrograms.forEach(trainingProgram =>{
-            if( trainingProgram.CourseType.name == req.body.userType || trainingProgram.CourseType.name == 'EVERYONE' )
+            if( trainingProgram.CourseType.name === req.body.userType || trainingProgram.CourseType.name === 'EVERYONE' )
             {
                 resData.push( trainingProgram);
             }
@@ -65,7 +65,7 @@ router.post('/getTrainingProgramByTPType', function(req, res){
             {
                 if( !req.body.isExperienced  )
                 {
-                    if(  trainingProgram.CourseType.name == 'OPTIONAL' )
+                    if(  trainingProgram.CourseType.name === 'OPTIONAL' )
                     {
                         resData.push( trainingProgram);
                     }
@@ -75,7 +75,7 @@ router.post('/getTrainingProgramByTPType', function(req, res){
                             {
                                 for ( var j = 0; j < course.Classes[i].ClassRecords.length  ; j++ )
                                 {
-                                    if ( course.Classes[i].ClassRecords[j].traineeEmail == req.body.email )
+                                    if ( course.Classes[i].ClassRecords[j].traineeEmail === req.body.email )
                                     {
                                         resData.push( trainingProgram);
                                     }
@@ -92,7 +92,7 @@ router.post('/getTrainingProgramByTPType', function(req, res){
                         {
                             for ( var j = 0; j < course.Classes[i].ClassRecords[j].length - 1 ; j++ )
                             {
-                                if ( course.Classes[i].ClassRecords[j].traineeEmail == req.body.email )
+                                if ( course.Classes[i].ClassRecords[j].traineeEmail === req.body.email )
                                 {
                                     resData.push( trainingProgram);
                                 }
