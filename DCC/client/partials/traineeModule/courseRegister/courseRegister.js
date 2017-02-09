@@ -87,7 +87,6 @@ myApp.controller('courseRegisterCtrl', ['$sce','$rootScope', '$scope', 'courseRe
                     });
                 });
             });
-
             //Splice course user enrolled in training program list
             for(var i=$scope.myEnrolledCourse.length-1; i>=0; i--){
                 for(var j=trainingProgram.length-1; j>=0; j--){
@@ -98,7 +97,6 @@ myApp.controller('courseRegisterCtrl', ['$sce','$rootScope', '$scope', 'courseRe
                     }
                 }
             }
-
             //Splice course user requested in training program
             for(var i=$scope.requestedOpeningCourse.length-1; i>=0; i--){
                 for(var j=trainingProgram.length-1; j>=0; j--){
@@ -109,10 +107,7 @@ myApp.controller('courseRegisterCtrl', ['$sce','$rootScope', '$scope', 'courseRe
                     }
                 }
             }
-
-
             $scope.trainingProgramList = trainingProgram;
-            // console.log(trainingProgram);
         });
     });
 
