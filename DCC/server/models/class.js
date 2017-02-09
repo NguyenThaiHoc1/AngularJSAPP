@@ -15,7 +15,7 @@ module.exports = function(sequelize) {
                     }
                 };
                 Class.findOne(query).then(cb);
-            },
+            }
         },
 
         tableName: 'class',

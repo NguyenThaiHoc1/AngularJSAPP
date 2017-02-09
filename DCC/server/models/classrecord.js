@@ -21,7 +21,7 @@ module.exports = function(sequelize) {
                     }
                 };
                 Classrecord.destroy(query).then(cb);
-            },
+            }
         },
         tableName: 'class_record',
         timestamps: false
