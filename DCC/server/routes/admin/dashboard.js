@@ -3,8 +3,6 @@ var models = require('../../models');
 var log = require('../../../config/logConfig');
 
 router.get('/getAdminRequestOpenCourse', function(req, res) {
-    log.info('/admin/dashboard/getAdminRequestOpenCourse: get request open course list data');
-
     var query =
     {
         include: [models.RequestOpening]

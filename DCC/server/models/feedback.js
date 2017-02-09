@@ -5,7 +5,6 @@ module.exports = function(sequelize) {
     var Feedback = sequelize.define('Feedback', _feedbackModel,{
         classMethods: {
             getFeedbackByClassID: function(id, cb) {
-                log.info('/models/feedback: getFeedbackByClassID() : ' + id);
                 var query = {
                     where: {
                         classId: id
@@ -13,17 +12,7 @@ module.exports = function(sequelize) {
                 };
                 Feedback.findAll(query).then(cb);
             },
-            // getFeedbackByCommentedBy: function(commentedBy, cb) {
-            //     log.info('/models/feedback: getFeedbackByCommentedBy() : ' + commentedBy);
-            //     var query = {
-            //         where: {
-            //             commentedBy: commentedBy
-            //         }
-            //     };
-            //     Feedback.findOne(query).then(cb);
-            // },
             getFeedbackByClassIDByUserID: function(ClassId, UserId, cb) {
-                log.info('/models/feedback: getFeedbackByCommentedBy() : ');
                 var query = {
                     where: {
                         ClassId: ClassId,

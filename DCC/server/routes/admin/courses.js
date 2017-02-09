@@ -4,7 +4,6 @@ var log = require('../../../config/logConfig');
 
 // add course to database
 router.post('/addCourse', function(req, res) {
-    log.info('/admin/courses/addCourse: Add course :' + req.body.name);
     models.Course.sync({
         force: false
     }).then(function() {
@@ -39,7 +38,6 @@ router.post('/addCourse', function(req, res) {
 
 // update course in database
 router.post('/updateCourse', function(req, res) {
-    log.info('/admin/updateCourse: Add course :' + req.body.name);
     models.Course.sync({
         force: false
     }).then(function() {
@@ -68,7 +66,6 @@ router.post('/updateCourse', function(req, res) {
 
 // mark course as deleted (isDeleted = true)
 router.post('/deleteCourse', function(req, res) {
-    log.info('Get Delete Command');
     models.Course.getByID(req.body.id, function(result) {
         if (result) {
             models.Course.update({
@@ -92,7 +89,6 @@ router.post('/deleteCourse', function(req, res) {
 });
 
 router.get('/getCourseList', function(req, res) {
-    log.info('/admin/getCourseList: get course list data');
     models.Course.findAll({
         include: [ models.TrainingProgram ]
     }).then(function(course) {
@@ -108,7 +104,6 @@ router.get('/getCourseList', function(req, res) {
 
 //getCourseTypeList
 router.get('/getCourseTypeList', function(req, res) {
-    log.info('/admin/getCourseTypeList: get course type list data');
     var query = { include: [ models.Course ]};
     models.CourseType.findAll(query).then(function(courseType) {
         var datasend = {

@@ -4,13 +4,11 @@ module.exports = function(sequelize) {
         classMethods: {
             getClass: function(cb)
             {
-                //log.info('/models/class: getClass()');
                 Class.findAll().then(cb);
             },
 
             getClassByID: function(id, cb)
             {
-                //log.info('/models/class: getClassByID()' + id);
                 var query ={
                     where:
                     {
@@ -37,7 +35,6 @@ module.exports = function(sequelize) {
 
             getClassByName: function(name, cb)
             {
-                //log.info('/models/class: getClassByName()' + name);
                 var query ={
                     where:
                     {

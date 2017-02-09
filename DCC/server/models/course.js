@@ -7,7 +7,6 @@ module.exports = function(sequelize) {
         classMethods: {
             getByID: function(id, cb)
             {
-                log.info('/models/course: getByID() : ' + id);
                 var query = {
                     where: {
 
@@ -19,7 +18,6 @@ module.exports = function(sequelize) {
 
             getByName: function(name, cb)
             {
-                log.info('/models/course: getByName() : ' + name);
                 var query = {
                     where: {
 
@@ -31,7 +29,6 @@ module.exports = function(sequelize) {
 
             getByTraningProgramID: function(trainingProgramId, cb)
             {
-                log.info('/models/course: getByTraningProgramID() : ' + trainingProgramId);
                 var query = {
                     where: {
 
