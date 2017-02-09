@@ -25,6 +25,15 @@ myApp.factory('courseDetailServices', ['$http', function($http) {
         // },
         getClassByCourseID: function(courseId){
             return $http.post('/common/course/getClassByCourseID', {courseId : courseId}).success(function(data) { return data; });
+        },
+        addClass: function(Class){
+            return $http.post('/admin/courses/addClass', Class).success(function(data){return data;});
+        },
+        updateClass: function(Class){
+            return $http.post('/admin/courses/updateTrainingProgram', Class).success(function(data){return data;});
+        },
+        deleteClass: function(Class){
+            return $http.post('/admin/courses/deleteClass', Class).success(function(data){return data;});
         }
     }
 
@@ -71,7 +80,45 @@ myApp.controller('courseDetailCtrl', ['$scope', '$rootScope', '$stateParams', 'c
     $scope.hoveringOver = function(value) {
         $scope.overStar = value;
     };
-
+    //Class
+    $scope.showAddClassForm=function(){
+        $rootScope.addEditFormIsEditForm =  false;
+        //Class
+        $rootScope.addEditClassFormTitle = 'Add Class';
+        $rootScope.addEditClassFormAction = 'Add';
+        $rootScope.adminClassModel = {
+            courseId: $stateParams.courseId,
+            location: '',
+            //TODO
+            // trainerId: '',
+            startTime: '',
+            duration: '',
+            maxAttendant: '',
+            note: ''
+        };
+    };
+    $scope.showUpdateClassForm = function(Class){
+        $rootScope.addEditFormIsEditForm =  true;
+        $rootScope.addEditClassFormTitle = 'Edit Class';
+        $rootScope.addEditClassFormAction = 'Update Class';
+        $rootScope.adminClassModel = {
+            id: Class.id,
+            location: Class.location ,
+            startTime: Class.startTime,
+            duration: Class.duration,
+            maxAttendant: Class.maxAttendant,
+            note: Class.note,
+            courseId:{
+                id: Class.courseId
+            }
+        };
+    };
+    $scope.showDeleteClassForm = function(Class){
+        $rootScope.deleteClass = Class.location + ' class';
+        $rootScope.adminClassModel = {
+            id: Class.id
+        };
+    };
 }]);
 
 // //Add and Edit Class Control

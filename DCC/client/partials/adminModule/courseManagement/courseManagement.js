@@ -107,22 +107,6 @@ myApp.controller('courseManagementCtrl', [ '$scope', '$rootScope','courseManagem
             }
         };
     };
-    $scope.showAddClassForm=function(adminClass){
-        $rootScope.addEditFormIsEditForm =  false;
-        //Class
-        $rootScope.addEditClassFormTitle = 'Add Class';
-        $rootScope.addEditClassFormAction = 'Add';
-        $rootScope.adminClassModel = {
-            courseId: '',
-            location: '',
-            //TODO
-            // trainerId: '',
-            startTime: '',
-            duration: '',
-            maxAttendant: '',
-            note: ''
-        };
-    };
 
     $scope.showUpdateCourseForm = function(trainingProgram, course){
         $rootScope.addEditFormIsEditForm =  true;
