@@ -153,7 +153,7 @@ myApp.controller('addEditClassCtrl', [ '$scope', '$rootScope','courseDetailServi
     $scope.addEditClassClick = function(){
         if ($rootScope.addEditFormIsEditForm){
             //edit class
-            courseManagementServices.updateClass($rootScope.adminClassModel).then(function(result){
+            courseDetailServices.updateClass($rootScope.adminClassModel).then(function(result){
                 if (result.data.success){
                     //Get Class List
                     courseDetailServices.getClassByCourseID($stateParams.courseId).then(function(result){
@@ -168,7 +168,7 @@ myApp.controller('addEditClassCtrl', [ '$scope', '$rootScope','courseDetailServi
         }
         else {
             //add Class
-            courseManagementServices.addClass($rootScope.adminClassModel).then(function(result) {
+            courseDetailServices.addClass($rootScope.adminClassModel).then(function(result) {
                 if (result.data.success){
                     //Get Class List
                     courseDetailServices.getClassByCourseID($stateParams.courseId).then(function(result){
