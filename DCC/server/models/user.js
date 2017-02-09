@@ -11,14 +11,6 @@ module.exports = function(sequelize) {
                 };
                 User.findOne(query).then(cb);
             },
-            getUserByName: function(username,cb){
-                var query = {
-                    where: {
-                        username: username
-                    }
-                };
-                User.findOne(query).then(cb);
-            },
             getUserByEmail: function(userEmail, cb){
                 var query = {
                     where: {
