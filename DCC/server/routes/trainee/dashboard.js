@@ -59,7 +59,7 @@ router.post('/getTrainingProgramByTPType', function(req, res){
         trainingPrograms.forEach(trainingProgram =>{
             if( trainingProgram.CourseType.name == req.body.userType || trainingProgram.CourseType.name == 'EVERYONE' )
             {
-                resData.push( trainingProgram);
+                resData.push(trainingProgram);
             }
             else
             {
@@ -67,38 +67,66 @@ router.post('/getTrainingProgramByTPType', function(req, res){
                 {
                     if(  trainingProgram.CourseType.name == 'OPTIONAL' )
                     {
-                        resData.push( trainingProgram);
+                            resData.push( trainingProgram);
                     }
                     else{
-                        trainingProgram.Courses.forEach(course =>{
-                            for ( var i = 0; i < course.Classes.length ; i++)
-                            {
-                                for ( var j = 0; j < course.Classes[i].ClassRecords.length  ; j++ )
-                                {
-                                    if ( course.Classes[i].ClassRecords[j].traineeEmail == req.body.email )
+                        if (trainingProgram.Courses.length != 0){
+                            trainingProgram.Courses.forEach(course =>{
+                                if ( course.Classes.length != 0){
+                                    for ( var i = 0; i < course.Classes.length ; i++)
                                     {
-                                        resData.push( trainingProgram);
+                                        if ( course.Classes[i].ClassRecords.length != 0 ){
+                                            for ( var j = 0; j < course.Classes[i].ClassRecords.length  ; j++ )
+                                            {
+                                                if ( course.Classes[i].ClassRecords[j].traineeEmail == req.body.email )
+                                                {
+                                                    resData.push({
+                                                        id: trainingProgram.id,
+                                                        name: trainingProgram.name,
+                                                        description: trainingProgram.description,
+                                                        imgLink: trainingProgram.imgLink,
+                                                        courseTypeId: trainingProgram.courseTypeId,
+                                                        CourseType: trainingProgram.CourseType,
+                                                        Courses: [course]
+                                                    });
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }
+                else
+                {
+                    if (trainingProgram.Courses.length != 0){
+                        trainingProgram.Courses.forEach(course =>{
+                            if ( course.Classes.length != 0){
+                                for ( var i = 0; i < course.Classes.length ; i++)
+                                {
+                                    if ( course.Classes[i].ClassRecords.length != 0 ){
+                                        for ( var j = 0; j < course.Classes[i].ClassRecords.length  ; j++ )
+                                        {
+                                            if ( course.Classes[i].ClassRecords[j].traineeEmail == req.body.email )
+                                            {
+                                                resData.push({
+                                                    id: trainingProgram.id,
+                                                    name: trainingProgram.name,
+                                                    description: trainingProgram.description,
+                                                    imgLink: trainingProgram.imgLink,
+                                                    courseTypeId: trainingProgram.courseTypeId,
+                                                    CourseType: trainingProgram.CourseType,
+                                                    Courses: [course]
+                                                });
+                                            }
+                                        }
                                     }
                                 }
                             }
                         });
                     }
-                }
-                else
-                {
-                    trainingProgram.Courses.forEach(course =>{
 
-                        for ( var i = 0; i < course.Classes[i].length ; i++)
-                        {
-                            for ( var j = 0; j < course.Classes[i].ClassRecords[j].length - 1 ; j++ )
-                            {
-                                if ( course.Classes[i].ClassRecords[j].traineeEmail == req.body.email )
-                                {
-                                    resData.push( trainingProgram);
-                                }
-                            }
-                        }
-                    });
                 }
             }
 
