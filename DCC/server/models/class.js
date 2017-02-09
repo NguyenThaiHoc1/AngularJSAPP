@@ -2,22 +2,6 @@ var _classModel = require("./DataObjects/class");
 module.exports = function(sequelize) {
     var Class = sequelize.define('Class', _classModel, {
         classMethods: {
-            getClass: function(cb)
-            {
-                Class.findAll().then(cb);
-            },
-
-            getClassByID: function(id, cb)
-            {
-                var query ={
-                    where:
-                    {
-                        id: id
-                    }
-                };
-                Class.findOne(query).then(cb);
-            },
-
             getOpeningClassByCourseID: function(id, cb)
             {
                 var query = {
