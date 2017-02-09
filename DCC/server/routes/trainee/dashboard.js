@@ -96,8 +96,8 @@ router.post('/getTrainingProgramByTPType', function(req, res){
                                         }
                                     }
                                 }
-                            });
-                        }
+                            }
+                        });
                     }
                 }
                 else
@@ -129,8 +129,8 @@ router.post('/getTrainingProgramByTPType', function(req, res){
                                     }
                                 }
                             }
-                        });
-                    }
+                        }
+                    });
 
                 }
             }
