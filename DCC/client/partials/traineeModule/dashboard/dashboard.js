@@ -60,14 +60,15 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
 
     //get all courses and training programs
     dashboardServices.getMyTraingPrograms(  $rootScope.userInfo ).then(function(result){
-        result.data.trainingProgram.forEach(traningProgram => {
-            if ( traningProgram.Courses.length == 0){
-                traningProgram.completePercent =0;
-            }else
-            {
-                traningProgram.count = 0;
+        result.data.trainingProgram.forEach(trainingProgram => {
+            console.log(trainingProgram.Courses);
+            if (  trainingProgram.Courses.length == 0){
+                trainingProgram.completePercent =0;
+            }
+            else{
+                trainingProgram.count = 0;
 
-                traningProgram.Courses.forEach(course => {
+                trainingProgram.Courses.forEach(course => {
                     if ( course.Classes.length == 0)
                     {
                         course.backgroundColor = 'red';
@@ -82,7 +83,6 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
 
                             }
                             else{
-                                console.log(course.Classes[i].ClassRecords);
                                 // class id and status in class Record
                                 course.classId = course.Classes[i].ClassRecords[course.Classes[i].ClassRecords.length - 1].classId;
                                 course.status = course.Classes[i].ClassRecords[course.Classes[i].ClassRecords.length - 1].status;
@@ -91,14 +91,14 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
                                 else if (course.status == STATUS_LEARNED)
                                 {
                                     course.backgroundColor = '#8BC34A';
-                                    traningProgram.count = traningProgram.count + 1;
+                                    trainingProgram.count = trainingProgram.count + 1;
                                 }
                                 else {course.backgroundColor = 'black'}
                             }
                         }
                     }
                 });
-                traningProgram.completePercent = Math.ceil(traningProgram.count / traningProgram.Courses.length * 100);
+                trainingProgram.completePercent = Math.ceil(trainingProgram.count / trainingProgram.Courses.length * 100);
             }
         });
         $scope.myTrainingProgramList = result.data.trainingProgram;
@@ -111,9 +111,9 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
                 if (result.data.success){
                     //refrsh list
                     dashboardServices.getMyTraingPrograms().then(function(result){
-                        result.data.data.forEach(traningProgram => {
-                            traningProgram.count = 0;
-                            traningProgram.Courses.forEach(course => {
+                        result.data.data.forEach(trainingProgram => {
+                            trainingProgram.count = 0;
+                            trainingProgram.Courses.forEach(course => {
                                 // class id and status in class Record
                                 course.classId = course.Classes[course.Classes.length - 1].ClassRecords[course.Classes[course.Classes.length - 1].ClassRecords.length - 1].classId;
                                 course.status = course.Classes[course.Classes.length - 1].ClassRecords[course.Classes[course.Classes.length - 1].ClassRecords.length - 1].status;
@@ -122,11 +122,11 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
                                 else if (course.status == 'Learned')
                                 {
                                     course.backgroundColor = '#8BC34A';
-                                    traningProgram.count = traningProgram.count + 1;
+                                    trainingProgram.count = trainingProgram.count + 1;
                                 }
                                 else {course.backgroundColor = 'black'}
                             });
-                            traningProgram.completePercent = Math.ceil(traningProgram.count / traningProgram.Courses.length * 100);
+                            trainingProgram.completePercent = Math.ceil(trainingProgram.count / trainingProgram.Courses.length * 100);
                         });
                         $scope.myTrainingProgramList = result.data.data;
                     });
@@ -144,9 +144,9 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
                     //refesh list
                     dashboardServices.getMyTraingPrograms().then(function(result){
-                        result.data.data.forEach(traningProgram => {
-                            traningProgram.count = 0;
-                            traningProgram.Courses.forEach(course => {
+                        result.data.data.forEach(trainingProgram => {
+                            trainingProgram.count = 0;
+                            trainingProgram.Courses.forEach(course => {
                                 // class id and status in class Record
                                 course.classId = course.Classes[course.Classes.length - 1].ClassRecords[course.Classes[course.Classes.length - 1].ClassRecords.length - 1].classId;
                                 course.status = course.Classes[course.Classes.length - 1].ClassRecords[course.Classes[course.Classes.length - 1].ClassRecords.length - 1].status;
@@ -155,11 +155,11 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
                                 else if (course.status == 'Learned')
                                 {
                                     course.backgroundColor = '#8BC34A';
-                                    traningProgram.count = traningProgram.count + 1;
+                                    trainingProgram.count = trainingProgram.count + 1;
                                 }
                                 else {course.backgroundColor = 'black'}
                             });
-                            traningProgram.completePercent = Math.ceil(traningProgram.count / traningProgram.Courses.length * 100);
+                            trainingProgram.completePercent = Math.ceil(trainingProgram.count / trainingProgram.Courses.length * 100);
                         });
                         $scope.myTrainingProgramList = result.data.data;
                     });
