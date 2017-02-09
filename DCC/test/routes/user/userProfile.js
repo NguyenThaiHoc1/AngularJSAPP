@@ -72,11 +72,11 @@ describe('<Unit test for user profile>', function() {
         return it('Should return success==true', function(done) {
             var req = request(DCC_Server).post('/user/userProfile/photo');
             req.cookies = Cookies;
+            req.field('filename', 'test file');
+            req.attach('userPhoto', 'test/routes/user/test.jpg');
             req.send({
                 email: 'qwe@gmail.com'
             });
-            req.field('filename', 'test file');
-            req.attach('userPhoto', 'test/routes/user/test.jpg');
             req.end(function(err, res) {
                 assert.equal(res.status, '302');
                 if (err) return done(err);

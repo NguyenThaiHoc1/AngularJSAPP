@@ -107,7 +107,7 @@ myApp.controller('courseDetailCtrl', ['$scope', '$rootScope', '$stateParams', 'c
             maxAttendant: Class.maxAttendant,
             note: Class.note,
             courseId:{
-                id: Class.courseId.id
+                id: Class.courseId
             }
         };
     };
@@ -142,7 +142,6 @@ myApp.controller('addEditClassCtrl', [ '$scope', '$rootScope','courseDetailServi
         }
         else {
             //add Class
-            console.log($rootScope.adminClassModel);
             courseDetailServices.addClass($rootScope.adminClassModel).then(function(result) {
                 if (result.data.success){
                     //Get Class List
@@ -165,7 +164,6 @@ myApp.controller('DatePickerCtrl', [ '$scope', '$rootScope', function( $rootScop
     $scope.today = function() {
         $rootScope.dt = new Date();
     };
-    $scope.today();
 
     $scope.clear = function() {
         $rootScope.dt = null;

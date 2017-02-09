@@ -35,7 +35,6 @@ router.post('/addCourse', function(req, res) {
     });
 });
 
-
 // update course in database
 router.post('/updateCourse', function(req, res) {
     log.info('/admin/updateCourse: Add course :' + req.body.name);
@@ -215,7 +214,6 @@ router.get('/getClass', function(req, res){
     });
 });
 
-
 //Add Class
 router.post('/addClass', function(req, res) {
     log.info('/admin/courses/addClass: Add Class :' + req.body.location);
@@ -243,6 +241,7 @@ router.post('/addClass', function(req, res) {
 
 //Update Class
 router.post('/updateClass', function(req, res) {
+    console.log(req.body);
     log.info('/admin/updateClass: update Class :' + req.body.id);
     // TODO : add trainee to class record
     models.Class.sync({
