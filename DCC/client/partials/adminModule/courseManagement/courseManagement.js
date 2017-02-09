@@ -92,7 +92,7 @@ myApp.controller('courseManagementCtrl', [ '$scope', '$rootScope','courseManagem
             trainingProgramId: trainingProgram.id
 
         };
-        console.log(trainingProgram.id);//debug
+        
     };
     $scope.showAddTPForm=function(){
         $rootScope.addEditFormIsEditForm =  false;
