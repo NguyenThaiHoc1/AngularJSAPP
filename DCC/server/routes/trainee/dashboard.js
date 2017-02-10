@@ -67,71 +67,55 @@ router.post('/getTrainingProgramByTPType', function(req, res){
                 {
                     if(  trainingProgram.CourseType.name === 'OPTIONAL' )
                     {
-                            resData.push( trainingProgram);
+                        resData.push( trainingProgram);
                     }
                     else{
+                        if ( trainingProgram.Courses.length !== 0){
+                            trainingProgram.Courses.forEach(course =>{
+                                if ( course.Classes[i].ClassRecords.length !== 0 ){
+                                    for ( var j = 0; j < course.Classes[i].ClassRecords.length  ; j++ )
+                                    {
+                                        if ( course.Classes[i].ClassRecords[j].traineeEmail === req.body.email )
+                                        {
+                                            resData.push({
+                                                id: trainingProgram.id,
+                                                name: trainingProgram.name,
+                                                description: trainingProgram.description,
+                                                imgLink: trainingProgram.imgLink,
+                                                courseTypeId: trainingProgram.courseTypeId,
+                                                CourseType: trainingProgram.CourseType,
+                                                Courses: [course]
+                                            });
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }
+                else
+                {
+                    if ( trainingProgram.Courses.length !== 0){
                         trainingProgram.Courses.forEach(course =>{
-                            for ( var i = 0; i < course.Classes.length ; i++)
-                            {
+                            if ( course.Classes[i].ClassRecords.length !== 0 ){
                                 for ( var j = 0; j < course.Classes[i].ClassRecords.length  ; j++ )
                                 {
                                     if ( course.Classes[i].ClassRecords[j].traineeEmail === req.body.email )
                                     {
-                                        if ( course.Classes[i].ClassRecords.length != 0 ){
-                                            for ( var j = 0; j < course.Classes[i].ClassRecords.length  ; j++ )
-                                            {
-                                                if ( course.Classes[i].ClassRecords[j].traineeEmail == req.body.email )
-                                                {
-                                                    resData.push({
-                                                        id: trainingProgram.id,
-                                                        name: trainingProgram.name,
-                                                        description: trainingProgram.description,
-                                                        imgLink: trainingProgram.imgLink,
-                                                        courseTypeId: trainingProgram.courseTypeId,
-                                                        CourseType: trainingProgram.CourseType,
-                                                        Courses: [course]
-                                                    });
-                                                }
-                                            }
-                                        }
+                                        resData.push({
+                                            id: trainingProgram.id,
+                                            name: trainingProgram.name,
+                                            description: trainingProgram.description,
+                                            imgLink: trainingProgram.imgLink,
+                                            courseTypeId: trainingProgram.courseTypeId,
+                                            CourseType: trainingProgram.CourseType,
+                                            Courses: [course]
+                                        });
                                     }
                                 }
                             }
                         });
                     }
-                }
-                else
-                {
-                    trainingProgram.Courses.forEach(course =>{
-
-                        for ( var i = 0; i < course.Classes[i].length ; i++)
-                        {
-                            for ( var j = 0; j < course.Classes[i].ClassRecords[j].length - 1 ; j++ )
-                            {
-                                if ( course.Classes[i].ClassRecords[j].traineeEmail === req.body.email )
-                                {
-                                    if ( course.Classes[i].ClassRecords.length != 0 ){
-                                        for ( var j = 0; j < course.Classes[i].ClassRecords.length  ; j++ )
-                                        {
-                                            if ( course.Classes[i].ClassRecords[j].traineeEmail == req.body.email )
-                                            {
-                                                resData.push({
-                                                    id: trainingProgram.id,
-                                                    name: trainingProgram.name,
-                                                    description: trainingProgram.description,
-                                                    imgLink: trainingProgram.imgLink,
-                                                    courseTypeId: trainingProgram.courseTypeId,
-                                                    CourseType: trainingProgram.CourseType,
-                                                    Courses: [course]
-                                                });
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    });
-
                 }
             }
 

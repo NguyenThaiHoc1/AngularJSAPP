@@ -61,7 +61,6 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
     //get all courses and training programs
     dashboardServices.getMyTraingPrograms(  $rootScope.userInfo ).then(function(result){
         result.data.trainingProgram.forEach(trainingProgram => {
-            console.log(trainingProgram.Courses);
             if (  trainingProgram.Courses.length == 0){
                 trainingProgram.completePercent =0;
             }
@@ -137,7 +136,6 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
                 }
             });
         }else if(myCourse.status == STATUS_LEARNED){
-            console.log("re-enroll");
             //re-Enroll: function same function request Opening
             dashboardServices.sendRegisterRequest({userEmail:$rootScope.userInfo.email, courseId: myCourse.id}).then(function(result){
                 if(result.data.success){
@@ -185,8 +183,6 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
         // if (myCourse.status == STATUS_ENROLLED){
         //     //View Schedule
         // }else if (myCourse.status == STATUS_LEARNED ){
-        //     console.log("feedback");
-        //     console.log (myCourse.classId);
         //     // show feedback modal
         // }
     };
