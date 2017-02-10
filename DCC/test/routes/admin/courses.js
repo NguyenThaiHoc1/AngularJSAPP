@@ -1,137 +1,343 @@
-// var request = require('supertest');
-// var assert = require('chai').assert;
-// var expect = require('chai').expect;
-// //process.env.NODE_ENV = 'test';
-// var DCC_Server = require('../../../app.js');
-//
-// describe('<Unit test for admin-course>', function() {
-//     var Cookies;
-//
-//     beforeEach(function(done) {
-//         request(DCC_Server)
-//         .post('/login')
-//         .set('Accept', 'application/json')
-//         .send({
-//             username: 'thach@gmail.com',
-//             password: '123456'
-//         })
-//         .end(function(err, res) {
-//             Cookies = res.headers['set-cookie'].pop().split(';')[0];
-//             if(err)
-//             return done(err);
-//             done();
-//         });
-//     });
-//
-//     afterEach(function(done) {
-//         // Cleanup
-//
-//         //logout
-//         request(DCC_Server).get('/logout')
-//         done();
-//     });
-//
-//     describe('Test case 1 : Post /admin/courses/addCourse', function() {
-//         return it('Should return success==true', function(done) {
-//
-//             var req = request(DCC_Server).post('/admin/courses/addCourse');
-//             req.cookies = Cookies;
-//             req.send({
-//                 name: 'test creat name course',
-//                 description: 'test creat name description',
-//                 duration: 'test creat duration',
-//                 test: 'test creat test',
-//                 documents: 'test creat documents',
-//                 isDeleted:  0,
-//                 courseTypeId: {id:1},
-//                 trainingProgramId:{id:1},
-//             });
-//             req.end(function(err, res) {
-//
-//                 assert.equal(res.body.success, true);
-//                 if (err) return done(err);
-//                 done();
-//             });
-//         });
-//     });
-//
-//     describe('Test case 2 : Post /admin/courses/updateCourse', function() {
-//         return it('Should return success==true', function(done) {
-//             var req = request(DCC_Server).post('/admin/courses/updateCourse');
-//             req.cookies = Cookies;
-//             req.send({
-//                 id: 1,
-//                 name: 'test update name course',
-//                 description: 'test update name description',
-//                 duration: 'test update duration',
-//                 test: 'test update test',
-//                 documents: 'test update documents',
-//                 isDeleted:  0,
-//                 courseTypeId: {id:1},
-//                 trainingProgramId:{id:1},
-//             });
-//             req.end(function(err, res) {
-//
-//                 assert.equal(res.body.success, true);
-//                 if (err) return done(err);
-//                 done();
-//             });
-//         });
-//     });
-//
-//     describe('Test case 3 : Post /admin/courses/deleteCourse', function() {
-//         return it('Should return success==true', function(done) {
-//             var req = request(DCC_Server).post('/admin/courses/deleteCourse');
-//             req.cookies = Cookies;
-//             req.send({
-//                 isDeleted:  true,
-//                 id: 1,
-//             });
-//             req.end(function(err, res) {
-//
-//                 assert.equal(res.body.success, true);
-//                 if (err) return done(err);
-//                 done();
-//             });
-//         });
-//     });
-//     describe('Test case 4 : Get Course List', function() {
-//         return it('Should return success==true', function(done) {
-//             var req = request(DCC_Server).get('/admin/courses/getCourseList');
-//             req.cookies = Cookies;
-//             req.end(function(err, res) {
-//
-//                 assert.equal(res.body.success, true);
-//                 if (err) return done(err);
-//                 done();
-//             });
-//         });
-//     });
-//
-//     describe('Test case 5 : get Course Type List', function() {
-//         return it('Should return success==true', function(done) {
-//             var req = request(DCC_Server).get('/admin/courses/getCourseTypeList');
-//             req.cookies = Cookies;
-//             req.end(function(err, res) {
-//
-//                 assert.equal(res.body.success, true);
-//                 if (err) return done(err);
-//                 done();
-//             });
-//         });
-//     });
-//
-//     describe('Test case 6 : get Training Program List', function() {
-//         return it('Should return success==true', function(done) {
-//             var req = request(DCC_Server).get('/admin/courses/getTrainingProgramList');
-//             req.cookies = Cookies;
-//             req.end(function(err, res) {
-//
-//                 assert.equal(res.body.success, true);
-//                 if (err) return done(err);
-//                 done();
-//             });
-//         });
-//     });
-//
-// });
+var request = require('supertest');
+var assert = require('chai').assert;
+var expect = require('chai').expect;
+//process.env.NODE_ENV = 'test';
+var DCC_Server = require('../../../app.js');
+
+describe('<Unit test for admin-course>', function() {
+    var Cookies;
+
+    beforeEach(function(done) {
+        request(DCC_Server)
+        .post('/login')
+        .set('Accept', 'application/json')
+        .send({
+            username: 'thach@gmail.com',
+            password: '123456'
+        })
+        .end(function(err, res) {
+            Cookies = res.headers['set-cookie'].pop().split(';')[0];
+            if(err)
+            return done(err);
+            done();
+        });
+    });
+
+    afterEach(function(done) {
+        // Cleanup
+
+        //logout
+        request(DCC_Server).get('/logout')
+        done();
+    });
+
+    describe('Test case 1 : Post /admin/courses/addCourse', function() {
+        return it('Should return success==true', function(done) {
+
+            var req = request(DCC_Server).post('/admin/courses/addCourse');
+            req.cookies = Cookies;
+            req.send({
+                name: 'test creat name course',
+                description: 'test creat name description',
+                duration: 'test creat duration',
+                test: 'test creat test',
+                documents: 'test creat documents',
+                trainingProgramId:{id:1},
+            });
+            req.end(function(err, res) {
+
+                assert.equal(res.body.success, true);
+                models.Course.destroy({where: {name:"test creat name course"}});
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
+
+    describe('Test case 1.1 : Post /admin/courses/addCourse with courseName is already existed ', function() {
+        return it('Should return success==true', function(done) {
+
+            var req = request(DCC_Server).post('/admin/courses/addCourse');
+            req.cookies = Cookies;
+            req.send({
+                name: 'Training Overview',
+                description: 'test creat name description',
+                duration: 'test creat duration',
+                test: 'test creat test',
+                documents: 'test creat documents',
+                trainingProgramId:{id:1},
+            });
+            req.end(function(err, res) {
+
+                assert.equal(res.body.success, false);
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
+
+    describe('Test case 2 : Post /admin/courses/updateCourse', function() {
+        return it('Should return success==true', function(done) {
+            var req = request(DCC_Server).post('/admin/courses/updateCourse');
+            req.cookies = Cookies;
+            req.send({
+                id: 1,
+                name: 'test update name course',
+                description: 'test update name description',
+                duration: '00:00:00',
+                test: 'test update test',
+                documents: 'test update documents',
+                trainingProgramId:{id:1},
+            });
+            req.end(function(err, res) {
+
+                assert.equal(res.body.success, true);
+                models.Course.update({
+                    name: 'Training Overview',
+                    description: 'Brief overview for all training courses',
+                    duration: '00:00:00',
+                    test: 'test update test',
+                    documents: '',
+                    trainingProgramId:{id:1},
+                    imgLink: '/img/trainingProgram/training-icon-1.svg',
+                }, {
+                    where: {
+                        id: 1
+                    }
+                });
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
+
+    describe('Test case 3 : Post /admin/courses/deleteCourse', function() {
+        return it('Should return success==true', function(done) {
+            var req = request(DCC_Server).post('/admin/courses/deleteCourse');
+            req.cookies = Cookies;
+            req.send({
+                id: 1,
+            });
+            req.end(function(err, res) {
+
+                assert.equal(res.body.success, true);
+                models.Course.create({
+                    id: 1,
+                    name: 'Training Overview',
+                    description: 'Brief overview for all training courses',
+                    duration: '00:00:00',
+                    test: 'test update test',
+                    documents: '',
+                    trainingProgramId:{id:1},
+                    imgLink: '/img/trainingProgram/training-icon-1.svg',
+                });
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
+
+
+    describe('Test case 5 : get Course Type List', function() {
+        return it('Should return success==true', function(done) {
+            var req = request(DCC_Server).get('/admin/courses/getCourseTypeList');
+            req.cookies = Cookies;
+            req.end(function(err, res) {
+
+                assert.equal(res.body.success, true);
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
+
+    describe('Test case 6 : get Training Program List', function() {
+        return it('Should return success==true', function(done) {
+            var req = request(DCC_Server).get('/admin/courses/getTrainingProgramList');
+            req.cookies = Cookies;
+            req.end(function(err, res) {
+
+                assert.equal(res.body.success, true);
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
+    describe('Test case 7 : Post /admin/courses/addTrainingProgram Success', function() {
+        return it('Should return success==true', function(done) {
+
+            var req = request(DCC_Server).post('/admin/courses/addTrainingProgram');
+            req.cookies = Cookies;
+            req.send({
+                name: 'test creat name training program',
+                description: 'test creat name description',
+                courseTypeId: {id:1},
+            });
+            req.end(function(err, res) {
+
+                assert.equal(res.body.success, true);
+                models.TrainingProgram.destroy({where: {name:"test creat name training program"}});
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
+    describe('Test case 7.1 : Post /admin/courses/addTrainingProgram fail becuz Name is already existed ', function() {
+        return it('Should return success==true', function(done) {
+
+            var req = request(DCC_Server).post('/admin/courses/addTrainingProgram');
+            req.cookies = Cookies;
+            req.send({
+                name: 'General Orientation',
+                description: 'test creat name description',
+                courseTypeId: 1,
+            });
+            req.end(function(err, res) {
+
+                assert.equal(res.body.success, true);
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
+    describe('Test case 8 : Post /admin/courses/updateTrainingProgram', function() {
+        return it('Should return success==true', function(done) {
+            var req = request(DCC_Server).post('/admin/courses/updateTrainingProgram');
+            req.cookies = Cookies;
+            req.send({
+                id: 1,
+                name: 'test update name training program',
+                description: 'test update name description',
+                courseTypeId: {id:1},
+            });
+            req.end(function(err, res) {
+
+                assert.equal(res.body.success, true);
+                models.TrainingProgram.update({
+                    name: 'General Orientation',
+                    description: 'description of trainning program 1 ',
+                    courseTypeId: {id:1},
+                }, {
+                    where: {
+                        id: 1
+                    }
+                });
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
+    describe('Test case 9 : Post /admin/courses/deleteTrainingProgram', function() {
+        return it('Should return success==true', function(done) {
+            var req = request(DCC_Server).post('/admin/courses/deleteTrainingProgram');
+            req.cookies = Cookies;
+            req.send({
+                id: 1,
+            });
+            req.end(function(err, res) {
+
+                assert.equal(res.body.success, true);
+                models.TrainingProgram.create({
+                    id: 1,
+                    name: 'General Orientation',
+                    description: 'description of trainning program 1 ',
+                    courseTypeId: {id:1},
+                });
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
+    describe('Test case 10 : Get Class List', function() {
+        return it('Should return success==true', function(done) {
+            var req = request(DCC_Server).get('/admin/courses/getClass');
+            req.cookies = Cookies;
+            req.end(function(err, res) {
+
+                assert.equal(res.body.success, true);
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
+    describe('Test case 11 : Post /admin/courses/addClass Success', function() {
+        return it('Should return success==true', function(done) {
+
+            var req = request(DCC_Server).post('/admin/courses/addClass');
+            req.cookies = Cookies;
+            req.send({
+                courseId: '1',
+                location: 'test creat loc',
+                startTime: '2017-02-03 17:00:00',
+                duration: '2',
+                maxAttendant: '12',
+                note: 'test crat note'
+            });
+            req.end(function(err, res) {
+
+                assert.equal(res.body.success, true);
+                models.Class.destroy({where: {location: 'test creat loc'}});
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
+    describe('Test case 12 : Post /admin/courses/updateClass', function() {
+        return it('Should return success==true', function(done) {
+            var req = request(DCC_Server).post('/admin/courses/updateClass');
+            req.cookies = Cookies;
+            req.send({
+                id:1,
+                courseId: '1',
+                location: 'test update loc',
+                startTime: '2017-02-03 17:00:00',
+                duration: '2',
+                maxAttendant: '12',
+                note: 'test crat note'
+            });
+            req.end(function(err, res) {
+
+                assert.equal(res.body.success, true);
+                models.Class.update({
+                    courseId: '1',
+                    location: 'L09',
+                    startTime: '2017-02-03 17:00:00',
+                    duration: '2',
+                    maxAttendant: '12',
+                    note: ''
+                }, {
+                    where: {
+                        id: 1
+                    }
+                });
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
+    describe('Test case 13 : Post /admin/courses/deleteClass', function() {
+        return it('Should return success==true', function(done) {
+            var req = request(DCC_Server).post('/admin/courses/deleteClass');
+            req.cookies = Cookies;
+            req.send({
+                id: 1,
+            });
+            req.end(function(err, res) {
+
+                assert.equal(res.body.success, true);
+                models.Class.create({
+                    id: 1,
+                    courseId: '1',
+                    location: 'L09',
+                    startTime: '2017-02-03 17:00:00',
+                    duration: '2',
+                    maxAttendant: '12',
+                    note: ''
+                });
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
+
+});

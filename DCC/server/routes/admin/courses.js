@@ -45,7 +45,6 @@ router.post('/updateCourse', function(req, res) {
             duration: req.body.duration,
             test: req.body.test,
             documents: req.body.documents,
-
             trainingProgramId: req.body.trainingProgramId,
             imgLink: '/img/courses/training-icon-1.svg',
         }, {
@@ -156,7 +155,6 @@ router.post('/updateTrainingProgram', function(req, res) {
         models.TrainingProgram.update({
             name: req.body.name,
             description: req.body.description,
-            duration: req.body.duration,
             courseTypeId: req.body.courseTypeId.id,
             imgLink: '/img/trainingProgram/training-icon-1.svg',
         }, {
