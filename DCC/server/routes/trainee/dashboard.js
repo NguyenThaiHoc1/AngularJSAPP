@@ -70,9 +70,10 @@ router.post('/getTrainingProgramByTPType', function(req, res){
                         resData.push( trainingProgram);
                     }
                     else{
-                        if ( trainingProgram.Courses.length !== 0){
+                        if ( trainingProgram.Courses.length !== 0 ){
                             trainingProgram.Courses.forEach(course =>{
-                                if ( course.Classes[i].ClassRecords.length !== 0 ){
+                                for ( var i = 0; i < course.Classes.length ; i++)
+                                {
                                     for ( var j = 0; j < course.Classes[i].ClassRecords.length  ; j++ )
                                     {
                                         if ( course.Classes[i].ClassRecords[j].traineeEmail === req.body.email )
@@ -95,9 +96,10 @@ router.post('/getTrainingProgramByTPType', function(req, res){
                 }
                 else
                 {
-                    if ( trainingProgram.Courses.length !== 0){
+                    if ( trainingProgram.Courses.length !== 0 ){
                         trainingProgram.Courses.forEach(course =>{
-                            if ( course.Classes[i].ClassRecords.length !== 0 ){
+                            for ( var i = 0; i < course.Classes.length ; i++)
+                            {
                                 for ( var j = 0; j < course.Classes[i].ClassRecords.length  ; j++ )
                                 {
                                     if ( course.Classes[i].ClassRecords[j].traineeEmail === req.body.email )
