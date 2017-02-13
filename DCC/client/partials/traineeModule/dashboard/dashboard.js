@@ -59,7 +59,7 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
 
 
     //get all courses and training programs
-    dashboardServices.getMyTraingPrograms(  $rootScope.userInfo ).then(function(result){
+    dashboardServices.getMyTraingPrograms(  {email:$rootScope.userInfo.email, userType:$rootScope.userInfo.userType, isExperienced: $rootScope.userInfo.isExperienced } ).then(function(result){
         result.data.trainingProgram.forEach(trainingProgram => {
             if (  trainingProgram.Courses.length == 0){
                 trainingProgram.completePercent =0;
