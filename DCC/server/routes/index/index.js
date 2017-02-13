@@ -18,13 +18,11 @@ router.get('/', function(req, res) {
 router.get('/getEvents', function(req, res) {
     gcal.getEvents(function( eventList)
     {
-        var datasend={
+        res.send({
             success: true,
             eventList: eventList
-        };
-        res.send(datasend);
+        });
     });
-    //res.send(events)
 });
 
 // passport Strategy
