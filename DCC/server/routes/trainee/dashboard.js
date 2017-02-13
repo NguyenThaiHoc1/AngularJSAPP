@@ -71,6 +71,7 @@ router.post('/getTrainingProgramByTPType', function(req, res){
                     }
                     else{
                         if ( trainingProgram.Courses.length !== 0 ){
+                            var resDataCourse =[];
                             trainingProgram.Courses.forEach(course =>{
                                 for ( var i = 0; i < course.Classes.length ; i++)
                                 {
@@ -78,18 +79,19 @@ router.post('/getTrainingProgramByTPType', function(req, res){
                                     {
                                         if ( course.Classes[i].ClassRecords[j].traineeEmail === req.body.email )
                                         {
-                                            resData.push({
-                                                id: trainingProgram.id,
-                                                name: trainingProgram.name,
-                                                description: trainingProgram.description,
-                                                imgLink: trainingProgram.imgLink,
-                                                courseTypeId: trainingProgram.courseTypeId,
-                                                CourseType: trainingProgram.CourseType,
-                                                Courses: [course]
-                                            });
+                                            resDataCourse.push(course);
                                         }
                                     }
                                 }
+                            });
+                            resData.push({
+                                id: trainingProgram.id,
+                                name: trainingProgram.name,
+                                description: trainingProgram.description,
+                                imgLink: trainingProgram.imgLink,
+                                courseTypeId: trainingProgram.courseTypeId,
+                                CourseType: trainingProgram.CourseType,
+                                Courses: resDataCourse
                             });
                         }
                     }

@@ -840,6 +840,7 @@ table + div[ng-include] { padding: 0 5px; }
     z-index: 1; /* Add a z-index if needed */
     left: 50%; /* Center the snackbar */
     bottom: 60px; /* 30px from the bottom */
+	background-color: #5DADE2;/* 00356B background color */
 }
 
 /* Show the snackbar when clicking on a button (class added with JavaScript) */
