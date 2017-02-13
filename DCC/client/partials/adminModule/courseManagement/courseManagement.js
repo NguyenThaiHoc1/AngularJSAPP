@@ -45,7 +45,7 @@ myApp.factory('courseManagementServices', ['$http', function($http) {
         },
         //Class
         getClass: function(courseId){
-            return $http.get('/admin/courses/getClass', courseId).success(function(data) { return data; });
+            return $http.post('/admin/courses/getClass', courseId).success(function(data) { return data; });
         },
         addClass: function(Class){
             return $http.post('/admin/courses/addClass', Class).success(function(data){return data;});

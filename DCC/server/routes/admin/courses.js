@@ -185,7 +185,7 @@ router.post('/deleteTrainingProgram', function(req, res) {
 });
 
 //Get Class
-router.get('/getClass', function(req, res){
+router.post('/getClass', function(req, res){
 
     var query =
     {

@@ -30,19 +30,28 @@ describe('<Unit test for common (Course detail)>', function() {
         request(DCC_Server).get('/logout')
         done();
     });
-
-    describe('Test case 1 : Get /trainee/feedback/getMyFeedbackByClass', function() {
+    describe('Test case 1 : Get Course Detail', function() {
         return it('Should return success==true', function(done) {
             var req = request(DCC_Server).post('/common/course/getCourseDetail');
             req.cookies = Cookies;
             req.send({courseId: 1});
             req.end(function(err, res) {
-
                 assert.equal(res.body.success, true);
                 if (err) return done(err);
                 done();
             });
         });
     });
-
+    describe('Test case 2 : Get Class by CourseId', function() {
+        return it('Should return success==true', function(done) {
+            var req = request(DCC_Server).post('/common/course/getClassByCourseID');
+            req.cookies = Cookies;
+            req.send({courseId: 1});
+            req.end(function(err, res) {
+                assert.equal(res.body.success, true);
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
 });
