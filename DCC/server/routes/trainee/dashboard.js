@@ -70,7 +70,7 @@ router.post('/getTrainingProgramByTPType', function(req, res){
                 else
                 {
                     if ( trainingProgram.Courses.length !== 0 ){
-                        var resDataCourse =[];
+                        var resDataCourse2 =[];
                         trainingProgram.Courses.forEach(course =>{
                             for ( var i = 0; i < course.Classes.length ; i++)
                             {
@@ -78,7 +78,7 @@ router.post('/getTrainingProgramByTPType', function(req, res){
                                 {
                                     if ( course.Classes[i].ClassRecords[j].traineeEmail === req.body.email )
                                     {
-                                        resDataCourse.push(course);
+                                        resDataCourse2.push(course);
                                     }
                                 }
                             }
@@ -90,7 +90,7 @@ router.post('/getTrainingProgramByTPType', function(req, res){
                             imgLink: trainingProgram.imgLink,
                             courseTypeId: trainingProgram.courseTypeId,
                             CourseType: trainingProgram.CourseType,
-                            Courses: resDataCourse
+                            Courses: resDataCourse2
                         });
                     }
                 }
