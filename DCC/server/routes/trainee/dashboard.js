@@ -34,30 +34,27 @@ router.post('/getTrainingProgramByTPType', function(req, res){
             }
             else
             {
-                if ( trainingProgram.Courses.length !== 0 ){
-                    var resDataCourse =[];
-                    trainingProgram.Courses.forEach(course =>{
-                        course.Classes.forEach(classes =>{
-                            classes.ClassRecords.forEach(classRecord =>{
-                                if ( classRecord.traineeEmail === req.body.email )
-                                {
-                                    resDataCourse.push(course);
-                                }
-                            });
+                var resDataCourse =[];
+                trainingProgram.Courses.forEach(course =>{
+                    course.Classes.forEach(classes =>{
+                        classes.ClassRecords.forEach(classRecord =>{
+                            if ( classRecord.traineeEmail === req.body.email )
+                            {
+                                resDataCourse.push(course);
+                            }
                         });
                     });
-                    resData.push({
-                        id: trainingProgram.id,
-                        name: trainingProgram.name,
-                        description: trainingProgram.description,
-                        imgLink: trainingProgram.imgLink,
-                        courseTypeId: trainingProgram.courseTypeId,
-                        CourseType: trainingProgram.CourseType,
-                        Courses: resDataCourse
-                    });
-                }
+                });
+                resData.push({
+                    id: trainingProgram.id,
+                    name: trainingProgram.name,
+                    description: trainingProgram.description,
+                    imgLink: trainingProgram.imgLink,
+                    courseTypeId: trainingProgram.courseTypeId,
+                    CourseType: trainingProgram.CourseType,
+                    Courses: resDataCourse
+                });
             }
-
         });
         var datasend = {
             success : true,
