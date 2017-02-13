@@ -96,6 +96,7 @@ router.post('/login', function(req, res, next) {
                     }
 
                     res.send({
+                        id: user[0].dataValues.id,
                         username: user[0].dataValues.username,
                         status: user[0].dataValues.status,
                         dob: user[0].dataValues.dob,

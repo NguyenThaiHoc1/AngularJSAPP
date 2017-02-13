@@ -1,7 +1,7 @@
 var fs        = require("fs");
 var path      = require("path");
 var Sequelize = require("sequelize");
-var env       = process.env.NODE_ENV || "development";
+var env       = process.env.NODE_ENV || "test";
 var config    = require("../../config/config")[env];
 var sequelize = module.exports = new Sequelize(config.database, config.username, config.password, config);
 var db = {};
@@ -52,7 +52,7 @@ db.User.hasMany(db.ClassRecord, { foreignKey: 'traineeId' });
 //association of table RequestOpening and course
 db.RequestOpening.belongsTo(db.Course, { foreignKey: 'courseId' });
 db.Course.hasMany(db.RequestOpening, { foreignKey: 'courseId' });
-db.RequestOpening.belongsTo(db.User, { foreignKey: 'userEmail' });
-db.User.hasMany(db.RequestOpening, { foreignKey: 'userEmail' });
+db.RequestOpening.belongsTo(db.User, { foreignKey: 'userId' });
+db.User.hasMany(db.RequestOpening, { foreignKey: 'userId' });
 
 module.exports = db;

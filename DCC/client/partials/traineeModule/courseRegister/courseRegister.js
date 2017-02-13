@@ -39,7 +39,6 @@ myApp.factory('courseRegisterServices', ['$http', function($http) {
 
 //Controllers
 myApp.controller('courseRegisterCtrl', ['$sce','$rootScope', '$scope', 'courseRegisterServices', function($sce,$rootScope ,$scope, courseRegisterServices) {
-
     courseRegisterServices.getMyEnrolledClass({userEmail:$rootScope.userInfo.email}).then(function(result){
         var myEnrolledCourse = [];
         result.data.classRecord.forEach(classRecord => {
@@ -49,7 +48,7 @@ myApp.controller('courseRegisterCtrl', ['$sce','$rootScope', '$scope', 'courseRe
         });
         $scope.myEnrolledCourse = myEnrolledCourse;
     }).then(function(){
-        courseRegisterServices.getRequestedOpeningCourse({userEmail:$rootScope.userInfo.email}).then(function(result){
+        courseRegisterServices.getRequestedOpeningCourse({userId:$rootScope.userInfo.id}).then(function(result){
             $scope.requestedOpeningCourse = {};
             $scope.requestedOpeningCourse = result.data.requestedOpeningCourse;
         });
@@ -88,7 +87,7 @@ myApp.controller('courseRegisterCtrl', ['$sce','$rootScope', '$scope', 'courseRe
                         });
                     });
                 });
-            }            
+            }
             //Splice course user enrolled in training program list
             if(isEmpty($scope.myEnrolledCourse)===false){
                 for(var i=$scope.myEnrolledCourse.length-1; i>=0; i--){
@@ -157,7 +156,7 @@ myApp.controller('courseRegisterCtrl', ['$sce','$rootScope', '$scope', 'courseRe
         // courseRegisterStatus = false : register;
         var request = {
             courseId : courseId,
-            userEmail : $rootScope.userInfo.email
+            userId : $rootScope.userInfo.id
         };
         courseRegisterServices.sendRegisterRequest(request).then(
             function(result)

@@ -21,8 +21,8 @@ myApp.factory('dashboardServices', ['$http', function($http) {
         getMyTraingPrograms: function(req) {
             return $http.post('/trainee/dashboard/getTrainingProgramByTPType', req).success(function(data) { return data; });
         },
-        getRequestOpenCourse: function() {
-            return $http.get('/trainee/dashboard/getRequestOpenCourse').success(function(data) { return data; });
+        getRequestOpenCourse: function(req) {
+            return $http.post('/trainee/dashboard/getRequestOpenCourse', req).success(function(data) { return data; });
         },
         deleteRequestOpenCourse: function(req){
             return $http.post('/trainee/courseRegister/deleteRequestOpening', req).success(function(data) { return data; });
@@ -202,17 +202,17 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
 
 //Request Open Course controller
 myApp.controller('requestOpenCourseCtrl', ['$scope', 'dashboardServices', '$rootScope', function($scope, dashboardServices, $rootScope) {
-    dashboardServices.getRequestOpenCourse().then(function(result){
+    dashboardServices.getRequestOpenCourse({userId:$rootScope.userInfo.id}).then(function(result){
         $scope.myRequestOpenCourseList = result.data.data;
     });
 
     $scope.cancelRequestClick = function(requestOpenCourseId){
-        dashboardServices.deleteRequestOpenCourse({courseId: requestOpenCourseId, userEmail: $rootScope.userInfo.email}).then(function(result){
+        dashboardServices.deleteRequestOpenCourse({courseId: requestOpenCourseId, userId: $rootScope.userInfo.id}).then(function(result){
             if(result.data.success){
                 $rootScope.ShowPopupMessage(result.data.msg, "success");
 
                 //refesh the request open course list
-                dashboardServices.getRequestOpenCourse().then(function(result){
+                dashboardServices.getRequestOpenCourse({userId:$rootScope.userInfo.id}).then(function(result){
                     $scope.myRequestOpenCourseList = result.data.data;
                 });
             }else{

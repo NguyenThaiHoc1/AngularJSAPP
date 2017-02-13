@@ -14,7 +14,7 @@ router.get('/getAdminRequestOpenCourse', function(req, res) {
             if(course.RequestOpenings.length > 0){
                 var requestUsers = [];
                 course.RequestOpenings.forEach(request =>{
-                    requestUsers.push(request.userEmail);
+                    requestUsers.push(request.userId);
                 });
                 resData.push({
                     course: {

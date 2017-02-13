@@ -37,8 +37,8 @@ router.get('/getOpeningClass', function(req, res){
 });
 
 router.post('/getRequestedOpeningCourse', function(req, res){
-    var userEmail = req.body.userEmail;
-    models.RequestOpening.getRequestedOpeningCourse(userEmail, function(requestedOpeningCourse){
+    var userId = req.body.userId;
+    models.RequestOpening.getRequestedOpeningCourse(userId, function(requestedOpeningCourse){
         var datasend = {
             success: true,
             msg: 'Get Requested Opening Course Success',
@@ -50,10 +50,10 @@ router.post('/getRequestedOpeningCourse', function(req, res){
 
 router.post('/sendRegisterRequest', function(req, res){
     var courseId = req.body.courseId;
-    var userEmail = req.body.userEmail;
+    var userId = req.body.userId;
     //If request is already existed, don't add request to request_course table
     //If not, add request to request_course table
-    models.RequestOpening.findOne({where:{userEmail:userEmail,courseId:courseId}}).then(function(requestOpening){
+    models.RequestOpening.findOne({where:{userId:userId,courseId:courseId}}).then(function(requestOpening){
         if(requestOpening){
             var datasend = {
                 success: false,
@@ -65,7 +65,7 @@ router.post('/sendRegisterRequest', function(req, res){
                 //If class is opening, add user request to request_course table with requestType = "enroll"
                 //If not, add user request to request_course table with requestType = "register"
                 if(openingClass){
-                    models.RequestOpening.addRequestEnroll(userEmail, courseId, function(){
+                    models.RequestOpening.addRequestEnroll(userId, courseId, function(){
                         var datasend = {
                             success: true,
                             msg: 'Send Request Successfully'
@@ -73,7 +73,7 @@ router.post('/sendRegisterRequest', function(req, res){
                         res.send(datasend);
                     });
                 }else{
-                    models.RequestOpening.addRequestRegister(userEmail, courseId, function(){
+                    models.RequestOpening.addRequestRegister(userId, courseId, function(){
                         var datasend = {
                             success: true,
                             msg: 'Send Request Successfully'
@@ -88,8 +88,8 @@ router.post('/sendRegisterRequest', function(req, res){
 
 router.post('/deleteRequestOpening', function(req, res){
     var courseId = req.body.courseId;
-    var userEmail = req.body.userEmail;
-    models.RequestOpening.deleteRequestOpening(userEmail, courseId, function(){
+    var userId = req.body.userId;
+    models.RequestOpening.deleteRequestOpening(userId, courseId, function(){
         var datasend = {
             success: true,
             msg: 'Delete Request Opening Success'

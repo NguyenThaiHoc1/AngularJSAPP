@@ -4,9 +4,9 @@ module.exports=
 {
     // 1: enrolled,
     // 2: passed
-    userEmail:
+    userId:
     {
-        type: SequelizeDatatypes.STRING,
+        type: SequelizeDatatypes.INTEGER,
         allowNull: true
     },
     courseId:

@@ -133,12 +133,12 @@ router.post('/getTrainingProgramByTPType', function(req, res){
     });
 });
 
-router.get('/getRequestOpenCourse', function(req, res){
+router.post('/getRequestOpenCourse', function(req, res){
     var query =
     {
         include:     [{
             model: models.RequestOpening,
-            where: {userEmail: req.user.email }
+            where: {userId: req.body.userId }
         }]
     };
     models.Course.findAll(query).then(function(course) {

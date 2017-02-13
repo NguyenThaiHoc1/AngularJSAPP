@@ -31,6 +31,7 @@ router.get('/getUserInfo', function(req, res) {
             currentRole = 3
         }
         res.send({
+            id: user.id,
             username: user.username,
             status: user.status,
             dob: user.dob,
