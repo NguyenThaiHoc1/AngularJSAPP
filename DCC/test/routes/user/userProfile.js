@@ -58,7 +58,7 @@ describe('<Unit test for user profile>', function() {
             var req = request(DCC_Server).get('/user/userProfile/getUserInfo');
             req.cookies = Cookies;
             req.end(function(err, res) {
-                assert.equal(res.body.success, true);
+                assert.equal(res.body.getCurrentRole, true);
                 models.User.update({
                     isAdmin: 1,
                     isTrainer: 1,
@@ -84,7 +84,7 @@ describe('<Unit test for user profile>', function() {
             var req = request(DCC_Server).get('/user/userProfile/getUserInfo');
             req.cookies = Cookies;
             req.end(function(err, res) {
-                assert.equal(res.body.success, true);
+                assert.equal(res.body.getCurrentRole, true);
                 models.User.update({
                     isAdmin: 1,
                     isTrainer: 1,

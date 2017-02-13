@@ -47,6 +47,7 @@ router.get('/getUserInfo', function(req, res) {
             isExperienced: user.isExperienced,
             userType: user.userType,
             success: true,
+            getCurrentRole: true
         });
     });
 });

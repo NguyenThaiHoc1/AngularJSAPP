@@ -217,7 +217,6 @@ router.post('/addClass', function(req, res) {
         models.Class.create({
             courseId: req.body.courseId,
             location: req.body.location,
-            //TODO
             // trainerId: req.body.trainerId.id,
             startTime: req.body.startTime,
             duration: req.body.duration,
@@ -235,13 +234,12 @@ router.post('/addClass', function(req, res) {
 //Update Class
 router.post('/updateClass', function(req, res) {
     log.info('/admin/updateClass: update Class :' + req.body.id);
-    // TODO : add trainee to class record
+    //  need add trainee to class record
     models.Class.sync({
         force: false
     }).then(function() {
         models.Class.update({
             location: req.body.location,
-            //TODO
             // trainerId: req.body.trainerId,
             startTime: req.body.startTime,
             duration: req.body.duration,
