@@ -33,10 +33,15 @@ describe('<Unit test for trainee-dashboard>', function() {
         done();
     });
 
-    describe('Test case 1 : Get training programs', function() {
+    describe('Test case 1 : Get training programs by TP Type', function() {
         return it('Should return success==true', function(done) {
-            var req = request(DCC_Server).get('/trainee/dashboard/getTrainingProgram');
+            var req = request(DCC_Server).post('/trainee/dashboard/getTrainingProgramByTPType');
             req.cookies = Cookies;
+            req.send({
+                userType: 'CBA',
+                isExperienced: '0',
+                email: 'qwe@gmail.com',
+            });
             req.end(function(err, res) {
 
                 assert.equal(res.body.success, true);
@@ -46,7 +51,7 @@ describe('<Unit test for trainee-dashboard>', function() {
         });
     });
 
-    describe('Test case 1 : Get request open course', function() {
+    describe('Test case 2 : Get request open course', function() {
         return it('Should return success==true', function(done) {
             var req = request(DCC_Server)
             .post('/trainee/dashboard/getRequestOpenCourse');
