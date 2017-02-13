@@ -19,7 +19,8 @@ router.get('/getEvents', function(req, res) {
     gcal.getEvents(function( eventList)
     {
         var datasend={
-            success: true
+            success: true,
+            eventList: eventList
         };
         res.send(datasend);
     });
