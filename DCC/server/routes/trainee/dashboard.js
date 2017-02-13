@@ -28,38 +28,33 @@ router.post('/getTrainingProgramByTPType', function(req, res){
     models.TrainingProgram.findAll(query).then(function(trainingPrograms) {
         var resData =[];
         trainingPrograms.forEach(trainingProgram =>{
-            if( trainingProgram.CourseType.name === req.body.userType || trainingProgram.CourseType.name === 'EVERYONE' )
+            if( trainingProgram.CourseType.name === req.body.userType || trainingProgram.CourseType.name === 'EVERYONE' ||  (!req.body.isExperienced && trainingProgram.CourseType.name === 'OPTIONAL'))
             {
                 resData.push(trainingProgram);
             }
             else
             {
-                if (!req.body.isExperienced && trainingProgram.CourseType.name === 'OPTIONAL') {
-                    resData.push( trainingProgram);
-                }
-                else {
-                    if ( trainingProgram.Courses.length !== 0 ){
-                        var resDataCourse =[];
-                        trainingProgram.Courses.forEach(course =>{
-                            course.Classes.forEach(classes =>{
-                                classes.ClassRecords.forEach(classRecord =>{
-                                    if ( classRecord.traineeEmail === req.body.email )
-                                    {
-                                        resDataCourse.push(course);
-                                    }
-                                });
+                if ( trainingProgram.Courses.length !== 0 ){
+                    var resDataCourse =[];
+                    trainingProgram.Courses.forEach(course =>{
+                        course.Classes.forEach(classes =>{
+                            classes.ClassRecords.forEach(classRecord =>{
+                                if ( classRecord.traineeEmail === req.body.email )
+                                {
+                                    resDataCourse.push(course);
+                                }
                             });
                         });
-                        resData.push({
-                            id: trainingProgram.id,
-                            name: trainingProgram.name,
-                            description: trainingProgram.description,
-                            imgLink: trainingProgram.imgLink,
-                            courseTypeId: trainingProgram.courseTypeId,
-                            CourseType: trainingProgram.CourseType,
-                            Courses: resDataCourse
-                        });
-                    }
+                    });
+                    resData.push({
+                        id: trainingProgram.id,
+                        name: trainingProgram.name,
+                        description: trainingProgram.description,
+                        imgLink: trainingProgram.imgLink,
+                        courseTypeId: trainingProgram.courseTypeId,
+                        CourseType: trainingProgram.CourseType,
+                        Courses: resDataCourse
+                    });
                 }
             }
 
