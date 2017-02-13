@@ -97,6 +97,17 @@ describe('Test case 5: Get Events', function() {
     });
 });
 
+describe('Test case 6: get homepage', function() {
+    return it('Should return success==true', function(done) {
+        request(DCC_Server)
+        .get('/')
+        .end(function(err, res) {
+            assert.equal(res.status, '200');
+            if (err) return done(err);
+            done();
+        });
+    });
+});
 //
 // describe('', function() {
 //     var Cookies;
