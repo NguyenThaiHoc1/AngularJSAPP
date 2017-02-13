@@ -34,43 +34,12 @@ router.post('/getTrainingProgramByTPType', function(req, res){
             }
             else
             {
-                if( !req.body.isExperienced  )
-                {
-                    if(  trainingProgram.CourseType.name === 'OPTIONAL' )
-                    {
-                        resData.push( trainingProgram);
-                    }
-                    else{
-                        if ( trainingProgram.Courses.length !== 0 ){
-                            var resDataCourse =[];
-                            trainingProgram.Courses.forEach(course =>{
-                                for ( var i = 0; i < course.Classes.length ; i++)
-                                {
-                                    for ( var j = 0; j < course.Classes[i].ClassRecords.length  ; j++ )
-                                    {
-                                        if ( course.Classes[i].ClassRecords[j].traineeEmail === req.body.email )
-                                        {
-                                            resDataCourse.push(course);
-                                        }
-                                    }
-                                }
-                            });
-                            resData.push({
-                                id: trainingProgram.id,
-                                name: trainingProgram.name,
-                                description: trainingProgram.description,
-                                imgLink: trainingProgram.imgLink,
-                                courseTypeId: trainingProgram.courseTypeId,
-                                CourseType: trainingProgram.CourseType,
-                                Courses: resDataCourse
-                            });
-                        }
-                    }
+                if (!req.body.isExperienced && trainingProgram.CourseType.name === 'OPTIONAL') {
+                    resData.push( trainingProgram);
                 }
-                else
-                {
+                else {
                     if ( trainingProgram.Courses.length !== 0 ){
-                        var resDataCourse2 =[];
+                        var resDataCourse =[];
                         trainingProgram.Courses.forEach(course =>{
                             for ( var i = 0; i < course.Classes.length ; i++)
                             {
@@ -78,7 +47,7 @@ router.post('/getTrainingProgramByTPType', function(req, res){
                                 {
                                     if ( course.Classes[i].ClassRecords[j].traineeEmail === req.body.email )
                                     {
-                                        resDataCourse2.push(course);
+                                        resDataCourse.push(course);
                                     }
                                 }
                             }
@@ -90,10 +59,71 @@ router.post('/getTrainingProgramByTPType', function(req, res){
                             imgLink: trainingProgram.imgLink,
                             courseTypeId: trainingProgram.courseTypeId,
                             CourseType: trainingProgram.CourseType,
-                            Courses: resDataCourse2
+                            Courses: resDataCourse
                         });
                     }
                 }
+
+                // if( !req.body.isExperienced  )
+                // {
+                //     if(  trainingProgram.CourseType.name === 'OPTIONAL' )
+                //     {
+                //         resData.push( trainingProgram);
+                //     }
+                //     else{
+                //         if ( trainingProgram.Courses.length !== 0 ){
+                //             var resDataCourse =[];
+                //             trainingProgram.Courses.forEach(course =>{
+                //                 for ( var i = 0; i < course.Classes.length ; i++)
+                //                 {
+                //                     for ( var j = 0; j < course.Classes[i].ClassRecords.length  ; j++ )
+                //                     {
+                //                         if ( course.Classes[i].ClassRecords[j].traineeEmail === req.body.email )
+                //                         {
+                //                             resDataCourse.push(course);
+                //                         }
+                //                     }
+                //                 }
+                //             });
+                //             resData.push({
+                //                 id: trainingProgram.id,
+                //                 name: trainingProgram.name,
+                //                 description: trainingProgram.description,
+                //                 imgLink: trainingProgram.imgLink,
+                //                 courseTypeId: trainingProgram.courseTypeId,
+                //                 CourseType: trainingProgram.CourseType,
+                //                 Courses: resDataCourse
+                //             });
+                //         }
+                //     }
+                // }
+                // else
+                // {
+                //     if ( trainingProgram.Courses.length !== 0 ){
+                //         var resDataCourse2 =[];
+                //         trainingProgram.Courses.forEach(course =>{
+                //             for ( var i = 0; i < course.Classes.length ; i++)
+                //             {
+                //                 for ( var j = 0; j < course.Classes[i].ClassRecords.length  ; j++ )
+                //                 {
+                //                     if ( course.Classes[i].ClassRecords[j].traineeEmail === req.body.email )
+                //                     {
+                //                         resDataCourse2.push(course);
+                //                     }
+                //                 }
+                //             }
+                //         });
+                //         resData.push({
+                //             id: trainingProgram.id,
+                //             name: trainingProgram.name,
+                //             description: trainingProgram.description,
+                //             imgLink: trainingProgram.imgLink,
+                //             courseTypeId: trainingProgram.courseTypeId,
+                //             CourseType: trainingProgram.CourseType,
+                //             Courses: resDataCourse2
+                //         });
+                //     }
+                // }
             }
 
         });
