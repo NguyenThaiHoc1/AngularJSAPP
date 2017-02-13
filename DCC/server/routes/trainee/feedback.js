@@ -22,7 +22,7 @@ router.post ('/getMyFeedbackByClass', function(req, res){
             res.send(datasend);
         }
         else{
-            var datasend = {
+            var datasend2 = {
                 success: true,
                 msg:'Get feedback success',
                 feedback: {
@@ -30,7 +30,7 @@ router.post ('/getMyFeedbackByClass', function(req, res){
                     rating: feedback.rating
                 }
             };
-            res.send(datasend);
+            res.send(datasend2);
         }
     });
 });
