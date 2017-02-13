@@ -3,6 +3,7 @@ var assert = require('chai').assert;
 var expect = require('chai').expect;
 //process.env.NODE_ENV = 'test';
 var DCC_Server = require('../../../app.js');
+var models = require('../../../server/models');
 
 describe('<Unit test for admin-course>', function() {
     var Cookies;
@@ -39,10 +40,10 @@ describe('<Unit test for admin-course>', function() {
             req.send({
                 name: 'test creat name course',
                 description: 'test creat name description',
-                duration: 'test creat duration',
+                duration: '00:00:00',
                 test: 'test creat test',
                 documents: 'test creat documents',
-                trainingProgramId:{id:1},
+                trainingProgramId:1,
             });
             req.end(function(err, res) {
 
@@ -87,7 +88,7 @@ describe('<Unit test for admin-course>', function() {
                 duration: '00:00:00',
                 test: 'test update test',
                 documents: 'test update documents',
-                trainingProgramId:{id:1},
+                trainingProgramId:1,
             });
             req.end(function(err, res) {
 
@@ -98,7 +99,7 @@ describe('<Unit test for admin-course>', function() {
                     duration: '00:00:00',
                     test: 'test update test',
                     documents: '',
-                    trainingProgramId:{id:1},
+                    trainingProgramId:1,
                     imgLink: '/img/trainingProgram/training-icon-1.svg',
                 }, {
                     where: {
@@ -128,7 +129,7 @@ describe('<Unit test for admin-course>', function() {
                     duration: '00:00:00',
                     test: 'test update test',
                     documents: '',
-                    trainingProgramId:{id:1},
+                    trainingProgramId:1,
                     imgLink: '/img/trainingProgram/training-icon-1.svg',
                 });
                 if (err) return done(err);
@@ -169,14 +170,14 @@ describe('<Unit test for admin-course>', function() {
             var req = request(DCC_Server).post('/admin/courses/addTrainingProgram');
             req.cookies = Cookies;
             req.send({
-                name: 'test creat name training program',
+                name: 'test creat name of new training program',
                 description: 'test creat name description',
                 courseTypeId: {id:1},
             });
             req.end(function(err, res) {
 
                 assert.equal(res.body.success, true);
-                models.TrainingProgram.destroy({where: {name:"test creat name training program"}});
+                models.TrainingProgram.destroy({where: {name:"test creat name of new training program"}});
                 if (err) return done(err);
                 done();
             });
@@ -188,13 +189,13 @@ describe('<Unit test for admin-course>', function() {
             var req = request(DCC_Server).post('/admin/courses/addTrainingProgram');
             req.cookies = Cookies;
             req.send({
-                name: 'General Orientation',
+                name: 'Linux Programming',
                 description: 'test creat name description',
                 courseTypeId: 1,
             });
             req.end(function(err, res) {
 
-                assert.equal(res.body.success, true);
+                assert.equal(res.body.success, false);
                 if (err) return done(err);
                 done();
             });
@@ -206,7 +207,7 @@ describe('<Unit test for admin-course>', function() {
             req.cookies = Cookies;
             req.send({
                 id: 1,
-                name: 'test update name training program',
+                name: 'test update name of new training program',
                 description: 'test update name description',
                 courseTypeId: {id:1},
             });
@@ -215,7 +216,7 @@ describe('<Unit test for admin-course>', function() {
                 assert.equal(res.body.success, true);
                 models.TrainingProgram.update({
                     name: 'General Orientation',
-                    description: 'description of trainning program 1 ',
+                    description: 'description of General Orientation trainning program 1 ',
                     courseTypeId: {id:1},
                 }, {
                     where: {
