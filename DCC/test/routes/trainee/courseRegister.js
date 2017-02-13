@@ -64,7 +64,7 @@ describe('<Unit test for trainee-courseRegister>', function() {
             .post('/trainee/courseRegister/getRequestedOpeningCourse');
             req.cookies = Cookies;
             req.set('Accept', 'application/json')
-            .send({userEmail: "qwe@gmail.com"})
+            .send({userId: 2})
             .end(function(err, res) {
 
                 assert.equal(res.body.success, true);
@@ -80,7 +80,7 @@ describe('<Unit test for trainee-courseRegister>', function() {
             .post('/trainee/courseRegister/sendRegisterRequest');
             req.cookies = Cookies;
             req.set('Accept', 'application/json')
-            .send({userEmail:"qwe@gmail.com", courseId: 5})
+            .send({userId: 2, courseId: 5})
             .end(function(err, res) {
                 assert.equal(res.body.success, false);
                 if (err) return done(err);
@@ -95,10 +95,10 @@ describe('<Unit test for trainee-courseRegister>', function() {
             .post('/trainee/courseRegister/sendRegisterRequest');
             req.cookies = Cookies;
             req.set('Accept', 'application/json')
-            .send({userEmail:"qwe@gmail.com", courseId: 3})
+            .send({userId: 2, courseId: 3})
             .end(function(err, res) {
                 assert.equal(res.body.success, true);
-                models.RequestOpening.destroy({where: {userEmail:"qwe@gmail.com", courseId: 3}});
+                models.RequestOpening.destroy({where: {userId:2, courseId: 3}});
                 if (err) return done(err);
                 done();
             });
@@ -111,10 +111,10 @@ describe('<Unit test for trainee-courseRegister>', function() {
             .post('/trainee/courseRegister/sendRegisterRequest');
             req.cookies = Cookies;
             req.set('Accept', 'application/json')
-            .send({userEmail:"qwe@gmail.com", courseId: 4})
+            .send({userId:2, courseId: 4})
             .end(function(err, res) {
                 assert.equal(res.body.success, true);
-                models.RequestOpening.destroy({where: {userEmail:"qwe@gmail.com", courseId: 4}});
+                models.RequestOpening.destroy({where: {userId:2, courseId: 4}});
                 if (err) return done(err);
                 done();
             });
@@ -127,10 +127,10 @@ describe('<Unit test for trainee-courseRegister>', function() {
             .post('/trainee/courseRegister/deleteRequestOpening');
             req.cookies = Cookies;
             req.set('Accept', 'application/json')
-            .send({userEmail:"qwe@gmail.com", courseId: 2})
+            .send({userId:2, courseId: 2})
             .end(function(err, res) {
                 assert.equal(res.body.success, true);
-                models.RequestOpening.create({userEmail:"qwe@gmail.com", courseId: 2, requestType: 'register'});
+                models.RequestOpening.create({userId:2, courseId: 2, requestType: 'register'});
                 if (err) return done(err);
                 done();
             });

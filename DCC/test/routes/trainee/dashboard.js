@@ -48,8 +48,11 @@ describe('<Unit test for trainee-dashboard>', function() {
 
     describe('Test case 1 : Get request open course', function() {
         return it('Should return success==true', function(done) {
-            var req = request(DCC_Server).get('/trainee/dashboard/getRequestOpenCourse');
+            var req = request(DCC_Server)
+            .post('/trainee/dashboard/getRequestOpenCourse');
             req.cookies = Cookies;
+            req.set('Accept', 'application/json')
+            .send({userId:2})
             req.end(function(err, res) {
 
                 assert.equal(res.body.success, true);
