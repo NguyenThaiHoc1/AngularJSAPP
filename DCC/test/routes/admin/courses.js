@@ -117,20 +117,20 @@ describe('<Unit test for admin-course>', function() {
             var req = request(DCC_Server).post('/admin/courses/deleteCourse');
             req.cookies = Cookies;
             req.send({
-                id: 1,
+                id: 12,
             });
             req.end(function(err, res) {
 
                 assert.equal(res.body.success, true);
                 models.Course.create({
-                    id: 1,
-                    name: 'Training Overview',
-                    description: 'Brief overview for all training courses',
-                    duration: '00:00:00',
-                    test: 'test update test',
-                    documents: '',
-                    trainingProgramId:1,
-                    imgLink: '/img/trainingProgram/training-icon-1.svg',
+                    id: 12,
+                    name: 'IMS Project Overview',
+                    description: '- IMS teams',
+                    duration: '02:00:00',
+                    test: 'This is a test of IMS Project Overview course',
+                    documents: 'This is a document of IMS Project Overview course',
+                    trainingProgramId:5,
+                    imgLink: '/img/courses/training-icon-3.svg',
                 });
                 if (err) return done(err);
                 done();
@@ -233,16 +233,17 @@ describe('<Unit test for admin-course>', function() {
             var req = request(DCC_Server).post('/admin/courses/deleteTrainingProgram');
             req.cookies = Cookies;
             req.send({
-                id: 1,
+                id: 6,
             });
             req.end(function(err, res) {
 
                 assert.equal(res.body.success, true);
                 models.TrainingProgram.create({
-                    id: 1,
-                    name: 'General Orientation',
-                    description: 'description of trainning program 1 ',
-                    courseTypeId: 1,
+                    id: 6,
+                    name: 'IMS Overview',
+                    description: 'Description of IMS Overview',
+                    imgLink: '/img/courses/training-icon-3.svg',
+                    courseTypeId: 5,
                 });
                 if (err) return done(err);
                 done();
