@@ -38,19 +38,17 @@ router.post('/getTrainingProgramByTPType', function(req, res){
                     resData.push( trainingProgram);
                 }
                 else {
-                    if ( trainingProgram.Courses.length !== 0 ){
+                    if ( trainingProgram.Courses.length !=== 0 ){
                         var resDataCourse =[];
                         trainingProgram.Courses.forEach(course =>{
-                            for ( var i = 0; i < course.Classes.length ; i++)
-                            {
-                                for ( var j = 0; j < course.Classes[i].ClassRecords.length  ; j++ )
-                                {
-                                    if ( course.Classes[i].ClassRecords[j].traineeEmail === req.body.email )
+                            course.Classes.forEach(classes =>{
+                                classes.ClassRecords.forEach(classRecord =>{
+                                    if ( classRecord.traineeEmail === req.body.email )
                                     {
                                         resDataCourse.push(course);
                                     }
-                                }
-                            }
+                                });
+                            });
                         });
                         resData.push({
                             id: trainingProgram.id,
@@ -60,63 +58,6 @@ router.post('/getTrainingProgramByTPType', function(req, res){
                             courseTypeId: trainingProgram.courseTypeId,
                             CourseType: trainingProgram.CourseType,
                             Courses: resDataCourse
-                        });
-                    }
-                }
-
-                if( !req.body.isExperienced  )
-                {
-                    if(  trainingProgram.CourseType.name === 'OPTIONAL' )
-                    {
-                        resData.push( trainingProgram);
-                    }
-                    else{
-                        if ( trainingProgram.Courses.length !== 0 ){
-                            var resDataCourse =[];
-                            trainingProgram.Courses.forEach(course =>{
-                                course.Classes.forEach(classes =>{
-                                    classes.ClassRecords.forEach(classRecord =>{
-                                        if ( classRecord.traineeEmail === req.body.email )
-                                        {
-                                            resDataCourse.push(course);
-                                        }
-                                    });
-                                });
-                            });
-                            resData.push({
-                                id: trainingProgram.id,
-                                name: trainingProgram.name,
-                                description: trainingProgram.description,
-                                imgLink: trainingProgram.imgLink,
-                                courseTypeId: trainingProgram.courseTypeId,
-                                CourseType: trainingProgram.CourseType,
-                                Courses: resDataCourse
-                            });
-                        }
-                    }
-                }
-                else
-                {
-                    if ( trainingProgram.Courses.length !== 0 ){
-                        var resDataCourse2 =[];
-                        trainingProgram.Courses.forEach(course =>{
-                            course.Classes.forEach(classes =>{
-                                classes.ClassRecords.forEach(classRecord =>{
-                                    if ( classRecord.traineeEmail === req.body.email )
-                                    {
-                                        resDataCourse2.push(course);
-                                    }
-                                });
-                            });
-                        });
-                        resData.push({
-                            id: trainingProgram.id,
-                            name: trainingProgram.name,
-                            description: trainingProgram.description,
-                            imgLink: trainingProgram.imgLink,
-                            courseTypeId: trainingProgram.courseTypeId,
-                            CourseType: trainingProgram.CourseType,
-                            Courses: resDataCourse2
                         });
                     }
                 }
