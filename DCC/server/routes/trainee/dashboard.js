@@ -38,7 +38,7 @@ router.post('/getTrainingProgramByTPType', function(req, res){
                     resData.push( trainingProgram);
                 }
                 else {
-                    if ( trainingProgram.Courses.length !=== 0 ){
+                    if ( trainingProgram.Courses.length !== 0 ){
                         var resDataCourse =[];
                         trainingProgram.Courses.forEach(course =>{
                             course.Classes.forEach(classes =>{
