@@ -14,10 +14,9 @@ module.exports=
         type: SequelizeDatatypes.INTEGER,
         allowNull: true
     },
-    traineeEmail:
-    {
-        type: SequelizeDatatypes.STRING,
-        allowNull: true
+    traineeId:{
+        type: SequelizeDatatypes.INTEGER,
+        allowNull: false
     },
     comments: {
         type: SequelizeDatatypes.TEXT,
@@ -26,9 +25,5 @@ module.exports=
     rating: {
         type: SequelizeDatatypes.INTEGER,
         allowNull: true
-    },
-    traineeId:{
-        type: SequelizeDatatypes.INTEGER,
-        allowNull: false
     }
 }

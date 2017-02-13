@@ -5,37 +5,30 @@ var log = require('../../../config/logConfig');
 router.post ('/getMyFeedbackByClass', function(req, res){
     var query = {
         where: {
-            userEmail: req.user.email,
+            traineeId: req.body.traineeId,
             classId: req.body.classId
         }
     };
     models.ClassRecord.findOne(query).then(function(feedback) {
         if(!feedback){
-            models.Feedback.create({
-                comments: '',
-                rating: '',
-                userEmail: req.user.email,
-                classId: req.body.classId
-
-            }).then(function() {
-                var datasend = {
-                    success: true,
-                    msg:'for test: create done',
-                    feedback: {
-                        comments: 'test',
-                        rating: '5',
-                        userEmail: req.user.email,
-                        classId: req.body.classId
-                    }
-                };
-                res.send(datasend);
-            });
+            var datasend = {
+                success: true,
+                msg: 'There is no feedback of traineeId = ' + req.body.traineeId + ' for class with id = ' + req.body.classId,
+                feedback: {
+                    comments: 'No comments',
+                    rating: '0',
+                }
+            };
+            res.send(datasend);
         }
         else{
             var datasend = {
                 success: true,
-                msg:'give feedback success',
-                feedback: feedback
+                msg:'Get feedback success',
+                feedback: {
+                    comments: feedback.comments,
+                    rating: feedback.rating
+                }
             };
             res.send(datasend);
         }
@@ -44,23 +37,19 @@ router.post ('/getMyFeedbackByClass', function(req, res){
 
 router.post ('/sendFeedback', function(req, res){
     // this function check if the user used comment for class
-    models.Feedback.getFeedbackByClassIDByUserID(req.body.classId, req.body.userEmail, function(feedback){
-        models.Feedback.update({
-            comments: req.body.comments,
-            rating: req.body.rating
-        }, {
-            where: {
-                userEmail: req.user.email,
-                classId: req.body.classId
-            }
-        }).then(function() {
-            res.send({
-                feedback:feedback,
-                success: true,
-                msg: 'update Feedback success!'
-            });
+    models.ClassRecord.update({
+        comments: req.body.comments,
+        rating: req.body.rating
+    }, {
+        where: {
+            traineeId: req.body.traineeId,
+            classId: req.body.classId
+        }
+    }).then(function() {
+        res.send({
+            success: true,
+            msg: 'update Feedback success!'
         });
-
     });
 });
 
