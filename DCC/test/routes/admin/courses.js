@@ -97,7 +97,7 @@ describe('<Unit test for admin-course>', function() {
                     name: 'Training Overview',
                     description: 'Brief overview for all training courses',
                     duration: '00:00:00',
-                    test: 'test update test',
+                    test: '',
                     documents: '',
                     trainingProgramId:1,
                     imgLink: '/img/trainingProgram/training-icon-1.svg',
@@ -172,7 +172,7 @@ describe('<Unit test for admin-course>', function() {
             req.send({
                 name: 'test creat name of new training program',
                 description: 'test creat name description',
-                courseTypeId: {id:1},
+                courseTypeId: 1,
             });
             req.end(function(err, res) {
 
@@ -209,7 +209,7 @@ describe('<Unit test for admin-course>', function() {
                 id: 1,
                 name: 'test update name of new training program',
                 description: 'test update name description',
-                courseTypeId: {id:1},
+                courseTypeId: 1,
             });
             req.end(function(err, res) {
 
@@ -217,7 +217,7 @@ describe('<Unit test for admin-course>', function() {
                 models.TrainingProgram.update({
                     name: 'General Orientation',
                     description: 'description of General Orientation trainning program 1 ',
-                    courseTypeId: {id:1},
+                    courseTypeId: 1,
                 }, {
                     where: {
                         id: 1
@@ -242,7 +242,7 @@ describe('<Unit test for admin-course>', function() {
                     id: 1,
                     name: 'General Orientation',
                     description: 'description of trainning program 1 ',
-                    courseTypeId: {id:1},
+                    courseTypeId: 1,
                 });
                 if (err) return done(err);
                 done();
@@ -251,8 +251,11 @@ describe('<Unit test for admin-course>', function() {
     });
     describe('Test case 10 : Get Class List', function() {
         return it('Should return success==true', function(done) {
-            var req = request(DCC_Server).get('/admin/courses/getClass');
+            var req = request(DCC_Server).post('/admin/courses/getClass');
             req.cookies = Cookies;
+            req.send({
+                courseId: 1,
+            });
             req.end(function(err, res) {
 
                 assert.equal(res.body.success, true);
