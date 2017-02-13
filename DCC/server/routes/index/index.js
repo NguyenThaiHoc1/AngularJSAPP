@@ -18,7 +18,10 @@ router.get('/', function(req, res) {
 router.get('/getEvents', function(req, res) {
     gcal.getEvents(function( eventList)
     {
-        res.send(eventList);
+        var datasend={
+            success: true
+        };
+        res.send(datasend);
     });
     //res.send(events)
 });

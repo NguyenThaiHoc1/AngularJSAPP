@@ -85,7 +85,17 @@ describe('<Unit test for Logout>', function() {
         });
     });
 });
-
+describe('Test case 5: Get Events', function() {
+    return it('Should return success==true', function(done) {
+        request(DCC_Server)
+        .get('/getEvents')
+        .end(function(err, res) {
+            assert.equal(res.body.success, true);
+            if (err) return done(err);
+            done();
+        });
+    });
+});
 
 //
 // describe('', function() {
