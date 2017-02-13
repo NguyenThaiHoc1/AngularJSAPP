@@ -15,6 +15,7 @@ describe('<Unit test for Login>', function() {
                 password: 'qwe'
             })
             .end(function(err, res) {
+                if (res.body.role === (1 || 2 || 3) )
                 assert.equal(res.body.success, true);
                 // globalCookies = res.headers['set-cookie'].pop().split(';')[0];
                 if (err) return done(err);
