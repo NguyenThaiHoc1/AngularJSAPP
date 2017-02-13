@@ -80,8 +80,8 @@ router.post('/getTrainingProgramByTPType', function(req, res){
                                         {
                                             resDataCourse.push(course);
                                         }
-                                    }
-                                }
+                                    });
+                                });
                             });
                             resData.push({
                                 id: trainingProgram.id,
@@ -106,8 +106,8 @@ router.post('/getTrainingProgramByTPType', function(req, res){
                                     {
                                         resDataCourse2.push(course);
                                     }
-                                }
-                            }
+                                });
+                            });
                         });
                         resData.push({
                             id: trainingProgram.id,
