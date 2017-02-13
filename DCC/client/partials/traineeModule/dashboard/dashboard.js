@@ -173,18 +173,17 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
         $rootScope.overStar = value;
     };
 
-
     $scope.actionOneClick = function(myCourse){
-        dashboardServices.getMyFeedbackByClass(myCourse).then(function(result){
-            $rootScope.courseFeedbackModel = result.data.feedback;
-        });
 
-
-        // if (myCourse.status == STATUS_ENROLLED){
-        //     //View Schedule
-        // }else if (myCourse.status == STATUS_LEARNED ){
-        //     // show feedback modal
-        // }
+        if (myCourse.status == STATUS_ENROLLED){
+            //View Schedule
+            alert('This function is being build');
+        }else if (myCourse.status == STATUS_LEARNED ){
+            // show feedback modal
+            dashboardServices.getMyFeedbackByClass(myCourse).then(function(result){
+                $rootScope.courseFeedbackModel = result.data.feedback;
+            });
+        }
     };
 
     $scope.giveFeedbackClick = function(cmodel){

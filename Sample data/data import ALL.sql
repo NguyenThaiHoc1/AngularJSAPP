@@ -1,7 +1,7 @@
 
 
-INSERT INTO `DCC2`.`user`(`id`,`username`,`status`,`dob`,`phone`,`location`,`email`,`avatar`,`isAdmin`,`isTrainee`,`isTrainer`,`belong2Team`,`userType`,`isExperienced`)VALUES(1,'Thanh Sanh','some status''01/01/2001','0000 000 000','DEK Vietnam','thach@gmail.com','/img/profiles/defaultProfile.jpg',1,1,0,'Team 7Up','CBA',0);
-INSERT INTO `DCC2`.`user`(`id`,`username`,`status`,`dob`,`phone`,`location`,`email`,`avatar`,`isAdmin`,`isTrainee`,`isTrainer`,`belong2Team`,`userType`,`isExperienced`)VALUES(1,'Quan WE','some status''01/01/2001','0000 000 000','DEK Vietnam','qwe@gmail.com','/img/profiles/defaultProfile.jpg',1,1,0,'Team 7Up','CBA',0);
+INSERT INTO `DCC2`.`user`(`username`,`status`,`dob`,`phone`,`location`,`email`,`avatar`,`isAdmin`,`isTrainee`,`isTrainer`,`belong2Team`,`userType`,`isExperienced`)VALUES('Thanh Sanh','some status','01/01/2001','0000 000 000','DEK Vietnam','thach@gmail.com','/img/profiles/defaultProfile.jpg',1,1,0,'Team 7Up','CBA',0);
+INSERT INTO `DCC2`.`user`(`username`,`status`,`dob`,`phone`,`location`,`email`,`avatar`,`isAdmin`,`isTrainee`,`isTrainer`,`belong2Team`,`userType`,`isExperienced`)VALUES('Quan WE','some status','01/01/2001','0000 000 000','DEK Vietnam','qwe@gmail.com','/img/profiles/defaultProfile.jpg',1,1,0,'Team 7Up','CBA',0);
 
 INSERT INTO `DCC2`.`course_type` (`name`, `discription`) VALUES ('EVERYONE', 'this training program for everyone');
 INSERT INTO `DCC2`.`course_type` (`name`, `discription`) VALUES ('OPTIONAL', 'this training program for optional');
@@ -40,7 +40,7 @@ INSERT INTO `DCC2`.`class` (`courseId`, `startTime`) VALUES ('2', '2017-01-15 00
 INSERT INTO `DCC2`.`class` (`courseId`, `startTime`) VALUES ('3', '2017-02-28 00:00:00');
 INSERT INTO `DCC2`.`class` (`courseId`, `startTime`) VALUES ('4', '2017-01-15 00:00:00');
 
-INSERT INTO `DCC2`.`class_record` (`status`,`classId`, `traineeEmail`, `traineeId`) VALUES ('Enrolled','1', 'qwe@gmail.com', 1);
-INSERT INTO `DCC2`.`class_record` (`status`,`classId`, `traineeEmail`, `traineeId`) VALUES ('Learned','2', 'qwe@gmail.com', 1);
-INSERT INTO `DCC2`.`class_record` (`status`,`classId`, `traineeEmail`, `traineeId`) VALUES ('Enrolled','3', 'thach@gmail.com', 2);
-INSERT INTO `DCC2`.`class_record` (`status`,`classId`, `traineeEmail`, `traineeId`) VALUES ('Learned','4', 'thach@gmail.com', 2);
+INSERT INTO `DCC2`.`class_record` (`status`,`classId`, `traineeId`) VALUES ('Enrolled','1', 1);
+INSERT INTO `DCC2`.`class_record` (`status`,`classId`, `traineeId`) VALUES ('Learned','2', 1);
+INSERT INTO `DCC2`.`class_record` (`status`,`classId`, `traineeId`) VALUES ('Enrolled','3', 2);
+INSERT INTO `DCC2`.`class_record` (`status`,`classId`, `traineeId`) VALUES ('Learned','4', 2);
