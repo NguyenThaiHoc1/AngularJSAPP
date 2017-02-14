@@ -89,12 +89,8 @@ router.post('/photo', function(req, res){
             ).then(function(){
                 res.redirect('/#/editUserProfile');
             })
-        }else{
-            res.send({
-                success: false,
-                msg: "error when upload your photo"
-            });
         }
+        res.redirect('/#/editUserProfile');
     });
 });
 
