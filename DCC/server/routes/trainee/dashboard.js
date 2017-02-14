@@ -36,25 +36,29 @@ router.post('/getTrainingProgramByTPType', function(req, res){
             else
             {
                 var resDataCourse =[];
+                var a;
                 trainingProgram.Courses.forEach(course =>{
                     course.Classes.forEach(classes =>{
                         classes.ClassRecords.forEach(classRecord =>{
                             if ( classRecord.User.email === req.body.email )
                             {
+                                a = 1;
                                 resDataCourse.push(course);
                             }
                         });
                     });
                 });
-                resData.push({
-                    id: trainingProgram.id,
-                    name: trainingProgram.name,
-                    description: trainingProgram.description,
-                    imgLink: trainingProgram.imgLink,
-                    courseTypeId: trainingProgram.courseTypeId,
-                    CourseType: trainingProgram.CourseType,
-                    Courses: resDataCourse
-                });
+                if ( a === 1){
+                    resData.push({
+                        id: trainingProgram.id,
+                        name: trainingProgram.name,
+                        description: trainingProgram.description,
+                        imgLink: trainingProgram.imgLink,
+                        courseTypeId: trainingProgram.courseTypeId,
+                        CourseType: trainingProgram.CourseType,
+                        Courses: resDataCourse
+                    });
+                }
             }
         });
         var datasend = {
