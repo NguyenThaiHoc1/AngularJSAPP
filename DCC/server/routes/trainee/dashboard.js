@@ -18,6 +18,7 @@ router.post('/getTrainingProgramByTPType', function(req, res){
                         include: [
                             {
                                 model: models.ClassRecord,
+                                include: [ models.User ]
                             }
                         ]
                     }
@@ -38,7 +39,7 @@ router.post('/getTrainingProgramByTPType', function(req, res){
                 trainingProgram.Courses.forEach(course =>{
                     course.Classes.forEach(classes =>{
                         classes.ClassRecords.forEach(classRecord =>{
-                            if ( classRecord.traineeEmail === req.body.email )
+                            if ( classRecord.User.email === req.body.email )
                             {
                                 resDataCourse.push(course);
                             }

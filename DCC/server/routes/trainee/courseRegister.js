@@ -113,17 +113,17 @@ router.post('/unEnrollCourse', function(req, res){
 
 router.post('/getMyEnrolledClass', function(req, res){
     var query = {
-        where:
-        {
-            traineeEmail: req.body.userEmail
-        },
         include: [
             {
                 model: models.Class,
                 include: [models.Course]
+            },
+            {
+                model: models.User,
+                where: {email: req.body.userEmail}
             }
         ]
-    }
+    };
     models.ClassRecord.findAll(query).then(function(classRecord){
         var datasend = {
             success: true,

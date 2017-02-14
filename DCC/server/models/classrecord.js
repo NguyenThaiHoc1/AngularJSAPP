@@ -4,11 +4,16 @@ module.exports = function(sequelize) {
         classMethods: {
             unEnrollCourse: function(traineeEmail, classId, cb){
                 var query = {
-                    where:
-                    {
-                        traineeEmail: traineeEmail,
-                        classId: classId
-                    }
+                    where: { classId: classId },
+                    include: [
+                        {
+                            model: models.User,
+                            where:
+                            {
+                                email: traineeEmail,
+                            }
+                        }
+                    ]
                 };
                 Classrecord.destroy(query).then(cb);
             }
