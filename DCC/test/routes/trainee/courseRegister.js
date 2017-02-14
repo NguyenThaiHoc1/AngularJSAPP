@@ -143,10 +143,10 @@ describe('<Unit test for trainee-courseRegister>', function() {
             .post('/trainee/courseRegister/unEnrollCourse');
             req.cookies = Cookies;
             req.set('Accept', 'application/json')
-            .send({traineeEmail:"qwe@gmail.com", classId: 1})
+            .send({traineeId:2, classId: 3})
             .end(function(err, res) {
                 assert.equal(res.body.success, true);
-                models.ClassRecord.create({ classId: 1, traineeId: 1});
+                models.ClassRecord.create({ classId: 3, traineeId: 2, status:'Enrolled' });
                 if (err) return done(err);
                 done();
             });

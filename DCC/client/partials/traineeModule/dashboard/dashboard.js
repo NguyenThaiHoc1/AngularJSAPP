@@ -106,7 +106,7 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
     $scope.actionTwoClick = function(myCourse){
         if(myCourse.status == STATUS_ENROLLED ){
             //un-enroll
-            dashboardServices.unEnrollCourse({traineeEmail: $rootScope.userInfo.email, classId: myCourse.classId}).then(function(result){
+            dashboardServices.unEnrollCourse({traineeId: $rootScope.userInfo.id, classId: myCourse.classId}).then(function(result){
                 if (result.data.success){
                     //refrsh list
                     dashboardServices.getMyTraingPrograms().then(function(result){

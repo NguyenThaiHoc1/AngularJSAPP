@@ -100,8 +100,8 @@ router.post('/deleteRequestOpening', function(req, res){
 
 router.post('/unEnrollCourse', function(req, res){
     var classId = req.body.classId;
-    var traineeEmail = req.body.traineeEmail;
-    models.ClassRecord.unEnrollCourse(traineeEmail, classId, function(){
+    var traineeId = req.body.traineeEmail;
+    models.ClassRecord.unEnrollCourse(traineeId, classId, function(){
         var datasend = {
             success: true,
             msg: 'Un-enroll Course Success'
