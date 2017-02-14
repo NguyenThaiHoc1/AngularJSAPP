@@ -12,7 +12,7 @@
                                 <div class="col-md-3 col-lg-3 ">
                                     <img alt="User Picture" ng-src="{{ userDetail.avatar }}" class="img-responsive">
                                     <form id="uploadForm" enctype="multipart/form-data" action="/user/userProfile/photo" method="post">
-                                        <input class="btn btn-default col-md-12 col-sm-12 col-xs-12" style="margin-top: 5px" type="file" name="userPhoto"/>
+                                        <input class="btn btn-default col-md-12 col-sm-12 col-xs-12" style="margin-top: 5px" type="file" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|images/*" name="userPhoto"/>
                                         <input class="btn btn-primary col-md-12 col-sm-12 col-xs-12" style="margin-top: 5px" type="submit" value="Upload Image" name="submit">
                                     </form>
                                 </div>
