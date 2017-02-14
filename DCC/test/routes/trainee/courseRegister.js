@@ -146,7 +146,7 @@ describe('<Unit test for trainee-courseRegister>', function() {
             .send({traineeId:2, classId: 3})
             .end(function(err, res) {
                 assert.equal(res.body.success, true);
-                models.ClassRecord.create({ classId: 3, traineeId: 2, status:'Enrolled' });
+                models.ClassRecord.create({ classId: 3, traineeId: 2, status:'Enrolled', id: 3 });
                 if (err) return done(err);
                 done();
             });
