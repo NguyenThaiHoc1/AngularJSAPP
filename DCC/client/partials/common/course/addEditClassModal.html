@@ -18,16 +18,24 @@
                             <p ng-show="addEditForm.location.$invalid && !addEditForm.location.$pristine" class="help-block">Class location is required.</p>
                         </div>
                     </div>
-                    <div class="form-group" ng-class="{ 'has-error' : addEditForm.startTime.$invalid && !addEditForm.startTime.$pristine }" ng-controller="DatePickerCtrl">
+                    <div class="form-group" ng-class="{ 'has-error' : addEditForm.startTime.$invalid && !addEditForm.startTime.$pristine }" >
                         <label class="col-sm-4 control-label">Start time</label>
 
-                        <div class="col-sm-8">
+                        <div class="col-sm-8" ng-controller="DateTimepickerCtrl">
+                            <div  class="col-sm-6" >
                             <p class="input-group">
-                                <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ngValue="{{adminClassModel.startTime | date: 'dd/MM/yyyy'}}" ng-model="adminClassModel.startTime" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                                <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ngValue="{{adminClassModel.startTime | date: 'dd/MM/yyyy'}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
                                 <span class="input-group-btn">
                                     <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
                                 </span>
+                                <pre class="alert alert-info">Date is: {{dt | date:'yyyy-MM-dd'}}</pre>
                             </p>
+                            </div>
+                            <div class="col-sm-6">
+                              <div uib-timepicker ng-model="mytime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></div>
+                              <pre class="alert alert-info">Time is: {{mytime | date:'shortTime' }}</pre>
+                            </div>
+
                             <p ng-show="addEditForm.startTime.$invalid && !addEditForm.startTime.$pristine" class="help-block">Start time is required.</p>
                         </div>
                     </div>

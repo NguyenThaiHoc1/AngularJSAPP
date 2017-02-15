@@ -100,8 +100,8 @@ router.post('/deleteRequestOpening', function(req, res){
 
 router.post('/unEnrollCourse', function(req, res){
     var classId = req.body.classId;
-    var traineeEmail = req.body.traineeEmail;
-    models.ClassRecord.unEnrollCourse(traineeEmail, classId, function(){
+    var traineeId = req.body.traineeId;
+    models.ClassRecord.unEnrollCourse(traineeId, classId, function(){
         var datasend = {
             success: true,
             msg: 'Un-enroll Course Success'
@@ -113,17 +113,17 @@ router.post('/unEnrollCourse', function(req, res){
 
 router.post('/getMyEnrolledClass', function(req, res){
     var query = {
-        where:
-        {
-            traineeEmail: req.body.userEmail
-        },
         include: [
             {
                 model: models.Class,
                 include: [models.Course]
+            },
+            {
+                model: models.User,
+                where: {email: req.body.userEmail}
             }
         ]
-    }
+    };
     models.ClassRecord.findAll(query).then(function(classRecord){
         var datasend = {
             success: true,

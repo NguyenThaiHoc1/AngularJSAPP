@@ -45,8 +45,8 @@ myApp.controller('calendarController', ['$scope', 'calendarServices', '$location
     /* event sources array*/
     $scope.eventSources = [$scope.events]; // Calendar may have many sources
 
-    calendarServices.getEvents().then(function(events){
-        events.data.forEach(function(event){
+    calendarServices.getEvents().then(function(result){
+        result.data.eventList.forEach(function(event){
             $scope.events.push({
                 title: event.summary,
                 description: event.description,
@@ -57,7 +57,6 @@ myApp.controller('calendarController', ['$scope', 'calendarServices', '$location
             });
         });
     });
-
     $scope.alertOnEventClick = function( date, jsEvent, view){
         $scope.alertMessage = (date.title + ' was clicked ');
     };

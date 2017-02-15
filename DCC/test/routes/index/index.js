@@ -72,6 +72,17 @@ describe('<Unit test for Login>', function() {
         });
     });
 
+    describe('Test case 4.2: isLogin fail', function() {
+        return it('Should return success==false', function(done) {
+            request(DCC_Server)
+            .get('/isLogin')
+            .end(function(err, res) {
+                assert.equal(res.body.success, false);
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
 });
 
 describe('<Unit test for Logout>', function() {
@@ -85,8 +96,71 @@ describe('<Unit test for Logout>', function() {
         });
     });
 });
+describe('Test case 5: Get Events', function() {
+    return it('Should return success==true', function(done) {
+        request(DCC_Server)
+        .get('/getEvents')
+        .end(function(err, res) {
+            assert.equal(res.body.success, true);
+            if (err) return done(err);
+            done();
+        });
+    });
+});
+
+describe('Test case 6: get homepage', function() {
+    return it('Should return success==true', function(done) {
+        request(DCC_Server)
+        .get('/')
+        .end(function(err, res) {
+            assert.equal(res.status, '200');
+            if (err) return done(err);
+            done();
+        });
+    });
+});
+
+describe('<Unit test for isLogin success>', function() {
+    var Cookies;
+
+    beforeEach(function(done) {
+        request(DCC_Server)
+        .post('/login')
+        .set('Accept', 'application/json')
+        .send({
+            username: 'qwe@gmail.com',
+            password: 'qwe'
+        })
+        .end(function(err, res) {
+            Cookies = res.headers['set-cookie'].pop().split(';')[0];
+            if(err)
+            return done(err);
+            done();
+        });
+    });
+
+    afterEach(function(done) {
+        // Cleanup
+
+        //logout
+        request(DCC_Server).get('/logout')
+        done();
+    });
+
+    describe('Test case 4.1: isLogin success', function() {
+        return it('Should return success==true', function(done) {
+            var req = request(DCC_Server).get('/isLogin');
+            req.cookies = Cookies;
+            req.end(function(err, res) {
+                assert.equal(res.body.success, true);
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
 
 
+});
 //
 // describe('', function() {
 //     var Cookies;

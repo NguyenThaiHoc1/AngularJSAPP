@@ -28,7 +28,7 @@ router.get('/getUserInfo', function(req, res) {
         } else if(user.isTrainer){
             currentRole= 2;
         }else if(user.isTrainee){
-            currentRole = 3
+            currentRole = 3;
         }
         res.send({
             id: user.id,
@@ -47,6 +47,7 @@ router.get('/getUserInfo', function(req, res) {
             isExperienced: user.isExperienced,
             userType: user.userType,
             success: true,
+            getCurrentRole: true
         });
     });
 });
@@ -76,7 +77,6 @@ router.post('/photo', function(req, res){
     log.info('/routes/users: Upload avatar');
     // upload avatar
     upload(req, res, function() {
-
         if (typeof req.file !== "undefined")
         {
             models.User.update(
@@ -89,12 +89,8 @@ router.post('/photo', function(req, res){
             ).then(function(){
                 res.redirect('/#/editUserProfile');
             })
-        }else{
-            res.send({
-                success: false,
-                msg: "error when upload your photo"
-            });
         }
+        res.redirect('/#/editUserProfile');
     });
 });
 
