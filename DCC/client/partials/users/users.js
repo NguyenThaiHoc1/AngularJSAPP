@@ -13,19 +13,28 @@ myApp.config(function($stateProvider) {
     $stateProvider.state('logout', {
         url: "/logout",
         template: "",
-        controller: 'logoutController'
+        controller: 'logoutController',
+        data:{
+            auth:true
+        }
     });
     //userProfile
     $stateProvider.state('userProfile', {
         url:"/userProfile",
         templateUrl: 'partials/users/userProfile.html',
-        controller:'userProfileCtrl'
+        controller:'userProfileCtrl',
+        data:{
+            auth:true
+        }
     });
     //editUserProfile
     $stateProvider.state('editUserProfile', {
         url:"/editUserProfile",
         templateUrl: 'partials/users/editUserProfile.html',
-        controller:'userProfileCtrl'
+        controller:'userProfileCtrl',
+        data:{
+            auth:true
+        }
     });
 });
 
