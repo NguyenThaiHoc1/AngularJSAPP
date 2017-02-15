@@ -152,6 +152,7 @@ myApp.controller('addEditClassCtrl', [ '$scope', '$rootScope','courseDetailServi
             $rootScope.dateTimePicker.setHours ($rootScope.adminClassModel.timeOfStart.getHours());
             $rootScope.dateTimePicker.setMinutes ($rootScope.adminClassModel.timeOfStart.getMinutes());
             $rootScope.adminClassModel.startTime = $rootScope.dateTimePicker;
+
             //edit class
             courseDetailServices.updateClass($rootScope.adminClassModel).then(function(result){
                 if (result.data.success){
