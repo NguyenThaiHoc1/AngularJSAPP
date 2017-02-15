@@ -8,6 +8,9 @@ myApp.config(function($stateProvider) {
         controller: 'courseDetailCtrl',
         params: {
             courseId: null,
+        },
+        data:{
+            auth:true
         }
     });
 });

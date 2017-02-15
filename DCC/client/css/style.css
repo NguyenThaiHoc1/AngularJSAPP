@@ -691,10 +691,6 @@ color: #333;
 	}
 
 
-	.subnavbar {
-		margin-left: -20px;
-		margin-right: -20px;
-	}
 
 
 	.subnavbar-inner {
@@ -981,4 +977,14 @@ body {
 	position:absolute;
 	bottom:0;
 	left:0;
+}
+
+@media only screen and (max-device-width: 480px) {
+    .modal.fade.in {
+        top: 30px !important;
+    }
+    #header > div.ng-scope > nav > div > div.navbar-header{
+        margin-left: 0px;
+        margin-right: 20px;
+    }
 }
