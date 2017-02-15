@@ -6,7 +6,7 @@ var DCC_Server = require('../../../app.js');
 
 describe('<Unit test for Login>', function() {
 
-    describe('Test case 1 : Login success', function() {
+    describe('Test case 1.1 : Login success, role = admin', function() {
         return it('Should return success==true', function(done) {
             request(DCC_Server)
             .post('/login')
@@ -15,8 +15,30 @@ describe('<Unit test for Login>', function() {
                 password: 'qwe'
             })
             .end(function(err, res) {
-                if (res.body.role === (1 || 2 || 3) )
-                assert.equal(res.body.success, true);
+                if (res.body.success === true )
+                    assert.equal(res.body.role, 1);
+                else
+                    assert.equal(res.body.success, true);
+                // globalCookies = res.headers['set-cookie'].pop().split(';')[0];
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
+
+    describe('Test case 1.2 : Login success, role = trainee', function() {
+        return it('Should return success==true', function(done) {
+            request(DCC_Server)
+            .post('/login')
+            .send({
+                username: 'thach@gmail.com',
+                password: '123456'
+            })
+            .end(function(err, res) {
+                if (res.body.success === true )
+                    assert.equal(res.body.role, 3);
+                else
+                    assert.equal(res.body.success, true);
                 // globalCookies = res.headers['set-cookie'].pop().split(';')[0];
                 if (err) return done(err);
                 done();
