@@ -39,7 +39,6 @@ router.post('/login', function(req, res, next) {
     }, function(err, user) {
         // if err, log err
         if (err) {
-            log.error(err);
             return next();
         }
         // if user does not exist, login fail
@@ -65,7 +64,6 @@ router.post('/login', function(req, res, next) {
             // else login success
             return req.login(user, function(err) {
                 if (err) {
-                    log.error(err);
                     return next();
                 }
                 log.info('User login: ' + user.mail);
