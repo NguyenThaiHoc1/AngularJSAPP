@@ -85,32 +85,43 @@ myApp.controller('courseDetailCtrl', ['$scope', '$rootScope', '$stateParams', 'c
         $rootScope.addEditClassFormTitle = 'Add Class';
         $rootScope.addEditClassFormAction = 'Add';
         //date and time
-        $rootScope.mytime.setHours (9);
-        $rootScope.mytime.setMinutes (0);
+
+        $rootScope.timeOfStart =  new Date();
+        $rootScope.timeOfStart.setHours (9);
+        $rootScope.timeOfStart.setMinutes (0);
+        $rootScope.dayOfStart =  new Date();
 
         $rootScope.adminClassModel = {
-            courseId: $stateParams.courseId,
+            dayOfStart: $rootScope.dayOfStart ,
+            timeOfStart: $rootScope.timeOfStart,
+            courseId:   $stateParams.courseId,
             location: '',
             //TODO
             // trainerId: '',
-            startTime: $rootScope.dt,
+            startTime: $rootScope.dateTimePicker,
             duration: '',
             maxAttendant: '',
-            note: ''
+            note: '',
         };
+
     };
     $scope.showUpdateClassForm = function(Class){
         $rootScope.addEditFormIsEditForm =  true;
         $rootScope.addEditClassFormTitle = 'Edit Class';
         $rootScope.addEditClassFormAction = 'Update Class';
 
-        $rootScope.mytime.setHours (Class.startTime.getHours());
-        $rootScope.mytime.setMinutes (Class.startTime.getMinutes());
+        Class.startTime = new Date(Class.startTime);
+        $rootScope.dayOfStart = Class.startTime;
+        $rootScope.timeOfStart =  new Date();
+        $rootScope.timeOfStart.setHours (Class.startTime.getHours());
+        $rootScope.timeOfStart.setMinutes (Class.startTime.getMinutes());
 
         $rootScope.adminClassModel = {
+            dayOfStart: $rootScope.dayOfStart  ,
+            timeOfStart: $rootScope.timeOfStart,
             id: Class.id,
             location: Class.location ,
-            startTime: $rootScope.dt,
+            // startTime: $rootScope.dayOfStart,
             duration: Class.duration,
             maxAttendant: Class.maxAttendant,
             note: Class.note,
@@ -128,12 +139,16 @@ myApp.controller('courseDetailCtrl', ['$scope', '$rootScope', '$stateParams', 'c
 }]);
 
 
-myApp.controller('addEditClassCtrl', [ '$scope', '$rootScope','courseDetailServices', function($scope, $rootScope, courseDetailServices, $location) {
+myApp.controller('addEditClassCtrl', [ '$scope', '$rootScope','courseDetailServices','$stateParams', function($scope, $rootScope, courseDetailServices, $location, $stateParams) {
 
     //Class
     $scope.addEditClassClick = function(){
 
         if ($rootScope.addEditFormIsEditForm){
+            $rootScope.dateTimePicker = $rootScope.adminClassModel.dayOfStart;
+            $rootScope.dateTimePicker.setHours ($rootScope.adminClassModel.timeOfStart.getHours());
+            $rootScope.dateTimePicker.setMinutes ($rootScope.adminClassModel.timeOfStart.getMinutes());
+            $rootScope.adminClassModel.startTime = $rootScope.dateTimePicker;
             //edit class
             courseDetailServices.updateClass($rootScope.adminClassModel).then(function(result){
                 if (result.data.success){
@@ -150,6 +165,11 @@ myApp.controller('addEditClassCtrl', [ '$scope', '$rootScope','courseDetailServi
         }
         else {
             //add Class
+            $rootScope.dateTimePicker = $rootScope.adminClassModel.dayOfStart;
+            $rootScope.dateTimePicker.setHours ($rootScope.adminClassModel.timeOfStart.getHours());
+            $rootScope.dateTimePicker.setMinutes ($rootScope.adminClassModel.timeOfStart.getMinutes());
+            $rootScope.adminClassModel.startTime = $rootScope.dateTimePicker;
+
             courseDetailServices.addClass($rootScope.adminClassModel).then(function(result) {
                 if (result.data.success){
                     //Get Class List
@@ -168,7 +188,7 @@ myApp.controller('addEditClassCtrl', [ '$scope', '$rootScope','courseDetailServi
 
 myApp.controller('DateTimepickerCtrl', function ($scope,$rootScope, $log) {
     //time picker
-  $rootScope.mytime = new Date();
+
   $scope.hstep = 1;
   $scope.mstep = 5;
 
@@ -183,13 +203,13 @@ myApp.controller('DateTimepickerCtrl', function ($scope,$rootScope, $log) {
   };
 
   //DatePicker
-  $rootScope.dt = new Date();
+  $rootScope.dayOfStart = '';
   $scope.today = function() {
-      $rootScope.dt = new Date();
+      $rootScope.dayOfStart = new Date();
   };
 
   $scope.clear = function() {
-      $rootScope.dt = null;
+      $rootScope.dayOfStart = null;
   };
 
   $scope.inlineOptions = {
@@ -224,8 +244,5 @@ myApp.controller('DateTimepickerCtrl', function ($scope,$rootScope, $log) {
   $scope.popup2 = {
       opened: false
   };
-  //
-  $rootScope.dt.setHours ($rootScope.mytime.getHours());
-  $rootScope.dt.setMinutes ($rootScope.mytime.getMinutes());
 
 });
