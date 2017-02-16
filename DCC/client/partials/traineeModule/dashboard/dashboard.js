@@ -109,7 +109,7 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
             dashboardServices.unEnrollCourse({traineeId: $rootScope.userInfo.id, classId: myCourse.classId}).then(function(result){
                 if (result.data.success){
                     //refrsh list
-                    dashboardServices.getMyTraingPrograms().then(function(result){
+                    dashboardServices.getMyTraingPrograms(  {email:$rootScope.userInfo.email, userType:$rootScope.userInfo.userType, isExperienced: $rootScope.userInfo.isExperienced } ).then(function(result){
                         result.data.data.forEach(trainingProgram => {
                             trainingProgram.count = 0;
                             trainingProgram.Courses.forEach(course => {
@@ -141,7 +141,7 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
                 if(result.data.success){
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
                     //refesh list
-                    dashboardServices.getMyTraingPrograms().then(function(result){
+                    dashboardServices.getMyTraingPrograms(  {email:$rootScope.userInfo.email, userType:$rootScope.userInfo.userType, isExperienced: $rootScope.userInfo.isExperienced } ).then(function(result){
                         result.data.data.forEach(trainingProgram => {
                             trainingProgram.count = 0;
                             trainingProgram.Courses.forEach(course => {
