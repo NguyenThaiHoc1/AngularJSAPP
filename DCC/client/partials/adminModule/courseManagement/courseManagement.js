@@ -156,13 +156,33 @@ myApp.controller('courseManagementCtrl', [ '$scope', '$rootScope','courseManagem
             id: trainingProgram.id,
         };
     };
+    $scope.showAddClassForm=function(course){
+        $rootScope.addEditFormIsEditForm =  false;
+        //Class
+        $rootScope.addEditClassFormTitle = 'Add Class';
+        $rootScope.addEditClassFormAction = 'Add';
+        //date and time
+        $rootScope.mytime.setHours (9);
+        $rootScope.mytime.setMinutes (0);
+
+        $rootScope.adminClassModel = {
+            courseId: course.courseId,
+            location: '',
+            //TODO
+            // trainerId: '',
+            startTime: $rootScope.dt,
+            duration: '',
+            maxAttendant: '',
+            note: ''
+        };
+    };
 }]);
 
 //Add and Edit Course Control
 myApp.controller('addEditCourseCtrl', [ '$scope', '$rootScope','courseManagementServices', function($scope, $rootScope, courseManagementServices, $location) {
     //get TrainingProgram
     courseManagementServices.getTrainingProgramList().then(function(result){
-        $scope.trainingProgramList = result.data.data;
+        $rootScope.adminTrainingProgramList = result.data.trainingProgram;
     });
 
     $scope.addEditCourseClick = function(){
@@ -251,7 +271,7 @@ myApp.controller('deleteCtrl', [ '$scope', '$rootScope','courseManagementService
                 if (result.data.success){
                     //get TrainingProgram
                     courseManagementServices.getTrainingProgramList().then(function(result){
-                        $scope.trainingProgramList = result.data.data;
+                        $rootScope.adminTrainingProgramList = result.data.trainingProgram;
                     });
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
                 } else {
@@ -264,7 +284,7 @@ myApp.controller('deleteCtrl', [ '$scope', '$rootScope','courseManagementService
                 if (result.data.success){
                     //get TrainingProgram
                     courseManagementServices.getTrainingProgramList().then(function(result){
-                        $scope.trainingProgramList = result.data.data;
+                        $rootScope.adminTrainingProgramList = result.data.trainingProgram;
                     });
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
                 } else {
@@ -277,7 +297,7 @@ myApp.controller('deleteCtrl', [ '$scope', '$rootScope','courseManagementService
                 if (result.data.success){
                     //get TrainingProgram
                     courseManagementServices.getTrainingProgramList().then(function(result){
-                        $scope.trainingProgramList = result.data.data;
+                        $rootScope.adminTrainingProgramList = result.data.trainingProgram;
                     });
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
                 } else {
