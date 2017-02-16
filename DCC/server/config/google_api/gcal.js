@@ -8,7 +8,7 @@ var exports = module.exports = {};
 // If modifying these scopes, delete your previously saved credentials
 // at ~/.credentials/calendar-nodejs-quickstart.json
 var SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
-var TOKEN_DIR = './config/google_api/';
+var TOKEN_DIR = './server/config/google_api/';
 var TOKEN_PATH = TOKEN_DIR + 'calendar-nodejs-quickstart.json';
 
 var oauth2Client;
@@ -36,7 +36,7 @@ function authorize(credentials, callback) {
 }
 
 exports.getEvents = function(cb) {
-    fs.readFile('./config/google_api/client_secret.json', function (err, content) {
+    fs.readFile('./server/config/google_api/client_secret.json', function (err, content) {
         if (err) {
             return;
         }
