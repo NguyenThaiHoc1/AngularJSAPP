@@ -1,5 +1,5 @@
 var models = require('../models');
-var log = require('../../config/logConfig');
+var log = require('../config/logConfig');
 
 function getUserRole(userEmail){
     models.User.findOne({where:{email: userEmail}}).then(user =>{

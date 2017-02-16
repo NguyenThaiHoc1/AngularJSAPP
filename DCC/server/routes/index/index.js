@@ -1,14 +1,14 @@
 var express = require('express');
 var router = express.Router();
-var gcal = require('../../../config/google_api/gcal.js');
-var log = require('../../../config/logConfig');
+var gcal = require('../../config/google_api/gcal.js');
+var log = require('../../config/logConfig');
 var Sequelize = require('sequelize');
 var ldap = require('ldapjs');
 var models = require('../../models');
 var passport = require('passport');
 var LdapStrategy = require('passport-ldapauth').Strategy;
 // admin's credentials for connecting to openLDAP server
-var BASE_OPTS = require('../../../config/LDAPconfig');
+var BASE_OPTS = require('../../config/LDAPconfig');
 
 // get homepage
 router.get('/', function(req, res) {

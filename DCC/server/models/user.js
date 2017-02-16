@@ -1,4 +1,4 @@
-var log = require('../../config/logConfig');
+var log = require('../config/logConfig');
 var _userModel=require('./DataObjects/user');
 module.exports = function(sequelize) {
     var User = sequelize.define('User', _userModel, {
