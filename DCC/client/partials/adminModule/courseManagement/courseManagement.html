@@ -2,6 +2,7 @@
 <div ng-include="'partials/adminModule/courseManagement/addEditCourse.html'"></div>
 <div ng-include="'partials/adminModule/courseManagement/deleteCourse.html'"></div>
 <div ng-include="'partials/adminModule/courseManagement/addEditTPModal.html'"></div>
+<div ng-include="'partials/common/course/addEditClassModal.html'"></div>
 
 <div class="container" ng-controller="courseManagementCtrl">
     <div class="span12">
@@ -67,7 +68,7 @@
                                         <!-- Edit and Delete Course -->
                                         <a class="btn btn-info" data-toggle="modal" href="#addEditCourseModal" ng-click="showUpdateCourseForm(trainingProgram, course )"><span class="glyphicon glyphicon-pencil"></span></a>
                                         <a class="btn btn-danger" data-toggle="modal" href="#deleteModal" ng-click="showDeleteCourseForm(course)"><span class="glyphicon glyphicon-trash"></span></a>
-                                        <a class="btn btn-success" data-toggle="modal" href="#addCourseModal"  ng-click="showAddClassForm()"><span class="glyphicon glyphicon-plus"></span>&nbsp Add class</a>
+                                        <a class="btn btn-success" data-toggle="modal" href="#addEditClassModal"  ng-click="showAddClassForm(course)"><span class="glyphicon glyphicon-plus"></span>&nbsp Add class</a>
                                     </center>
                                 </div>
                                 <br />
