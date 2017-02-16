@@ -71,7 +71,7 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
                     if ( course.Classes.length == 0)
                     {
                         course.backgroundColor = 'red';
-                        course.status = 'not learn';
+                        course.status = 'Not learn';
                     }
                     else
                     {
