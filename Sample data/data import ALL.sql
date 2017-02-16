@@ -12,9 +12,9 @@ INSERT INTO `DCC2`.`course_type` (`name`, `discription`) VALUES ('AXE', 'this tr
 INSERT INTO `DCC2`.`training_program` (`name`, `description`, `imgLink`, `courseTypeId`) VALUES ('General Orientation', 'description of trainning program 1 ', '/img/courses/training-icon-1.svg', 1);
 INSERT INTO `DCC2`.`training_program` (`name`, `description`, `imgLink`, `courseTypeId`) VALUES ('Linux Programming', 'Description of Linux Programming', '/img/courses/training-icon-2.svg', 2);
 INSERT INTO `DCC2`.`training_program` (`name`, `description`, `imgLink`, `courseTypeId`) VALUES ('Soft-Skills', 'Description of Soft Skills', '/img/courses/training-icon-3.svg',2);
-INSERT INTO `DCC2`.`training_program` (`name`, `description`, `imgLink`, `courseTypeId`) VALUES ('AXE Overview', 'AXE Overview', '/img/courses/training-icon-3.svg', 3);
-INSERT INTO `DCC2`.`training_program` (`name`, `description`, `imgLink`, `courseTypeId`) VALUES ('CBA Overview', 'Description of CBA Overview', '/img/courses/training-icon-3.svg', 4);
-INSERT INTO `DCC2`.`training_program` (`name`, `description`, `imgLink`, `courseTypeId`) VALUES ('IMS Overview', 'Description of IMS Overview', '/img/courses/training-icon-3.svg', 5);
+INSERT INTO `DCC2`.`training_program` (`name`, `description`, `imgLink`, `courseTypeId`) VALUES ('CBA Overview', 'CBA Overview', '/img/courses/training-icon-3.svg', 3);
+INSERT INTO `DCC2`.`training_program` (`name`, `description`, `imgLink`, `courseTypeId`) VALUES ('IMS Overview', 'Description of IMS Overview', '/img/courses/training-icon-3.svg', 4);
+INSERT INTO `DCC2`.`training_program` (`name`, `description`, `imgLink`, `courseTypeId`) VALUES ('AXE Overview', 'Description of AXE Overview', '/img/courses/training-icon-3.svg', 5);
 
 /*Courses of trainingProgramId = 1*/
 INSERT INTO `DCC2`.`course` (`name`, `description`, `duration`, `imgLink`, `documents`, `test`, `trainingProgramId`) VALUES ('Training Overview ', 'Brief overview for all training courses', '00:15:00', '/img/courses/training-icon-1.svg', 'This is a document of Training Overview course', 'This is a test of Training Overview course', '1');
