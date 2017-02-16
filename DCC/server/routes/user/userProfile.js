@@ -1,6 +1,6 @@
 var router = require('express').Router();
 var models = require('../../models');
-var log = require('../../../config/logConfig');
+var log = require('../../config/logConfig');
 
 // Upload file setting
 var multer	=	require('multer');
