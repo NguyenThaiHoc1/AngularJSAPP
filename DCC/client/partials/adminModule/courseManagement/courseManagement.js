@@ -162,15 +162,19 @@ myApp.controller('courseManagementCtrl', [ '$scope', '$rootScope','courseManagem
         $rootScope.addEditClassFormTitle = 'Add Class';
         $rootScope.addEditClassFormAction = 'Add';
         //date and time
-        $rootScope.mytime.setHours (9);
-        $rootScope.mytime.setMinutes (0);
+        $rootScope.timeOfStart =  new Date();
+        $rootScope.timeOfStart.setHours (9);
+        $rootScope.timeOfStart.setMinutes (0);
+        $rootScope.dayOfStart =  new Date();
 
         $rootScope.adminClassModel = {
+            dayOfStart: $rootScope.dayOfStart ,
+            timeOfStart: $rootScope.timeOfStart,
             courseId: course.courseId,
             location: '',
             //TODO
             // trainerId: '',
-            startTime: $rootScope.dt,
+            // startTime: $rootScope.dt,
             duration: '',
             maxAttendant: '',
             note: ''
