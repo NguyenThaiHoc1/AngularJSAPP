@@ -104,6 +104,7 @@ myApp.controller('logoutController', ['$scope', 'userServices', '$location', '$r
 //Get user information
 myApp.controller('userProfileCtrl', ['$scope', 'userServices', '$location', '$rootScope', function($scope, userServices, $location, $rootScope) {
     userServices.getUserProfile().then(function(userData){
+        userData.data.role = $rootScope.userInfo.role;
         $rootScope.userInfo = userData.data;
         $scope.userDetail = (JSON.parse(JSON.stringify($rootScope.userInfo)));
     })
