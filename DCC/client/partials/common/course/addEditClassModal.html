@@ -18,13 +18,14 @@
                             <p ng-show="addEditForm.location.$invalid && !addEditForm.location.$pristine" class="help-block">Class location is required.</p>
                         </div>
                     </div>
-                    <div class="form-group" ng-class="{ 'has-error' : addEditForm.startTime.$invalid && !addEditForm.startTime.$pristine }" >
+                    <div class="form-group" ng-class="{ 'has-error' : addEditForm.dayOfStart.$invalid && !addEditForm.dayOfStart.$pristine }">
                         <label class="col-sm-4 control-label" style="margin-top: 33px">Start time</label>
 
                         <div class="col-sm-8" ng-controller="DateTimepickerCtrl">
                             <div  class="col-sm-6" style="margin-top: 33px">
                             <p class="input-group">
-                                <input type="text" class="form-control"
+                                <input name="dayOfStart"
+                                       type="text" class="form-control"
                                        uib-datepicker-popup="{{format}}"
                                        ngValue="{{adminClassModel.startTime | date: 'dd/MM/yyyy'}}"
                                        ng-model="adminClassModel.dayOfStart" is-open="popup1.opened"
@@ -36,7 +37,7 @@
                                 </span>
                             </p>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-6" >
                               <div uib-timepicker ng-model="adminClassModel.timeOfStart" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></div>
                             </div>
                             <p ng-show="addEditForm.startTime.$invalid && !addEditForm.startTime.$pristine" class="help-block">Start time is required.</p>
