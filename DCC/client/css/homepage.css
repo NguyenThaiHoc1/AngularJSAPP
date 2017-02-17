@@ -100,6 +100,7 @@ h2 {
 .navbar-dcc .navbar-nav> .open> a, .navbar-dcc .navbar-nav> .open> a:hover, .navbar-dcc .navbar-nav> .open> a:focus {
     color: #555;
     background-color: #e7e7e7;
+    border-radius: 50px;
 }
 /***********main logo**********/
 

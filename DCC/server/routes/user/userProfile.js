@@ -3,8 +3,8 @@ var models = require('../../models');
 var log = require('../../config/logConfig');
 
 // Upload file setting
-var multer	=	require('multer');
-var storage	=	multer.diskStorage({
+var multer = require('multer');
+var storage = multer.diskStorage({
     destination: function (req, file, callback) {
         callback(null, './client/img/profiles');
     },
@@ -12,22 +12,22 @@ var storage	=	multer.diskStorage({
         callback(null, file.fieldname + '-' + Date.now() + file.originalname);
     }
 });
-var upload = multer({ storage : storage}).single('userPhoto');
+var upload = multer({ storage: storage }).single('userPhoto');
 
 // generate table to mysql
 models.User.sync({
     force: false
 });
 
-router.get('/getUserInfo', function(req, res) {
+router.get('/getUserInfo', function (req, res) {
     log.info('GET /users/getUserInfo');
-    models.User.getUserByEmail(req.user.email, function(user) {
+    models.User.getUserByEmail(req.user.email, function (user) {
         var currentRole;
-        if(user.isAdmin){
+        if (user.isAdmin) {
             currentRole = 1;
-        } else if(user.isTrainer){
-            currentRole= 2;
-        }else if(user.isTrainee){
+        } else if (user.isTrainer) {
+            currentRole = 2;
+        } else if (user.isTrainee) {
             currentRole = 3;
         }
         res.send({
@@ -52,7 +52,7 @@ router.get('/getUserInfo', function(req, res) {
     });
 });
 
-router.post('/updateUserProfile', function(req, res) {
+router.post('/updateUserProfile', function (req, res) {
     log.info('/routes/users: Save edit userprofile');
     models.User.update(
         {
@@ -73,12 +73,11 @@ router.post('/updateUserProfile', function(req, res) {
     });
 });
 
-router.post('/photo', function(req, res){
+router.post('/photo', function (req, res) {
     log.info('/routes/users: Upload avatar');
     // upload avatar
-    upload(req, res, function() {
-        if (typeof req.file !== "undefined")
-        {
+    upload(req, res, function () {
+        if (typeof req.file !== "undefined") {
             models.User.update(
                 {
                     avatar: '/img/profiles/' + req.file.filename
@@ -86,11 +85,14 @@ router.post('/photo', function(req, res){
                 {
                     where: { email: req.user.email }
                 }
-            ).then(function(){
+            ).then(function () {
                 res.redirect('/#/editUserProfile');
             })
         }
-        res.redirect('/#/editUserProfile');
+        else {
+            res.redirect('/#/editUserProfile');
+        }
+
     });
 });
 
