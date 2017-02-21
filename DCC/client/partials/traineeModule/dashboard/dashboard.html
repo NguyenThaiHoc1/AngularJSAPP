@@ -18,7 +18,7 @@
                             <blockquote class="blockquote">
                                 <img  style="float:left; clear:both; margin-right: 10px;" alt="training-program-icon" class="img-responsive" ng-src = "{{trainingProgram.imgLink}}" width="70px">
                                 {{trainingProgram.name}}
-                                <footer class="blockquote-footer"> {{trainingProgram.description}}</footer>
+                                <p style="color:darkgrey; white-space: nowrap"  ng-bind-html="trainingProgram.description"</p>                              
                                 <uib-progressbar style="margin:0" class="progress-striped" max="100" value=trainingProgram.completePercent type="success"><i>{{trainingProgram.completePercent}}% completed</i></uib-progressbar>
                                 <center ng-hide="trainingProgram.collapsed"><span class="glyphicon glyphicon-menu-down"></span></center>
                                 <center ng-show="trainingProgram.collapsed"><span class="glyphicon glyphicon-menu-up"></span></center>
@@ -35,7 +35,7 @@
                                         <a ui-sref="courseDetail({courseId: myCourse.id})">
                                             <img  style="float:left; clear:both; margin-right:10px;" alt="course-icon" class="img-responsive" ng-src = "{{myCourse.imgLink}}" width="70px">
                                             {{myCourse.name}}
-                                            <footer class="blockquote-footer">{{myCourse.description}}</footer>
+                                            <p style="color:darkgrey; white-space: nowrap"  ng-bind-html="myCourse.description"</p>                                            
                                         </a>
                                     </blockquote>
                                 </div>
@@ -46,7 +46,7 @@
                                                 {{myCourse.status}} &nbsp <i class="fa fa-caret-down" aria-hidden="true"></i>
                                             </a>
                                             <ul class="dropdown-menu">
-                                                <li ng-click="actionOneClick(myCourse)"><a data-toggle="modal" data-target="#feedbackModal">{{actionOneText[myCourse.status]}}</a></li>
+                                                <li ng-click="actionOneClick(myCourse)"><a>{{actionOneText[myCourse.status]}}</a></li>
                                                 <li ng-click="actionTwoClick(myCourse)"><a>{{actionTwoText[myCourse.status]}}</a></li>
                                             </ul>
                                         </div>
@@ -83,7 +83,7 @@
                             <a ui-sref="courseDetail({courseId: requestOpenCourse.id})" style="text-decoration: none">
                                 <img  style="float:left; clear:both; margin:8px;" alt="course-icon" class="img-responsive" ng-src = "{{requestOpenCourse.imgLink}}" width="70px">
                                 {{requestOpenCourse.name}}
-                                <footer class="blockquote-footer" style="color: black;">{{requestOpenCourse.description}}</footer>
+                                <p style="color: black;"ng-bind-html="requestOpenCourse.description"></p>
                             </a>
                         </blockquote>
                     </div>

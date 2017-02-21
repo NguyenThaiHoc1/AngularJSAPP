@@ -180,6 +180,7 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
             alert('This function is being build');
         }else if (myCourse.status == STATUS_LEARNED ){
             // show feedback modal
+            $('#feedbackModal').modal('show');
             dashboardServices.getMyFeedbackByClass(myCourse).then(function(result){
                 $rootScope.courseFeedbackModel = result.data.feedback;
             });
