@@ -19,7 +19,7 @@
                                                 <td>Day of birth</td>
                                                 <td>Team</td>
                                             </tr>
-                                            <tr ng-repeat="user in UsersList">
+                                            <tr ng-repeat="user in UsersList" ng-mouseenter="UserHighlight='UserHighlighted'" ng-mouseleave="UserHighlight=''" ng-class="UserHighlight">
                                                 <td>{{user.username}}</td>
                                                 <td>{{user.email}}</td>
                                                 <td>{{user.phone}}</td>

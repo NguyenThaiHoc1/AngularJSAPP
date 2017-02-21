@@ -488,7 +488,9 @@ input,button,select,textarea {
 	background: #FFF;
 }
 
-
+.UserHighlighted {
+	background: yellow;
+}
 
 
 /*------------------------------------------------------------------
