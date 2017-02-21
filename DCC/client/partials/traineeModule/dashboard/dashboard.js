@@ -59,7 +59,7 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
 
 
     //get all courses and training programs
-    dashboardServices.getMyTraingPrograms(  {email:$rootScope.userInfo.email, userType:$rootScope.userInfo.userType, isExperienced: $rootScope.userInfo.isExperienced } ).then(function(result){
+    dashboardServices.getMyTraingPrograms(  {traineeId:$rootScope.userInfo.id,email:$rootScope.userInfo.email, userType:$rootScope.userInfo.userType, isExperienced: $rootScope.userInfo.isExperienced } ).then(function(result){
         result.data.trainingProgram.forEach(trainingProgram => {
             if (  trainingProgram.Courses.length == 0){
                 trainingProgram.completePercent =0;
@@ -68,33 +68,45 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
                 trainingProgram.count = 0;
 
                 trainingProgram.Courses.forEach(course => {
-                    if ( course.Classes.length == 0)
-                    {
-                        course.backgroundColor = 'red';
-                        course.status = 'Not learn';
-                    }
-                    else
+                    if(course.Classes.length != 0)
                     {
                         for ( var i =0; i < course.Classes.length; i++)
                         {
 
                             if ( course.Classes[i].ClassRecords.length == 0 ){
-
+                                course.backgroundColor = 'red';
+                                course.status = 'not learn';
                             }
-                            else{
-                                // class id and status in class Record
-                                course.classId = course.Classes[i].ClassRecords[course.Classes[i].ClassRecords.length - 1].classId;
-                                course.status = course.Classes[i].ClassRecords[course.Classes[i].ClassRecords.length - 1].status;
-                                // change color of courses base on its status (Learned/ Enrolled)
+                            else
+                            {
+                                for (var j=0; j<course.Classes[i].ClassRecords.length; j++)
+                                {
+                                    if(course.Classes[i].ClassRecords[j].traineeId == $rootScope.userInfo.id)
+                                    {
+                                        course.classId = course.Classes[i].ClassRecords[j].classId;
+                                        course.status = course.Classes[i].ClassRecords[j].status;
+                                    }
+                                }
+                                //course.classId = course.Classes[i].ClassRecords[course.Classes[i].ClassRecords.length - 1].classId;
+                                //course.status = course.Classes[i].ClassRecords[course.Classes[i].ClassRecords.length - 1].status;
                                 if (course.status == STATUS_ENROLLED) {course.backgroundColor = '#4FC3F7'}
                                 else if (course.status == STATUS_LEARNED)
                                 {
                                     course.backgroundColor = '#8BC34A';
                                     trainingProgram.count = trainingProgram.count + 1;
                                 }
-                                else {course.backgroundColor = 'black'}
+                                else
+                                {
+                                    course.backgroundColor = 'red';
+                                    course.status = 'not learn';
+                                }
                             }
                         }
+                    }
+                    else
+                    {
+                        course.backgroundColor = 'red';
+                        course.status = 'not learn';
                     }
                 });
                 trainingProgram.completePercent = Math.ceil(trainingProgram.count / trainingProgram.Courses.length * 100);
@@ -109,7 +121,7 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
             dashboardServices.unEnrollCourse({traineeId: $rootScope.userInfo.id, classId: myCourse.classId}).then(function(result){
                 if (result.data.success){
                     //refrsh list
-                    dashboardServices.getMyTraingPrograms(  {email:$rootScope.userInfo.email, userType:$rootScope.userInfo.userType, isExperienced: $rootScope.userInfo.isExperienced } ).then(function(result){
+                    dashboardServices.getMyTraingPrograms().then(function(result){
                         result.data.data.forEach(trainingProgram => {
                             trainingProgram.count = 0;
                             trainingProgram.Courses.forEach(course => {
@@ -137,11 +149,11 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
             });
         }else if(myCourse.status == STATUS_LEARNED){
             //re-Enroll: function same function request Opening
-            dashboardServices.sendRegisterRequest({userEmail:$rootScope.userInfo.email, courseId: myCourse.id}).then(function(result){
+            dashboardServices.sendRegisterRequest({userId:$rootScope.userInfo.id, courseId: myCourse.id}).then(function(result){
                 if(result.data.success){
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
                     //refesh list
-                    dashboardServices.getMyTraingPrograms(  {email:$rootScope.userInfo.email, userType:$rootScope.userInfo.userType, isExperienced: $rootScope.userInfo.isExperienced } ).then(function(result){
+                    dashboardServices.getMyTraingPrograms().then(function(result){
                         result.data.data.forEach(trainingProgram => {
                             trainingProgram.count = 0;
                             trainingProgram.Courses.forEach(course => {
@@ -180,7 +192,6 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
             alert('This function is being build');
         }else if (myCourse.status == STATUS_LEARNED ){
             // show feedback modal
-            $('#feedbackModal').modal('show');
             dashboardServices.getMyFeedbackByClass(myCourse).then(function(result){
                 $rootScope.courseFeedbackModel = result.data.feedback;
             });
