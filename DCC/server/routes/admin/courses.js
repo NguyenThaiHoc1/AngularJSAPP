@@ -67,7 +67,6 @@ router.post('/deleteCourse', function (req, res) {
             id: req.body.id
         }
     });
-    console.log(res.body.id);
     res.send({
         success: true,
         msg: 'Delete Course success'

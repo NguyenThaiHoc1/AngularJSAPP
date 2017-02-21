@@ -119,13 +119,13 @@ describe('<Unit test for admin-course>', function () {
             var req = request(DCC_Server).post('/admin/courses/deleteCourse');
             req.cookies = Cookies;
             req.send({
-                id: 12,
+                id: 36,
             });
             req.end(function (err, res) {
 
                 assert.equal(res.body.success, true);
                 models.Course.create({
-                    id: 12,
+                    id: 36,
                     name: 'IMS Project Overview',
                     description: '- IMS teams',
                     duration: '02:00:00',
