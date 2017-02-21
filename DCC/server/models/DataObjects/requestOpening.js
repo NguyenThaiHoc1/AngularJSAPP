@@ -12,7 +12,7 @@ module.exports =
         courseId:
         {
             type: SequelizeDatatypes.INTEGER,
-            allowNull: true
+            allowNull: false
         },
         requestType:
         {

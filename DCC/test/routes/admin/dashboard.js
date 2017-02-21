@@ -4,26 +4,26 @@ var expect = require('chai').expect;
 //process.env.NODE_ENV = 'test';
 var DCC_Server = require('../../../app.js');
 
-describe('<Unit test for admin-dashboard>', function() {
+describe('<Unit test for admin-dashboard>', function () {
     var Cookies;
 
-    beforeEach(function(done) {
+    beforeEach(function (done) {
         request(DCC_Server)
-        .post('/login')
-        .set('Accept', 'application/json')
-        .send({
-            username: 'thach@gmail.com', //admin account!!!
-            password: '123456'
-        })
-        .end(function(err, res) {
-            Cookies = res.headers['set-cookie'].pop().split(';')[0];
-            if(err)
-            return done(err);
-            done();
-        });
+            .post('/login')
+            .set('Accept', 'application/json')
+            .send({
+                username: 'qwe@gmail.com', //admin account!!!
+                password: 'qwe'
+            })
+            .end(function (err, res) {
+                Cookies = res.headers['set-cookie'].pop().split(';')[0];
+                if (err)
+                    return done(err);
+                done();
+            });
     });
 
-    afterEach(function(done) {
+    afterEach(function (done) {
         // Cleanup
 
         //logout
@@ -31,11 +31,11 @@ describe('<Unit test for admin-dashboard>', function() {
         done();
     });
 
-    describe('Test case 1 : Get request open course for admin', function() {
-        return it('Should return success==true', function(done) {
+    describe('Test case 1 : Get request open course for admin', function () {
+        return it('Should return success==true', function (done) {
             var req = request(DCC_Server).get('/admin/dashboard/getAdminRequestOpenCourse');
             req.cookies = Cookies;
-            req.end(function(err, res) {
+            req.end(function (err, res) {
                 assert.equal(res.body.success, true);
                 if (err) return done(err);
                 done();
