@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="widget widget-nopad">
+        <div class="widget-header"></i>
+            <h3>Employees list</h3>
+        </div>
+        <div class="widget-content">
+            <div class="widget big-stats-container">
+                <div class="widget-content" >
+                    <div class="col-xs-12 col-sm-12 ">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class=" col-md-9 col-lg-9 ">
+                                    <table class="table ">
+                                        <tbody>
+                                            <tr style="font-weight: bolder; font-size:110%;">
+                                                <td>Name</td>
+                                                <td>Email</td>
+                                                <td>Phone</td>
+                                                <td>Day of birth</td>
+                                                <td>Team</td>
+                                            </tr>
+                                            <tr ng-repeat="user in UsersList">
+                                                <td>{{user.username}}</td>
+                                                <td>{{user.email}}</td>
+                                                <td>{{user.phone}}</td>
+                                                <td>{{user.dob}}</td>
+                                                <td>{{user.belong2Team}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -52,6 +52,17 @@ router.get('/getUserInfo', function (req, res) {
     });
 });
 
+router.get('/getAllUsers', function (req, res) {
+    models.User.getAllUsers(users => {
+        var dataSend = {
+            success: true,
+            msg: 'successfully sent',
+            data: users
+        };
+        res.send(dataSend);
+    });
+});
+
 router.post('/updateUserProfile', function (req, res) {
     log.info('/routes/users: Save edit userprofile');
     models.User.update(

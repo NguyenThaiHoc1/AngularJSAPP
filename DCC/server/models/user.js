@@ -10,6 +10,9 @@ module.exports = function(sequelize) {
                     }
                 };
                 User.findOne(query).then(cb);
+            },
+            getAllUsers: function(cb) {
+                User.findAll().then(cb);
             }
         },
 

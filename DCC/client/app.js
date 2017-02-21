@@ -15,7 +15,7 @@ var myApp = angular.module('myApp', [
     'courseDetail',
     'admin_courseManagement',
     'admin_dashboard',
-
+    'EmployeesProfile'
 ]);
 
 //Config phase
