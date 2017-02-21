@@ -27,4 +27,7 @@ myApp.controller('getProfilesController', ['$scope', 'EmployeesProfileService', 
     EmployeesProfileService.getProfilesList().then(function(userData) {
         $scope.UsersList = userData.data.data;
     });
+    $scope.UserSelected = function(userInfo) {
+        console.log(userInfo);
+    }
 }]);

@@ -10,7 +10,7 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class=" col-md-9 col-lg-9 ">
-                                    <table class="table ">
+                                    <table class="table container">
                                         <tbody>
                                             <tr style="font-weight: bolder; font-size:110%;">
                                                 <td>Name</td>
@@ -19,7 +19,7 @@
                                                 <td>Day of birth</td>
                                                 <td>Team</td>
                                             </tr>
-                                            <tr ng-repeat="user in UsersList" ng-mouseenter="UserHighlight='UserHighlighted'" ng-mouseleave="UserHighlight=''" ng-class="UserHighlight">
+                                            <tr ng-repeat="user in UsersList" ng-mouseenter="UserHighlight='UserHighlighted'" ng-mouseleave="UserHighlight=''" ng-class="UserHighlight" ng-click="UserSelected(user)">
                                                 <td>{{user.username}}</td>
                                                 <td>{{user.email}}</td>
                                                 <td>{{user.phone}}</td>
