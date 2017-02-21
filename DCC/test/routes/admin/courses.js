@@ -5,26 +5,26 @@ var expect = require('chai').expect;
 var DCC_Server = require('../../../app.js');
 var models = require('../../../server/models');
 
-describe('<Unit test for admin-course>', function() {
+describe('<Unit test for admin-course>', function () {
     var Cookies;
 
-    beforeEach(function(done) {
+    beforeEach(function (done) {
         request(DCC_Server)
-        .post('/login')
-        .set('Accept', 'application/json')
-        .send({
-            username: 'thach@gmail.com',
-            password: '123456'
-        })
-        .end(function(err, res) {
-            Cookies = res.headers['set-cookie'].pop().split(';')[0];
-            if(err)
-            return done(err);
-            done();
-        });
+            .post('/login')
+            .set('Accept', 'application/json')
+            .send({
+                username: 'thach@gmail.com',
+                password: '123456'
+            })
+            .end(function (err, res) {
+                Cookies = res.headers['set-cookie'].pop().split(';')[0];
+                if (err)
+                    return done(err);
+                done();
+            });
     });
 
-    afterEach(function(done) {
+    afterEach(function (done) {
         // Cleanup
 
         //logout
@@ -32,8 +32,8 @@ describe('<Unit test for admin-course>', function() {
         done();
     });
 
-    describe('Test case 1 : Post /admin/courses/addCourse', function() {
-        return it('Should return success==true', function(done) {
+    describe('Test case 1 : Post /admin/courses/addCourse', function () {
+        return it('Should return success==true', function (done) {
 
             var req = request(DCC_Server).post('/admin/courses/addCourse');
             req.cookies = Cookies;
@@ -43,20 +43,21 @@ describe('<Unit test for admin-course>', function() {
                 duration: '00:00:00',
                 test: 'test creat test',
                 documents: 'test creat documents',
-                trainingProgramId:1,
+                trainingProgramId: 1,
+                imgLink: "/img/trainingProgram/training-icon-1.svg"
             });
-            req.end(function(err, res) {
+            req.end(function (err, res) {
 
                 assert.equal(res.body.success, true);
-                models.Course.destroy({where: {name:"test creat name course"}});
+                models.Course.destroy({ where: { name: "test creat name course" } });
                 if (err) return done(err);
                 done();
             });
         });
     });
 
-    describe('Test case 1.1 : Post /admin/courses/addCourse with courseName is already existed ', function() {
-        return it('Should return success==true', function(done) {
+    describe('Test case 1.1 : Post /admin/courses/addCourse with courseName is already existed ', function () {
+        return it('Should return success==true', function (done) {
 
             var req = request(DCC_Server).post('/admin/courses/addCourse');
             req.cookies = Cookies;
@@ -66,9 +67,9 @@ describe('<Unit test for admin-course>', function() {
                 duration: 'test creat duration',
                 test: 'test creat test',
                 documents: 'test creat documents',
-                trainingProgramId:{id:1},
+                trainingProgramId: { id: 1 },
             });
-            req.end(function(err, res) {
+            req.end(function (err, res) {
 
                 assert.equal(res.body.success, false);
                 if (err) return done(err);
@@ -77,8 +78,8 @@ describe('<Unit test for admin-course>', function() {
         });
     });
 
-    describe('Test case 2 : Post /admin/courses/updateCourse', function() {
-        return it('Should return success==true', function(done) {
+    describe('Test case 2 : Post /admin/courses/updateCourse', function () {
+        return it('Should return success==true', function (done) {
             var req = request(DCC_Server).post('/admin/courses/updateCourse');
             req.cookies = Cookies;
             req.send({
@@ -88,9 +89,9 @@ describe('<Unit test for admin-course>', function() {
                 duration: '00:00:00',
                 test: 'test update test',
                 documents: 'test update documents',
-                trainingProgramId:1,
+                trainingProgramId: 1,
             });
-            req.end(function(err, res) {
+            req.end(function (err, res) {
 
                 assert.equal(res.body.success, true);
                 models.Course.update({
@@ -99,27 +100,27 @@ describe('<Unit test for admin-course>', function() {
                     duration: '00:00:00',
                     test: '',
                     documents: '',
-                    trainingProgramId:1,
+                    trainingProgramId: 1,
                     imgLink: '/img/trainingProgram/training-icon-1.svg',
                 }, {
-                    where: {
-                        id: 1
-                    }
-                });
+                        where: {
+                            id: 1
+                        }
+                    });
                 if (err) return done(err);
                 done();
             });
         });
     });
 
-    describe('Test case 3 : Post /admin/courses/deleteCourse', function() {
-        return it('Should return success==true', function(done) {
+    describe('Test case 3 : Post /admin/courses/deleteCourse', function () {
+        return it('Should return success==true', function (done) {
             var req = request(DCC_Server).post('/admin/courses/deleteCourse');
             req.cookies = Cookies;
             req.send({
                 id: 12,
             });
-            req.end(function(err, res) {
+            req.end(function (err, res) {
 
                 assert.equal(res.body.success, true);
                 models.Course.create({
@@ -129,7 +130,7 @@ describe('<Unit test for admin-course>', function() {
                     duration: '02:00:00',
                     test: 'This is a test of IMS Project Overview course',
                     documents: 'This is a document of IMS Project Overview course',
-                    trainingProgramId:5,
+                    trainingProgramId: 5,
                     imgLink: '/img/courses/training-icon-3.svg',
                 });
                 if (err) return done(err);
@@ -139,11 +140,11 @@ describe('<Unit test for admin-course>', function() {
     });
 
 
-    describe('Test case 5 : get Course Type List', function() {
-        return it('Should return success==true', function(done) {
+    describe('Test case 5 : get Course Type List', function () {
+        return it('Should return success==true', function (done) {
             var req = request(DCC_Server).get('/admin/courses/getCourseTypeList');
             req.cookies = Cookies;
-            req.end(function(err, res) {
+            req.end(function (err, res) {
 
                 assert.equal(res.body.success, true);
                 if (err) return done(err);
@@ -152,11 +153,11 @@ describe('<Unit test for admin-course>', function() {
         });
     });
 
-    describe('Test case 6 : get Training Program List', function() {
-        return it('Should return success==true', function(done) {
+    describe('Test case 6 : get Training Program List', function () {
+        return it('Should return success==true', function (done) {
             var req = request(DCC_Server).get('/admin/courses/getTrainingProgramList');
             req.cookies = Cookies;
-            req.end(function(err, res) {
+            req.end(function (err, res) {
 
                 assert.equal(res.body.success, true);
                 if (err) return done(err);
@@ -164,8 +165,8 @@ describe('<Unit test for admin-course>', function() {
             });
         });
     });
-    describe('Test case 7 : Post /admin/courses/addTrainingProgram Success', function() {
-        return it('Should return success==true', function(done) {
+    describe('Test case 7 : Post /admin/courses/addTrainingProgram Success', function () {
+        return it('Should return success==true', function (done) {
 
             var req = request(DCC_Server).post('/admin/courses/addTrainingProgram');
             req.cookies = Cookies;
@@ -174,17 +175,17 @@ describe('<Unit test for admin-course>', function() {
                 description: 'test creat name description',
                 courseTypeId: 1,
             });
-            req.end(function(err, res) {
+            req.end(function (err, res) {
 
                 assert.equal(res.body.success, true);
-                models.TrainingProgram.destroy({where: {name:"test creat name of new training program"}});
+                models.TrainingProgram.destroy({ where: { name: "test creat name of new training program" } });
                 if (err) return done(err);
                 done();
             });
         });
     });
-    describe('Test case 7.1 : Post /admin/courses/addTrainingProgram fail becuz Name is already existed ', function() {
-        return it('Should return success==true', function(done) {
+    describe('Test case 7.1 : Post /admin/courses/addTrainingProgram fail becuz Name is already existed ', function () {
+        return it('Should return success==true', function (done) {
 
             var req = request(DCC_Server).post('/admin/courses/addTrainingProgram');
             req.cookies = Cookies;
@@ -193,7 +194,7 @@ describe('<Unit test for admin-course>', function() {
                 description: 'test creat name description',
                 courseTypeId: 1,
             });
-            req.end(function(err, res) {
+            req.end(function (err, res) {
 
                 assert.equal(res.body.success, false);
                 if (err) return done(err);
@@ -201,8 +202,8 @@ describe('<Unit test for admin-course>', function() {
             });
         });
     });
-    describe('Test case 8 : Post /admin/courses/updateTrainingProgram', function() {
-        return it('Should return success==true', function(done) {
+    describe('Test case 8 : Post /admin/courses/updateTrainingProgram', function () {
+        return it('Should return success==true', function (done) {
             var req = request(DCC_Server).post('/admin/courses/updateTrainingProgram');
             req.cookies = Cookies;
             req.send({
@@ -211,7 +212,7 @@ describe('<Unit test for admin-course>', function() {
                 description: 'test update name description',
                 courseTypeId: 1,
             });
-            req.end(function(err, res) {
+            req.end(function (err, res) {
 
                 assert.equal(res.body.success, true);
                 models.TrainingProgram.update({
@@ -219,23 +220,23 @@ describe('<Unit test for admin-course>', function() {
                     description: 'description of General Orientation trainning program 1 ',
                     courseTypeId: 1,
                 }, {
-                    where: {
-                        id: 1
-                    }
-                });
+                        where: {
+                            id: 1
+                        }
+                    });
                 if (err) return done(err);
                 done();
             });
         });
     });
-    describe('Test case 9 : Post /admin/courses/deleteTrainingProgram', function() {
-        return it('Should return success==true', function(done) {
+    describe('Test case 9 : Post /admin/courses/deleteTrainingProgram', function () {
+        return it('Should return success==true', function (done) {
             var req = request(DCC_Server).post('/admin/courses/deleteTrainingProgram');
             req.cookies = Cookies;
             req.send({
                 id: 6,
             });
-            req.end(function(err, res) {
+            req.end(function (err, res) {
 
                 assert.equal(res.body.success, true);
                 models.TrainingProgram.create({
@@ -250,14 +251,14 @@ describe('<Unit test for admin-course>', function() {
             });
         });
     });
-    describe('Test case 10 : Get Class List', function() {
-        return it('Should return success==true', function(done) {
+    describe('Test case 10 : Get Class List', function () {
+        return it('Should return success==true', function (done) {
             var req = request(DCC_Server).post('/admin/courses/getClass');
             req.cookies = Cookies;
             req.send({
                 courseId: 1,
             });
-            req.end(function(err, res) {
+            req.end(function (err, res) {
 
                 assert.equal(res.body.success, true);
                 if (err) return done(err);
@@ -265,8 +266,8 @@ describe('<Unit test for admin-course>', function() {
             });
         });
     });
-    describe('Test case 11 : Post /admin/courses/addClass Success', function() {
-        return it('Should return success==true', function(done) {
+    describe('Test case 11 : Post /admin/courses/addClass Success', function () {
+        return it('Should return success==true', function (done) {
 
             var req = request(DCC_Server).post('/admin/courses/addClass');
             req.cookies = Cookies;
@@ -278,21 +279,21 @@ describe('<Unit test for admin-course>', function() {
                 maxAttendant: '12',
                 note: 'test crat note'
             });
-            req.end(function(err, res) {
+            req.end(function (err, res) {
 
                 assert.equal(res.body.success, true);
-                models.Class.destroy({where: {location: 'test creat loc'}});
+                models.Class.destroy({ where: { location: 'test creat loc' } });
                 if (err) return done(err);
                 done();
             });
         });
     });
-    describe('Test case 12 : Post /admin/courses/updateClass', function() {
-        return it('Should return success==true', function(done) {
+    describe('Test case 12 : Post /admin/courses/updateClass', function () {
+        return it('Should return success==true', function (done) {
             var req = request(DCC_Server).post('/admin/courses/updateClass');
             req.cookies = Cookies;
             req.send({
-                id:1,
+                id: 1,
                 courseId: '1',
                 location: 'test update loc',
                 startTime: '2017-02-03 17:00:00',
@@ -300,7 +301,7 @@ describe('<Unit test for admin-course>', function() {
                 maxAttendant: '12',
                 note: 'test crat note'
             });
-            req.end(function(err, res) {
+            req.end(function (err, res) {
 
                 assert.equal(res.body.success, true);
                 models.Class.update({
@@ -311,23 +312,23 @@ describe('<Unit test for admin-course>', function() {
                     maxAttendant: '12',
                     note: ''
                 }, {
-                    where: {
-                        id: 1
-                    }
-                });
+                        where: {
+                            id: 1
+                        }
+                    });
                 if (err) return done(err);
                 done();
             });
         });
     });
-    describe('Test case 13 : Post /admin/courses/deleteClass', function() {
-        return it('Should return success==true', function(done) {
+    describe('Test case 13 : Post /admin/courses/deleteClass', function () {
+        return it('Should return success==true', function (done) {
             var req = request(DCC_Server).post('/admin/courses/deleteClass');
             req.cookies = Cookies;
             req.send({
                 id: 1,
             });
-            req.end(function(err, res) {
+            req.end(function (err, res) {
 
                 assert.equal(res.body.success, true);
                 models.Class.create({
