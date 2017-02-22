@@ -38,6 +38,7 @@ router.get('/getUserInfo', function (req, res) {
             phone: user.phone,
             location: user.location,
             email: user.email,
+            password: user.password,
             avatar: user.avatar,
             role: currentRole,
             isAdmin: user.isAdmin,
@@ -104,6 +105,45 @@ router.post('/photo', function (req, res) {
             res.redirect('/#/editUserProfile');
         }
 
+    });
+});
+
+router.post('/addUser', function (req, res) {
+    models.User.sync({
+        force: false
+    }).then(function () {
+        console.log(req.body);
+        // this function check if the courseName is already existed
+        models.User.getUserByEmail(req.body.email, function (result) {
+            if (result) {
+                res.send({
+                    success: false,
+                    msg: 'Email already existed. Add fail!'
+                });
+            } else {
+                models.User.create({
+                    username: 'Your Name',
+                    status: 'some status',
+                    dob: '01/01/2001',
+                    phone: '0000 000 000',
+                    location: 'DEK Vietnam',
+                    email: req.body.email,
+                    password: req.body.password,
+                    avatar: '/img/profiles/defaultProfile.jpg',
+                    isAdmin: false,
+                    isTrainer: false,
+                    isTrainee: true, //default user is a trainee
+                    belong2Team: 'Team InNoVa',
+                    isExperienced: 0,
+                    courseTypeId: req.body.courseId,
+                }).then(function () {
+                    res.send({
+                        success: true,
+                        msg: "Add User Success",
+                    });
+                });
+            }
+        });
     });
 });
 

@@ -1,0 +1,10 @@
+<div ng-init="NewUser = {email: '', password: '', passworddAgain: '',courseId: ''}">
+
+    <h3>User Register</h3>
+    <p> Emailname: <input type="text" ng-model="emailName"> </p>
+    <p> Password: <input type="text" ng-model="password"> </p>
+    <p> Confirm Password: <input type="text" ng-model="passworddAgain"> </p>
+    <p> Course Type Id: <input type="text" ng-model="courseTypeId"> </p>
+    <p ng-show="passworddAgain != password"> These passwords don' t match</p>
+    <button ng-click="applyValue()">Apply</button>
+</div>
