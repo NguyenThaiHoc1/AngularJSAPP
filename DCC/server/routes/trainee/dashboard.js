@@ -31,6 +31,54 @@ router.post('/getTrainingProgramByTPType', function(req, res){
         trainingPrograms.forEach(trainingProgram =>{
             if( trainingProgram.CourseType.name === req.body.userType || trainingProgram.CourseType.name === 'EVERYONE' ||  (!req.body.isExperienced && trainingProgram.CourseType.name === 'OPTIONAL'))
             {
+                // if(trainingProgram.Courses.length == 0)
+                // {
+                //     trainingProgram.completePercent=0;
+                // }
+                // else
+                // {
+                //     trainingProgram.count = 0;
+                //     trainingProgram.Courses.forEach(course =>{
+                //         if( course.Classes.length != 0)
+                //         {
+                //             for(var i=0; i< course.Classes.length; i++)
+                //             {
+                //                 if(course.Classes[i].ClassRecords.length == 0)
+                //                 {
+                //                     course.backgroundColor = 'red';
+                //                     course.status = 'Not Learned';
+                //                 }
+                //                 else
+                //                 {
+                //                     for( var j=0; j<course.Classes[i].ClassRecords.length; j++)
+                //                     {
+                //                         if(course.Classes[i].ClassRecords[j].traineeId == req.traineeId)
+                //                         {
+                //                             course.classId = course.Classes[i].ClassRecords[j].classId;
+                //                             course.status = course.Classes[i].ClassRecords[j].status;
+                //                         }
+                //                     }
+                //                     if(Course_Status == 'Learned')
+                //                     {
+                //                         course.backgroundColor = '#8BC34A';
+                //                         trainingProgram.count = trainingProgram.count + 1;
+                //                     }
+                //                     else
+                //                     {
+                //                         course.backgroundColor = 'red';
+                //                         course.status = 'Not Learned';
+                //                     }
+                //                 }
+                //             }
+                //         }
+                //         else
+                //         {
+                //             course.backgroundColor = 'red';
+                //             course.status = 'Not Learned';
+                //         }
+                //     })
+                // }
+                // trainingProgram.completePercent = Math.ceil(trainingProgram.count / trainingProgram.Courses.length * 100);
                 resData.push(trainingProgram);
             }
             else
@@ -60,6 +108,7 @@ router.post('/getTrainingProgramByTPType', function(req, res){
                     });
                 }
             }
+            
         });
         var datasend = {
             success : true,

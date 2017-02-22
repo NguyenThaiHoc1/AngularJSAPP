@@ -18,7 +18,8 @@
                             <blockquote class="blockquote">
                                 <img  style="float:left; clear:both; margin-right: 10px;" alt="training-program-icon" class="img-responsive" ng-src = "{{trainingProgram.imgLink}}" width="70px">
                                 {{trainingProgram.name}}
-                                <p style="color:darkgrey; white-space: nowrap"  ng-bind-html="trainingProgram.description"</p>                              
+                                <p style="color:darkgrey; white-space: nowrap"  ng-bind-html="trainingProgram.description"</p> 
+                                <p></p>
                                 <uib-progressbar style="margin:0" class="progress-striped" max="100" value=trainingProgram.completePercent type="success"><i>{{trainingProgram.completePercent}}% completed</i></uib-progressbar>
                                 <center ng-hide="trainingProgram.collapsed"><span class="glyphicon glyphicon-menu-down"></span></center>
                                 <center ng-show="trainingProgram.collapsed"><span class="glyphicon glyphicon-menu-up"></span></center>
