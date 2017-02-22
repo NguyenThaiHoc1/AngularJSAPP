@@ -42,5 +42,9 @@ module.exports =
         },
         port: 3306,
         "logging": false
+    },
+    "inMemoryDB":{
+        dialect:"sqlite",
+        storage:"database/database.sqlite"
     }
 }
