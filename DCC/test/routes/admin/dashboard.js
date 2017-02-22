@@ -12,8 +12,8 @@ describe('<Unit test for admin-dashboard>', function() {
         .post('/login')
         .set('Accept', 'application/json')
         .send({
-            username: 'thach@gmail.com', //admin account!!!
-            password: '123456'
+            username: 'qwe@gmail.com', //admin account!!!
+            password: 'qwe'
         })
         .end(function(err, res) {
             Cookies = res.headers['set-cookie'].pop().split(';')[0];
