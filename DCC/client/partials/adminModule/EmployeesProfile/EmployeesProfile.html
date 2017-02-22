@@ -11,7 +11,7 @@
                             <div class="row">
                                 <div class=" col-md-9 col-lg-9 ">
                                     <table class="table container">
-                                        <tbody>
+                                        <thead>
                                             <tr style="font-weight: bolder; font-size:110%;">
                                                 <td>Name</td>
                                                 <td>Email</td>
@@ -19,12 +19,51 @@
                                                 <td>Day of birth</td>
                                                 <td>Team</td>
                                             </tr>
-                                            <tr ng-repeat="user in UsersList" ng-mouseenter="UserHighlight='UserHighlighted'" ng-mouseleave="UserHighlight=''" ng-class="UserHighlight" ng-click="UserSelected(user)">
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat-start="user in UsersList" ng-mouseenter="UserHighlight='UserHighlighted'" ng-mouseleave="UserHighlight=''"
+                                             ng-class="UserHighlight" ng-click="user.collapsed = !user.collapsed">
                                                 <td>{{user.username}}</td>
                                                 <td>{{user.email}}</td>
                                                 <td>{{user.phone}}</td>
                                                 <td>{{user.dob}}</td>
                                                 <td>{{user.belong2Team}}</td>
+                                            </tr>
+                                            <tr ng-if="user.collapsed" ng-repeat-end="">
+                                                <td colspan="5">
+                                                    <div class=" col-md-7 col-sm-8 ">
+                                                        <table class="table ">
+                                                            <tr>
+                                                                <td>Name</td>
+                                                                <td>{{ user.username }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Status</td>
+                                                                <td>{{ user.status }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Date of Birth</td>
+                                                                <td>{{ user.dob }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Phone</td>
+                                                                <td>{{ user.phone }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Location</td>
+                                                                <td>{{ user.location }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Team</td>
+                                                                <td>{{ user.belong2Team }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Email</td>
+                                                                <td><a>{{ user.email }}</a></td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
