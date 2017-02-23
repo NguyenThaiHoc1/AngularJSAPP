@@ -17,7 +17,7 @@
                                             <h3>{{courseDetail.name}}</h3>
                                         </center>
                                         <uib-tabset active="activeJustified" justified="true" style="margin:10px;">
-                                            <uib-tab index="0"><uib-tab-heading><i class="glyphicon glyphicon-edit"></i>&nbsp Description</uib-tab-heading>{{courseDetail.description}}</uib-tab>
+                                            <uib-tab index="0"><uib-tab-heading><i class="glyphicon glyphicon-edit"></i>&nbsp Description</uib-tab-heading><p ng-bind-html="courseDetail.description"></p></uib-tab>
                                             <uib-tab index="1"><uib-tab-heading><i class="glyphicon glyphicon-equalizer"></i>&nbsp Document</uib-tab-heading>{{courseDetail.documents}}</uib-tab>
                                             <uib-tab index="2"><uib-tab-heading><i class="glyphicon glyphicon-education"></i>&nbsp Test</uib-tab-heading>{{courseDetail.test}}</uib-tab>
 

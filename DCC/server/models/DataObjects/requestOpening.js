@@ -7,7 +7,7 @@ module.exports =
         userId:
         {
             type: SequelizeDatatypes.INTEGER,
-            allowNull: false
+            allowNull: true
         },
         courseId:
         {

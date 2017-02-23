@@ -49,6 +49,12 @@
                                                     <a>{{ userDetail.email }}</a>
                                                 </td>
                                             </tr>
+                                            <tr>
+                                                <td>Password</td>
+                                                <td>
+                                                    <input id="password" type="text" ng-model="userDetail.password">
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                     <button ng-click="updateUserProfile()" class="btn btn-primary pull-right" >Save</button>

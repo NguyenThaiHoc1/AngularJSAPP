@@ -21,7 +21,7 @@
                                     <blockquote class="blockquote" style="border-left: none; margin-bottom:0">
                                         <img  style="float:left; clear:both; margin-right: 10px;" alt="training-program-icon" class="img-responsive" ng-src = "{{course.imgLink}}" width="70px">
                                         <font ng-bind-html="highlight(course.name, courseSearchKey)"></font>
-                                        <footer class="blockquote-footer"> {{course.description}}</footer>
+                                         <p style="color:darkgrey; white-space: nowrap"  ng-bind-html="course.description"</p>
                                         <br>
                                     </blockquote>
                                 </a>
@@ -66,7 +66,7 @@
                         <blockquote class="blockquote" style="border-left: none; margin-bottom:0">
                             <img  style="float:left; clear:both; margin-right: 10px;" alt="training-program-icon" class="img-responsive" ng-src = "{{trainingProgram.imgLink}}" width="70px">
                             {{trainingProgram.name}}
-                            <footer class="blockquote-footer"> {{trainingProgram.description}}</footer>
+                            <p style="color:darkgrey; white-space: nowrap"  ng-bind-html="trainingProgram.description"</p>
                             <br/>
                             <center ng-hide="trainingProgram.collapsed"><span class="glyphicon glyphicon-menu-down"></span></center>
                             <center ng-show="trainingProgram.collapsed"><span class="glyphicon glyphicon-menu-up"></span></center>
@@ -84,7 +84,7 @@
                                     <a ui-sref="courseDetail({courseId: course.id})">
                                         <img style="float:left; clear:both; margin-right:10px;" alt="course-icon" class="img-responsive" ng-src = "{{course.imgLink}}" width="70px">
                                         {{course.name}}
-                                        <footer class="blockquote-footer">{{course.description}}</footer>
+                                        <p style="color:darkgrey; white-space: nowrap"  ng-bind-html="course.description"</p>          
                                     </a>
                                 </blockquote>
                             </div>

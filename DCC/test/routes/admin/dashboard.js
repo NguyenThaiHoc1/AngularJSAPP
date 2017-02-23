@@ -9,6 +9,7 @@ describe('<Unit test for admin-dashboard>', function () {
 
     beforeEach(function (done) {
         request(DCC_Server)
+
             .post('/login')
             .set('Accept', 'application/json')
             .send({
@@ -21,6 +22,7 @@ describe('<Unit test for admin-dashboard>', function () {
                     return done(err);
                 done();
             });
+
     });
 
     afterEach(function (done) {

@@ -155,7 +155,7 @@ router.post('/updateTrainingProgram', function (req, res) {
         models.TrainingProgram.update({
             name: req.body.name,
             description: req.body.description,
-            courseTypeId: req.body.courseTypeId.id,
+            courseTypeId: req.body.courseTypeId.id.id,
             imgLink: '/img/trainingProgram/training-icon-1.svg',
         }, {
                 where: {
@@ -276,5 +276,29 @@ router.post('/deleteClass', function (req, res) {
         msg: 'Delete Class success'
     });
 });
+
+
+router.get('/getAllCourse', function (req, res) {
+    models.Course.findAll().then(function (data) {
+        var datasend = {
+            success: true,
+            msg: "get all courses done",
+            data: data
+        };
+        res.send(datasend);
+    });
+});
+
+router.get('/getAllTP', function (req, res) {
+    models.TrainingProgram.findAll().then(function (data) {
+        var datasend = {
+            success: true,
+            msg: "get all courses done",
+            data: data
+        };
+        res.send(datasend);
+    });
+});
+
 
 module.exports = router;

@@ -5,7 +5,7 @@
             <ul class="mainnav">
                 <li ng-class="{active: $state.includes('admin_dashboard')}" class="dropdown subnavbar-open-right">
                     <a class="dropdown-toggle" data-toggle="dropdown">
-                    <i class="icon-dashboard"></i><span>Admin Dashboard &nbsp<i class="fa fa-caret-down" aria-hidden="true"></i></span>
+                        <i class="icon-dashboard"></i><span>Admin Dashboard &nbsp<i class="fa fa-caret-down" aria-hidden="true"></i></span>
                     </a>
                     <ul class="dropdown-menu">
                         <li ng-show="userInfo.isTrainee" ng-click="userInfo.role = 3"><a href="/#trainee_dashboard">Trainee Dashboard</a></li>
@@ -13,8 +13,10 @@
                         <li ng-show="userInfo.isAdmin" ng-click="userInfo.role = 1"><a href="/#admin_dashboard">Admin Dashboard</a></li>
                     </ul>
                 </li>
-                <li ng-class="{active: $state.includes('admin_courseManagement')}"><a ui-sref="admin_courseManagement"><i class="icon-plus-sign-alt"></i><span>Training Programs</span> </a> </li>
+                <li ng-class="{active: $state.includes('admin_courseManagement')}"><a ui-sref="admin_courseManagement"><i class="icon-plus-sign-alt"></i><span>Training Programs</span> </a>                    </li>
                 <li ng-class="{active: $state.includes('userProfile')}"><a ui-sref="userProfile"><i class="icon-user "></i><span>Profile</span> </a> </li>
+                <li ng-class="{active: $state.includes('registery')}"><a ui-sref="registery"><i class="icon-plus-sign-alt"></i><span>Register</span> </a> </li>
+                <li ng-class="{active: $state.includes('EmployeesProfile')}"><a ui-sref="EmployeesProfile"><i class="icon-group "></i><span>Employees Profile</span> </a> </li>
 
                 <!-- <li ng-class="{active: $state.includes('reports')}"><a ui-sref="reports"><i class="icon-list-alt"></i><span>Reports</span> </a> </li>
                 <li ng-class="{active: $state.includes('customers') || $state.includes('customer.view') || $state.includes('customer.edit')}"><a ui-sref="customers"><i class="icon-facetime-video"></i><span>Customers</span> </a></li>

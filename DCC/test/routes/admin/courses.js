@@ -45,6 +45,7 @@ describe('<Unit test for admin-course>', function () {
                 documents: 'test creat documents',
                 trainingProgramId: 1,
                 imgLink: "/img/trainingProgram/training-icon-1.svg"
+
             });
             req.end(function (err, res) {
 
@@ -90,7 +91,10 @@ describe('<Unit test for admin-course>', function () {
                 test: 'test update test',
                 documents: 'test update documents',
                 trainingProgramId: 1,
+<<<<<<< HEAD
+=======
                 imgLink: "/img/trainingProgram/training-icon-1.svg"
+>>>>>>> b621523dc11dd3130eb4e1d8fa5552963213ba59
             });
             req.end(function (err, res) {
 

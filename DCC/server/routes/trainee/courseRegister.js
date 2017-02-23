@@ -21,7 +21,7 @@ router.get('/getOpeningClass', function(req, res){
         {
             startTime:
             {
-                $gt: Date.now()
+                $lt: Date.now()
             }
         },
         include: [ models.Course ]
