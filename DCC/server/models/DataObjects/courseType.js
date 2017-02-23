@@ -1,15 +1,15 @@
 var SequelizeDatatypes = require('sequelize');
 
-module.exports=
-{
-    name:
+module.exports =
     {
-        type: SequelizeDatatypes.TEXT,
-        allowNull: false
-    },
-    discription:
-    {
-        type: SequelizeDatatypes.TEXT,
-        allowNull: false
-    },
-}
+        name:
+        {
+            type: SequelizeDatatypes.STRING,
+            allowNull: true
+        },
+        discription:
+        {
+            type: SequelizeDatatypes.TEXT,
+            allowNull: true
+        },
+    }

@@ -1,10 +1,22 @@
 var fs = require("fs");
 var path = require("path");
 var Sequelize = require("sequelize");
-var env = process.env.NODE_ENV || "development";
+
+var env = process.env.NODE_ENV || "inMemoryDB";
 var config = require("../config/config")[env];
-var sequelize = module.exports = new Sequelize(config.database, config.username, config.password, config);
+var sequelize;
+
 var db = {};
+
+if (env == "inMemoryDB") {
+    sequelize = module.exports = new Sequelize('database', 'name', 'password', config);
+    console.log('myenv');
+}
+else {
+    sequelize = module.exports = new Sequelize(config.database, config.username, config.password, config);
+    console.log('diff env');
+}
+
 
 fs
     .readdirSync(__dirname)

@@ -40,13 +40,14 @@ myApp.controller('registeryCtrl', ['$scope', '$rootScope', 'registeryServices', 
         } else if (!$scope.NewUser.courseId) {
             $rootScope.ShowPopupMessage('Course Type Id not null', "error");
         } else if ($scope.NewUser.password == $scope.NewUser.passworddAgain) {
-            console.log('add');
             registeryServices.addUser($scope.NewUser).then(function (result) {
                 if (result.data.success) {
-
-
-
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
+                    //clear fields for next inputs
+                    document.getElementById("useremail").value="";
+                    document.getElementById("password").value="";
+                    document.getElementById("passwordAgain").value="";
+                    document.getElementById("courseType").value="";
                 } else {
                     $rootScope.ShowPopupMessage(result.data.msg, "error");
                 }
