@@ -59,7 +59,7 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
     $scope.actionTwoText[STATUS_ENROLLED] ='Un-enroll';
 
 
-    //get all courses and training programs
+    //get all courses and training programs - REFRESH
     dashboardServices.getMyTraingPrograms(  {traineeId:$rootScope.userInfo.id,email:$rootScope.userInfo.email, userType:$rootScope.userInfo.userType, isExperienced: $rootScope.userInfo.isExperienced } ).then(function(result){
         result.data.trainingProgram.forEach(trainingProgram => {
             if (  trainingProgram.Courses.length == 0){
@@ -67,7 +67,6 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
             }
             else{
                 trainingProgram.count = 0;
-
                 trainingProgram.Courses.forEach(course => {
                     if(course.Classes.length != 0)
                     {
@@ -75,8 +74,8 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
                         {
 
                             if ( course.Classes[i].ClassRecords.length == 0 ){
-                                course.backgroundColor = 'red';
-                                course.status = 'not learn';
+                                course.backgroundColor = '#ffb84d';
+                                course.status = 'Not Learned';
                             }
                             else
                             {
@@ -96,16 +95,16 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
                                 }
                                 else
                                 {
-                                    course.backgroundColor = 'red';
-                                    course.status = 'not learn';
+                                    course.backgroundColor = '#ffb84d';
+                                    course.status = 'Not Learned';
                                 }
                             }
                         }
                     }
                     else
                     {
-                        course.backgroundColor = 'red';
-                        course.status = 'not learn';
+                        course.backgroundColor = '#ffb84d';
+                        course.status = 'Not Learned';
                     }
                 });
                 trainingProgram.completePercent = Math.ceil(trainingProgram.count / trainingProgram.Courses.length * 100);
@@ -121,61 +120,61 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
             dashboardServices.unEnrollCourse({traineeId: $rootScope.userInfo.id, classId: myCourse.classId}).then(function(result){
                 if (result.data.success)
                 {
-                    //refrsh list
+                    //REFRESH
                     dashboardServices.getMyTraingPrograms(  {traineeId:$rootScope.userInfo.id,email:$rootScope.userInfo.email, userType:$rootScope.userInfo.userType, isExperienced: $rootScope.userInfo.isExperienced } ).then(function(result){
-        result.data.trainingProgram.forEach(trainingProgram => {
-            if (  trainingProgram.Courses.length == 0){
-                trainingProgram.completePercent =0;
-            }
-            else{
-                trainingProgram.count = 0;
+                    result.data.trainingProgram.forEach(trainingProgram => {
+                    if (  trainingProgram.Courses.length == 0){
+                        trainingProgram.completePercent =0;
+                    }
+                    else{
+                        trainingProgram.count = 0;
 
-                trainingProgram.Courses.forEach(course => {
-                    if(course.Classes.length != 0)
-                    {
-                        for ( var i =0; i < course.Classes.length; i++)
-                        {
+                        trainingProgram.Courses.forEach(course => {
+                            if(course.Classes.length != 0)
+                            {
+                                for ( var i =0; i < course.Classes.length; i++)
+                                {
 
-                            if ( course.Classes[i].ClassRecords.length == 0 ){
-                                course.backgroundColor = 'red';
-                                course.status = 'not learn';
+                                    if ( course.Classes[i].ClassRecords.length == 0 ){
+                                        course.backgroundColor = '#ffb84d';
+                                        course.status = 'Not Learned';
+                                    }
+                                    else
+                                    {
+                                        for (var j=0; j<course.Classes[i].ClassRecords.length; j++)
+                                        {
+                                            if(course.Classes[i].ClassRecords[j].traineeId == $rootScope.userInfo.id)
+                                            {
+                                                course.classId = course.Classes[i].ClassRecords[j].classId;
+                                                course.status = course.Classes[i].ClassRecords[j].status;
+                                            }
+                                        }
+                                        if (course.status == STATUS_ENROLLED) {course.backgroundColor = '#4FC3F7'}
+                                        else if (course.status == STATUS_LEARNED)
+                                        {
+                                            course.backgroundColor = '#8BC34A';
+                                            trainingProgram.count = trainingProgram.count + 1;
+                                        }
+                                        else
+                                        {
+                                            course.backgroundColor = '#ffb84d';
+                                            course.status = 'Not Learned';
+                                        }
+                                    }
+                                }
                             }
                             else
                             {
-                                for (var j=0; j<course.Classes[i].ClassRecords.length; j++)
-                                {
-                                    if(course.Classes[i].ClassRecords[j].traineeId == $rootScope.userInfo.id)
-                                    {
-                                        course.classId = course.Classes[i].ClassRecords[j].classId;
-                                        course.status = course.Classes[i].ClassRecords[j].status;
-                                    }
-                                }
-                                if (course.status == STATUS_ENROLLED) {course.backgroundColor = '#4FC3F7'}
-                                else if (course.status == STATUS_LEARNED)
-                                {
-                                    course.backgroundColor = '#8BC34A';
-                                    trainingProgram.count = trainingProgram.count + 1;
-                                }
-                                else
-                                {
-                                    course.backgroundColor = 'red';
-                                    course.status = 'not learn';
-                                }
+                                course.backgroundColor = '#ffb84d';
+                                course.status = 'Not Learned';
                             }
-                        }
-                    }
-                    else
-                    {
-                        course.backgroundColor = 'red';
-                        course.status = 'not learn';
+                        });
+                        trainingProgram.completePercent = Math.ceil(trainingProgram.count / trainingProgram.Courses.length * 100);
                     }
                 });
-                trainingProgram.completePercent = Math.ceil(trainingProgram.count / trainingProgram.Courses.length * 100);
-            }
-        });
-        $scope.myTrainingProgramList = result.data.trainingProgram;
-    });
-                    //
+                $scope.myTrainingProgramList = result.data.trainingProgram;
+            });
+                    //--END OF REFRESH
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
                 }else{
                     $rootScope.ShowPopupMessage(result.data.msg, "error");
@@ -186,61 +185,61 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
             dashboardServices.sendRegisterRequest({userId:$rootScope.userInfo.id, courseId: myCourse.id}).then(function(result){
                 if(result.data.success){
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
-                    //refesh list
+                    //REFRESH
                     dashboardServices.getMyTraingPrograms(  {traineeId:$rootScope.userInfo.id,email:$rootScope.userInfo.email, userType:$rootScope.userInfo.userType, isExperienced: $rootScope.userInfo.isExperienced } ).then(function(result){
-        result.data.trainingProgram.forEach(trainingProgram => {
-            if (  trainingProgram.Courses.length == 0){
-                trainingProgram.completePercent =0;
-            }
-            else{
-                trainingProgram.count = 0;
+                    result.data.trainingProgram.forEach(trainingProgram => {
+                    if (  trainingProgram.Courses.length == 0){
+                        trainingProgram.completePercent =0;
+                    }
+                    else{
+                        trainingProgram.count = 0;
 
-                trainingProgram.Courses.forEach(course => {
-                    if(course.Classes.length != 0)
-                    {
-                        for ( var i =0; i < course.Classes.length; i++)
-                        {
+                        trainingProgram.Courses.forEach(course => {
+                            if(course.Classes.length != 0)
+                            {
+                                for ( var i =0; i < course.Classes.length; i++)
+                                {
 
-                            if ( course.Classes[i].ClassRecords.length == 0 ){
-                                course.backgroundColor = 'red';
-                                course.status = 'not learn';
+                                    if ( course.Classes[i].ClassRecords.length == 0 ){
+                                        course.backgroundColor = '#ffb84d';
+                                        course.status = 'Not Learned';
+                                    }
+                                    else
+                                    {
+                                        for (var j=0; j<course.Classes[i].ClassRecords.length; j++)
+                                        {
+                                            if(course.Classes[i].ClassRecords[j].traineeId == $rootScope.userInfo.id)
+                                            {
+                                                course.classId = course.Classes[i].ClassRecords[j].classId;
+                                                course.status = course.Classes[i].ClassRecords[j].status;
+                                            }
+                                        }
+                                        if (course.status == STATUS_ENROLLED) {course.backgroundColor = '#4FC3F7'}
+                                        else if (course.status == STATUS_LEARNED)
+                                        {
+                                            course.backgroundColor = '#8BC34A';
+                                            trainingProgram.count = trainingProgram.count + 1;
+                                        }
+                                        else
+                                        {
+                                            course.backgroundColor = '#ffb84d';
+                                            course.status = 'Not Learned';
+                                        }
+                                    }
+                                }
                             }
                             else
                             {
-                                for (var j=0; j<course.Classes[i].ClassRecords.length; j++)
-                                {
-                                    if(course.Classes[i].ClassRecords[j].traineeId == $rootScope.userInfo.id)
-                                    {
-                                        course.classId = course.Classes[i].ClassRecords[j].classId;
-                                        course.status = course.Classes[i].ClassRecords[j].status;
-                                    }
-                                }
-                                if (course.status == STATUS_ENROLLED) {course.backgroundColor = '#4FC3F7'}
-                                else if (course.status == STATUS_LEARNED)
-                                {
-                                    course.backgroundColor = '#8BC34A';
-                                    trainingProgram.count = trainingProgram.count + 1;
-                                }
-                                else
-                                {
-                                    course.backgroundColor = 'red';
-                                    course.status = 'not learn';
-                                }
+                                course.backgroundColor = '#ffb84d';
+                                course.status = 'Not Learned';
                             }
-                        }
-                    }
-                    else
-                    {
-                        course.backgroundColor = 'red';
-                        course.status = 'not learn';
+                        });
+                        trainingProgram.completePercent = Math.ceil(trainingProgram.count / trainingProgram.Courses.length * 100);
                     }
                 });
-                trainingProgram.completePercent = Math.ceil(trainingProgram.count / trainingProgram.Courses.length * 100);
-            }
-        });
-        $scope.myTrainingProgramList = result.data.trainingProgram;
-    });
-                    //
+                $scope.myTrainingProgramList = result.data.trainingProgram;
+            });
+                    //--END OF REFRESH
                 }else{
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
                 }
