@@ -29,7 +29,7 @@ router.post('/getTrainingProgramByTPType', function(req, res){
     models.TrainingProgram.findAll(query).then(function(trainingPrograms) {
         var resData =[];
         trainingPrograms.forEach(trainingProgram =>{
-            if( trainingProgram.CourseType.name === req.body.userType || trainingProgram.CourseType.name === 'EVERYONE' ||  (!req.body.isExperienced && trainingProgram.CourseType.name === 'OPTIONAL'))
+            if( trainingProgram.dataValues.name === req.body.userType || trainingProgram.dataValues.name === 'EVERYONE' ||  (!req.body.isExperienced && trainingProgram.dataValues.name === 'OPTIONAL'))
             {
                 resData.push(trainingProgram);
             }

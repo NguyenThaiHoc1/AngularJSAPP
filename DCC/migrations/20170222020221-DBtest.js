@@ -1,17 +1,17 @@
 'use strict';
 
-var models = require(../server/models);
+var models = require('../server/models');
 
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
-    return queryInterface.createTable(model.User.tableName,models.User.attributes)
-    .then(function(){return queryInterface.createTable(model.Course.tableName,models.Course.attributes})
-    .then(function(){return queryInterface.createTable(model.CourseType.tableName,models.CourseType.attributes})
-    .then(function(){return queryInterface.createTable(model.TrainingProgram.tableName,models.TrainingProgram.attributes})
-    .then(function(){return queryInterface.createTable(model.RequestOpening.tableName,models.RequestOpening.attributes})
-    .then(function(){return queryInterface.createTable(model.Class.tableName,models.Class.attributes})
-    .then(function(){return queryInterface.createTable(model.ClassRecord.tableName,models.ClassRecord.attributes})
+    return queryInterface.createTable(models.User.tableName, models.User.attributes)
+      .then(function () { return queryInterface.createTable(models.Course.tableName, models.Course.attributes) })
+      .then(function () { return queryInterface.createTable(models.CourseType.tableName, models.CourseType.attributes) })
+      .then(function () { return queryInterface.createTable(models.TrainingProgram.tableName, models.TrainingProgram.attributes) })
+      .then(function () { return queryInterface.createTable(models.RequestOpening.tableName, models.RequestOpening.attributes) })
+      .then(function () { return queryInterface.createTable(models.Class.tableName, models.Class.attributes) })
+      .then(function () { return queryInterface.createTable(models.ClassRecord.tableName, models.ClassRecord.attributes) })
   },
 
   down: function (queryInterface, Sequelize) {
