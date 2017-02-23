@@ -19,9 +19,9 @@ models.User.sync({
     force: false
 });
 
-router.get('/getUserInfo', function (req, res) {
+router.post('/getUserInfo', function (req, res) {
     log.info('GET /users/getUserInfo');
-    models.User.getUserByEmail(req.user.email, function (user) {
+    models.User.getUserByEmail(req.body.email, function (user) {
         var currentRole;
         if (user.isAdmin) {
             currentRole = 1;
@@ -53,16 +53,6 @@ router.get('/getUserInfo', function (req, res) {
     });
 });
 
-router.get('/getAllUsers', function (req, res) {
-    models.User.getAllUsers(users => {
-        var dataSend = {
-            success: true,
-            msg: 'successfully sent',
-            data: users
-        };
-        res.send(dataSend);
-    });
-});
 
 router.post('/updateUserProfile', function (req, res) {
     log.info('/routes/users: Save edit userprofile');
@@ -109,6 +99,35 @@ router.post('/photo', function (req, res) {
     });
 });
 
+
+
+
+// router.get('/getAllUsers', function (req, res) {
+//     models.User.getAllUsers(users => {
+//         var dataSend = {
+//             success: true,
+//             msg: 'successfully sent',
+//             data: users
+//         };
+//         res.send(dataSend);
+//     });
+// });
+
+
+// router.get("/setUserType", function (req, res) {
+//     models.User.update(
+//         {
+//             userType: "CBA"
+//         },
+//         {
+//             where: {
+//                 id: 2,
+//             }
+//         }
+//     );
+// });
+
+
 router.post('/addUser', function (req, res) {
     models.User.sync({
         force: false
@@ -146,5 +165,6 @@ router.post('/addUser', function (req, res) {
         });
     });
 });
+
 
 module.exports = router;
