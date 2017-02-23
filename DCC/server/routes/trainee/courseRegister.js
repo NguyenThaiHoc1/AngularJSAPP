@@ -3,42 +3,42 @@ var models = require('../../models');
 var log = require('../../config/logConfig');
 var sequelize = require("sequelize");
 
-router.get('/getTrainingProgram', function (req, res) {
-    var query = { include: [models.Course] };
-    models.TrainingProgram.findAll(query).then(function (trainingProgram) {
+router.get('/getTrainingProgram', function(req, res){
+    var query = { include: [ models.Course ]};
+    models.TrainingProgram.findAll(query).then(function(trainingProgram) {
         var datasend = {
             success: true,
-            msg: 'send list success',
+            msg:'send list success',
             data: trainingProgram
         };
         res.send(datasend);
     });
 });
 
-router.get('/getOpeningClass', function (req, res) {
+router.get('/getOpeningClass', function(req, res){
     var query = {
         where:
         {
             startTime:
             {
-                $lt: Date.now()
+                $gt: Date.now()
             }
         },
-        include: [models.Course]
+        include: [ models.Course ]
     }
-    models.Class.findAll(query).then(function (openingClass) {
+    models.Class.findAll(query).then(function(openingClass){
         var datasend = {
             success: true,
-            msg: 'Get Opening Class Success',
+            msg:'Get Opening Class Success',
             openingClass: openingClass
         };
         res.send(datasend);
     });
 });
 
-router.post('/getRequestedOpeningCourse', function (req, res) {
+router.post('/getRequestedOpeningCourse', function(req, res){
     var userId = req.body.userId;
-    models.RequestOpening.getRequestedOpeningCourse(userId, function (requestedOpeningCourse) {
+    models.RequestOpening.getRequestedOpeningCourse(userId, function(requestedOpeningCourse){
         var datasend = {
             success: true,
             msg: 'Get Requested Opening Course Success',
@@ -48,32 +48,32 @@ router.post('/getRequestedOpeningCourse', function (req, res) {
     });
 });
 
-router.post('/sendRegisterRequest', function (req, res) {
+router.post('/sendRegisterRequest', function(req, res){
     var courseId = req.body.courseId;
     var userId = req.body.userId;
     //If request is already existed, don't add request to request_course table
     //If not, add request to request_course table
-    models.RequestOpening.findOne({ where: { userId: userId, courseId: courseId } }).then(function (requestOpening) {
-        if (requestOpening) {
+    models.RequestOpening.findOne({where:{userId:userId,courseId:courseId}}).then(function(requestOpening){
+        if(requestOpening){
             var datasend = {
                 success: false,
                 msg: 'You Have Already Requested'
             };
             res.send(datasend);
-        } else {
-            models.Class.getOpeningClassByCourseID(courseId, function (openingClass) {
+        }else{
+            models.Class.getOpeningClassByCourseID(courseId, function(openingClass){
                 //If class is opening, add user request to request_course table with requestType = "enroll"
                 //If not, add user request to request_course table with requestType = "register"
-                if (openingClass) {
-                    models.RequestOpening.addRequestEnroll(userId, courseId, function () {
+                if(openingClass){
+                    models.RequestOpening.addRequestEnroll(userId, courseId, function(){
                         var datasend = {
                             success: true,
                             msg: 'Send Request Successfully'
                         };
                         res.send(datasend);
                     });
-                } else {
-                    models.RequestOpening.addRequestRegister(userId, courseId, function () {
+                }else{
+                    models.RequestOpening.addRequestRegister(userId, courseId, function(){
                         var datasend = {
                             success: true,
                             msg: 'Send Request Successfully'
@@ -86,10 +86,10 @@ router.post('/sendRegisterRequest', function (req, res) {
     });
 });
 
-router.post('/deleteRequestOpening', function (req, res) {
+router.post('/deleteRequestOpening', function(req, res){
     var courseId = req.body.courseId;
     var userId = req.body.userId;
-    models.RequestOpening.deleteRequestOpening(userId, courseId, function () {
+    models.RequestOpening.deleteRequestOpening(userId, courseId, function(){
         var datasend = {
             success: true,
             msg: 'Delete Request Opening Success'
@@ -98,10 +98,10 @@ router.post('/deleteRequestOpening', function (req, res) {
     });
 });
 
-router.post('/unEnrollCourse', function (req, res) {
+router.post('/unEnrollCourse', function(req, res){
     var classId = req.body.classId;
     var traineeId = req.body.traineeId;
-    models.ClassRecord.unEnrollCourse(traineeId, classId, function () {
+    models.ClassRecord.unEnrollCourse(traineeId, classId, function(){
         var datasend = {
             success: true,
             msg: 'Un-enroll Course Success'
@@ -111,7 +111,7 @@ router.post('/unEnrollCourse', function (req, res) {
 });
 
 
-router.post('/getMyEnrolledClass', function (req, res) {
+router.post('/getMyEnrolledClass', function(req, res){
     var query = {
         include: [
             {
@@ -120,12 +120,11 @@ router.post('/getMyEnrolledClass', function (req, res) {
             },
             {
                 model: models.User,
-                where: { email: req.body.email }
+                where: {email: req.body.userEmail}
             }
         ]
     };
-    models.ClassRecord.findAll(query).then(function (classRecord) {
-        console.log(typeof classRecord, classRecord);
+    models.ClassRecord.findAll(query).then(function(classRecord){
         var datasend = {
             success: true,
             msg: 'Get Class Record By User Email Success',
@@ -134,7 +133,5 @@ router.post('/getMyEnrolledClass', function (req, res) {
         res.send(datasend);
     });
 });
-
-
 
 module.exports = router;
