@@ -135,25 +135,6 @@ router.post('/getMyEnrolledClass', function (req, res) {
     });
 });
 
-// router.get('/addCourseType',function(req,res){
-//     models.CourseType.create({
-//         name : 'AXE',
-//         discription : 'this training program for AXE '
-//     }).then(function(){
-//         models.TrainingProgram.create({
-//             name : 'AXE Overview',
-//             description : 'Description of AXE Overview',
-//             imgLink : '/img/courses/training-icon-5.svg',
-//             courseId : 7
-//         });
-//     });
-// });
-
-// router.get("/getAllCT", function (req, res) {
-//     models.CourseType.findAll().then(function (data) {
-//         res.send(data);
-//     });
-// });
 
 
 module.exports = router;
