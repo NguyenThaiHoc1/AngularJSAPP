@@ -72,7 +72,8 @@ router.post('/updateUserProfile', function (req, res) {
             status: req.body.status,
             dob: req.body.dob,
             phone: req.body.phone,
-            role: req.body.role
+            role: req.body.role,
+            password: req.body.password
         },
         {
             where: { email: req.body.email }
@@ -112,13 +113,12 @@ router.post('/addUser', function (req, res) {
     models.User.sync({
         force: false
     }).then(function () {
-        console.log(req.body);
         // this function check if the courseName is already existed
         models.User.getUserByEmail(req.body.email, function (result) {
             if (result) {
                 res.send({
                     success: false,
-                    msg: 'Email already existed. Add fail!'
+                    msg: 'Email already existed. Add failed!'
                 });
             } else {
                 models.User.create({
@@ -135,7 +135,7 @@ router.post('/addUser', function (req, res) {
                     isTrainee: true, //default user is a trainee
                     belong2Team: 'Team InNoVa',
                     isExperienced: 0,
-                    courseTypeId: req.body.courseId,
+                    userType: req.body.courseId,
                 }).then(function () {
                     res.send({
                         success: true,
