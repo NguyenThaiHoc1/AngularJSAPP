@@ -45,6 +45,7 @@ myApp.factory('dashboardServices', ['$http', function($http) {
     return factoryDefinitions;
 }]);
 
+var temporaryClassID;
 //Controllers
 myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '$state', function($scope, dashboardServices, $rootScope, $state) {
     const STATUS_ENROLLED = 'Enrolled';
@@ -258,14 +259,19 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
             alert('This function is being build');
         }else if (myCourse.status == STATUS_LEARNED ){
             // show feedback modal
+            $('#feedbackModal').modal('show');
+            temporaryClassID = myCourse.classId;
+            myCourse.traineeId =  $rootScope.userInfo.id;            
             dashboardServices.getMyFeedbackByClass(myCourse).then(function(result){
                 $rootScope.courseFeedbackModel = result.data.feedback;
             });
         }
     };
 
-    $scope.giveFeedbackClick = function(cmodel){
-        dashboardServices.sendFeedback(cmodel).then(function(result){
+    $scope.giveFeedbackClick = function(feedbackModel){
+        feedbackModel.traineeId =  $rootScope.userInfo.id;
+        feedbackModel.classId = temporaryClassID;
+        dashboardServices.sendFeedback(feedbackModel).then(function(result){
             if(result.data.success){
                 $rootScope.ShowPopupMessage("Rating success", "success");
             }else{
