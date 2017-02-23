@@ -9,7 +9,7 @@ module.exports = function(sequelize) {
                     {
                         startTime:
                         {
-                            $gt: Date.now()
+                            $lt: Date.now()
                         },
                         courseId: courseId
                     }
