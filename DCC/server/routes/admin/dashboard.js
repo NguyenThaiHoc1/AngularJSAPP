@@ -39,17 +39,17 @@ router.get('/getAdminRequestOpenCourse', function (req, res) {
 
 });
 
-router.get('/setAdminRole', function (req, res) {
-    models.User.update({
-        isAdmin: 1,
-        isTrainer: 1
-    }, {
-            where: {
-                id: 1
-            }
-        }
-    );
-});
+// router.get('/setAdminRole', function (req, res) {
+//     models.User.update({
+//         isAdmin: 1,
+//         isTrainer: 1
+//     }, {
+//             where: {
+//                 id: 1
+//             }
+//         }
+//     );
+// });
 
 router.get('/getAllUsers', function (req, res) {
     models.User.findAll().then(function (data) { res.send(data) });
