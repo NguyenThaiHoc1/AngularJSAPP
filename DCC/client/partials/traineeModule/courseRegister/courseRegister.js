@@ -60,6 +60,7 @@ myApp.controller('courseRegisterCtrl', ['$sce','$rootScope', '$scope', 'courseRe
                 tempOpeningCourseList.push(openingClass.Course);
             });
             $scope.openingCourseList = tempOpeningCourseList;
+            console.log(tempOpeningCourseList);
         });
     }).then(function(){
         courseRegisterServices.getTrainingProgram().then(function(result){
