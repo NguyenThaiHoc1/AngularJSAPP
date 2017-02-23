@@ -19,9 +19,9 @@ models.User.sync({
     force: false
 });
 
-router.get('/getUserInfo', function (req, res) {
+router.post('/getUserInfo', function (req, res) {
     log.info('GET /users/getUserInfo');
-    models.User.getUserByEmail(req.user.email, function (user) {
+    models.User.getUserByEmail(req.body.email, function (user) {
         var currentRole;
         if (user.isAdmin) {
             currentRole = 1;
@@ -53,16 +53,6 @@ router.get('/getUserInfo', function (req, res) {
     });
 });
 
-router.get('/getAllUsers', function (req, res) {
-    models.User.getAllUsers(users => {
-        var dataSend = {
-            success: true,
-            msg: 'successfully sent',
-            data: users
-        };
-        res.send(dataSend);
-    });
-});
 
 router.post('/updateUserProfile', function (req, res) {
     log.info('/routes/users: Save edit userprofile');
@@ -72,7 +62,8 @@ router.post('/updateUserProfile', function (req, res) {
             status: req.body.status,
             dob: req.body.dob,
             phone: req.body.phone,
-            role: req.body.role
+            role: req.body.role,
+            password: req.body.password
         },
         {
             where: { email: req.body.email }
@@ -108,17 +99,45 @@ router.post('/photo', function (req, res) {
     });
 });
 
+
+
+
+// router.get('/getAllUsers', function (req, res) {
+//     models.User.getAllUsers(users => {
+//         var dataSend = {
+//             success: true,
+//             msg: 'successfully sent',
+//             data: users
+//         };
+//         res.send(dataSend);
+//     });
+// });
+
+
+router.get("/setUserType", function (req, res) {
+    models.User.update(
+        {
+            userType: "CBA"
+        },
+        {
+            where: {
+                id: 1,
+            }
+        }
+    );
+});
+
+
 router.post('/addUser', function (req, res) {
     models.User.sync({
         force: false
     }).then(function () {
-        console.log(req.body);
         // this function check if the courseName is already existed
         models.User.getUserByEmail(req.body.email, function (result) {
             if (result) {
                 res.send({
                     success: false,
-                    msg: 'Email already existed. Add fail!'
+                    msg: 'Email already existed. Add failed!'
                 });
             } else {
                 models.User.create({
@@ -135,7 +154,7 @@ router.post('/addUser', function (req, res) {
                     isTrainee: true, //default user is a trainee
                     belong2Team: 'Team InNoVa',
                     isExperienced: 0,
-                    courseTypeId: req.body.courseId,
+                    userType: req.body.courseId,
                 }).then(function () {
                     res.send({
                         success: true,
@@ -146,5 +165,6 @@ router.post('/addUser', function (req, res) {
         });
     });
 });
+
 
 module.exports = router;

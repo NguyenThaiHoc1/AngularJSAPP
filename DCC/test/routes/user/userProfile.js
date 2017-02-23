@@ -191,6 +191,82 @@ describe('<Unit test for user profile>', function () {
             });
         });
     });
+    //Test change password for user from Ldap server
+    describe('Test case 5 : post /user/userProfile/updateUserProfile', function () {
+        return it('Should return success==true', function (done) {
+            var req = request(DCC_Server).post('/user/userProfile/updateUserProfile');
+            req.send({
+                email: 'qwe@gmail.com',
+                username: 'Changed name',
+                status: 'Changed status',
+                password: 'newpassword'
+            });
+            req.cookies = Cookies;
+            req.end(function (err, res) {   
+                assert.equal(res.body.success, true);
+                models.User.update({
+                    username: 'Your Name',
+                    status: 'some status',
+                    password: 'qwe'
+                }, {
+                        where: { email: 'qwe@gmail.com' }
+                    });
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
+});
 
+describe('<Unit test for manual added user profile>', function () {
+    var Cookies;
 
+    beforeEach(function (done) {
+        request(DCC_Server)
+            .post('/login')
+            .set('Accept', 'application/json')
+            .send({
+                username: 'tranhoangnam3108@gmail.com',
+                password: 'nam'
+            })
+            .end(function (err, res) {
+                Cookies = res.headers['set-cookie'].pop().split(';')[0];
+                if (err)
+                    return done(err);
+                done();
+            });
+    });
+
+    afterEach(function (done) {
+        // Cleanup
+
+        //logout
+        request(DCC_Server).get('/logout')
+        done();
+    });
+    //test update password
+    describe('Test case 1 : post /user/userProfile/updateUserProfile', function () {
+        return it('Should return success==true', function (done) {
+            var req = request(DCC_Server).post('/user/userProfile/updateUserProfile');
+            req.send({
+                email: 'tranhoangnam3108@gmail.com',
+                username: 'Nam test',
+                status: 'test status',
+                password: 'newpassword'
+            });
+            req.cookies = Cookies;
+            req.end(function (err, res) {   
+                assert.equal(res.body.success, true);
+                models.User.update({
+                    username: 'Nam Tran',
+                    status: 'Bug Breeder',
+                    password: 'nam'
+                }, {
+                        where: { email: 'tranhoangnam3108@gmail.com' }
+                    });
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
 });
