@@ -26,25 +26,25 @@ describe('<Unit test for Login>', function() {
         });
     });
 
-    describe('Test case 1.2 : Login success, role = trainee', function() {
-        return it('Should return success==true', function(done) {
-            request(DCC_Server)
-            .post('/login')
-            .send({
-                username: 'thach@gmail.com',
-                password: '123456'
-            })
-            .end(function(err, res) {
-                if (res.body.success === true )
-                    assert.equal(res.body.role, 3);
-                else
-                    assert.equal(res.body.success, true);
-                // globalCookies = res.headers['set-cookie'].pop().split(';')[0];
-                if (err) return done(err);
-                done();
-            });
-        });
-    });
+    // describe('Test case 1.2 : Login success, role = trainee', function() {
+    //     return it('Should return success==true', function(done) {
+    //         request(DCC_Server)
+    //         .post('/login')
+    //         .send({
+    //             username: 'qwe@gmail.com',
+    //             password: 'qwe'
+    //         })
+    //         .end(function(err, res) {
+    //             if (res.body.success === true )
+    //                 assert.equal(res.body.role, 3);
+    //             else
+    //                 assert.equal(res.body.success, true);
+    //             // globalCookies = res.headers['set-cookie'].pop().split(';')[0];
+    //             if (err) return done(err);
+    //             done();
+    //         });
+    //     });
+    // });
 
     describe('Test case 2 : Login fail, username true, password false', function() {
         return it('Should return success==false', function(done) {

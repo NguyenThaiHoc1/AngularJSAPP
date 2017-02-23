@@ -5,7 +5,7 @@ module.exports =
     name:
     {
         type: SequelizeDatatypes.TEXT,
-        allowNull: false
+        allowNull: true
     },
     description:
     {

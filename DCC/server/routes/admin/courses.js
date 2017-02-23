@@ -278,4 +278,17 @@ router.post('/deleteClass', function(req, res) {
 });
 
 
+// router.get('/getAllCourse',function(req,res){
+//     models.Course.findAll().then(function(data){
+//         var datasend = {
+//             success: true,
+//             msg: "get all courses done",
+//             data : data
+//         };
+//         res.send(datasend);
+//     });
+// });
+
+
+
 module.exports = router;

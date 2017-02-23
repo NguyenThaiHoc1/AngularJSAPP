@@ -88,4 +88,31 @@ router.post('/getRequestOpenCourse', function(req, res){
     });
 });
 
+// router.get('/classRecord',function(req,res){
+//     models.Class.create({
+//         courseId:4,
+//         startTime:'2017-02-28 00:00:00'
+//     }).then(function(){
+//         models.ClassRecord.create({
+//             status: "Enrolled",
+//             classId: 4,
+//             traineeId: 2
+//         });
+//     });
+// });
+
+// router.get('/allCoursesType',function(req,res){
+//     models.CourseType.findAll().then(function(data){
+//          res.send(data);
+//     });
+   
+// });
+
+
+// router.get('/deleteCourseType',function(req,res){
+//         models.CourseType.destroy({where :{id:3}});
+
+// });
+
+
 module.exports = router;

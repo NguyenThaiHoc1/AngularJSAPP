@@ -45,10 +45,15 @@ router.get('/getAdminRequestOpenCourse', function(req, res) {
 //         isTrainer:1
 //     },{
 //         where:{
-//             id:2
+//             id:1
 //         }
 //     }
 //     );
+// });
+
+// router.get('/getAllUsers',function(req,res){
+//     models.User.findAll().then(function(data){res.send(data)});
+    
 // });
 
 module.exports = router;

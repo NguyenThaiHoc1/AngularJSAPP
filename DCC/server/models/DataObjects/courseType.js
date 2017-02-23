@@ -5,11 +5,11 @@ module.exports=
     name:
     {
         type: SequelizeDatatypes.TEXT,
-        allowNull: false
+        allowNull: true
     },
     discription:
     {
         type: SequelizeDatatypes.TEXT,
-        allowNull: false
+        allowNull: true
     },
 }
