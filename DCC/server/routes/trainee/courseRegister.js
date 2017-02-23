@@ -120,11 +120,12 @@ router.post('/getMyEnrolledClass', function (req, res) {
             },
             {
                 model: models.User,
-                where: { email: req.body.userEmail }
+                where: { email: req.body.email }
             }
         ]
     };
     models.ClassRecord.findAll(query).then(function (classRecord) {
+        console.log(typeof classRecord, classRecord);
         var datasend = {
             success: true,
             msg: 'Get Class Record By User Email Success',
@@ -148,7 +149,11 @@ router.post('/getMyEnrolledClass', function (req, res) {
 //     });
 // });
 
-
+// router.get("/getAllCT", function (req, res) {
+//     models.CourseType.findAll().then(function (data) {
+//         res.send(data);
+//     });
+// });
 
 
 module.exports = router;
