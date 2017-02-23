@@ -44,6 +44,8 @@ describe('<Unit test for admin-course>', function () {
                 test: 'test creat test',
                 documents: 'test creat documents',
                 trainingProgramId: 1,
+                imgLink: "/img/trainingProgram/training-icon-1.svg"
+
             });
             req.end(function (err, res) {
 
@@ -89,6 +91,10 @@ describe('<Unit test for admin-course>', function () {
                 test: 'test update test',
                 documents: 'test update documents',
                 trainingProgramId: 1,
+<<<<<<< HEAD
+=======
+                imgLink: "/img/trainingProgram/training-icon-1.svg"
+>>>>>>> b621523dc11dd3130eb4e1d8fa5552963213ba59
             });
             req.end(function (err, res) {
 
@@ -117,13 +123,13 @@ describe('<Unit test for admin-course>', function () {
             var req = request(DCC_Server).post('/admin/courses/deleteCourse');
             req.cookies = Cookies;
             req.send({
-                id: 12,
+                id: 36,
             });
             req.end(function (err, res) {
 
                 assert.equal(res.body.success, true);
                 models.Course.create({
-                    id: 12,
+                    id: 36,
                     name: 'IMS Project Overview',
                     description: '- IMS teams',
                     duration: '02:00:00',
