@@ -155,7 +155,7 @@ router.post('/updateTrainingProgram', function (req, res) {
         models.TrainingProgram.update({
             name: req.body.name,
             description: req.body.description,
-            courseTypeId: req.body.courseTypeId.id,
+            courseTypeId: req.body.courseTypeId.id.id,
             imgLink: '/img/trainingProgram/training-icon-1.svg',
         }, {
                 where: {

@@ -11,13 +11,12 @@ var LdapStrategy = require('passport-ldapauth').Strategy;
 var BASE_OPTS = require('../../config/LDAPconfig');
 
 // get homepage
-router.get('/', function(req, res) {
+router.get('/', function (req, res) {
     res.render('./index');
 });
 
-router.get('/getEvents', function(req, res) {
-    gcal.getEvents(function( eventList)
-    {
+router.get('/getEvents', function (req, res) {
+    gcal.getEvents(function (eventList) {
         res.send({
             success: true,
             eventList: eventList
@@ -26,49 +25,108 @@ router.get('/getEvents', function(req, res) {
 });
 
 // passport Strategy
-passport.use(new LdapStrategy(BASE_OPTS, function(user, callback) {
+passport.use(new LdapStrategy(BASE_OPTS, function (user, callback) {
     // if authenticate success, user is returned here
     return callback(null, user);
 }));
 
-router.post('/login', function(req, res, next) {
+
+router.post('/login', function (req, res, next) {
     log.info('Post /login');
     passport.authenticate('ldapauth', {
         // using session to save user's credentials
         session: true
-    }, function(err, user) {
+    }, function (err, user) {
         // if err, log err
         if (err) {
+            log.error(err);
             return next();
         }
         // if user does not exist, login fail
         if (!user) {
-            log.info('User login failed.');
-            res.send({
-                userid: null,
-                success: false,
-                msg: 'Wrong email or password',
-            });
+
+            models.User.getUserByEmailAndPassword(req.body.username, req.body.password, function (_user) {
+                if (_user) {
+                    passport.serializeUser(function (_user, done) {
+                        done(null, _user.email);
+                    });
+                    // get user's credentials from session
+                    passport.deserializeUser(function (email, callback) {
+                        callback(null, {
+                            email: email
+                        });
+                    });
+                    return req.login(_user, function (err) {
+                        if (err) {
+                            log.error(err);
+                            return next();
+                        }
+                        log.info('User login: ' + _user.email);
+                        var currentRole;
+                        if (_user.isAdmin) {
+                            currentRole = 1;
+                        } else if (_user.isTrainer) {
+                            currentRole = 2;
+                        } else if (_user.isTrainee) {
+                            currentRole = 3
+                        }
+
+                        res.send({
+                            id: _user.id,
+                            username: _user.username,
+                            status: _user.status,
+                            dob: _user.dob,
+                            phone: _user.phone,
+                            location: _user.location,
+                            email: _user.email,
+                            password: _user.password,
+                            avatar: _user.avatar,
+                            role: currentRole,
+                            isAdmin: _user.isAdmin,
+                            isTrainer: _user.isTrainer,
+                            isTrainee: _user.isTrainee, //default user is a trainee
+                            trainer: _user.trainer,
+                            trainee: _user.trainee,
+                            belong2Team: _user.belong2Team,
+                            isExperienced: _user.isExperienced,
+                            userType: _user.userType,
+
+                            success: true,
+                            msg: 'You are authenticated!'
+                        });
+
+                    });
+                } else {
+                    log.info('User login failed.');
+                    res.send({
+                        userid: null,
+                        success: false,
+                        msg: 'Wrong email or password',
+                    });
+                }
+            })
+
         } else {
             // save user's credentials to session
-            passport.serializeUser(function(user, done) {
+            passport.serializeUser(function (user, done) {
                 done(null, user.mail);
             });
             // get user's credentials from session
-            passport.deserializeUser(function(email, callback) {
+            passport.deserializeUser(function (email, callback) {
                 callback(null, {
                     email: email
                 });
             });
 
             // else login success
-            return req.login(user, function(err) {
+            return req.login(user, function (err) {
                 if (err) {
+                    log.error(err);
                     return next();
                 }
                 log.info('User login: ' + user.mail);
                 models.User.findOrCreate({
-                    where: {email: req.user.mail},
+                    where: { email: req.user.mail },
                     defaults: {
                         username: 'Your Name',
                         status: 'some status',
@@ -76,6 +134,7 @@ router.post('/login', function(req, res, next) {
                         phone: '0000 000 000',
                         location: 'DEK Vietnam',
                         email: req.user.mail,
+                        //password: '',     //password null 
                         avatar: '/img/profiles/defaultProfile.jpg',
                         isAdmin: false,
                         isTrainer: false,
@@ -85,52 +144,53 @@ router.post('/login', function(req, res, next) {
                         courseTypeId: 'CBA'
                     }
                 })
-                .then(function(user) {
-                    var currentRole;
-                    if(user[0].dataValues.isAdmin){
-                        currentRole = 1;
-                    } else if(user[0].dataValues.isTrainer){
-                        currentRole= 2;
-                    }else if(user[0].dataValues.isTrainee){
-                        currentRole = 3
-                    }
+                    .then(function (user) {
+                        var currentRole;
+                        if (user[0].dataValues.isAdmin) {
+                            currentRole = 1;
+                        } else if (user[0].dataValues.isTrainer) {
+                            currentRole = 2;
+                        } else if (user[0].dataValues.isTrainee) {
+                            currentRole = 3
+                        }
 
-                    res.send({
-                        id: user[0].dataValues.id,
-                        username: user[0].dataValues.username,
-                        status: user[0].dataValues.status,
-                        dob: user[0].dataValues.dob,
-                        phone: user[0].dataValues.phone,
-                        location: user[0].dataValues.location,
-                        email: user[0].dataValues.email,
-                        avatar: user[0].dataValues.avatar,
-                        role: currentRole,
-                        isAdmin: user[0].dataValues.isAdmin,
-                        isTrainer: user[0].dataValues.isTrainer,
-                        isTrainee: user[0].dataValues.isTrainee, //default user is a trainee
-                        trainer: user[0].dataValues.trainer,
-                        trainee: user[0].dataValues.trainee,
-                        belong2Team: user[0].dataValues.belong2Team,
-                        isExperienced: user[0].dataValues.isExperienced,
-                        userType:  user[0].dataValues.userType,
+                        res.send({
+                            id: user[0].dataValues.id,
+                            username: user[0].dataValues.username,
+                            status: user[0].dataValues.status,
+                            dob: user[0].dataValues.dob,
+                            phone: user[0].dataValues.phone,
+                            location: user[0].dataValues.location,
+                            email: user[0].dataValues.email,
+                            password: user[0].dataValues.password,
+                            avatar: user[0].dataValues.avatar,
+                            role: currentRole,
+                            isAdmin: user[0].dataValues.isAdmin,
+                            isTrainer: user[0].dataValues.isTrainer,
+                            isTrainee: user[0].dataValues.isTrainee, //default user is a trainee
+                            trainer: user[0].dataValues.trainer,
+                            trainee: user[0].dataValues.trainee,
+                            belong2Team: user[0].dataValues.belong2Team,
+                            isExperienced: user[0].dataValues.isExperienced,
+                            userType: user[0].dataValues.userType,
 
-                        success: true,
-                        msg: 'You are authenticated!'
+                            success: true,
+                            msg: 'You are authenticated!'
+                        });
                     });
-                });
 
             });
         }
-    }) (req, res, next);
+    })(req, res, next);
 });
 
-router.get('/isLogin', function(req, res) {
-    if (req.isAuthenticated()){
+router.get('/isLogin', function (req, res) {
+    if (req.isAuthenticated()) {
         res.send({
             success: true,
             msg: "You are logged in"
         });
-    }else{
+    } else {
         res.send({
             success: false,
             msg: "You are NOT logged in"
@@ -138,7 +198,7 @@ router.get('/isLogin', function(req, res) {
     }
 })
 
-router.get('/logout', function(req, res) {
+router.get('/logout', function (req, res) {
     // destroy session and redirect to homepage when logout
     log.info('GET /logout');
     req.logout();
