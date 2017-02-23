@@ -1,45 +1,48 @@
 'use strict';
 
-angular.module('trainee_dashboard', []);
+angular.module('trainee_dashboard', ['ui.calendar', 'ui.bootstrap']);
 
 //Routers
-myApp.config(function($stateProvider) {
+myApp.config(function ($stateProvider) {
     $stateProvider.state('trainee_dashboard', {
         url: '/trainee_dashboard',
         templateUrl: 'partials/traineeModule/dashboard/dashboard.html',
-        data:{
-            auth:true
+        data: {
+            auth: true
         }
     });
 
 });
 
 //Factories
-myApp.factory('dashboardServices', ['$http', function($http) {
+myApp.factory('dashboardServices', ['$http', function ($http) {
 
     var factoryDefinitions = {
-        getMyTraingPrograms: function(req) {
-            return $http.post('/trainee/dashboard/getTrainingProgramByTPType', req).success(function(data) { return data; });
+        getMyTraingPrograms: function (req) {
+            return $http.post('/trainee/dashboard/getTrainingProgramByTPType', req).success(function (data) { return data; });
         },
-        getRequestOpenCourse: function(req) {
-            return $http.post('/trainee/dashboard/getRequestOpenCourse', req).success(function(data) { return data; });
+        getRequestOpenCourse: function (req) {
+            return $http.post('/trainee/dashboard/getRequestOpenCourse', req).success(function (data) { return data; });
         },
-        deleteRequestOpenCourse: function(req){
-            return $http.post('/trainee/courseRegister/deleteRequestOpening', req).success(function(data) { return data; });
+        deleteRequestOpenCourse: function (req) {
+            return $http.post('/trainee/courseRegister/deleteRequestOpening', req).success(function (data) { return data; });
         },
-        unEnrollCourse: function(req){
-            return $http.post('/trainee/courseRegister/unEnrollCourse', req).success(function(data) { return data; });
+        unEnrollCourse: function (req) {
+            return $http.post('/trainee/courseRegister/unEnrollCourse', req).success(function (data) { return data; });
         },
-        sendRegisterRequest: function(request) {
-            return $http.post('/trainee/courseRegister/sendRegisterRequest', request).success(function(data) { return data; });
+        sendRegisterRequest: function (request) {
+            return $http.post('/trainee/courseRegister/sendRegisterRequest', request).success(function (data) { return data; });
         },
         //feedback
-        sendFeedback: function(req) {
-            return $http.post('/trainee/feedback/sendFeedback', req).success(function(data) { return data; });
+        sendFeedback: function (req) {
+            return $http.post('/trainee/feedback/sendFeedback', req).success(function (data) { return data; });
         },
-        getMyFeedbackByClass: function( classId) {
-            return $http.post('/trainee/feedback/getMyFeedbackByClass', classId).success(function(data) { return data; });
+        getMyFeedbackByClass: function (classId) {
+            return $http.post('/trainee/feedback/getMyFeedbackByClass', classId).success(function (data) { return data; });
         },
+        getEnrolledCourseList: function (userId) {
+            return $http.post('trainee/viewSchedule/getEnrolledCourseList', userId).success(function (data) { return data; });
+        }
     }
 
     return factoryDefinitions;
@@ -47,63 +50,55 @@ myApp.factory('dashboardServices', ['$http', function($http) {
 
 var temporaryClassID;
 //Controllers
-myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '$state', function($scope, dashboardServices, $rootScope, $state) {
+myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices', '$rootScope', '$state', '$location', '$anchorScroll', function ($scope, dashboardServices, $rootScope, $state, $location, $anchorScroll) {
     const STATUS_ENROLLED = 'Enrolled';
     const STATUS_LEARNED = 'Learned';
-    const STATUS_NOT_LEARNED ='Not Learned';
+    const STATUS_NOT_LEARNED = 'Not Learned';
 
     //Init action text of button base on status of a course
     $scope.actionOneText = {}; $scope.actionTwoText = {};
     $scope.actionOneText[STATUS_LEARNED] = 'Give feedback';
     $scope.actionTwoText[STATUS_LEARNED] = 'Re-enroll';
     $scope.actionOneText[STATUS_ENROLLED] = 'View Schedule';
-    $scope.actionTwoText[STATUS_ENROLLED] ='Un-enroll';
+    $scope.actionTwoText[STATUS_ENROLLED] = 'Un-enroll';
 
 
     //get all courses and training programs - REFRESH
-    dashboardServices.getMyTraingPrograms(  {traineeId:$rootScope.userInfo.id,email:$rootScope.userInfo.email, userType:$rootScope.userInfo.userType, isExperienced: $rootScope.userInfo.isExperienced } ).then(function(result){
+    dashboardServices.getMyTraingPrograms({ traineeId: $rootScope.userInfo.id, email: $rootScope.userInfo.email, userType: $rootScope.userInfo.userType, isExperienced: $rootScope.userInfo.isExperienced }).then(function (result) {
         result.data.trainingProgram.forEach(trainingProgram => {
-            if (  trainingProgram.Courses.length == 0){
-                trainingProgram.completePercent =0;
+            if (trainingProgram.Courses.length == 0) {
+                trainingProgram.completePercent = 0;
             }
-            else{
+            else {
                 trainingProgram.count = 0;
                 trainingProgram.Courses.forEach(course => {
-                    if(course.Classes.length != 0)
-                    {
-                        for ( var i =0; i < course.Classes.length; i++)
-                        {
+                    if (course.Classes.length != 0) {
+                        for (var i = 0; i < course.Classes.length; i++) {
 
-                            if ( course.Classes[i].ClassRecords.length == 0 ){
+                            if (course.Classes[i].ClassRecords.length == 0) {
                                 course.backgroundColor = '#ffb84d';
                                 course.status = 'Not Learned';
                             }
-                            else
-                            {
-                                for (var j=0; j<course.Classes[i].ClassRecords.length; j++)
-                                {
-                                    if(course.Classes[i].ClassRecords[j].traineeId == $rootScope.userInfo.id)
-                                    {
+                            else {
+                                for (var j = 0; j < course.Classes[i].ClassRecords.length; j++) {
+                                    if (course.Classes[i].ClassRecords[j].traineeId == $rootScope.userInfo.id) {
                                         course.classId = course.Classes[i].ClassRecords[j].classId;
                                         course.status = course.Classes[i].ClassRecords[j].status;
                                     }
                                 }
-                                if (course.status == STATUS_ENROLLED) {course.backgroundColor = '#4FC3F7'}
-                                else if (course.status == STATUS_LEARNED)
-                                {
+                                if (course.status == STATUS_ENROLLED) { course.backgroundColor = '#4FC3F7' }
+                                else if (course.status == STATUS_LEARNED) {
                                     course.backgroundColor = '#8BC34A';
                                     trainingProgram.count = trainingProgram.count + 1;
                                 }
-                                else
-                                {
+                                else {
                                     course.backgroundColor = '#ffb84d';
                                     course.status = 'Not Learned';
                                 }
                             }
                         }
                     }
-                    else
-                    {
+                    else {
                         course.backgroundColor = '#ffb84d';
                         course.status = 'Not Learned';
                     }
@@ -114,167 +109,153 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
         $scope.myTrainingProgramList = result.data.trainingProgram;
     });
     // un-Enroll or re-Enroll Course
-    $scope.actionTwoClick = function(myCourse){
-        if(myCourse.status == STATUS_ENROLLED )
-        {
+    $scope.actionTwoClick = function (myCourse) {
+        if (myCourse.status == STATUS_ENROLLED) {
             //un-enroll
-            dashboardServices.unEnrollCourse({traineeId: $rootScope.userInfo.id, classId: myCourse.classId}).then(function(result){
-                if (result.data.success)
-                {
+            dashboardServices.unEnrollCourse({ traineeId: $rootScope.userInfo.id, classId: myCourse.classId }).then(function (result) {
+                if (result.data.success) {
                     //REFRESH
-                    dashboardServices.getMyTraingPrograms(  {traineeId:$rootScope.userInfo.id,email:$rootScope.userInfo.email, userType:$rootScope.userInfo.userType, isExperienced: $rootScope.userInfo.isExperienced } ).then(function(result){
-                    result.data.trainingProgram.forEach(trainingProgram => {
-                    if (  trainingProgram.Courses.length == 0){
-                        trainingProgram.completePercent =0;
-                    }
-                    else{
-                        trainingProgram.count = 0;
+                    dashboardServices.getMyTraingPrograms({ traineeId: $rootScope.userInfo.id, email: $rootScope.userInfo.email, userType: $rootScope.userInfo.userType, isExperienced: $rootScope.userInfo.isExperienced }).then(function (result) {
+                        result.data.trainingProgram.forEach(trainingProgram => {
+                            if (trainingProgram.Courses.length == 0) {
+                                trainingProgram.completePercent = 0;
+                            }
+                            else {
+                                trainingProgram.count = 0;
 
-                        trainingProgram.Courses.forEach(course => {
-                            if(course.Classes.length != 0)
-                            {
-                                for ( var i =0; i < course.Classes.length; i++)
-                                {
+                                trainingProgram.Courses.forEach(course => {
+                                    if (course.Classes.length != 0) {
+                                        for (var i = 0; i < course.Classes.length; i++) {
 
-                                    if ( course.Classes[i].ClassRecords.length == 0 ){
+                                            if (course.Classes[i].ClassRecords.length == 0) {
+                                                course.backgroundColor = '#ffb84d';
+                                                course.status = 'Not Learned';
+                                            }
+                                            else {
+                                                for (var j = 0; j < course.Classes[i].ClassRecords.length; j++) {
+                                                    if (course.Classes[i].ClassRecords[j].traineeId == $rootScope.userInfo.id) {
+                                                        course.classId = course.Classes[i].ClassRecords[j].classId;
+                                                        course.status = course.Classes[i].ClassRecords[j].status;
+                                                    }
+                                                }
+                                                if (course.status == STATUS_ENROLLED) { course.backgroundColor = '#4FC3F7' }
+                                                else if (course.status == STATUS_LEARNED) {
+                                                    course.backgroundColor = '#8BC34A';
+                                                    trainingProgram.count = trainingProgram.count + 1;
+                                                }
+                                                else {
+                                                    course.backgroundColor = '#ffb84d';
+                                                    course.status = 'Not Learned';
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else {
                                         course.backgroundColor = '#ffb84d';
                                         course.status = 'Not Learned';
                                     }
-                                    else
-                                    {
-                                        for (var j=0; j<course.Classes[i].ClassRecords.length; j++)
-                                        {
-                                            if(course.Classes[i].ClassRecords[j].traineeId == $rootScope.userInfo.id)
-                                            {
-                                                course.classId = course.Classes[i].ClassRecords[j].classId;
-                                                course.status = course.Classes[i].ClassRecords[j].status;
-                                            }
-                                        }
-                                        if (course.status == STATUS_ENROLLED) {course.backgroundColor = '#4FC3F7'}
-                                        else if (course.status == STATUS_LEARNED)
-                                        {
-                                            course.backgroundColor = '#8BC34A';
-                                            trainingProgram.count = trainingProgram.count + 1;
-                                        }
-                                        else
-                                        {
-                                            course.backgroundColor = '#ffb84d';
-                                            course.status = 'Not Learned';
-                                        }
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                course.backgroundColor = '#ffb84d';
-                                course.status = 'Not Learned';
+                                });
+                                trainingProgram.completePercent = Math.ceil(trainingProgram.count / trainingProgram.Courses.length * 100);
                             }
                         });
-                        trainingProgram.completePercent = Math.ceil(trainingProgram.count / trainingProgram.Courses.length * 100);
-                    }
-                });
-                $scope.myTrainingProgramList = result.data.trainingProgram;
-            });
+                        $scope.myTrainingProgramList = result.data.trainingProgram;
+                    });
                     //--END OF REFRESH
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
-                }else{
+                } else {
                     $rootScope.ShowPopupMessage(result.data.msg, "error");
                 }
             });
-        }else if(myCourse.status == STATUS_LEARNED){
+        } else if (myCourse.status == STATUS_LEARNED) {
             //re-Enroll: function same function request Opening
-            dashboardServices.sendRegisterRequest({userId:$rootScope.userInfo.id, courseId: myCourse.id}).then(function(result){
-                if(result.data.success){
+            dashboardServices.sendRegisterRequest({ userId: $rootScope.userInfo.id, courseId: myCourse.id }).then(function (result) {
+                if (result.data.success) {
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
                     //REFRESH
-                    dashboardServices.getMyTraingPrograms(  {traineeId:$rootScope.userInfo.id,email:$rootScope.userInfo.email, userType:$rootScope.userInfo.userType, isExperienced: $rootScope.userInfo.isExperienced } ).then(function(result){
-                    result.data.trainingProgram.forEach(trainingProgram => {
-                    if (  trainingProgram.Courses.length == 0){
-                        trainingProgram.completePercent =0;
-                    }
-                    else{
-                        trainingProgram.count = 0;
+                    dashboardServices.getMyTraingPrograms({ traineeId: $rootScope.userInfo.id, email: $rootScope.userInfo.email, userType: $rootScope.userInfo.userType, isExperienced: $rootScope.userInfo.isExperienced }).then(function (result) {
+                        result.data.trainingProgram.forEach(trainingProgram => {
+                            if (trainingProgram.Courses.length == 0) {
+                                trainingProgram.completePercent = 0;
+                            }
+                            else {
+                                trainingProgram.count = 0;
 
-                        trainingProgram.Courses.forEach(course => {
-                            if(course.Classes.length != 0)
-                            {
-                                for ( var i =0; i < course.Classes.length; i++)
-                                {
+                                trainingProgram.Courses.forEach(course => {
+                                    if (course.Classes.length != 0) {
+                                        for (var i = 0; i < course.Classes.length; i++) {
 
-                                    if ( course.Classes[i].ClassRecords.length == 0 ){
+                                            if (course.Classes[i].ClassRecords.length == 0) {
+                                                course.backgroundColor = '#ffb84d';
+                                                course.status = 'Not Learned';
+                                            }
+                                            else {
+                                                for (var j = 0; j < course.Classes[i].ClassRecords.length; j++) {
+                                                    if (course.Classes[i].ClassRecords[j].traineeId == $rootScope.userInfo.id) {
+                                                        course.classId = course.Classes[i].ClassRecords[j].classId;
+                                                        course.status = course.Classes[i].ClassRecords[j].status;
+                                                    }
+                                                }
+                                                if (course.status == STATUS_ENROLLED) { course.backgroundColor = '#4FC3F7' }
+                                                else if (course.status == STATUS_LEARNED) {
+                                                    course.backgroundColor = '#8BC34A';
+                                                    trainingProgram.count = trainingProgram.count + 1;
+                                                }
+                                                else {
+                                                    course.backgroundColor = '#ffb84d';
+                                                    course.status = 'Not Learned';
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else {
                                         course.backgroundColor = '#ffb84d';
                                         course.status = 'Not Learned';
                                     }
-                                    else
-                                    {
-                                        for (var j=0; j<course.Classes[i].ClassRecords.length; j++)
-                                        {
-                                            if(course.Classes[i].ClassRecords[j].traineeId == $rootScope.userInfo.id)
-                                            {
-                                                course.classId = course.Classes[i].ClassRecords[j].classId;
-                                                course.status = course.Classes[i].ClassRecords[j].status;
-                                            }
-                                        }
-                                        if (course.status == STATUS_ENROLLED) {course.backgroundColor = '#4FC3F7'}
-                                        else if (course.status == STATUS_LEARNED)
-                                        {
-                                            course.backgroundColor = '#8BC34A';
-                                            trainingProgram.count = trainingProgram.count + 1;
-                                        }
-                                        else
-                                        {
-                                            course.backgroundColor = '#ffb84d';
-                                            course.status = 'Not Learned';
-                                        }
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                course.backgroundColor = '#ffb84d';
-                                course.status = 'Not Learned';
+                                });
+                                trainingProgram.completePercent = Math.ceil(trainingProgram.count / trainingProgram.Courses.length * 100);
                             }
                         });
-                        trainingProgram.completePercent = Math.ceil(trainingProgram.count / trainingProgram.Courses.length * 100);
-                    }
-                });
-                $scope.myTrainingProgramList = result.data.trainingProgram;
-            });
+                        $scope.myTrainingProgramList = result.data.trainingProgram;
+                    });
                     //--END OF REFRESH
-                }else{
+                } else {
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
                 }
             });
         }
     };
     //Give feedback or View Schedule function
-    $scope.hoveringOver = function(value) {
+    $scope.hoveringOver = function (value) {
         $rootScope.overStar = value;
     };
 
-    $scope.actionOneClick = function(myCourse){
+    $scope.actionOneClick = function (myCourse) {
 
-        if (myCourse.status == STATUS_ENROLLED){
+        if (myCourse.status == STATUS_ENROLLED) {
             //View Schedule
-            alert('This function is being build');
-        }else if (myCourse.status == STATUS_LEARNED ){
+            $scope.scrollTo = function (scrollLocation) {
+                $location.hash(scrollLocation);
+                $anchorScroll();
+            }
+            $scope.scrollTo('mySchedule');
+        } else if (myCourse.status == STATUS_LEARNED) {
             // show feedback modal
             $('#feedbackModal').modal('show');
             temporaryClassID = myCourse.classId;
-            myCourse.traineeId =  $rootScope.userInfo.id;            
-            dashboardServices.getMyFeedbackByClass(myCourse).then(function(result){
+            myCourse.traineeId = $rootScope.userInfo.id;
+            dashboardServices.getMyFeedbackByClass(myCourse).then(function (result) {
                 $rootScope.courseFeedbackModel = result.data.feedback;
             });
         }
     };
 
-    $scope.giveFeedbackClick = function(feedbackModel){
-        feedbackModel.traineeId =  $rootScope.userInfo.id;
+    $scope.giveFeedbackClick = function (feedbackModel) {
+        feedbackModel.traineeId = $rootScope.userInfo.id;
         feedbackModel.classId = temporaryClassID;
-        dashboardServices.sendFeedback(feedbackModel).then(function(result){
-            if(result.data.success){
+        dashboardServices.sendFeedback(feedbackModel).then(function (result) {
+            if (result.data.success) {
                 $rootScope.ShowPopupMessage("Rating success", "success");
-            }else{
+            } else {
                 $rootScope.ShowPopupMessage("Rating fail", "error");
             }
 
@@ -284,21 +265,21 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices','$rootScope', '
 }]);
 
 //Request Open Course controller
-myApp.controller('requestOpenCourseCtrl', ['$scope', 'dashboardServices', '$rootScope', function($scope, dashboardServices, $rootScope) {
-    dashboardServices.getRequestOpenCourse({userId:$rootScope.userInfo.id}).then(function(result){
+myApp.controller('requestOpenCourseCtrl', ['$scope', 'dashboardServices', '$rootScope', function ($scope, dashboardServices, $rootScope) {
+    dashboardServices.getRequestOpenCourse({ userId: $rootScope.userInfo.id }).then(function (result) {
         $scope.myRequestOpenCourseList = result.data.data;
     });
 
-    $scope.cancelRequestClick = function(requestOpenCourseId){
-        dashboardServices.deleteRequestOpenCourse({courseId: requestOpenCourseId, userId: $rootScope.userInfo.id}).then(function(result){
-            if(result.data.success){
+    $scope.cancelRequestClick = function (requestOpenCourseId) {
+        dashboardServices.deleteRequestOpenCourse({ courseId: requestOpenCourseId, userId: $rootScope.userInfo.id }).then(function (result) {
+            if (result.data.success) {
                 $rootScope.ShowPopupMessage(result.data.msg, "success");
 
                 //refesh the request open course list
-                dashboardServices.getRequestOpenCourse({userId:$rootScope.userInfo.id}).then(function(result){
+                dashboardServices.getRequestOpenCourse({ userId: $rootScope.userInfo.id }).then(function (result) {
                     $scope.myRequestOpenCourseList = result.data.data;
                 });
-            }else{
+            } else {
                 $rootScope.ShowPopupMessage(result.data.msg, "error");
             }
         });
@@ -306,7 +287,44 @@ myApp.controller('requestOpenCourseCtrl', ['$scope', 'dashboardServices', '$root
 }]);
 
 //Feedback controller
-myApp.controller('FeedbackCtrl',['$scope', 'dashboardServices', '$rootScope', function($scope, dashboardServices, $rootScope) {
+myApp.controller('FeedbackCtrl', ['$scope', 'dashboardServices', '$rootScope', function ($scope, dashboardServices, $rootScope) {
 
 
 }]);
+
+
+myApp.controller('viewScheduleCtrl', function ($scope, dashboardServices, $rootScope) {
+    $scope.events = [];
+    $scope.eventSources = [$scope.events];
+
+    dashboardServices.getEnrolledCourseList({ userId: $rootScope.userInfo.id }).then(function (result) {
+        var enrolledCourseList = result.data.data;
+        angular.forEach(enrolledCourseList, function (value) {
+            $scope.events.push({
+                title: value.title,
+                description: value.description,
+                start: new Date(value.start),
+                end: new Date(value.end),
+                location: value.location,
+                // allDay: value.IsFullDay,
+                stick: true
+            });
+        });
+
+    });
+
+    $scope.uiConfig = {
+
+        select: function (start, end, jsEvent) {
+            $scope.openPopover(start, end, jsEvent);
+        },
+        eventClick: function (event) {
+            $scope.SelectedEvent = event;
+        },
+    };
+
+    $scope.openPopover = function (start, end, jsEvent) {
+        $($scope.SelectedEvent).popover('show');
+    };
+});
+
