@@ -51,12 +51,6 @@ router.get('/getAdminRequestOpenCourse', function (req, res) {
 //     );
 // });
 
-router.get('/getAllUsers', function (req, res) {
-    models.User.findAll().then(function (data) { res.send(data) });
-
-});
-
-
 // router.get('/updatePW', function (req, res) {
 //     models.User.update({
 //         password: ""
