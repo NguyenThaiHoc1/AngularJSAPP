@@ -159,14 +159,13 @@ describe('<Unit test for trainee-courseRegister>', function () {
         return it('Should return success==true', function (done) {
             var req = request(DCC_Server)
                 .post('/trainee/courseRegister/getMyEnrolledClass');
+            req.send({ email: "thach@gmail.com" });
             req.cookies = Cookies;
-            req.set('Accept', 'application/json')
-                .send({ traineeEmail: "thach@gmail.com" })
-                .end(function (err, res) {
-                    assert.equal(res.body.success, true);
-                    if (err) return done(err);
-                    done();
-                });
+            req.end(function (err, res) {
+                assert.equal(res.body.success, true);
+                if (err) return done(err);
+                done();
+            });
         });
     });
 

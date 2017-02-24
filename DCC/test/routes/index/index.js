@@ -11,8 +11,8 @@ describe('<Unit test for Login>', function () {
             request(DCC_Server)
                 .post('/login')
                 .send({
-                    username: 'thach@gmail.com',
-                    password: '123456'
+                    username: 'qwe@gmail.com',
+                    password: 'qwe'
                 })
                 .end(function (err, res) {
                     if (res.body.success === true)
@@ -26,7 +26,7 @@ describe('<Unit test for Login>', function () {
         });
     });
 
-<<<<<<< HEAD
+
     // describe('Test case 1.2 : Login success, role = trainee', function() {
     //     return it('Should return success==true', function(done) {
     //         request(DCC_Server)
@@ -46,7 +46,7 @@ describe('<Unit test for Login>', function () {
     //         });
     //     });
     // });
-=======
+
     describe('Test case 1.2 : Login success, role = trainee', function () {
         return it('Should return success==true', function (done) {
             request(DCC_Server)
@@ -66,7 +66,7 @@ describe('<Unit test for Login>', function () {
                 });
         });
     });
->>>>>>> eee970d87d29ca485886b2b386bece44ff29da3e
+
 
     describe('Test case 1.3 : Login success, role = admin', function () {
         return it('Should return success==true', function (done) {

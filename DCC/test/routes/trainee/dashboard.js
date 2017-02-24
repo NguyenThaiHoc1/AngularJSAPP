@@ -6,26 +6,26 @@ var DCC_Server = require('../../../app.js');
 
 
 
-describe('<Unit test for trainee-dashboard>', function() {
+describe('<Unit test for trainee-dashboard>', function () {
     var Cookies;
 
-    beforeEach(function(done) {
+    beforeEach(function (done) {
         request(DCC_Server)
-        .post('/login')
-        .set('Accept', 'application/json')
-        .send({
-            username: 'qwe@gmail.com',
-            password: 'qwe'
-        })
-        .end(function(err, res) {
-            Cookies = res.headers['set-cookie'].pop().split(';')[0];
-            if(err)
-            return done(err);
-            done();
-        });
+            .post('/login')
+            .set('Accept', 'application/json')
+            .send({
+                username: 'qwe@gmail.com',
+                password: 'qwe'
+            })
+            .end(function (err, res) {
+                Cookies = res.headers['set-cookie'].pop().split(';')[0];
+                if (err)
+                    return done(err);
+                done();
+            });
     });
 
-    afterEach(function(done) {
+    afterEach(function (done) {
         // Cleanup
 
         //logout
@@ -51,16 +51,15 @@ describe('<Unit test for trainee-dashboard>', function() {
     //     });
     // });
 
-    describe('Test case 2 : Get request open course', function() {
-        return it('Should return success==true', function(done) {
+    describe('Test case 2 : Get request open course', function () {
+        return it('Should return success==true', function (done) {
             var req = request(DCC_Server)
-            .post('/trainee/dashboard/getRequestOpenCourse');
+                .post('/trainee/dashboard/getRequestOpenCourse');
             req.cookies = Cookies;
-            req.set('Accept', 'application/json')
-            .send({userId:2})
-            req.end(function(err, res) {
-
+            req.send({ userId: 2 });
+            req.end(function (err, res) {
                 assert.equal(res.body.success, true);
+                console.log(err);
                 if (err) return done(err);
                 done();
             });

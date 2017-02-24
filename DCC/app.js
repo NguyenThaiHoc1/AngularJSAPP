@@ -41,11 +41,11 @@ app.use(express.static(path.join(__dirname, '/client')));
 app.use('/', require('./server/routes/index.js'));
 
 //create database tables
-models.sequelize.sync({force:false});
+// models.sequelize.sync({force:false});
 
 // Set Port
 app.set('port', (process.env.PORT || 3210));
-var server = app.listen(app.get('port'), function() {
+var server = app.listen(app.get('port'), function () {
     console.log('Server started on port ' + app.get('port'));
 });
 module.exports = server;
