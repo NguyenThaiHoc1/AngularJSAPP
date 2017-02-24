@@ -93,9 +93,11 @@ router.post('/photo', function (req, res) {
             })
         }
         else {
-            res.redirect('/#/editUserProfile');
+            res.send({
+                success: false,
+                msg: "error when upload your photo"
+            });
         }
-
     });
 });
 
@@ -109,21 +111,6 @@ router.get('/getAllUsers', function (req, res) {
         res.send(dataSend);
     });
 });
-
-
-// router.get("/setUserType", function (req, res) {
-//     models.User.update(
-//         {
-//             userType: "CBA"
-//         },
-//         {
-//             where: {
-//                 id: 1,
-//             }
-//         }
-//     );
-// });
-
 
 router.post('/addUser', function (req, res) {
     models.User.sync({
