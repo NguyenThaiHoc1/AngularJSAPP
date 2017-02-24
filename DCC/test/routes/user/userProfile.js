@@ -35,7 +35,12 @@ describe('<Unit test for user profile>', function () {
     });
     describe('Test case 1 : Get /user/userProfile/getUserInfo', function () {
         return it('Should return success==true', function (done) {
-            var req = request(DCC_Server).get('/user/userProfile/getUserInfo');
+            var req = request(DCC_Server).post('/user/userProfile/getUserInfo');
+            req.send(
+                {
+                    email: "qwe@gmail.com"
+                }
+            );
             req.cookies = Cookies;
             req.end(function (err, res) {
                 assert.equal(res.body.success, true);
@@ -46,25 +51,15 @@ describe('<Unit test for user profile>', function () {
     });
     describe('Test case 1.1 : Get /user/userProfile/getUserInfo for currentRole = 2 ', function () {
         return it('Should return success==true', function (done) {
-            var req = request(DCC_Server).post('/user/userProfile/updateUserProfile');
-            req.send({
-                email: 'qwe@gmail.com',
-                isAdmin: 0,
-                isTrainer: 1,
-                isTrainee: 0
-            });
-            req.cookies = Cookies;
-            var req = request(DCC_Server).get('/user/userProfile/getUserInfo');
+            var req = request(DCC_Server).post('/user/userProfile/getUserInfo');
+            req.send(
+                {
+                    email: "thach@gmail.com"
+                }
+            );
             req.cookies = Cookies;
             req.end(function (err, res) {
-                assert.equal(res.body.getCurrentRole, true);
-                models.User.update({
-                    isAdmin: 1,
-                    isTrainer: 1,
-                    isTrainee: 1
-                }, {
-                        where: { email: 'qwe@gmail.com' }
-                    });
+                assert.equal(res.body.role, 2);
                 if (err) return done(err);
                 done();
             });
@@ -72,25 +67,15 @@ describe('<Unit test for user profile>', function () {
     });
     describe('Test case 1.2 : Get /user/userProfile/getUserInfo for currentRole = 3 ', function () {
         return it('Should return success==true', function (done) {
-            var req = request(DCC_Server).post('/user/userProfile/updateUserProfile');
-            req.send({
-                email: 'qwe@gmail.com',
-                isAdmin: 0,
-                isTrainer: 0,
-                isTrainee: 1
-            });
-            req.cookies = Cookies;
-            var req = request(DCC_Server).get('/user/userProfile/getUserInfo');
+            var req = request(DCC_Server).post('/user/userProfile/getUserInfo');
+            req.send(
+                {
+                    email: "bqd@gmail.com"
+                }
+            );
             req.cookies = Cookies;
             req.end(function (err, res) {
-                assert.equal(res.body.getCurrentRole, true);
-                models.User.update({
-                    isAdmin: 1,
-                    isTrainer: 1,
-                    isTrainee: 1
-                }, {
-                        where: { email: 'qwe@gmail.com' }
-                    });
+                assert.equal(res.body.role, 3);
                 if (err) return done(err);
                 done();
             });
@@ -184,7 +169,7 @@ describe('<Unit test for user profile>', function () {
                 password: 'newpassword'
             });
             req.cookies = Cookies;
-            req.end(function (err, res) {   
+            req.end(function (err, res) {
                 assert.equal(res.body.success, true);
                 models.User.update({
                     username: 'Your Name',
@@ -246,7 +231,7 @@ describe('<Unit test for manual added user profile>', function () {
                 password: 'newpassword'
             });
             req.cookies = Cookies;
-            req.end(function (err, res) {   
+            req.end(function (err, res) {
                 assert.equal(res.body.success, true);
                 models.User.update({
                     username: 'Nam Tran',
