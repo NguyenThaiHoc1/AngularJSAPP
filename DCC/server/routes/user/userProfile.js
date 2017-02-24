@@ -111,18 +111,18 @@ router.get('/getAllUsers', function (req, res) {
 });
 
 
-// router.get("/setUserType", function (req, res) {
-//     models.User.update(
-//         {
-//             userType: "CBA"
-//         },
-//         {
-//             where: {
-//                 id: 2,
-//             }
-//         }
-//     );
-// });
+router.get("/setUserType", function (req, res) {
+    models.User.update(
+        {
+            userType: "CBA"
+        },
+        {
+            where: {
+                id: 1,
+            }
+        }
+    );
+});
 
 
 router.post('/addUser', function (req, res) {
