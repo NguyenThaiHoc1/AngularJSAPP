@@ -80,7 +80,7 @@ router.post('/photo', function (req, res) {
     log.info('/routes/users: Upload avatar');
     // upload avatar
     upload(req, res, function () {
-        if (typeof req.file !== "undefined") {
+        if (typeof req.file != "undefined") {
             models.User.update(
                 {
                     avatar: '/img/profiles/' + req.file.filename
@@ -91,12 +91,6 @@ router.post('/photo', function (req, res) {
             ).then(function () {
                 res.redirect('/#/editUserProfile');
             })
-        }
-        else {
-            res.send({
-                success: false,
-                msg: "error when upload your photo"
-            });
         }
     });
 });
