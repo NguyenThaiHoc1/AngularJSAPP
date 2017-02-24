@@ -34,14 +34,6 @@ input,button,select,textarea {
 	padding-left: 3px;
 }
 
-.table tr:nth-child(odd) td{
-	background-color:  #ffe0b3;
-}
-
-.table tr:nth-child(even) td{
-	background-color: #c1f0f0;
-}
-
 .table tr:hover td {background: lightgray;}
 
 

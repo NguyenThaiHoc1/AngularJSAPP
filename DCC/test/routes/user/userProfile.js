@@ -173,14 +173,6 @@ describe('<Unit test for user profile>', function () {
             });
         });
     });
-<<<<<<< HEAD
-    describe('Test case 5: get all users by admin /user/userProfile/getAllUsers', function() {
-        return it('Should return sucess==true', function(done) {
-            var req = request(DCC_Server).get('/user/userProfile/getAllUsers');
-            req.cookies = Cookies;
-            req.end(function (err, res) {
-                assert.equal(res.body.success, true);
-=======
     //Test change password for user from Ldap server
     describe('Test case 5 : post /user/userProfile/updateUserProfile', function () {
         return it('Should return success==true', function (done) {
@@ -201,16 +193,22 @@ describe('<Unit test for user profile>', function () {
                 }, {
                         where: { email: 'qwe@gmail.com' }
                     });
->>>>>>> b327a31188e6b353697b117babb452b50506686e
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
+    describe('Test case 6: get all users by admin /user/userProfile/getAllUsers', function() {
+        return it('Should return sucess==true', function(done) {
+            var req = request(DCC_Server).get('/user/userProfile/getAllUsers');
+            req.end(function (err, res) {
+                assert.equal(res.body.success, true);
                 if (err) return done(err);
                 done();
             });
         });
     });
 });
-<<<<<<< HEAD
-=======
-
 describe('<Unit test for manual added user profile>', function () {
     var Cookies;
 
@@ -263,4 +261,3 @@ describe('<Unit test for manual added user profile>', function () {
         });
     });
 });
->>>>>>> b327a31188e6b353697b117babb452b50506686e

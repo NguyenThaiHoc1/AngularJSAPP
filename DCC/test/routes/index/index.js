@@ -26,27 +26,6 @@ describe('<Unit test for Login>', function () {
         });
     });
 
-<<<<<<< HEAD
-    // describe('Test case 1.2 : Login success, role = trainee', function() {
-    //     return it('Should return success==true', function(done) {
-    //         request(DCC_Server)
-    //         .post('/login')
-    //         .send({
-    //             username: 'qwe@gmail.com',
-    //             password: 'qwe'
-    //         })
-    //         .end(function(err, res) {
-    //             if (res.body.success === true )
-    //                 assert.equal(res.body.role, 3);
-    //             else
-    //                 assert.equal(res.body.success, true);
-    //             // globalCookies = res.headers['set-cookie'].pop().split(';')[0];
-    //             if (err) return done(err);
-    //             done();
-    //         });
-    //     });
-    // });
-=======
     describe('Test case 1.2 : Login success, role = trainee', function () {
         return it('Should return success==true', function (done) {
             request(DCC_Server)
@@ -66,7 +45,6 @@ describe('<Unit test for Login>', function () {
                 });
         });
     });
->>>>>>> eee970d87d29ca485886b2b386bece44ff29da3e
 
     describe('Test case 1.3 : Login success, role = admin', function () {
         return it('Should return success==true', function (done) {
