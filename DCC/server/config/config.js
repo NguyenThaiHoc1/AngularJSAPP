@@ -5,7 +5,7 @@ module.exports =
             "username": "root",
             "password": "dekvn@123321",
             "database": "DCC2",
-            "host": "192.168.122.20",
+            "host": "192.168.122.23",
             "pool": {
                 "max": 5,
                 "min": 0,
@@ -34,7 +34,7 @@ module.exports =
             "username": "root",
             "password": "dekvn@123321",
             "database": "DCC2",
-            "host": "192.168.122.20",
+            "host": "192.168.122.23",
             "pool": {
                 "max": 5,
                 "min": 0,
