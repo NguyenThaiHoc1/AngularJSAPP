@@ -10,19 +10,7 @@ router.post ('/getMyFeedbackByClass', function(req, res){
         }
     };
     models.ClassRecord.findOne(query).then(function(feedback) {
-        if(!feedback){
-            var datasend = {
-                success: true,
-                msg: 'There is no feedback of traineeId = ' + req.body.traineeId + ' for class with id = ' + req.body.classId,
-                feedback: {
-                    comments: 'No comments',
-                    rating: '0',
-                }
-            };
-            res.send(datasend);
-        }
-        else{
-            var datasend2 = {
+         var datasend = {
                 success: true,
                 msg:'Get feedback success',
                 feedback: {
@@ -30,8 +18,7 @@ router.post ('/getMyFeedbackByClass', function(req, res){
                     rating: feedback.rating
                 }
             };
-            res.send(datasend2);
-        }
+            res.send(datasend);
     });
 });
 

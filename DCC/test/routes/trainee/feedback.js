@@ -51,25 +51,6 @@ describe('<Unit test for feedback function>', function() {
         });
     });
 
-     describe('', function() {
-        return it('Test case 1.1 : Create a Feedback (cmt & rating) for Class having comment already ', function(done) {
-            var req = request(DCC_Server).post('/trainee/feedback/getMyFeedbackByClass');
-            req.cookies = null;
-            req
-            .set('Accept', 'application/json')
-            .send({
-                classId: 1,
-                comment: null,
-                traineeId: 1,
-                rating: null
-            })
-            .end(function(err, res) {
-                assert.equal(res.body.success, true);
-                if (err) return done(err);
-                done();
-            });
-        });
-    });
  
 
     describe('', function() {
