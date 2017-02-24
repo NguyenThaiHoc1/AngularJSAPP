@@ -92,7 +92,6 @@ describe('<Unit test for admin-course>', function () {
                 documents: 'test update documents',
                 trainingProgramId: 1,
                 imgLink: "/img/trainingProgram/training-icon-1.svg"
-
             });
             req.end(function (err, res) {
 

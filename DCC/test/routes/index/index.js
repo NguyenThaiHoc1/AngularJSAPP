@@ -27,6 +27,7 @@ describe('<Unit test for Login>', function () {
     });
 
 
+
     // describe('Test case 1.2 : Login success, role = trainee', function() {
     //     return it('Should return success==true', function(done) {
     //         request(DCC_Server)
@@ -47,6 +48,7 @@ describe('<Unit test for Login>', function () {
     //     });
     // });
 
+
     describe('Test case 1.2 : Login success, role = trainee', function () {
         return it('Should return success==true', function (done) {
             request(DCC_Server)
@@ -66,7 +68,6 @@ describe('<Unit test for Login>', function () {
                 });
         });
     });
-
 
     describe('Test case 1.3 : Login success, role = admin', function () {
         return it('Should return success==true', function (done) {

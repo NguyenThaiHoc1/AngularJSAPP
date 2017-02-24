@@ -99,19 +99,16 @@ router.post('/photo', function (req, res) {
     });
 });
 
-
-
-
-// router.get('/getAllUsers', function (req, res) {
-//     models.User.getAllUsers(users => {
-//         var dataSend = {
-//             success: true,
-//             msg: 'successfully sent',
-//             data: users
-//         };
-//         res.send(dataSend);
-//     });
-// });
+router.get('/getAllUsers', function (req, res) {
+    models.User.getAllUsers(users => {
+        var dataSend = {
+            success: true,
+            msg: 'successfully sent',
+            data: users
+        };
+        res.send(dataSend);
+    });
+});
 
 
 // router.get("/setUserType", function (req, res) {
