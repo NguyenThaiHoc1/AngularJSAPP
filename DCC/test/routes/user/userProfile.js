@@ -33,7 +33,6 @@ describe('<Unit test for user profile>', function () {
         request(DCC_Server).get('/logout')
         done();
     });
-
     describe('Test case 1 : Get /user/userProfile/getUserInfo', function () {
         return it('Should return success==true', function (done) {
             var req = request(DCC_Server).get('/user/userProfile/getUserInfo');
@@ -135,23 +134,6 @@ describe('<Unit test for user profile>', function () {
             });
         });
     });
-    // describe('Test case 3.1: Post /user/userProfile/photo and false', function() {
-    //     return it('Should return success==true', function(done) {
-    //         var req = request(DCC_Server).post('/user/userProfile/photo');
-    //         req.cookies = Cookies;
-    //         req.field('filename', 'test file');
-    //         req.attach('userPhoto', 'test/routes/user/test.undefined');
-    //         req.send({
-    //             email: 'qwe@gmail.com'
-    //         });
-    //         req.end(function(err, res) {
-    //             assert.equal(res.body.success, false);
-    //             if (err) return done(err);
-    //             done();
-    //         });
-    //     });
-    // });
-
     describe('Test case 4.1 : post /user/userProfile/addUser', function () {
         return it('Should return success==true', function (done) {
             var req = request(DCC_Server).post('/user/userProfile/addUser');
@@ -216,8 +198,17 @@ describe('<Unit test for user profile>', function () {
             });
         });
     });
+    describe('Test case 6: get all users by admin /user/userProfile/getAllUsers', function() {
+        return it('Should return sucess==true', function(done) {
+            var req = request(DCC_Server).get('/user/userProfile/getAllUsers');
+            req.end(function (err, res) {
+                assert.equal(res.body.success, true);
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
 });
-
 describe('<Unit test for manual added user profile>', function () {
     var Cookies;
 
