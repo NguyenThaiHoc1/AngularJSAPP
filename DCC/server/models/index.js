@@ -10,11 +10,9 @@ var db = {};
 
 if (env === "inMemoryDB") {
     sequelize = module.exports = new Sequelize('database', 'name', 'password', config);
-    console.log('inMemoryDB');
 }
 else {
     sequelize = module.exports = new Sequelize(config.database, config.username, config.password, config);
-    console.log('diff env');
 }
 
 
