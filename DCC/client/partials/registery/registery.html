@@ -1,69 +1,82 @@
 <style>
-#input_field{border-radius: 25px;border: 2px groove #0000ff;  width: 500px; margin: auto;padding: 20px}
-input[type=text], select {
-    width: 100%;
-    padding: 6px 10px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px groove #804000;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-input[type=password], select {
-    width: 100%;
-    padding: 6px 10px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px groove #804000;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-/*div[id=body], select{
+    #input_field {
+        border-radius: 25px;
+        border: 2px groove #0000ff;
+        width: 500px;
+        margin: auto;
+        padding: 20px
+    }
+    
+    input[type=text],
+    select {
+        width: 100%;
+        padding: 6px 10px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px groove #804000;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    
+    input[type=password],
+    select {
+        width: 100%;
+        padding: 6px 10px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px groove #804000;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    /*div[id=body], select{
     background-image: url("/img/background/mountain.jpg");
     background-repeat: repeat-x;
 }*/
-button{
-    width: 100%;
-    background-color: #66ccff;
-    color: #0033cc;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 25px;
-}
-button:hover{
-    background-color: #33cc33;
-}
+    
+    button {
+        width: 100%;
+        background-color: #66ccff;
+        color: #0033cc;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 25px;
+    }
+    
+    button:hover {
+        background-color: #33cc33;
+    }
 </style>
 <!--<div id="body">-->
 <div ng-init="NewUser = {email: '', password: '', passworddAgain: '',courseId: ''}">
 
-<div id="input_field">
-    <form>
+    <div id="input_field">
+        <form>
 
-    <h2 style="color: #3399ff ;text-align: center">User Register</h2>
+            <h2 style="color: #3399ff ;text-align: center">User Register</h2>
 
-    <label for="useremail">User Email</label>
-    <input type="text" id="useremail" ng-model="emailName" name="useremail" placeholder="Your email..">
+            <label for="useremail">User Email</label>
+            <input type="text" id="useremail" ng-model="emailName" name="useremail" placeholder="Your email..">
 
-    <label for="password">Password</label>
-    <input type="password" id="password" ng-model="password" name="password" placeholder="Your password..">
+            <label for="password">Password</label>
+            <input type="password" id="password" ng-model="password" name="password" placeholder="Your password..">
 
-    <label for="passwordAgain">Confirm Password</label>
-    <input type="password" id="passwordAgain" ng-model="passworddAgain" name="passwordAgain" placeholder="Re-enter your password..">
+            <label for="passwordAgain">Confirm Password</label>
+            <input type="password" id="passwordAgain" ng-model="passworddAgain" name="passwordAgain" placeholder="Re-enter your password..">
 
-    <label for="courseType">Course Type</label>
-    <select id="courseType" ng-model="courseTypeId" name="courseType">
+            <label for="courseType">Course Type</label>
+            <select id="courseType" ng-model="courseTypeId" name="courseType">
       <option value="CBA">CBA Team</option>
       <option value="IMS">IMS Team</option>
       <option value="AXE">AXE Team</option>
       <option value="Intern">New Intern</option>
     </select>
-    <p ng-show="passworddAgain != password"> These passwords don' t match</p>
-    <button ng-click="applyValue()">Apply</button>
-  </form>
-</div>
+            <p ng-show="passworddAgain != password"> These passwords don' t match</p>
+            <button ng-click="applyValue()">Apply</button>
+            <button ng-click="clear()">Clear</button>
+        </form>
+    </div>
 </div>
 <!--</div>-->
