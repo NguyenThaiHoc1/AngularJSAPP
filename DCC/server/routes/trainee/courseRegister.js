@@ -65,7 +65,6 @@ router.post('/sendRegisterRequest', function (req, res) {
                 //If class is opening, add user request to request_course table with requestType = "enroll"
                 //If not, add user request to request_course table with requestType = "register"
                 if (openingClass) {
-                    console.log(openingClass.id);
                     models.ClassRecord.enrollCourse(userId, openingClass.id, function () {
                         var datasend = {
                             success: true,
