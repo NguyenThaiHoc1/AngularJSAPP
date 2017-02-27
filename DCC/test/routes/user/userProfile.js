@@ -87,14 +87,23 @@ describe('<Unit test for user profile>', function () {
             req.send({
                 email: 'qwe@gmail.com',
                 username: 'Thao test',
-                status: 'test status'
+                status: 'test status',
+                avatar: '/img/profiles/userPhoto-1488194296868test.jpg',
+                dob: '01/01/2001',
+                phone: '0000 000 000',
+                password: null
+
             });
             req.cookies = Cookies;
             req.end(function (err, res) {
                 assert.equal(res.body.success, true);
                 models.User.update({
                     username: 'Your name',
-                    status: 'some status'
+                    status: 'some status',
+                    avatar: '/img/profiles/userPhoto-1488194296868test.jpg',
+                    dob: '01/01/2001',
+                    phone: '0000 000 000',
+                    password: null
                 }, {
                         where: { email: 'qwe@gmail.com' }
                     });
@@ -166,7 +175,12 @@ describe('<Unit test for user profile>', function () {
                 email: 'qwe@gmail.com',
                 username: 'Changed name',
                 status: 'Changed status',
-                password: 'newpassword'
+                avatar: '/img/profiles/userPhoto-1488196330543test.jpg',
+                dob: '01/01/2001',
+                phone: '0000 000 000',
+                password: null
+
+
             });
             req.cookies = Cookies;
             req.end(function (err, res) {
@@ -174,7 +188,10 @@ describe('<Unit test for user profile>', function () {
                 models.User.update({
                     username: 'Your Name',
                     status: 'some status',
-                    password: 'qwe'
+                    avatar: '/img/profiles/userPhoto-1488196330543test.jpg',
+                    dob: '01/01/2001',
+                    phone: '0000 000 000',
+                    password: null
                 }, {
                         where: { email: 'qwe@gmail.com' }
                     });
@@ -183,8 +200,8 @@ describe('<Unit test for user profile>', function () {
             });
         });
     });
-    describe('Test case 6: get all users by admin /user/userProfile/getAllUsers', function() {
-        return it('Should return sucess==true', function(done) {
+    describe('Test case 6: get all users by admin /user/userProfile/getAllUsers', function () {
+        return it('Should return sucess==true', function (done) {
             var req = request(DCC_Server).get('/user/userProfile/getAllUsers');
             req.end(function (err, res) {
                 assert.equal(res.body.success, true);
@@ -228,6 +245,10 @@ describe('<Unit test for manual added user profile>', function () {
                 email: 'tranhoangnam3108@gmail.com',
                 username: 'Nam test',
                 status: 'test status',
+                avatar: '/img/profiles/userPhoto-1488169863745developer-icon.jpg',
+                dob: '31/08/1995',
+                phone: '0123456789',
+
                 password: 'newpassword'
             });
             req.cookies = Cookies;
@@ -236,6 +257,9 @@ describe('<Unit test for manual added user profile>', function () {
                 models.User.update({
                     username: 'Nam Tran',
                     status: 'Bug Breeder',
+                    avatar: '/img/profiles/userPhoto-1488169863745developer-icon.jpg',
+                    dob: '31/08/1995',
+                    phone: '0123456789',
                     password: 'nam'
                 }, {
                         where: { email: 'tranhoangnam3108@gmail.com' }

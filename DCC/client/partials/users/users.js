@@ -48,11 +48,11 @@ myApp.factory('userServices', ['$http', function ($http) {
         logout: function () {
             return $http.get('/logout').success(function (data) { return data; });
         },
-        getUserProfile: function () {
-            return $http.get('/user/userProfile/getUserInfo').success(function (data) { return data; });
+        getUserProfile: function (user) {
+            return $http.post('/user/userProfile/getUserInfo', user).success(function (data) { return data; });
         },
         updateUserProfile: function (emailReq) {
-            return $http.post('/user/userProfile/updateUserProfile').success(function (data) { return data; });
+            return $http.post('/user/userProfile/updateUserProfile', emailReq).success(function (data) { return data; });
         },
     }
 
@@ -103,7 +103,7 @@ myApp.controller('logoutController', ['$scope', 'userServices', '$location', '$r
 
 //Get user information
 myApp.controller('userProfileCtrl', ['$scope', 'userServices', '$location', '$rootScope', function ($scope, userServices, $location, $rootScope) {
-    userServices.getUserProfile().then(function (userData) {
+    userServices.getUserProfile($rootScope.userInfo).then(function (userData) {
         userData.data.role = $rootScope.userInfo.role;
         $rootScope.userInfo = userData.data;
         $scope.userDetail = (JSON.parse(JSON.stringify($rootScope.userInfo)));
@@ -111,11 +111,11 @@ myApp.controller('userProfileCtrl', ['$scope', 'userServices', '$location', '$ro
 
     //update User Profile
     $scope.updateUserProfile = function () {
+        console.log($scope.userDetail);
         userServices.updateUserProfile($scope.userDetail).then(function (result) {
+
             if (result.data.success) {
-
-                userServices.getUserProfile().then(function (userData) {
-
+                userServices.getUserProfile($scope.userDetail).then(function (userData) {
                     $rootScope.userInfo = userData.data;
                     window.sessionStorage["userInfo"] = JSON.stringify($rootScope.userInfo);
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
