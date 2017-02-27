@@ -51,6 +51,8 @@ describe('<Unit test for feedback function>', function() {
         });
     });
 
+ 
+
     describe('', function() {
         return it('Test case 2 : Update Feedback (cmt & rating) for Class having comment already', function(done) {
             var req = request(DCC_Server).post('/trainee/feedback/sendFeedback');
@@ -70,6 +72,23 @@ describe('<Unit test for feedback function>', function() {
             })
         });
     });
-
+    describe('', function() {
+        return it('Test case 3 : get feedback POST /trainee/feedback/getMyFeedbackByClass', function(done) {
+            var req = request(DCC_Server).post('/trainee/feedback/getMyFeedbackByClass');
+            req.cookies = Cookies;
+            req
+            .set('Accept', 'application/json')
+            .send({
+                classId: 4,
+                traineeId: 1,
+            })
+            .end(function(err, res) {
+                assert.equal(res.body.success, true);
+                console.log(res.body.feedback);
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
 
 });
