@@ -86,22 +86,4 @@ router.post('/getRequestOpenCourse', function (req, res) {
     });
 });
 
-
-
-
-// router.get('/allCoursesType', function (req, res) {
-//     models.CourseType.findAll().then(function (data) {
-//         res.send(data);
-//     });
-
-// });
-
-
-// router.get('/deleteCourseType',function(req,res){
-//         models.CourseType.destroy({where :{id:3}});
-
-// });
-
-
-
 module.exports = router;
