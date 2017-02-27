@@ -19,9 +19,9 @@ models.User.sync({
     force: false
 });
 
-router.post('/getUserInfo', function (req, res) {
+router.get('/getUserInfo', function (req, res) {
     log.info('GET /users/getUserInfo');
-    models.User.getUserByEmail(req.body.email, function (user) {
+    models.User.getUserByEmail(req.user.email, function (user) {
         var currentRole;
         if (user.isAdmin) {
             currentRole = 1;
