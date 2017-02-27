@@ -70,7 +70,7 @@ myApp.controller('courseRegisterCtrl', ['$sce','$rootScope', '$scope', 'courseRe
             trainingProgram.forEach(trainingProgram => {
                 trainingProgram.Courses.forEach(course => {
                     course.isOpening = false;
-                    course.buttonName = "Register";
+                    course.buttonName = "Request";
                     course.buttonColor = "#8BC34A";
                 });
             });
@@ -81,7 +81,7 @@ myApp.controller('courseRegisterCtrl', ['$sce','$rootScope', '$scope', 'courseRe
                         trainingProgramElement.Courses.forEach(function(courseElement, courseElementIndex, Courses){
                             if(courseElement.id == openingCourseListElement.id) {
                                 Courses[courseElementIndex].isOpening = true;
-                                Courses[courseElementIndex].buttonName = "Register";
+                                Courses[courseElementIndex].buttonName = "Enroll";
                                 Courses[courseElementIndex].buttonColor = "#4FC3F7";
                             }
                         });

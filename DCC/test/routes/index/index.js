@@ -54,15 +54,12 @@ describe('<Unit test for Login>', function () {
             request(DCC_Server)
                 .post('/login')
                 .send({
-                    username: 'bqd@gmail.com',
-                    password: '123'
+                    username: 'newuser@email.com',
+                    password: '1234'
                 })
                 .end(function (err, res) {
                     if (res.body.success === true)
                         assert.equal(res.body.role, 3);
-                    else
-                        assert.equal(res.body.success, true);
-                    // globalCookies = res.headers['set-cookie'].pop().split(';')[0];
                     if (err) return done(err);
                     done();
                 });
@@ -161,9 +158,6 @@ describe('<Unit test for Login>', function () {
                 .end(function (err, res) {
                     if (res.body.success === true)
                         assert.equal(res.body.role, 3);
-                    else
-                        assert.equal(res.body.success, true);
-                    // globalCookies = res.headers['set-cookie'].pop().split(';')[0];
                     if (err) return done(err);
                     done();
                 });

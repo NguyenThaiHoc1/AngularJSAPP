@@ -347,5 +347,24 @@ describe('<Unit test for admin-course>', function () {
             });
         });
     });
-
+    describe('Test case 14 : get /admin/courses/getAllCourse', function () {
+        return it('Should return success==true', function (done) {
+            var req = request(DCC_Server).get('/admin/courses/getAllCourse');
+            req.end(function (err, res) {
+                assert.equal(res.body.success, true);
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
+    describe('Test case 15 : get /admin/courses/getAllTP', function () {
+        return it('Should return success==true', function (done) {
+            var req = request(DCC_Server).get('/admin/courses/getAllTP');
+            req.end(function (err, res) {
+                assert.equal(res.body.success, true);
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
 });
