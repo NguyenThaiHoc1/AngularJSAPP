@@ -34,18 +34,18 @@ router.post('/getTrainingProgramByTPType', function (req, res) {
             }
             else {
                 var resDataCourse = [];
-                var a;
+                var checkForEnrolledCourses;
                 trainingProgram.Courses.forEach(course => {
                     course.Classes.forEach(classes => {
                         classes.ClassRecords.forEach(classRecord => {
                             if (classRecord.User.email === req.body.email) {
-                                a = 1;
+                                checkForEnrolledCourses = 1;
                                 resDataCourse.push(course);
                             }
                         });
                     });
                 });
-                if (a === 1) {
+                if (checkForEnrolledCourses === 1) {
                     resData.push({
                         id: trainingProgram.id,
                         name: trainingProgram.name,
