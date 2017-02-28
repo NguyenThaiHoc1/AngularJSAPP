@@ -10,17 +10,17 @@
                     </div>
                 </div>
             </form>
-        </center> 
+        </center>
     </div>
     <!--Employees list table-->
     <div class="widget widget-nopad">
-        <div class="widget-header"></i>
+        <div class="widget-header">
             <h3>Employees list</h3>
         </div>
         <div class="widget-content">
             <div class="widget big-stats-container">
-                <div class="widget-content" >
-                    <div class="col-xs-12 col-sm-12 ">
+                <div class="widget-content">
+                    <div class="col-md-12 col-sm-12 ">
                         <div class="panel-body">
                             <div class="row">
                                 <div class=" col-md-9 col-lg-9 ">
@@ -52,12 +52,12 @@
                                         <tbody ng-show="userSearchKey">
                                             <tr ng-repeat="user in UsersListSearchResult">
                                                 <td><font ng-bind-html="highlight(user.username, userSearchKey)"></font></td>
-                                                <td><font ng-bind-html="highlight(user.dob, userSearchKey)"></td>
-                                                <td><font ng-bind-html="highlight(user.phone, userSearchKey)"></td>
+                                                <td><font ng-bind-html="highlight(user.dob, userSearchKey)"></font></td>
+                                                <td><font ng-bind-html="highlight(user.phone, userSearchKey)"></font></td>
                                                 <td>{{user.location}}</td>
-                                                <td><font ng-bind-html="highlight(user.belong2Team, userSearchKey)"></td>
-                                                <td><font ng-bind-html="highlight(user.userType, userSearchKey)"></td>
-                                                <td><font ng-bind-html="highlight(user.email, userSearchKey)"></td>
+                                                <td><font ng-bind-html="highlight(user.belong2Team, userSearchKey)"></font></td>
+                                                <td><font ng-bind-html="highlight(user.userType, userSearchKey)"></font></td>
+                                                <td><font ng-bind-html="highlight(user.email, userSearchKey)"></font></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -69,4 +69,5 @@
             </div>
         </div>
     </div>
+    
 </div>
