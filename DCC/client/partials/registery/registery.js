@@ -25,7 +25,7 @@ myApp.factory('registeryServices', ['$http', function ($http) {
 //Controllers
 myApp.controller('registeryCtrl', ['$scope', '$rootScope', 'registeryServices', function ($scope, $rootScope, registeryServices) {
 
-
+    $scope.courseTypeId = "CBA";
     $scope.applyValue = function () {
         $scope.NewUser = {
             email: $scope.emailName,
