@@ -19,9 +19,9 @@ models.User.sync({
     force: false
 });
 
-router.get('/getUserInfo', function (req, res) {
+router.post('/getUserInfo', function (req, res) {
     log.info('GET /users/getUserInfo');
-    models.User.getUserByEmail(req.user.email, function (user) {
+    models.User.getUserByEmail(req.body.email, function (user) {
         var currentRole;
         if (user.isAdmin) {
             currentRole = 1;
@@ -63,7 +63,7 @@ router.post('/updateUserProfile', function (req, res) {
             avatar: req.body.avatar,
             dob: req.body.dob,
             phone: req.body.phone,
-            role: req.body.role,
+            //role: req.body.role,
             password: req.body.password
         },
         {
