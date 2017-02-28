@@ -25,8 +25,8 @@
                 <div ng-repeat="trainingProgram in adminTrainingProgramList" style="margin-top: 5px">
                     <div class="round-wrap">
                         <a>
-                            <blockquote class="blockquote" data-toggle="collapse" data-target="#collapse{{trainingProgram.id}}" ng-click="trainingProgram.collapsed = !trainingProgram.collapsed">
-                                <img  style="float:left; clear:both; margin-right: 10px;" alt="training-program-icon" class="img-responsive" ng-src = "{{trainingProgram.imgLink}}" width="70px">
+                            <blockquote class="blockquote" style="margin-bottom: 24px;"data-toggle="collapse" data-target="#collapse{{trainingProgram.id}}" ng-click="trainingProgram.collapsed = !trainingProgram.collapsed">
+                                <img  style="float:left; clear:both; margin-right: 10px;" alt="training-program-icon" class="img-responsive" ng-src = "{{trainingProgram.imgLink}}" width="60px">
                                 {{trainingProgram.name}}
                                 <div class="pull-right">
                                     <a class="btn btn-info" data-toggle="modal" href="#addEditTPModal" ng-click="showUpdateTPForm(trainingProgram)"><span class="glyphicon glyphicon-pencil"></span></a>
