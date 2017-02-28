@@ -28,12 +28,14 @@ myApp.controller('getProfilesController', ['$scope','$sce', 'EmployeesProfileSer
         $scope.UsersList = userData.data.data;
     });
     $scope.findUser = function(userSearchKey) {
-        var UsersListSearchResult = [];
+        var SearchResult = [];
         $scope.UsersList.forEach(user => {
-            if (user.username.toUpperCase().indexOf(userSearchKey.toUpperCase()) !== -1)
-                UsersListSearchResult.push(user);
+            if ((user.username.toUpperCase().indexOf(userSearchKey.toUpperCase()) !== -1) ||
+                (user.belong2Team.toUpperCase().indexOf(userSearchKey.toUpperCase()) !== -1) ||
+                (user.userType.toUpperCase().indexOf(userSearchKey.toUpperCase()) !== -1))
+                    SearchResult.push(user);
         });
-        $scope.UsersListSearchResult = UsersListSearchResult;
+        $scope.UsersListSearchResult = SearchResult;
     };
     $scope.highlight = function(text, search) {
         if (!search) {

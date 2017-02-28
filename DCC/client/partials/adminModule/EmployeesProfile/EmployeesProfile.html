@@ -54,8 +54,8 @@
                                                 <td>{{user.dob}}</td>
                                                 <td>{{user.phone}}</td>
                                                 <td>{{user.location}}</td>
-                                                <td>{{user.belong2Team}}</td>
-                                                <td>{{user.userType}}</td>
+                                                <td><font ng-bind-html="highlight(user.belong2Team, userSearchKey)"></td>
+                                                <td><font ng-bind-html="highlight(user.userType, userSearchKey)"></td>
                                                 <td>{{user.email}}</td>
                                             </tr>
                                         </tbody>
