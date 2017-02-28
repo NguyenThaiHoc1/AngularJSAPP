@@ -33,7 +33,7 @@ module.exports =
         },
         avatar: {
             type: SequelizeDatatypes.STRING,
-            allowNull: false
+            allowNull: true
         },
         isAdmin: {
             type: SequelizeDatatypes.BOOLEAN,
