@@ -6,7 +6,7 @@
                 <form class="navbar-form" role="search" style="border: 0px;">
                     <div class="row">
                         <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-1">
-                            <input ng-model="courseSearchKey" type="text" placeholder="Search" name="ng-srch-term" id="ng-srch-term">
+                            <input ng-model="courseSearchKey" type="text" placeholder="Search" name="ng-srch-term" id="ng-srch-term" ng-change="findCourse(courseSearchKey)">
                             <button ng-click="findCourse(courseSearchKey)" class="btn btn-success" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                         </div>
                     </div>
@@ -63,7 +63,7 @@
             <div ng-repeat="trainingProgram in trainingProgramList"  style="margin-top: 5px">
                 <div class="round-wrap">
                     <a data-toggle="collapse" data-target="#collapse{{trainingProgram.id}}" style="text-decoration : none" ng-click="trainingProgram.collapsed = !trainingProgram.collapsed">
-                        <blockquote class="blockquote" style="border-left: none; margin-bottom:0">
+                        <blockquote class="blockquote" style="border-left: none; margin-bottom:24px;">
                             <img  style="float:left; clear:both; margin-right: 10px;" alt="training-program-icon" class="img-responsive" ng-src = "{{trainingProgram.imgLink}}" width="70px">
                             {{trainingProgram.name}}
                             <p style="color:darkgrey; white-space: nowrap"  ng-bind-html="trainingProgram.description"</p>

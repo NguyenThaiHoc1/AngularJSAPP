@@ -2,6 +2,8 @@ var log = require('../config/logConfig');
 var _userModel = require('./DataObjects/user');
 module.exports = function (sequelize) {
     var User = sequelize.define('User', _userModel, {
+        charset: 'utf8',
+        collate: 'utf8_unicode_ci',
         classMethods: {
             getUserByEmail: function (userEmail, cb) {
                 var query = {
@@ -24,7 +26,6 @@ module.exports = function (sequelize) {
                 User.findAll().then(cb);
             }
         },
-
         tableName: 'user',
         timestamps: false
     });
