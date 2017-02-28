@@ -120,7 +120,7 @@ router.post('/getMyEnrolledClass', function (req, res) {
             },
             {
                 model: models.User,
-                where: { email: req.body.userEmail }
+                where: { email: req.body.email }
             }
         ]
     };
