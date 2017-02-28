@@ -111,7 +111,6 @@ myApp.controller('userProfileCtrl', ['$scope', 'userServices', '$location', '$ro
 
     //update User Profile
     $scope.updateUserProfile = function () {
-        console.log($scope.userDetail);
         userServices.updateUserProfile($scope.userDetail).then(function (result) {
 
             if (result.data.success) {
