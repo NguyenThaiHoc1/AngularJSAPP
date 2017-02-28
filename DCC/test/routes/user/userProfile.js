@@ -210,6 +210,27 @@ describe('<Unit test for user profile>', function () {
             });
         });
     });
+    //Test edit user profile with vietnamese names
+    describe('Test case 7 : post /user/userProfile/updateUserProfile', function () {
+        return it('Should return success==true', function (done) {
+            var req = request(DCC_Server).post('/user/userProfile/updateUserProfile');
+            req.send({
+                email: 'qwe@gmail.com',
+                username: 'Thử Tiếng Việt',
+            });
+            req.cookies = Cookies;
+            req.end(function (err, res) {
+                assert.equal(res.body.success, true);
+                models.User.update({
+                    username: 'Quan WE'}, 
+                    {
+                        where: { email: 'qwe@gmail.com' }
+                    });
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
 });
 describe('<Unit test for manual added user profile>', function () {
     var Cookies;
