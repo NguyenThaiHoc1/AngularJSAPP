@@ -53,7 +53,7 @@
                                             <tr ng-repeat="user in UsersListSearchResult">
                                                 <td><font ng-bind-html="highlight(user.username, userSearchKey)"></font></td>
                                                 <td><font ng-bind-html="highlight(user.dob, userSearchKey)"></td>
-                                                <td>{{user.phone}}</td>
+                                                <td><font ng-bind-html="highlight(user.phone, userSearchKey)"></td>
                                                 <td>{{user.location}}</td>
                                                 <td><font ng-bind-html="highlight(user.belong2Team, userSearchKey)"></td>
                                                 <td><font ng-bind-html="highlight(user.userType, userSearchKey)"></td>

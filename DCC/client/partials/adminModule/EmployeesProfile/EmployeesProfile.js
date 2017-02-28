@@ -34,7 +34,8 @@ myApp.controller('getProfilesController', ['$scope','$sce', 'EmployeesProfileSer
                 (user.belong2Team.toUpperCase().indexOf(userSearchKey.toUpperCase()) !== -1) ||
                 (user.userType.toUpperCase().indexOf(userSearchKey.toUpperCase()) !== -1) ||
                 (user.dob.toUpperCase().indexOf(userSearchKey.toUpperCase()) !== -1) ||
-                (user.email.toUpperCase().indexOf(userSearchKey.toUpperCase()) !== -1))
+                (user.email.toUpperCase().indexOf(userSearchKey.toUpperCase()) !== -1) ||
+                (user.phone.toUpperCase().indexOf(userSearchKey.toUpperCase()) !== -1))
                     SearchResult.push(user);
         });
         $scope.UsersListSearchResult = SearchResult;
