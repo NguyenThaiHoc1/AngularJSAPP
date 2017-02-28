@@ -30,8 +30,11 @@ input,button,select,textarea {
 }
 
 .btn-icon-only {
-	padding-right: 3px;
-	padding-left: 3px;
+	padding-right: 0px;
+	padding-left: 0px;
+	margin-left: 0px;
+	margin-right: 0px;
+	background-color: lightgreen;
 }
 table tr:nth-child(odd) td{
 	background-color: none;
@@ -370,7 +373,7 @@ table tr:nth-child(even) td{
 
 	position: relative;
 
-	height: 30px;
+	height: 40px;
 	line-height: 30px;
 
 	background: #00356B;
@@ -387,13 +390,13 @@ table tr:nth-child(even) td{
 	.widget-header h3 {
 
 		position: relative;
-		top: 2px;
-		left: 20px;
+		top: 3px;
+		left: 5px;
         margin-top:0;
 		display: inline-block;
-		margin-right: 3em;
+		/*margin-right: 3em;*/
 
-		font-size: 14px;
+		font-size: 16px;
 
 		color: white;
 		line-height: 30px;
@@ -679,7 +682,18 @@ color: #ab171e;
 .btn-github-alt i {
 color: #333;
 }
-
+.search-box {
+	width: 120%;
+	height: 90%;
+	/*margin: auto;*/
+}
+.box-group {
+	padding-top: 1px;
+	padding-bottom: 1px;
+	border-radius: 5px;
+	margin-left: 0px;
+	margin-right: 0px;
+}
 .all-icons li { list-style:none;}
 
 .ML0 { margin-left:0}

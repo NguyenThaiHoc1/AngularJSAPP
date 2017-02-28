@@ -60,7 +60,7 @@ router.post('/updateUserProfile', function (req, res) {
         {
             username: req.body.username,
             status: req.body.status,
-            //avatar: req.body.avatar,
+            avatar: req.body.avatar,
             dob: req.body.dob,
             phone: req.body.phone,
             //role: req.body.role,
