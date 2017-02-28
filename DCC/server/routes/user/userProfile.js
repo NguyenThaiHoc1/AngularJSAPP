@@ -86,7 +86,7 @@ router.post('/photo', function (req, res) {
                     avatar: '/img/profiles/' + req.file.filename
                 },
                 {
-                    where: { email: req.user.email }
+                    where: { email: req.body.email }
                 }
             ).then(function () {
                 res.redirect('/#/editUserProfile');
