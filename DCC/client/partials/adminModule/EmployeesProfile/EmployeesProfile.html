@@ -1,4 +1,17 @@
 <div class="container">
+    <!-- Search box -->
+    <div class="span12">
+        <center>
+            <form class="navbar-form" role="search" style="border: 0px;">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-1">
+                        <input ng-model="userSearchKey" type="text" placeholder="Search" name="ng-srch-term" id="ng-srch-term" ng-change="findUser(userSearchKey)">
+                        <button ng-click="findUser(userSearchKey)" class="btn btn-success" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </center> 
+    <!--Employees list table-->
     <div class="widget widget-nopad">
         <div class="widget-header"></i>
             <h3>Employees list</h3>
@@ -22,9 +35,22 @@
                                                 <th>Email</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <!--All employees list-->
+                                        <tbody ng-show="!userSearchKey">
                                             <tr ng-repeat="user in UsersList">
                                                 <td>{{user.username}}</td>
+                                                <td>{{user.dob}}</td>
+                                                <td>{{user.phone}}</td>
+                                                <td>{{user.location}}</td>
+                                                <td>{{user.belong2Team}}</td>
+                                                <td>{{user.userType}}</td>
+                                                <td>{{user.email}}</td>
+                                            </tr>
+                                        </tbody>
+                                        <!--Search result-->
+                                        <tbody ng-show="userSearchKey">
+                                            <tr ng-repeat="user in UsersListSearchResult">
+                                                <td><font ng-bind-html="highlight(user.username, userSearchKey)"></font></td>
                                                 <td>{{user.dob}}</td>
                                                 <td>{{user.phone}}</td>
                                                 <td>{{user.location}}</td>

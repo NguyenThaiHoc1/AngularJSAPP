@@ -23,8 +23,22 @@ myApp.factory('EmployeesProfileService', ['$http', function($http) {
     return factoryDefinition;
 }]);
 
-myApp.controller('getProfilesController', ['$scope', 'EmployeesProfileService', function($scope, EmployeesProfileService) {
+myApp.controller('getProfilesController', ['$scope','$sce', 'EmployeesProfileService', function($scope,$sce, EmployeesProfileService) {
     EmployeesProfileService.getProfilesList().then(function(userData) {
         $scope.UsersList = userData.data.data;
     });
+    $scope.findUser = function(userSearchKey) {
+        var UsersListSearchResult = [];
+        $scope.UsersList.forEach(user => {
+            if (user.username.toUpperCase().indexOf(userSearchKey.toUpperCase()) !== -1)
+                UsersListSearchResult.push(user);
+        });
+        $scope.UsersListSearchResult = UsersListSearchResult;
+    };
+    $scope.highlight = function(text, search) {
+        if (!search) {
+            return $sce.trustAsHtml(text);
+        }
+        return $sce.trustAsHtml(text.replace(new RegExp(search, 'gi'), '<span class="highlightedText">$&</span>'));
+    };
 }]);
