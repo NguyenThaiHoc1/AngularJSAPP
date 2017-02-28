@@ -11,6 +11,7 @@
                 </div>
             </form>
         </center> 
+    </div>
     <!--Employees list table-->
     <div class="widget widget-nopad">
         <div class="widget-header"></i>
@@ -51,12 +52,12 @@
                                         <tbody ng-show="userSearchKey">
                                             <tr ng-repeat="user in UsersListSearchResult">
                                                 <td><font ng-bind-html="highlight(user.username, userSearchKey)"></font></td>
-                                                <td>{{user.dob}}</td>
+                                                <td><font ng-bind-html="highlight(user.dob, userSearchKey)"></td>
                                                 <td>{{user.phone}}</td>
                                                 <td>{{user.location}}</td>
                                                 <td><font ng-bind-html="highlight(user.belong2Team, userSearchKey)"></td>
                                                 <td><font ng-bind-html="highlight(user.userType, userSearchKey)"></td>
-                                                <td>{{user.email}}</td>
+                                                <td><font ng-bind-html="highlight(user.email, userSearchKey)"></td>
                                             </tr>
                                         </tbody>
                                     </table>
