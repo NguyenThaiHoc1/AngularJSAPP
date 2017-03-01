@@ -1,6 +1,7 @@
 var router = require('express').Router();
 var models = require('../../models');
-var log = require('../../config/logConfig');
+var config = require('../../config/config.json');
+var log = require('../../config/config')[config.logConfig];
 
 // Upload file setting
 var multer = require('multer');
@@ -27,7 +28,7 @@ router.post('/getUserInfo', function (req, res) {
             currentRole = 1;
         } else if (user.isTrainer) {
             currentRole = 2;
-        } else if (user.isTrainee) {
+        } else if (user.isTrainee) {    
             currentRole = 3;
         }
         res.send({
