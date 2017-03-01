@@ -1,0 +1,60 @@
+<div class="modal fade" id="registerUserModal" role="dialog" ng-controller="registeryCtrl">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"> User Register</h4>
+            </div>
+
+            <form name="frmRegistery" role="form" class="form-horizontal" novalidate>
+                <div class="modal-body">
+
+                    <div class="form-group" ng-class="{ 'has-error' : frmRegistery.$error.email || frmRegistery.userEmail.$invalid && !frmRegistery.userEmail.$pristine }">
+                        <label class="col-xs-3 control-label">Email</label>
+                        <div class="col-xs-8">
+                            <input type="email" class="form-control" name="userEmail" ng-model="userEmail" placeholder="Enter email..." required>
+                            <p ng-show="frmRegistery.$error.email || (frmRegistery.userEmail.$invalid && !frmRegistery.userEmail.$pristine)" class="help-block">Not a valid email!</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-class="{ 'has-error' : frmRegistery.userPassword.$invalid && !frmRegistery.userPassword.$pristine }">
+                        <label class="col-xs-3 control-label">Password</label>
+                        <div class="col-xs-8">
+                            <input type="password" class="form-control" name="userPassword" ng-model="userPassword" placeholder="Enter password..." required>
+                            <p ng-show="frmRegistery.userPassword.$invalid && !frmRegistery.userPassword.$pristine" class="help-block">Not valid password!</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-class="{ 'has-error' : (frmRegistery.passwordAgain.$invalid && !frmRegistery.passwordAgain.$pristine)  || ((passwordAgain != userPassword) && !frmRegistery.passwordAgain.$pristine) }">
+                        <label class="col-xs-3 control-label">Confirm Password</label>
+                        <div class="col-xs-8">
+                            <input type="password" class="form-control" name="passwordAgain" ng-model="passwordAgain" placeholder="Enter password..."
+                                required>
+                                <p ng-show="(frmRegistery.passwordAgain.$invalid && !frmRegistery.passwordAgain.$pristine)  || ((passwordAgain != userPassword) && !frmRegistery.passwordAgain.$pristine)"
+                                    class="help-block"> These passwords don' t match!</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-class="{ 'has-error' : (frmRegistery.passwordAgain.$invalid && !frmRegistery.passwordAgain.$pristine)  || ((passwordAgain != userPassword) && !frmRegistery.passwordAgain.$pristine) }">
+                        <label class="col-xs-3 control-label">Course Type</label>
+                        <div class="col-xs-8">
+                            <select class="form-control" id="courseType" ng-model="courseTypeId" name="courseType">
+                            <option value="CBA">CBA Team</option>
+                            <option value="IMS">IMS Team</option>
+                            <option value="AXE">AXE Team</option>
+                            <option value="Intern">New Intern</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" ng-click="applyValue()" data-dismiss="modal" ng-disabled="frmRegistery.$invalid">Add</button>
+                    <button type="submit" class="btn btn-default" ng-click="cancel()" data-dismiss="modal">Cancel</button>
+                </div>
+        </div>
+        </form>
+    </div>
+</div>

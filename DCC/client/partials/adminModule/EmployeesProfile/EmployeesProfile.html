@@ -1,11 +1,25 @@
 <div class="container">
+    <!-- Search box -->
+    <div class="span12">
+        <center>
+            <form class="navbar-form" role="search" style="border: 0px;">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-1">
+                        <input ng-model="userSearchKey" type="text" placeholder="Search" name="ng-srch-term" id="ng-srch-term" ng-change="findUser(userSearchKey)">
+                        <button ng-click="findUser(userSearchKey)" class="btn btn-success" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </center>
+    </div>
+    <!--Employees list table-->
     <div class="widget widget-nopad">
-        <div class="widget-header"></i>
+        <div class="widget-header">
             <h3>Employees list</h3>
         </div>
         <div class="widget-content">
             <div class="widget big-stats-container">
-                <div class="widget-content" >
+                <div class="widget-content">
                     <div class="col-xs-12 col-sm-12 ">
                         <div class="panel-body">
                             <div class="row">
@@ -14,19 +28,18 @@
                                         <thead>
                                             <tr>
                                                 <th>Name</th>
-                                                <th>Status</th>
-                                                <th>Day of birth</th>
+                                                <th>Date of birth</th>
                                                 <th>Phone</th>
                                                 <th>Location</th>
                                                 <th>Team</th>
-                                                <th>Floor</th>
+                                                <th>Area</th>
                                                 <th>Email</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <!--All employees list-->
+                                        <tbody ng-show="!userSearchKey">
                                             <tr ng-repeat="user in UsersList">
                                                 <td>{{user.username}}</td>
-                                                <td>{{user.status}}</td>
                                                 <td>{{user.dob}}</td>
                                                 <td>{{user.phone}}</td>
                                                 <td>{{user.location}}</td>
@@ -35,11 +48,108 @@
                                                 <td>{{user.email}}</td>
                                             </tr>
                                         </tbody>
+                                        <!--Search result-->
+                                        <tbody ng-show="userSearchKey">
+                                            <tr ng-repeat="user in UsersListSearchResult">
+                                                <td><font ng-bind-html="highlight(user.username, userSearchKey)"></font></td>
+                                                <td><font ng-bind-html="highlight(user.dob, userSearchKey)"></font></td>
+                                                <td><font ng-bind-html="highlight(user.phone, userSearchKey)"></font></td>
+                                                <td>{{user.location}}</td>
+                                                <td><font ng-bind-html="highlight(user.belong2Team, userSearchKey)"></font></td>
+                                                <td><font ng-bind-html="highlight(user.userType, userSearchKey)"></font></td>
+                                                <td><font ng-bind-html="highlight(user.email, userSearchKey)"></font></td>
+                                            </tr>
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--New UI-->
+    <div class="widget" ng-show="!userSearchKey">
+        <div class="widget-content" >
+            <div ng-repeat="user in UsersList"  style="margin-top: 5px">
+                <div class="round-wrap">
+                    <a data-toggle="collapse" data-target="#collapse{{user.id}}" style="text-decoration : none" ng-click="user.collapsed = !user.collapsed">
+                        <blockquote class="blockquote" style="border-left: none; margin-bottom:24px;">
+                            <div class="col-md-3 col-xs-3">
+                            <img style="float:left; clear:both; margin-right: 10px;" alt="User Avatar" class="img-responsive" ng-src = "{{user.avatar}}" width="70px">
+                            {{user.username}}
+                            </div>
+                            <div class="col-md-3 col-xs-3">
+                                <i class="fa fa-group" aria-hidden="true"></i><span>&nbsp {{user.belong2Team}}</span>
+                            </div>
+                            <div class="col-md-3 col-xs-3">
+                                <i class="fa fa-server" aria-hidden="true"></i><span>&nbsp {{user.userType}}</span>
+                            </div>
+                            <div class="col-md-2 col-xs-2">
+                            </div>
+                            <div class="col-md-1 col-xs-1">
+                                <!--delete button-->
+                                <!--<a class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>-->
+                            </div>
+                        </blockquote>
+                        <br/>
+                        <center ng-hide="user.collapsed"><span class="glyphicon glyphicon-menu-down"></span></center>
+                        <center ng-show="user.collapsed"><span class="glyphicon glyphicon-menu-up"></span></center>
+                    </a>
+                </div>
+                <div id="collapse{{user.id}}" class="panel-collapse collapse" >
+                    <ul class="list-group">
+                        <li class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-9 col-sm-8" style="border-left:2px none;" class="row"
+                            style="padding-bottom:10px; margin-left: 90px; margin-right: 10px; border: 2px solid; border-radius: 100px 5px 5px 100px; background-color: #f7f7f7;">
+                                <blockquote class="blockquote">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-3 col-lg-3 ">
+                                                <img alt="User Avatar" ng-src= "{{ user.avatar }}" class="img-responsive">
+                                            </div>
+                                            <div class=" col-md-9 col-lg-9 ">
+                                                <table class="table ">
+                                                    <tbody>
+                                                        <tr>
+                                                            <th>Name</th>
+                                                            <td>{{ user.username }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Status</th>
+                                                            <td>{{ user.status }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Date of Birth</th>
+                                                            <td>{{ user.dob }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Phone</th>
+                                                            <td>{{ user.phone }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Location</th>
+                                                            <td>{{ user.location }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Team</th>
+                                                            <td>{{ user.belong2Team }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Email</th>
+                                                            <td>{{ user.email }}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </blockquote>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>

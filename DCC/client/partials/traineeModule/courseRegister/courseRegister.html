@@ -1,18 +1,22 @@
 <div class="container" ng-controller="courseRegisterCtrl">
-    <div class="container row" >
-        <div class="span12">
-            <!-- SEARCH BOX -->
-            <center>
-                <form class="navbar-form" role="search" style="border: 0px;">
-                    <div class="row">
-                        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-1">
-                            <input ng-model="courseSearchKey" type="text" placeholder="Search" name="ng-srch-term" id="ng-srch-term" ng-change="findCourse(courseSearchKey)">
-                            <button ng-click="findCourse(courseSearchKey)" class="btn btn-success" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-                        </div>
-                    </div>
-                </form>
-            </center>
-            <div ng-show="courseSearchKey" class="widget">
+    <!-- The whole page body is here, under those dash board navigation tools -->
+    <div class="widget">
+        <!--This is the tiny blue header bar with "all course" on it-->
+        <div class="widget-header">
+            <h3 class = "col-xs-7">All Course</h3>
+                <input ng-model="courseSearchKey" class="box-group col-xs-3" type="text" placeholder="Search Box Here" name="ng-srch-term" id="ng-srch-term" ng-change="findCourse(courseSearchKey)">
+                <div class="box-group col-xs-2" uib-dropdown is-open="status.isopen">
+                    <select ng-model="opt" style="border-radius: 5px" ng-change="filtCourse()">
+                        <option value="">--Choose course filter--</option>
+                        <option value="openingCourse">Opening Course</option>
+                        <option value="allCourse">All Course</option>
+                    </select>
+                </div>
+        </div>
+        <!--These are all the content under the that tiny blue bar :)-->
+        <div class="widget-content" >
+            <!--Here is the content of search return, show only when there is somethinbg in the search box-->
+            <div ng-show="courseSearchKey">
                 <div class="panel-group" ng-repeat="course in courseListSearchResult" >
                     <div class="panel-heading panel-title"  style="margin-bottom:10px; border: 0px solid grey; border-radius: 5px;">
                         <div class="round-wrap">
@@ -43,24 +47,8 @@
                     </center>
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- ALL COURSE -->
-    <div class="widget" ng-show="!courseSearchKey">
-        <div class="widget-header">
-            <h3>All Course</h3>
-            <div class="pull-right" style="margin-right: 10px">
-                <div class="btn-group" uib-dropdown is-open="status.isopen" align="right">
-                    <select ng-model="opt" ng-change="filtCourse()">
-                        <option value="">--Choose course filter--</option>
-                        <option value="openingCourse">Opening Course</option>
-                        <option value="allCourse">All Course</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="widget-content" >
-            <div ng-repeat="trainingProgram in trainingProgramList"  style="margin-top: 5px">
+            <!--Here is the usual showed content when search box is empty-->
+            <div ng-repeat="trainingProgram in trainingProgramList"  style="margin-top: 5px" ng-show="!courseSearchKey">
                 <div class="round-wrap">
                     <a data-toggle="collapse" data-target="#collapse{{trainingProgram.id}}" style="text-decoration : none" ng-click="trainingProgram.collapsed = !trainingProgram.collapsed">
                         <blockquote class="blockquote" style="border-left: none; margin-bottom:24px;">

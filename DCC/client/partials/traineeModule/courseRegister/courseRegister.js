@@ -150,6 +150,10 @@ myApp.controller('courseRegisterCtrl', ['$sce', '$rootScope', '$scope', 'courseR
         }
     }
 
+    $scope.searchClick = function(){
+        $rootScope.ShowPopupMessage("Just type in the box nigga!", "error");
+    }
+
 
     $scope.registerCourse = function (courseId) {
         // courseRegisterStatus = true : unregister;

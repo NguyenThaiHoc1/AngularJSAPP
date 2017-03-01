@@ -23,8 +23,27 @@ myApp.factory('EmployeesProfileService', ['$http', function($http) {
     return factoryDefinition;
 }]);
 
-myApp.controller('getProfilesController', ['$scope', 'EmployeesProfileService', function($scope, EmployeesProfileService) {
+myApp.controller('getProfilesController', ['$scope','$sce', 'EmployeesProfileService', function($scope,$sce, EmployeesProfileService) {
     EmployeesProfileService.getProfilesList().then(function(userData) {
         $scope.UsersList = userData.data.data;
     });
+    $scope.findUser = function(userSearchKey) {
+        var SearchResult = [];
+        $scope.UsersList.forEach(user => {
+            if ((user.username.toUpperCase().indexOf(userSearchKey.toUpperCase()) !== -1) ||
+                (user.belong2Team.toUpperCase().indexOf(userSearchKey.toUpperCase()) !== -1) ||
+                (user.userType.toUpperCase().indexOf(userSearchKey.toUpperCase()) !== -1) ||
+                (user.dob.toUpperCase().indexOf(userSearchKey.toUpperCase()) !== -1) ||
+                (user.email.toUpperCase().indexOf(userSearchKey.toUpperCase()) !== -1) ||
+                (user.phone.toUpperCase().indexOf(userSearchKey.toUpperCase()) !== -1))
+                    SearchResult.push(user);
+        });
+        $scope.UsersListSearchResult = SearchResult;
+    };
+    $scope.highlight = function(text, search) {
+        if (!search) {
+            return $sce.trustAsHtml(text);
+        }
+        return $sce.trustAsHtml(text.replace(new RegExp(search, 'gi'), '<span class="highlightedText">$&</span>'));
+    };
 }]);
