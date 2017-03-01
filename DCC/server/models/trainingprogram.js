@@ -1,4 +1,5 @@
-var log = require('../config/logConfig');
+var config = require('../config/config.json');
+var log = require('../config/config')[config.logConfig];
 var _trainingprogramModel= require('./DataObjects/trainingProgram');
 var Sequelize = require('sequelize');
 
