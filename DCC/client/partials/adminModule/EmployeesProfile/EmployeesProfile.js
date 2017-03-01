@@ -26,6 +26,7 @@ myApp.factory('EmployeesProfileService', ['$http', function($http) {
 myApp.controller('getProfilesController', ['$scope','$sce', 'EmployeesProfileService', function($scope,$sce, EmployeesProfileService) {
     EmployeesProfileService.getProfilesList().then(function(userData) {
         $scope.UsersList = userData.data.data;
+        $scope.UsersListSearchResult = userData.data.data;
     });
     $scope.findUser = function(userSearchKey) {
         var SearchResult = [];
@@ -38,7 +39,7 @@ myApp.controller('getProfilesController', ['$scope','$sce', 'EmployeesProfileSer
                 (user.phone.toUpperCase().indexOf(userSearchKey.toUpperCase()) !== -1))
                     SearchResult.push(user);
         });
-        $scope.UsersListSearchResult = SearchResult;
+            $scope.UsersListSearchResult = SearchResult ? SearchResult : $scope.UsersList;
     };
     $scope.highlight = function(text, search) {
         if (!search) {
