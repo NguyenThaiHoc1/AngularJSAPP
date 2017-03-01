@@ -1,6 +1,5 @@
-
-<nav class="navbar navbar-dcc navbar-fixed-top topnav" role="navigation" >
-    <div class="container container-fluid" >
+<nav class="navbar navbar-dcc navbar-fixed-top topnav" role="navigation">
+    <div class="container container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#loginNavbar">
                 <span class="icon-bar"></span>
@@ -30,21 +29,46 @@
                 <li>
                     <a data-toggle="modal" data-target="#loginModal" ng-show="!userInfo">Login</a>
                 </li>
-                <li class="brand dropdown" ng-show="userInfo"  style="hover:{}">
+                <li class="brand dropdown" ng-show="userInfo" style="hover:{}">
                     <a class="dropdown-toggle" data-toggle="dropdown" style="padding:2px;">
-                        <img  style="display: inline-block; margin-right: 5px; border-radius: 50%; border: 1px solid black; width:45px !important; height:45px !important" class="img-responsive" ng-src = "{{userInfo.avatar}}" >
-                        {{userInfo.username}}   &nbsp <b class="caret"></b>
+                        <img style="display: inline-block; margin-right: 5px; border-radius: 50%; border: 1px solid black; width:45px !important; height:45px !important"
+                            class="img-responsive" ng-src="{{userInfo.avatar}}">
+                            {{userInfo.username}} &nbsp <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li ng-show="userInfo.role == 3" ><a href="#trainee_dashboard"><font size="3"><span class="icon-dashboard">&nbsp&nbsp&nbsp</span>Dashboard</font></a></li>
-                        <li ng-show="userInfo.role == 2"><a href="#trainer_dashboard"><font size="3"><span class="icon-dashboard">&nbsp&nbsp&nbsp</span>Dashboard</font></a></li>
-                        <li ng-show="userInfo.role == 1"><a href="#admin_dashboard"><font size="3"><span class="icon-dashboard">&nbsp&nbsp&nbsp</span>Dashboard</font></a></li>
+                        <li ng-show="userInfo.role == 3">
+                            <a href="#trainee_dashboard">
+                                <font size="3"><span class="icon-dashboard">&nbsp&nbsp&nbsp</span>Dashboard</font>
+                            </a>
+                        </li>
+                        <li ng-show="userInfo.role == 2">
+                            <a href="#trainer_dashboard">
+                                <font size="3"><span class="icon-dashboard">&nbsp&nbsp&nbsp</span>Dashboard</font>
+                            </a>
+                        </li>
+                        <li ng-show="userInfo.role == 1">
+                            <a href="#admin_dashboard">
+                                <font size="3"><span class="icon-dashboard">&nbsp&nbsp&nbsp</span>Dashboard</font>
+                            </a>
+                        </li>
 
-                        <li><a href="#userProfile"><font size="3"><span class="glyphicon glyphicon-user">&nbsp</span>Profile</font></a></li>
+                        <li>
+                            <a href="#userProfile">
+                                <font size="3"><span class="glyphicon glyphicon-user">&nbsp</span>Profile</font>
+                            </a>
+                        </li>
 
                         <li class="divider"></li>
-                        <li ng-show="userInfo.password != null"><a data-toggle="modal" data-target="#changePassword"><font size="3"><span class="glyphicon glyphicon-lock">&nbsp</span>Change Password</font></a></li>
-                        <li><a href="#logout"><font size="3"><span class="glyphicon glyphicon-log-out">&nbsp</span>Logout</font></a></li>
+                        <li ng-show="userInfo.password != null">
+                            <a data-toggle="modal" data-target="#changePassword">
+                                <font size="3"><span class="glyphicon glyphicon-lock">&nbsp</span>Change Password</font>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#logout">
+                                <font size="3"><span class="glyphicon glyphicon-log-out">&nbsp</span>Logout</font>
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ul>
@@ -54,10 +78,10 @@
 
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         'use strict';
 
-        $("#button-calendar").click(function(e) {
+        $("#button-calendar").click(function (e) {
             window.location.href = "#home";
             //        e.preventDefault();
             $('html, body').animate({
@@ -65,7 +89,7 @@
             }, 500);
         });
 
-        $("#button-contact").click(function(e) {
+        $("#button-contact").click(function (e) {
             window.location.href = "#home";
             //        e.preventDefault();
             $('html, body').animate({
@@ -73,14 +97,15 @@
             }, 500);
         });
     });
+
 </script>
 <!--Login pop-up modal-->
 <div ng-controller="loginController">
-    <div class="modal fade" id="loginModal" role="dialog" >
-        <div class="modal-dialog" >
+    <div class="modal fade" id="loginModal" role="dialog">
+        <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
-                <form name="loginForm"  role="form" class="form-horizontal" novalidate>
+                <form name="loginForm" role="form" class="form-horizontal" novalidate>
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">Account Login</h4>
@@ -104,21 +129,21 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-success"  ng-click="doLogin()" data-dismiss="modal" ng-disabled="loginForm.$invalid" >Login</button>
+                        <button type="submit" class="btn btn-success" ng-click="doLogin()" data-dismiss="modal" ng-disabled="loginForm.$invalid">Login</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-</div >
+</div>
 
 <!--Change password pop-up modal-->
 <div ng-controller="changePasswordController">
-    <div class="modal fade" id="changePassword" role="dialog" >
-        <div class="modal-dialog" >
+    <div class="modal fade" id="changePassword" role="dialog">
+        <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
-                <form name="changePasswordForm"  role="form" class="form-horizontal" novalidate>
+                <form name="changePasswordForm" role="form" class="form-horizontal" novalidate>
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">Change User Password</h4>
@@ -128,16 +153,18 @@
                         <div class="form-group" ng-class="{ 'has-error' : changePasswordForm.currentPassword.$invalid && !changePasswordForm.currentPassword.$pristine }">
                             <label class="col-xs-3 control-label">Current Password</label>
                             <div class="col-xs-8">
-                                <input type="password" class="form-control" name="currentPassword" ng-model="changePassword.oldPassword" placeholder="Type your current password" required>
-                                <p ng-show="changePasswordForm.currentPassword.$invalid && !changePasswordForm.currentPassword.$pristine" class="help-block">Wrong password!</p>
+                                <input type="password" class="form-control" name="currentPassword" ng-model="changePassword.oldPassword" placeholder="Type your current password"
+                                    required>
+                                    <p ng-show="changePasswordForm.currentPassword.$invalid && !changePasswordForm.currentPassword.$pristine" class="help-block">Wrong password!</p>
                             </div>
                         </div>
                         <!--Enter new password-->
                         <div class="form-group" ng-class="{ 'has-error' : changePasswordForm.newPassword.$invalid && !changePasswordForm.newPassword.$pristine }">
                             <label class="col-xs-3 control-label">Username</label>
                             <div class="col-xs-8">
-                                <input type="password" class="form-control" name="newPassword" ng-model="changePassword.newPassword" placeholder="Type your new password" required>
-                                <p ng-show="changePasswordForm.newPassword.$invalid && !changePasswordForm.newPassword.$pristine" class="help-block">Your new password is required!</p>
+                                <input type="password" class="form-control" name="newPassword" ng-model="changePassword.newPassword" placeholder="Type your new password"
+                                    required>
+                                    <p ng-show="changePasswordForm.newPassword.$invalid && !changePasswordForm.newPassword.$pristine" class="help-block">Your new password is required!</p>
                             </div>
                         </div>
                         <!--Confirm your password-->
@@ -165,7 +192,7 @@
                         </div>-->
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-success"  ng-click="confirmChange()" data-dismiss="modal" ng-disabled="changePasswordForm.$invalid">Confirm</button>
+                        <button type="submit" class="btn btn-success" ng-click="confirmChange()" data-dismiss="modal" ng-disabled="changePasswordForm.$invalid">Confirm</button>
                     </div>
                 </form>
             </div>

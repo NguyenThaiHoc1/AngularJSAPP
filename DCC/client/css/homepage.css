@@ -52,8 +52,9 @@ h2 {
 /***********navbar dcc****************/
 
 .navbar-dcc {
-    border-color: black;
-    background-color: black;
+    /*border-color: black;*/
+    /*background-color: black;*/
+    background-color: #000a15;
 }
 .navbar-dcc .navbar-brand {
     color: #777;
@@ -70,7 +71,7 @@ h2 {
 }
 .navbar-dcc .navbar-nav> li> a {
     color: #F8F8FF;
-    font-size: 20px;
+    font-size: 105%;
 }
 .navbar-dcc .navbar-nav> li> a:hover, .navbar-dcc .navbar-nav> li> a:focus {
     color: #333;
@@ -145,7 +146,8 @@ h2 {
 .navbar-name {
     float: left;
     padding: 10px 10px;
-    font-size: 18px;
+    font-size: 150%;
+    font-weight: bold;
 }
 .navbar-name:hover, .navbar-name:focus {
     text-decoration: none;
