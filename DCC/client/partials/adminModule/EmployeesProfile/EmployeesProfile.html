@@ -20,10 +20,10 @@
         <!--Tab header-->
         <div class="widget-content" >
             <uib-tabset active="activeJustified" justified="true">
-                <uib-tab><uib-tab-heading><i class="glyphicon glyphicon-user"></i>&nbsp Name</uib-tab-heading></uib-tab>
-                <uib-tab><uib-tab-heading><i class="glyphicon glyphicon-equalizer"></i>&nbsp Team</uib-tab-heading></uib-tab>
-                <uib-tab><uib-tab-heading><i class="glyphicon glyphicon-education"></i>&nbsp Area</uib-tab-heading></uib-tab>
-                <uib-tab><uib-tab-heading><i class="glyphicon"></i></uib-tab-heading></uib-tab>
+                <uib-tab ng-click="sortbyName()"><uib-tab-heading><i class="glyphicon glyphicon-user"></i><b>&nbsp Name</b></uib-tab-heading></uib-tab>
+                <uib-tab select="sortbyTeam()"><uib-tab-heading><i class="glyphicon glyphicon-th-large"></i><b>&nbsp Team</b></uib-tab-heading></uib-tab>
+                <uib-tab select="sortbyArea()"><uib-tab-heading><i class="glyphicon glyphicon-th-list"></i><b>&nbsp Area</b></uib-tab-heading></uib-tab>
+                <uib-tab><uib-tab-heading><i class="glyphicon glyphicon-envelope"></i><b>&nbsp Mail</b></uib-tab-heading></uib-tab>
                 <uib-tab><uib-tab-heading><i class="glyphicon"></i></uib-tab-heading></uib-tab>
             </uib-tabset>
             <!--Employees list-->
@@ -32,20 +32,21 @@
                     <a data-toggle="collapse" data-target="#collapse{{user.id}}" style="text-decoration : none" ng-click="user.collapsed = !user.collapsed">
                         <blockquote class="blockquote" style="border-left: none; margin-bottom:24px;">
                             <div class="col-md-3 col-xs-3">
-                            <img style="float:left; clear:both; margin-right: 10px;" alt="User Avatar" class="img-responsive" ng-src = "{{user.avatar}}" width="70px">
-                            <font ng-bind-html="highlight(user.username, userSearchKey)"></font>
+                                <img style="float:left; clear:both; margin-right: 10px;" alt="User Avatar" class="img-responsive" ng-src = "{{user.avatar}}" width="70px">
+                                <font ng-bind-html="highlight(user.username, userSearchKey)"></font>
                             </div>
                             <div class="col-md-3 col-xs-3">
                                 <i class="fa fa-group" aria-hidden="true"></i><span>&nbsp <font ng-bind-html="highlight(user.belong2Team, userSearchKey)"></font></span>
                             </div>
-                            <div class="col-md-3 col-xs-3">
+                            <div class="col-md-2 col-xs-2">
                                 <i class="fa fa-server" aria-hidden="true"></i><span>&nbsp <font ng-bind-html="highlight(user.userType, userSearchKey)"></font></span>
                             </div>
-                            <div class="col-md-2 col-xs-2">
+                            <div class="col-md-3 col-xs-3">
+                                <i class="fa" aria-hidden="true"></i><span>&nbsp <font ng-bind-html="highlight(user.email, userSearchKey)"></font></span>
                             </div>
                             <div class="col-md-1 col-xs-1">
-                                <!--<a class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>-->
                             </div>
+                            <br/>
                         </blockquote>
                         <br/>
                         <center ng-hide="user.collapsed"><span class="glyphicon glyphicon-menu-down"></span></center>

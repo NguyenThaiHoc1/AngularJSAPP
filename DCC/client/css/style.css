@@ -988,6 +988,7 @@ blockquote{
 
 .round-wrap{
     border:1px solid #D3D3D3; border-radius: 6px;
+	box-shadow: 10px 2px 0 2px #AAAAAA;
 }
 .Absolute-Center {
   margin: auto;
