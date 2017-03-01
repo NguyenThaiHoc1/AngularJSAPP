@@ -228,10 +228,10 @@ table tr:nth-child(even) td{
 		border-top-right-radius: 0;
     }
 
-.img-responsive{
+/*.img-responsive{
 	width:8.75%;
 	height: 8.75%;
-	}
+	}*/
 
 .subnavbar .dropdown-menu::before {
 	content: '';
