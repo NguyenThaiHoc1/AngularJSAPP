@@ -9,6 +9,14 @@ myApp.config(function ($stateProvider) {
         templateUrl: 'partials/common/loginHeader.html',
         controller: 'loginController'
     });
+    //Change Password
+    $stateProvider.state('changePassword', {
+        templateUrl: '',
+        controller: 'changePasswordController',
+        data: {
+            auth: true
+        }
+    });
     //Logout
     $stateProvider.state('logout', {
         url: "/logout",
@@ -90,7 +98,50 @@ myApp.controller('loginController', ['$scope', 'userServices', '$location', '$ro
         }
     };
 }]);
+myApp.controller('changePasswordController', ['$scope', 'userServices', '$location', '$rootScope', function ($scope, userServices, $location, $rootScope) {
+    $scope.changePassword = {};
+    $scope.confirmChange = function () {
+        // get user info to check password, also ensure untouched field not null when update profile
+        userServices.getUserProfile($rootScope.userInfo).then(function (userData) {
+        userData.data.role = $rootScope.userInfo.role;
+        $rootScope.userInfo = userData.data;
+        $scope.userDetail = (JSON.parse(JSON.stringify($rootScope.userInfo)));
+    })
+        if($scope.changePassword.oldPassword == $scope.userInfo.password)   //check old password
+        {
+            if($scope.changePassword.newPassword == $scope.changePassword.newPasswordAgain) //check password match
+            {
+                $scope.userDetail.password = $scope.changePassword.newPassword;
+                userServices.updateUserProfile($scope.userDetail).then(function (result)    //call update profile service
+                { 
+                    if (result.data.success) 
+                    {
+                        userServices.getUserProfile($scope.userDetail).then(function (userData) 
+                        {
+                            $rootScope.userInfo = userData.data;
+                            window.sessionStorage["userInfo"] = JSON.stringify($rootScope.userInfo);
+                            $rootScope.ShowPopupMessage(result.data.msg, "success");
+                            $location.path("/userProfile");
+                        })
+                    } 
+                    else 
+                    {
+                        $rootScope.ShowPopupMessage(result.data.msg, "error");
+                    }
 
+                });
+            }
+            else
+            {
+                $rootScope.ShowPopupMessage("Password not match, re-type please!","error");
+            }
+        }
+        else
+        {
+            $rootScope.ShowPopupMessage("Current password is not correct!","error");
+        }
+    };
+}]);
 myApp.controller('logoutController', ['$scope', 'userServices', '$location', '$rootScope', function ($scope, userServices, $location, $rootScope) {
     userServices.logout().then(function () {
         sessionStorage.clear();
