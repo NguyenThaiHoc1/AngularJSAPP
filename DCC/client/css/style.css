@@ -693,6 +693,8 @@ color: #333;
 	border-radius: 5px;
 	margin-left: 0px;
 	margin-right: 0px;
+	margin-top: 8px;
+	line-height: 18px;
 }
 .all-icons li { list-style:none;}
 
