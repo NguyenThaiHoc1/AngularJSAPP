@@ -113,7 +113,7 @@ myApp.controller('changePasswordController', ['$scope', 'userServices', '$locati
             {
                 $scope.userDetail.password = $scope.changePassword.newPassword;
                 userServices.updateUserProfile($scope.userDetail).then(function (result)    //call update profile service
-                {
+                { 
                     if (result.data.success) 
                     {
                         userServices.getUserProfile($scope.userDetail).then(function (userData) 
