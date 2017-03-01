@@ -59,6 +59,10 @@
                         </li>
 
                         <li class="divider"></li>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 116459e926eaf2795e6603a5c3a26049e1b9d13e
                         <li ng-show="userInfo.password != null">
                             <a data-toggle="modal" data-target="#changePassword">
                                 <font size="3"><span class="glyphicon glyphicon-lock">&nbsp</span>Change Password</font>
@@ -69,6 +73,10 @@
                                 <font size="3"><span class="glyphicon glyphicon-log-out">&nbsp</span>Logout</font>
                             </a>
                         </li>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 116459e926eaf2795e6603a5c3a26049e1b9d13e
                     </ul>
                 </li>
             </ul>
@@ -105,36 +113,48 @@
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
+<<<<<<< HEAD
                 <form name="loginForm" role="form" class="form-horizontal" novalidate>
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">Account Login</h4>
                     </div>
+=======
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Account Login</h4>
+                </div>
+                <form name="loginForm" role="form" class="form-horizontal" novalidate>
+
+>>>>>>> 116459e926eaf2795e6603a5c3a26049e1b9d13e
                     <div class="modal-body">
-                        <!--Enter email-->
-                        <div class="form-group" ng-class="{ 'has-error' : loginForm.$error.email || loginForm.email.$invalid && !loginForm.email.$pristine }">
-                            <label class="col-xs-3 control-label">Username</label>
+                        <div class="form-group" ng-class="{ 'has-error' : loginForm.email.$invalid && !loginForm.email.$pristine }">
+                            <label class="col-xs-3 control-label">Email</label>
                             <div class="col-xs-8">
-                                <input type="email" class="form-control" name="email" ng-model="login.username" placeholder="Email" required>
-                                <p ng-show="loginForm.$error.email || loginForm.email.$invalid && !loginForm.email.$pristine" class="help-block">Email invalid or null!</p>
+                                <input type="email" class="form-control" name="email" ng-model="login.username" placeholder="Enter email..." required>
+                                <p ng-show="(loginForm.email.$invalid && !loginForm.email.$pristine)" class="help-block">Not a valid email!</p>
                             </div>
                         </div>
-                        <!--Enter password-->
                         <div class="form-group" ng-class="{ 'has-error' : loginForm.password.$invalid && !loginForm.password.$pristine }">
-                            <label class="col-xs-3 control-label">Username</label>
+                            <label class="col-xs-3 control-label">Password</label>
                             <div class="col-xs-8">
-                                <input type="password" class="form-control" name="password" ng-model="login.password" placeholder="Password" required>
-                                <p ng-show="loginForm.password.$invalid && !loginForm.password.$pristine" class="help-block">Password is required!</p>
+                                <input type="password" class="form-control" name="password" ng-model="login.password" placeholder="Enter Password..." required>
+                                <p ng-show="(loginForm.password.$invalid && !loginForm.password.$pristine)" class="help-block">Password is required!</p>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
+<<<<<<< HEAD
                         <button type="submit" class="btn btn-success" ng-click="doLogin()" data-dismiss="modal" ng-disabled="loginForm.$invalid">Login</button>
+=======
+                        <button type="submit" class="btn btn-success" ng-click="doLogin()" data-dismiss="modal">Login</button>
+
+>>>>>>> 116459e926eaf2795e6603a5c3a26049e1b9d13e
                     </div>
-                </form>
             </div>
         </div>
     </div>
+<<<<<<< HEAD
 </div>
 
 <!--Change password pop-up modal-->
@@ -165,19 +185,50 @@
                                 <input type="password" class="form-control" name="newPassword" ng-model="changePassword.newPassword" placeholder="Type your new password"
                                     required>
                                     <p ng-show="changePasswordForm.newPassword.$invalid && !changePasswordForm.newPassword.$pristine" class="help-block">Your new password is required!</p>
-                            </div>
+=======
+
+    <!--Change password pop-up modal-->
+    <div ng-controller="changePasswordController">
+        <div class="modal fade" id="changePassword" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <form name="changePasswordForm" role="form" class="form-horizontal" novalidate>
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Change User Password</h4>
                         </div>
-                        <!--Confirm your password-->
-                        <div class="form-group" ng-class="{ 'has-error' : (changePasswordForm.newPasswordAgain.$invalid && !changePasswordForm.newPasswordAgain.$pristine)  || ((changePassword.newPasswordAgain != changePassword.newPassword) && !changePasswordForm.newPasswordAgain.$pristine) }">
-                            <label class="col-xs-3 control-label">Confirm Password</label>
-                            <div class="col-xs-8">
-                                <input type="password" class="form-control" name="newPasswordAgain" ng-model="changePassword.newPasswordAgain" placeholder="Re-type your new Password"
-                                    required>
-                                    <p ng-show="(changePasswordForm.newPasswordAgain.$invalid && !changePasswordForm.newPasswordAgain.$pristine)  || ((changePassword.newPasswordAgain != changePassword.newPassword) && !changePasswordForm.newPasswordAgain.$pristine)"
-                                        class="help-block"> These passwords don' t match!</p>
+                        <div class="modal-body">
+                            <!--Enter old password-->
+                            <div class="form-group" ng-class="{ 'has-error' : changePasswordForm.currentPassword.$invalid && !changePasswordForm.currentPassword.$pristine }">
+                                <label class="col-xs-3 control-label">Current Password</label>
+                                <div class="col-xs-8">
+                                    <input type="password" class="form-control" name="currentPassword" ng-model="changePassword.oldPassword" placeholder="Type your current password"
+                                        required>
+                                        <p ng-show="changePasswordForm.currentPassword.$invalid && !changePasswordForm.currentPassword.$pristine" class="help-block">Wrong password!</p>
+                                </div>
+>>>>>>> 116459e926eaf2795e6603a5c3a26049e1b9d13e
                             </div>
-                        </div>
-                        <!--<div class="form-group">
+                            <!--Enter new password-->
+                            <div class="form-group" ng-class="{ 'has-error' : changePasswordForm.newPassword.$invalid && !changePasswordForm.newPassword.$pristine }">
+                                <label class="col-xs-3 control-label">Username</label>
+                                <div class="col-xs-8">
+                                    <input type="password" class="form-control" name="newPassword" ng-model="changePassword.newPassword" placeholder="Type your new password"
+                                        required>
+                                        <p ng-show="changePasswordForm.newPassword.$invalid && !changePasswordForm.newPassword.$pristine" class="help-block">Your new password is required!</p>
+                                </div>
+                            </div>
+                            <!--Confirm your password-->
+                            <div class="form-group" ng-class="{ 'has-error' : (changePasswordForm.newPasswordAgain.$invalid && !changePasswordForm.newPasswordAgain.$pristine)  || ((changePassword.newPasswordAgain != changePassword.newPassword) && !changePasswordForm.newPasswordAgain.$pristine) }">
+                                <label class="col-xs-3 control-label">Confirm Password</label>
+                                <div class="col-xs-8">
+                                    <input type="password" class="form-control" name="newPasswordAgain" ng-model="changePassword.newPasswordAgain" placeholder="Re-type your new Password"
+                                        required>
+                                        <p ng-show="(changePasswordForm.newPasswordAgain.$invalid && !changePasswordForm.newPasswordAgain.$pristine)  || ((changePassword.newPasswordAgain != changePassword.newPassword) && !changePasswordForm.newPasswordAgain.$pristine)"
+                                            class="help-block"> These passwords don' t match!</p>
+                                </div>
+                            </div>
+                            <!--<div class="form-group">
                             <label class="col-md-4 control-label">Re-type New Password</label>
 
                             <input class="col-md-6" type="password" name="newPasswordAgain"
@@ -190,12 +241,20 @@
                             valid-method="watch" />
 
                         </div>-->
+<<<<<<< HEAD
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-success" ng-click="confirmChange()" data-dismiss="modal" ng-disabled="changePasswordForm.$invalid">Confirm</button>
                     </div>
                 </form>
+=======
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success" ng-click="confirmChange()" data-dismiss="modal" ng-disabled="changePasswordForm.$invalid">Confirm</button>                            >>>>>>> 83fe3db3407bda1fea8149103354784f3be88a27
+                        </div>
+                    </form>
+                </div>
+>>>>>>> 116459e926eaf2795e6603a5c3a26049e1b9d13e
             </div>
         </div>
     </div>
-</div>
