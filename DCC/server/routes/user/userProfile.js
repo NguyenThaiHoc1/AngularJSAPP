@@ -60,9 +60,10 @@ router.post('/updateUserProfile', function (req, res) {
         {
             username: req.body.username,
             status: req.body.status,
+            //avatar: req.body.avatar,
             dob: req.body.dob,
             phone: req.body.phone,
-            role: req.body.role,
+            //role: req.body.role,
             password: req.body.password
         },
         {
@@ -132,7 +133,7 @@ router.post('/addUser', function (req, res) {
                     isTrainee: true, //default user is a trainee
                     belong2Team: 'Team InNoVa',
                     isExperienced: 0,
-                    userType: req.body.courseId,
+                    userType: req.body.userType,
                 }).then(function () {
                     res.send({
                         success: true,

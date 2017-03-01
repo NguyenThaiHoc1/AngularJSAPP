@@ -1,13 +1,11 @@
 <style>
     #input_field {
-        border-radius: 25px;
-        border: 2px groove #0000ff;
         width: 500px;
         margin: auto;
         padding: 20px
     }
     
-    input[type=text],
+    input[type=email],
     select {
         width: 100%;
         padding: 6px 10px;
@@ -51,32 +49,42 @@
 </style>
 <!--<div id="body">-->
 <div ng-init="NewUser = {email: '', password: '', passworddAgain: '',courseId: ''}">
+    <div class="container">
+        <div class="widget">
+            <div class="widget-header">
+                <h3>User Register</h3>
+            </div>
+            <div class="widget-content">
+                <div id="input_field">
+                    <form name="frmRegistery">
 
-    <div id="input_field">
-        <form>
+                        <h2 style="color: #3399ff ;text-align: center">User Register</h2>
 
-            <h2 style="color: #3399ff ;text-align: center">User Register</h2>
+                        <label for="useremail">User Email</label>
+                        <input type="email" id="useremail" ng-model="emailName" name="useremail" placeholder="Your email.." required>
 
-            <label for="useremail">User Email</label>
-            <input type="text" id="useremail" ng-model="emailName" name="useremail" placeholder="Your email..">
+                        <p style="color: crimson" ng-show="frmRegistery.$error.email"> Not valid email!</p>
+                        <label for="password">Password</label>
+                        <input type="password" id="password" ng-model="password" name="password" placeholder="Your password..">
 
-            <label for="password">Password</label>
-            <input type="password" id="password" ng-model="password" name="password" placeholder="Your password..">
+                        <label for="passwordAgain">Confirm Password</label>
+                        <input type="password" id="passwordAgain" ng-model="passworddAgain" name="passwordAgain" placeholder="Re-enter your password..">
 
-            <label for="passwordAgain">Confirm Password</label>
-            <input type="password" id="passwordAgain" ng-model="passworddAgain" name="passwordAgain" placeholder="Re-enter your password..">
-
-            <label for="courseType">Course Type</label>
-            <select id="courseType" ng-model="courseTypeId" name="courseType">
-      <option value="CBA">CBA Team</option>
-      <option value="IMS">IMS Team</option>
-      <option value="AXE">AXE Team</option>
-      <option value="Intern">New Intern</option>
-    </select>
-            <p ng-show="passworddAgain != password"> These passwords don' t match</p>
-            <button ng-click="applyValue()">Apply</button>
+                        <label for="courseType">Course Type</label>
+                        <select id="courseType" ng-model="courseTypeId" name="courseType">
+            <option value="CBA">CBA Team</option>
+            <option value="IMS">IMS Team</option>
+            <option value="AXE">AXE Team</option>
+            <option value="Intern">New Intern</option>
+            </select ng-init checkValue = true>
+            <p style="color: crimson" ng-show="passworddAgain != password"> These passwords don' t match</p>
+            <button ng-click="applyValue()" disabled="!frmRegistery.$error.required && !frmRegistery.$error.email && passworddAgain == password && password ">Apply</button>
             <button ng-click="clear()">Clear</button>
         </form>
+    </div>
+            </div>
+            
+</div>
     </div>
 </div>
 <!--</div>-->

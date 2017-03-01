@@ -3,7 +3,7 @@ var SequelizeDatatypes = require('sequelize');
 module.exports =
     {
         username: {
-            type: SequelizeDatatypes.STRING,
+            type: SequelizeDatatypes.TEXT,
             allowNull: false
         },
         status: {
@@ -33,7 +33,7 @@ module.exports =
         },
         avatar: {
             type: SequelizeDatatypes.STRING,
-            allowNull: false
+            allowNull: true
         },
         isAdmin: {
             type: SequelizeDatatypes.BOOLEAN,
