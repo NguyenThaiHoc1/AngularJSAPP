@@ -1,5 +1,13 @@
+
+var logConfigOptions = {
+    //logDirectory: './client/assets/log',
+    logDirectory: './client',
+    fileNamePattern: 'roll-<DATE>.log',
+    dateFormat: 'YYYY.MM.DD'
+};
 module.exports =
     {
+        //database config
         "development": {
             "dialect": "mysql",
             "username": "root",
@@ -46,5 +54,15 @@ module.exports =
         "inMemoryDB": {
             dialect: "sqlite",
             storage: "database/database.sqlite"
-        }
+        },
+        // LDAP server config , port 389
+        server: {
+        url: 'ldap://192.168.122.20:389',
+        bindDn: 'cn=admin,dc=example,dc=com',
+        bindCredentials: '123456',
+        searchBase: 'dc=example,dc=com',
+        searchFilter: '(mail={{username}})'
+        },
+        //Log config
+        "log":require('simple-node-logger').createLogManager(logConfigOptions).createLogger()
     }
