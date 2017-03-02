@@ -84,9 +84,11 @@ router.post('/photo', function (req, res) {
     upload(req, res, function () {
         if (typeof req.file !== "undefined") {
             models.User.getUserByEmail(req.user.email, function (user) {
-                if (user.avatar !== '/img/profiles/defaultProfile.jpg') {
-                    fs.unlink('client' + user.avatar);
-                }
+                // if (user.avatar !== '/img/profiles/defaultProfile.jpg') {
+                //     fs.unlink('client' + user.avatar, (err) => {
+
+                //     });
+                // }
                 models.User.update(
                     {
                         avatar: '/img/profiles/' + req.file.filename
