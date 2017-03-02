@@ -3,19 +3,19 @@
     <div class="widget">
         <!--This is the tiny blue header bar with "all course" on it-->
         <div class="widget-header">
-            <h3 class = "col-xs-7">All Course</h3>
-                <input ng-model="courseSearchKey" class="box-group col-xs-3" type="text" placeholder="Search Box Here" name="ng-srch-term" id="ng-srch-term" ng-change="findCourse(courseSearchKey)">
-                <div class="box-group col-xs-2" uib-dropdown is-open="status.isopen">
-                    <select ng-model="opt" style="border-radius: 5px" ng-change="filtCourse()">
-                        <option value="">--Choose course filter--</option>
-                        <option value="openingCourse">Opening Course</option>
-                        <option value="allCourse">All Course</option>
+            <h3 class = "col-xs-7 col-md-7">All Course</h3>
+                <input ng-model="courseSearchKey" class="box-group col-xs-3 col-md-3" type="text" placeholder="Search Box Here" name="ng-srch-term" id="ng-srch-term" ng-change="findCourse(courseSearchKey,openingCourseFilter)">
+                <div class="col-xs-2 col-md-2" uib-dropdown is-open="status.isopen">
+                    <select class="box-group col-xs-12 col-md-12" ng-model="opt" ng-change="filtCourse()">
+                        <option value="">--Filter--</option>
+                        <option value="openingCourse">Opening</option>
+                        <option value="allCourse">All</option>
                     </select>
                 </div>
         </div>
         <!--These are all the content under the that tiny blue bar :)-->
         <div class="widget-content" >
-            <!--Here is the content of search return, show only when there is somethinbg in the search box-->
+            <!--Here is the content of search return, show only when there is something in the search box-->
             <div ng-show="courseSearchKey">
                 <div class="panel-group" ng-repeat="course in courseListSearchResult" >
                     <div class="panel-heading panel-title"  style="margin-bottom:10px; border: 0px solid grey; border-radius: 5px;">
