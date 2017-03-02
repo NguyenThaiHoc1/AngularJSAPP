@@ -124,13 +124,24 @@ myApp.controller('courseRegisterCtrl', ['$sce','$rootScope', '$scope', 'courseRe
         return true;
     }
 
-    $scope.findCourse = function(courseSearchKey){
+    $scope.findCourse = function(courseSearchKey, openingCourseFilter){
         var courseListSearchResult = []
-        $scope.trainingProgramList.forEach(trainingProgram => {
-            trainingProgram.Courses.forEach(course => {
-                if(course.name.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1) courseListSearchResult.push(course);
+        if(openingCourseFilter)
+        {
+            $scope.trainingProgramList.forEach(trainingProgram => {
+                trainingProgram.Courses.forEach(course => {
+                    if((course.name.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1)&&(course.isOpening == openingCourseFilter)) courseListSearchResult.push(course);
+                });
             });
-        });
+        }
+        else
+        {
+            $scope.trainingProgramList.forEach(trainingProgram => {
+                trainingProgram.Courses.forEach(course => {
+                    if(course.name.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1) courseListSearchResult.push(course);
+                });
+            });
+        }
         $scope.courseListSearchResult = courseListSearchResult;
     };
 
@@ -149,11 +160,6 @@ myApp.controller('courseRegisterCtrl', ['$sce','$rootScope', '$scope', 'courseRe
             default: $scope.openingCourseFilter = 0;break;
         }
     }
-
-    $scope.searchClick = function(){
-        $rootScope.ShowPopupMessage("Just type in the box nigga!", "error");
-    }
-
 
     $scope.registerCourse = function(courseId){
         // courseRegisterStatus = true : unregister;

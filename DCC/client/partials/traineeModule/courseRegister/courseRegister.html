@@ -3,13 +3,13 @@
     <div class="widget">
         <!--This is the tiny blue header bar with "all course" on it-->
         <div class="widget-header">
-            <h3 class = "col-xs-6 col-md-6">All Course</h3>
-                <input ng-model="courseSearchKey" class="box-group col-xs-3 col-md-3" type="text" placeholder="Search Box Here" name="ng-srch-term" id="ng-srch-term" ng-change="findCourse(courseSearchKey)">
-                <div class="col-xs-3 col-md-3" uib-dropdown is-open="status.isopen">
+            <h3 class = "col-xs-7 col-md-7">All Course</h3>
+                <input ng-model="courseSearchKey" class="box-group col-xs-3 col-md-3" type="text" placeholder="Search Box Here" name="ng-srch-term" id="ng-srch-term" ng-change="findCourse(courseSearchKey,openingCourseFilter)">
+                <div class="col-xs-2 col-md-2" uib-dropdown is-open="status.isopen">
                     <select class="box-group col-xs-12 col-md-12" ng-model="opt" ng-change="filtCourse()">
                         <option value="">--Filter--</option>
-                        <option value="openingCourse">Opening Course</option>
-                        <option value="allCourse">All Course</option>
+                        <option value="openingCourse">Opening</option>
+                        <option value="allCourse">All</option>
                     </select>
                 </div>
         </div>
