@@ -21,10 +21,10 @@
                     <div class="col-md-3 col-xs-3" style="text-indent: 0.7em;">
                         <a ng-click="sortbyName()"><i class="glyphicon glyphicon-user"></i><b>&nbsp Name</b></a>
                     </div>
-                    <div class="col-md-2 col-xs-2" >
+                    <div class="col-md-2 col-xs-2">
                         <a ng-click="sortbyTeam()"><i class="fa fa-users"></i><b>&nbsp Team</b></a>
                     </div>
-                    <div class="col-md-2 col-xs-2" >
+                    <div class="col-md-2 col-xs-2">
                         <a select="sortbyArea()"><i class="glyphicon glyphicon-th-list"></i><b>&nbsp Area</b></a>
                     </div>
                     <div class="col-md-4 col-xs-4">
@@ -38,12 +38,13 @@
                             <div class="row">
                                 <blockquote class="blockquote" style="border-left: none; margin-bottom:24px; word-wrap: break-word;" id="shady-lady">
                                     <div class="col-md-3 col-xs-3">
-                                        <img style="float:left; clear:both; margin-right: 10px;" alt="User Avatar" class="img-responsive" ng-src="{{user.avatar}}"
-                                            width="45px">
+                                        <img style="float:left; clear:both; margin-right: 10px; border-radius: 50%; width:45px !important; height:45px !important"
+                                            alt="User Avatar" class="img-responsive" ng-src="{{user.avatar}}">
                                             <font ng-bind-html="highlight(user.username, userSearchKey)"></font>
                                     </div>
                                     <div class="col-md-2 col-xs-2">
-                                        <iaria-hidden="true"></i><span>&nbsp <font ng-bind-html="highlight(user.belong2Team, userSearchKey)"></font></span>
+                                        <iaria-hidden="true">
+                                            </i><span>&nbsp <font ng-bind-html="highlight(user.belong2Team, userSearchKey)"></font></span>
                                     </div>
                                     <div class="col-md-2 col-xs-2">
                                         <i aria-hidden="true"></i><span>&nbsp <font ng-bind-html="highlight(user.userType, userSearchKey)"></font></span>
@@ -93,11 +94,11 @@
                                         </div>
                                     </div>
                                 </blockquote>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
