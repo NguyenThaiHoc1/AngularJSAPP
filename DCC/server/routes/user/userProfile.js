@@ -133,7 +133,7 @@ router.post('/addUser', function (req, res) {
             } else {
                 models.User.create({
                     username: 'Your Name',
-                    status: 'some status',
+                    status: 'activated',
                     dob: '01/01/2001',
                     phone: '0000 000 000',
                     location: 'DEK Vietnam',

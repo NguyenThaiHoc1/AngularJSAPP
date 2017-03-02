@@ -36,17 +36,17 @@ input,button,select,textarea {
 	margin-right: 0px;
 	background-color: lightgreen;
 }
-table tr:nth-child(odd) td{
-	background-color: none;
-}
-
-
-table tr:nth-child(even) td{
-	background-color: lightblue;
-}
 
 .table tr:hover td {background: lightgray;}
 
+.crop {
+	width:500px;
+	overflow:hidden;
+	height:50px;
+	line-height:50px;
+	color:darkgrey;
+	white-space: nowrap;
+}​
 
 .table td {
 	vertical-align: middle;
@@ -1033,6 +1033,11 @@ body {
 	position:absolute;
 	bottom:0;
 	left:0;
+}
+
+#shady-lady {
+	color: #111111;
+	font-size: 14px;
 }
 
 @media only screen and (max-device-width: 480px) {
