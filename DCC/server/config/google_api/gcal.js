@@ -29,13 +29,17 @@ function authorize(credentials, callback) {
     oauth2Client = new auth.OAuth2(clientId, clientSecret, redirectUrl);
 
     // Check if we have previously stored a token.
-    fs.readFile(TOKEN_PATH, function(err, token) {
+    fs.readFile(TOKEN_PATH, function (err, token) {
         oauth2Client.credentials = JSON.parse(token);
+        oauth2Client.refreshAccessToken(function (err, tokens) {
+            // your access_token is now refreshed and stored in oauth2Client
+            // store these new tokens in a safe place (e.g. database)
+        });
         callback(oauth2Client);
     });
 }
 
-exports.getEvents = function(cb) {
+exports.getEvents = function (cb) {
     fs.readFile('./server/config/google_api/client_secret.json', function (err, content) {
         if (err) {
             return;
@@ -54,9 +58,9 @@ exports.getEvents = function(cb) {
                 maxResults: 100,
                 singleEvents: true,
                 orderBy: 'startTime'
-            }, function(err, response) {
+            }, function (err, response) {
                 if (!err)
-                cb(response.items);
+                    cb(response.items);
             })
         });
     });
