@@ -60,7 +60,7 @@ router.post('/updateUserProfile', function (req, res) {
     models.User.update(
         {
             username: req.body.username,
-            status: req.body.status,
+            // userType: req.body.userType,
             avatar: req.body.avatar,
             dob: req.body.dob,
             phone: req.body.phone,
