@@ -113,10 +113,10 @@ describe('<Unit test for trainee-courseRegister>', function () {
                 .post('/trainee/courseRegister/sendRegisterRequest');
             req.cookies = Cookies;
             req.set('Accept', 'application/json')
-                .send({ userId: 1, courseId: 13 })
+                .send({ userId: 1, courseId: 36 })
                 .end(function (err, res) {
                     assert.equal(res.body.success, true);
-                    models.RequestOpening.destroy({ where: { userId: 1, courseId: 13 } });
+                    models.RequestOpening.destroy({ where: { userId: 1, courseId: 36 } });
                     if (err) return done(err);
                     done();
                 });
