@@ -26,6 +26,8 @@ myApp.factory('EmployeesProfileService', ['$http', function($http) {
 myApp.controller('getProfilesController', ['$scope','$sce', 'EmployeesProfileService', function($scope,$sce, EmployeesProfileService) {
     EmployeesProfileService.getProfilesList().then(function(userData) {
         $scope.UsersList = userData.data.data;
+        $scope.UsersListSearchResult = userData.data.data;
+        $scope.sortbyName();
     });
     $scope.findUser = function(userSearchKey) {
         var SearchResult = [];
@@ -38,7 +40,7 @@ myApp.controller('getProfilesController', ['$scope','$sce', 'EmployeesProfileSer
                 (user.phone.toUpperCase().indexOf(userSearchKey.toUpperCase()) !== -1))
                     SearchResult.push(user);
         });
-        $scope.UsersListSearchResult = SearchResult;
+            $scope.UsersListSearchResult = SearchResult ? SearchResult : $scope.UsersList;
     };
     $scope.highlight = function(text, search) {
         if (!search) {
@@ -46,4 +48,29 @@ myApp.controller('getProfilesController', ['$scope','$sce', 'EmployeesProfileSer
         }
         return $sce.trustAsHtml(text.replace(new RegExp(search, 'gi'), '<span class="highlightedText">$&</span>'));
     };
+    $scope.sortbyArea = function() {
+        $scope.UsersListSearchResult.sort(function(prevUser, nextUser) {
+            var lower_prevUser = prevUser.userType.toUpperCase();
+            var lower_nextUser = nextUser.userType.toUpperCase();
+
+            return lower_prevUser < lower_nextUser ? -1 : lower_prevUser > lower_nextUser ? 1 : 0;
+        });
+    };
+    $scope.sortbyTeam = function() {
+        $scope.UsersListSearchResult.sort(function(prevUser, nextUser) {
+            var lower_prevUser = prevUser.belong2Team.toUpperCase();
+            var lower_nextUser = nextUser.belong2Team.toUpperCase();
+
+            return lower_prevUser < lower_nextUser ? -1 : lower_prevUser > lower_nextUser ? 1 : 0;
+        });
+    };
+    $scope.sortbyName = function() {
+        $scope.UsersListSearchResult.sort(function(prevUser, nextUser) {
+            var lower_prevUser = prevUser.username.toUpperCase();
+            var lower_nextUser = nextUser.username.toUpperCase();
+
+            return lower_prevUser < lower_nextUser ? -1 : lower_prevUser > lower_nextUser ? 1 : 0;
+        });
+    };
+
 }]);
