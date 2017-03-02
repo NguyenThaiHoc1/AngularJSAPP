@@ -2,7 +2,7 @@ var router = require('express').Router();
 var models = require('../../models');
 var config = require('../../config/config.json');
 var log = require('../../config/config')[config.logConfig];
-
+const fs = require('fs');
 // Upload file setting
 var multer = require('multer');
 var storage = multer.diskStorage({
@@ -28,7 +28,7 @@ router.post('/getUserInfo', function (req, res) {
             currentRole = 1;
         } else if (user.isTrainer) {
             currentRole = 2;
-        } else if (user.isTrainee) {    
+        } else if (user.isTrainee) {
             currentRole = 3;
         }
         res.send({
@@ -60,7 +60,7 @@ router.post('/updateUserProfile', function (req, res) {
     models.User.update(
         {
             username: req.body.username,
-            status: req.body.status,
+            // userType: req.body.userType,
             avatar: req.body.avatar,
             dob: req.body.dob,
             phone: req.body.phone,
@@ -83,16 +83,25 @@ router.post('/photo', function (req, res) {
     // upload avatar
     upload(req, res, function () {
         if (typeof req.file !== "undefined") {
-            models.User.update(
-                {
-                    avatar: '/img/profiles/' + req.file.filename
-                },
-                {
-                    where: { email: req.user.email }
-                }
-            ).then(function () {
-                res.redirect('/#/editUserProfile');
-            })
+            models.User.getUserByEmail(req.user.email, function (user) {
+                fs.unlink('client' + user.avatar, (err) => {
+                    if (err)
+                        console.log('fail');
+                    else
+                        console.log('successfully');
+                });
+                models.User.update(
+                    {
+                        avatar: '/img/profiles/' + req.file.filename
+                    },
+                    {
+                        where: { email: req.user.email }
+                    }
+                ).then(function () {
+                    res.redirect('/#/editUserProfile');
+                })
+            });
+
         }
     });
 });
