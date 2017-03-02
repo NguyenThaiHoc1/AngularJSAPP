@@ -143,7 +143,7 @@ router.post('/addUser', function (req, res) {
                     isAdmin: false,
                     isTrainer: false,
                     isTrainee: true, //default user is a trainee
-                    belong2Team: 'Team InNoVa',
+                    belong2Team: 'InNoVa',
                     isExperienced: 0,
                     userType: req.body.courseId,
                 }).then(function () {
