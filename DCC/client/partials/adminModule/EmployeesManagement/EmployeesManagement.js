@@ -1,11 +1,11 @@
 'use strict';
 
-angular.module('EmployeesProfile', []);
+angular.module('EmployeesManagement', []);
 
 myApp.config(function($stateProvider) {
-    $stateProvider.state('EmployeesProfile', {
-            url: '/EmployeesProfile',
-            templateUrl: 'partials/adminModule/EmployeesProfile/EmployeesProfile.html',
+    $stateProvider.state('EmployeesManagement', {
+            url: '/EmployeesManagement',
+            templateUrl: 'partials/adminModule/EmployeesManagement/EmployeesManagement.html',
             controller: 'getProfilesController',
             data:{
                 auth:true
@@ -13,7 +13,7 @@ myApp.config(function($stateProvider) {
     });
 });
 
-myApp.factory('EmployeesProfileService', ['$http', function($http) {
+myApp.factory('EmployeesManagementService', ['$http', function($http) {
     var factoryDefinition = {
         getProfilesList: function() {
             return $http.get('/user/userProfile/getAllUsers').success(function(data) { return data; });
@@ -23,8 +23,12 @@ myApp.factory('EmployeesProfileService', ['$http', function($http) {
     return factoryDefinition;
 }]);
 
-myApp.controller('getProfilesController', ['$scope','$sce', 'EmployeesProfileService', function($scope,$sce, EmployeesProfileService) {
-    EmployeesProfileService.getProfilesList().then(function(userData) {
+myApp.controller('getProfilesController', ['$scope','$sce', 'EmployeesManagementService', function($scope,$sce, EmployeesManagementService) {
+    EmployeesManagementService.getProfilesList().then(function(userData) {
+        for (var i=userData.data.data.length-1; i>=0; i--) {
+            if (userData.data.data[i].status != "activated")
+                userData.data.data.splice(i, 1);
+        }
         $scope.UsersList = userData.data.data;
         $scope.UsersListSearchResult = userData.data.data;
         $scope.sortbyName();
@@ -50,26 +54,26 @@ myApp.controller('getProfilesController', ['$scope','$sce', 'EmployeesProfileSer
     };
     $scope.sortbyArea = function() {
         $scope.UsersListSearchResult.sort(function(prevUser, nextUser) {
-            var lower_prevUser = prevUser.userType.toUpperCase();
-            var lower_nextUser = nextUser.userType.toUpperCase();
+            var upper_prevUser = prevUser.userType.toUpperCase();
+            var upper_nextUser = nextUser.userType.toUpperCase();
 
-            return lower_prevUser < lower_nextUser ? -1 : lower_prevUser > lower_nextUser ? 1 : 0;
+            return upper_prevUser < upper_nextUser ? -1 : upper_prevUser > upper_nextUser ? 1 : 0;
         });
     };
     $scope.sortbyTeam = function() {
         $scope.UsersListSearchResult.sort(function(prevUser, nextUser) {
-            var lower_prevUser = prevUser.belong2Team.toUpperCase();
-            var lower_nextUser = nextUser.belong2Team.toUpperCase();
+            var upper_prevUser = prevUser.belong2Team.toUpperCase();
+            var upper_nextUser = nextUser.belong2Team.toUpperCase();
 
-            return lower_prevUser < lower_nextUser ? -1 : lower_prevUser > lower_nextUser ? 1 : 0;
+            return upper_prevUser < upper_nextUser ? -1 : upper_prevUser > upper_nextUser ? 1 : 0;
         });
     };
     $scope.sortbyName = function() {
         $scope.UsersListSearchResult.sort(function(prevUser, nextUser) {
-            var lower_prevUser = prevUser.username.toUpperCase();
-            var lower_nextUser = nextUser.username.toUpperCase();
+            var upper_prevUser = prevUser.username.toUpperCase();
+            var upper_nextUser = nextUser.username.toUpperCase();
 
-            return lower_prevUser < lower_nextUser ? -1 : lower_prevUser > lower_nextUser ? 1 : 0;
+            return upper_prevUser < upper_nextUser ? -1 : upper_prevUser > upper_nextUser ? 1 : 0;
         });
     };
 
