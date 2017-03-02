@@ -47,6 +47,14 @@ table tr:nth-child(even) td{
 
 .table tr:hover td {background: lightgray;}
 
+.crop {
+	width:500px;
+	overflow:hidden;
+	height:50px;
+	line-height:50px;
+	color:darkgrey;
+	white-space: nowrap;
+}​
 
 .table td {
 	vertical-align: middle;
