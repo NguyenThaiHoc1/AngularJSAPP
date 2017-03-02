@@ -7,7 +7,7 @@ module.exports =
             allowNull: false
         },
         status: {
-            type: SequelizeDatatypes.STRING,
+            type: SequelizeDatatypes.TEXT,
             allowNull: true
         },
         dob: {
