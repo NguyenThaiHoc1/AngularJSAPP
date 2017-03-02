@@ -171,7 +171,7 @@
                         <div class="form-group" ng-class="{ 'has-error' : (changePasswordForm.newPasswordAgain.$invalid && !changePasswordForm.newPasswordAgain.$pristine)  || ((changePassword.newPasswordAgain != changePassword.newPassword) && !changePasswordForm.newPasswordAgain.$pristine) }">
                             <label class="col-xs-3 control-label">Confirm Password</label>
                             <div class="col-xs-8">
-                                <input type="password" class="form-control" name="newPasswordAgain" ng-model="changePassword.newPasswordAgain" placeholder="Re-type your new Password"
+                                <input type="password" class="form-control" name="newPasswordAgain" ng-model="changePassword.newPasswordAgain" placeholder="Re-type your new password"
                                     required>
                                     <p ng-show="(changePasswordForm.newPasswordAgain.$invalid && !changePasswordForm.newPasswordAgain.$pristine)  || ((changePassword.newPasswordAgain != changePassword.newPassword) && !changePasswordForm.newPasswordAgain.$pristine)"
                                         class="help-block"> These passwords don' t match!</p>

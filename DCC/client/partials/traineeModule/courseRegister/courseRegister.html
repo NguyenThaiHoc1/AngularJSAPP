@@ -51,7 +51,7 @@
             <div ng-repeat="trainingProgram in trainingProgramList"  style="margin-top: 5px" ng-show="!courseSearchKey">
                 <div class="round-wrap">
                     <a data-toggle="collapse" data-target="#collapse{{trainingProgram.id}}" style="text-decoration : none" ng-click="trainingProgram.collapsed = !trainingProgram.collapsed">
-                        <blockquote class="blockquote" style="border-left: none; margin-bottom:24px;">
+                        <blockquote class="blockquote" style="border-left: none; margin-bottom:5px;">
                             <img  style="float:left; clear:both; margin-right: 10px;" alt="training-program-icon" class="img-responsive" ng-src = "{{trainingProgram.imgLink}}" width="70px">
                             {{trainingProgram.name}}
                             <p style="color:darkgrey; white-space: nowrap"  ng-bind-html="trainingProgram.description"</p>
