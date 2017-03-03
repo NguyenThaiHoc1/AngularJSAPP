@@ -31,7 +31,7 @@
                                 width="60px">
                                 {{trainingProgram.name}}
                                 <div class="pull-right">
-                                    <button class="btn btn-info" data-toggle="modal" data-target="#addEditTPModal" ng-click="showUpdateTPForm(trainingProgram)"><span class="glyphicon glyphicon-pencil"></span></button>
+                                    <a class="btn btn-info" data-toggle="modal" data-target="#addEditTPModal" ng-click="showUpdateTPForm(trainingProgram)"><span class="glyphicon glyphicon-pencil"></span></a>
                                     <a class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" ng-click="showDeleteTPForm(trainingProgram)"><span class="glyphicon glyphicon-trash"></span></a>
                                 </div>
                                 <p style="color:darkgrey; white-space: nowrap" ng-bind-html="trainingProgram.description" </p>
@@ -71,7 +71,7 @@
                                     <!-- Edit and Delete Course -->
                                     <a class="btn btn-info" data-toggle="modal" data-target="#addEditCourseModal" ng-click="showUpdateCourseForm(trainingProgram, course )"><span class="glyphicon glyphicon-pencil"></span></a>
                                     <a class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" ng-click="showDeleteCourseForm(course)"><span class="glyphicon glyphicon-trash"></span></a>
-                                    <button class="btn btn-success" data-toggle="modal" data-target="#addEditClassModal" ng-click="showAddClassForm(course)"><span class="glyphicon glyphicon-plus"></span>&nbsp Add class</button>
+                                    <a class="btn btn-success" data-toggle="modal" data-target="#addEditClassModal" ng-click="showAddClassForm(course)"><span class="glyphicon glyphicon-plus"></span>&nbsp Add class</a>
                                 </center>
                             </div>
                             <br />
