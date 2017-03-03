@@ -1,5 +1,7 @@
 'use strict';
 
+var models = require('../server/models');
+
 module.exports = {
   up: function (queryInterface, Sequelize) {
     return queryInterface.createTable(models.User.tableName, models.User.attributes)
@@ -9,6 +11,7 @@ module.exports = {
       .then(function () { return queryInterface.createTable(models.RequestOpening.tableName, models.RequestOpening.attributes) })
       .then(function () { return queryInterface.createTable(models.Class.tableName, models.Class.attributes) })
       .then(function () { return queryInterface.createTable(models.ClassRecord.tableName, models.ClassRecord.attributes) })
+
   },
 
   down: function (queryInterface, Sequelize) {

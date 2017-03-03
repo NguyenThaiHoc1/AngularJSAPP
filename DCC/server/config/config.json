@@ -1,4 +1,4 @@
 {
-    "environment":"development",
-    "logConfig":"log"
+    "environment": "enviroment",
+    "logConfig": "log"
 }

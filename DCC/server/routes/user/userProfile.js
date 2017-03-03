@@ -83,7 +83,6 @@ router.post('/photo', function (req, res) {
     // upload avatar
     upload(req, res, function () {
         if (typeof req.file !== "undefined") {
-
             models.User.getUserByEmail(req.user.email, function (user) {
                 if (user.avatar != '/img/profiles/defaultProfile.jpg') {
                     fs.unlink('client' + user.avatar, (err) => {
@@ -104,7 +103,6 @@ router.post('/photo', function (req, res) {
                     res.redirect('/#/editUserProfile');
                 })
             });
-
         }
     });
 });
