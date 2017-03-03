@@ -1,17 +1,17 @@
 'use strict';
 
-angular.module('registery', []);
+angular.module('register', []);
 
 //Routers
 myApp.config(function ($stateProvider) {
-    $stateProvider.state('registery', {
-        url: '/registery',
-        templateUrl: 'partials/registery/registery.html'
+    $stateProvider.state('register', {
+        url: '/register',
+        templateUrl: 'partials/register/register.html'
     });
 
 });
 //Factory
-myApp.factory('registeryServices', ['$http', function ($http) {
+myApp.factory('registerServices', ['$http', function ($http) {
 
     var factoryDefinitions = {
         addUser: function (user) {
@@ -23,7 +23,7 @@ myApp.factory('registeryServices', ['$http', function ($http) {
 }
 ]);
 //Controllers
-myApp.controller('registeryCtrl', ['$scope', '$rootScope', 'registeryServices', function ($scope, $rootScope, registeryServices) {
+myApp.controller('registerCtrl', ['$scope', '$rootScope', 'registerServices', function ($scope, $rootScope, registerServices) {
 
     $scope.userEmail = '';
     $scope.userPassword = '';
@@ -38,7 +38,7 @@ myApp.controller('registeryCtrl', ['$scope', '$rootScope', 'registeryServices', 
             courseId: $scope.courseTypeId
         };
 
-        registeryServices.addUser($scope.NewUser).then(function (result) {
+        registerServices.addUser($scope.NewUser).then(function (result) {
             if (result.data.success) {
                 $rootScope.ShowPopupMessage(result.data.msg, "success");
                 $scope.userEmail = '';

@@ -1,0 +1,104 @@
+<div ng-include="'partials/adminModule/EmployeesManagement/register/registerModal.html'"></div>
+<div class="container">
+    <div class="widget widget-nopad">
+        <div class="widget-header">
+            <h3 class="col-xs-9 col-md-10 col-sm-8">Employees list</h3>
+            <!-- Search box -->
+            <div class="col-xs-3 col-md-2 col-sm-4">
+                <input ng-model="userSearchKey" class="box-group col-xs-12 col-md-12 col-sm-12" type="text" placeholder="Search" name="ng-srch-term"
+                    id="ng-srch-term" ng-change="findUser(userSearchKey)">
+            </div>
+        </div>
+        <!--Tab header-->
+        <div class="widget-content">
+            <blockquote>
+                <div class="btn btn-success" data-toggle="modal" href="#registerUserModal">
+                    <span class="glyphicon glyphicon-plus"></span>&nbsp Add User
+                </div>
+            </blockquote>
+            <div class="container-fluid">
+                <div class="row" style="word-wrap: normal; font-size: 16px;">
+                    <div class="col-md-3 col-xs-3" style="text-indent: 0.7em;">
+                        <a ng-click="sortbyName()"><i class="glyphicon glyphicon-user"></i><b>&nbsp Name</b></a>
+                    </div>
+                    <div class="col-md-2 col-xs-2">
+                        <a ng-click="sortbyTeam()"><i class="fa fa-users"></i><b>&nbsp Team</b></a>
+                    </div>
+                    <div class="col-md-2 col-xs-2">
+                        <a select="sortbyArea()"><i class="glyphicon glyphicon-th-list"></i><b>&nbsp Area</b></a>
+                    </div>
+                    <div class="col-md-4 col-xs-4">
+                        <a><i class="glyphicon glyphicon-envelope"></i><b>&nbsp Mail</b></a>
+                    </div>
+                </div>
+                <!--Employees list-->
+                <div ng-repeat="user in UsersListSearchResult" style="margin-top: 5px">
+                    <div class="round-wrap">
+                        <a data-toggle="collapse" data-target="#collapse{{user.id}}" style="text-decoration : none" ng-click="user.collapsed = !user.collapsed">
+                            <div class="row">
+                                <blockquote class="blockquote" style="border-left: none; margin-bottom:24px; word-wrap: break-word;" id="shady-lady">
+                                    <div class="col-md-3 col-xs-3">
+                                        <img style="float:left; clear:both; margin-right: 10px; border-radius: 50%; width:45px !important; height:45px !important"
+                                            alt="User Avatar" class="img-responsive" ng-src="{{user.avatar}}">
+                                            <font ng-bind-html="highlight(user.username, userSearchKey)"></font>
+                                    </div>
+                                    <div class="col-md-2 col-xs-2">
+                                        <iaria-hidden="true">
+                                            </i><span>&nbsp <font ng-bind-html="highlight(user.belong2Team, userSearchKey)"></font></span>
+                                    </div>
+                                    <div class="col-md-2 col-xs-2">
+                                        <i aria-hidden="true"></i><span>&nbsp <font ng-bind-html="highlight(user.userType, userSearchKey)"></font></span>
+                                    </div>
+                                    <div class="col-md-4 col-xs-4">
+                                        <i aria-hidden="true"></i><span><font ng-bind-html="highlight(user.email, userSearchKey)"></font></span>
+                                    </div>
+                                    <div class="col-md-1 col-xs-1">
+                                    </div>
+                                </blockquote>
+                            </div>
+                            <center ng-hide="user.collapsed"><span class="glyphicon glyphicon-menu-down"></span></center>
+                            <center ng-show="user.collapsed"><span class="glyphicon glyphicon-menu-up"></span></center>
+                        </a>
+                    </div>
+                    <!--User full information-->
+                    <div id="collapse{{user.id}}" class="panel-collapse collapse">
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-9 col-sm-8" style="border-left:2px none;" class="row" style="padding-bottom:10px; margin-left: 90px; margin-right: 10px; border: 2px solid;
+                               border-radius: 100px 5px 5px 100px; background-color: #f7f7f7;">
+                                <blockquote class="blockquote">
+                                    <div class="panel-body">
+                                        <div class=" col-md-9 col-lg-9 col-sm-8" style="border-left: 4px solid #D3D3D3">
+                                            <table class="table " id="shady-lady">
+                                                <tbody>
+                                                    <tr style="border: hidden">
+                                                        <td><b>Date of Birth</b></td>
+                                                        <td>
+                                                            <font ng-bind-html="highlight(user.dob, userSearchKey)"></font>
+                                                        </td>
+                                                    </tr>
+                                                    <tr style="border: hidden">
+                                                        <td><b>Phone</b></td>
+                                                        <td>
+                                                            <font ng-bind-html="highlight(user.phone, userSearchKey)"></font>
+                                                        </td>
+                                                    </tr>
+                                                    <tr style="border: hidden">
+                                                        <td><b>Location</b></td>
+                                                        <td>
+                                                            <font ng-bind-html="highlight(user.location, userSearchKey)"></font>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
