@@ -160,7 +160,7 @@ myApp.controller('courseRegisterCtrl', ['$sce','$rootScope', '$scope', 'courseRe
         {
             $scope.trainingProgramList.forEach(trainingProgram => {
                 trainingProgram.Courses.forEach(course => {
-                    if((course.name.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1)&&(course.isOpening == openingCourseFilter)) courseListSearchResult.push(course);
+                    if(((course.name.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1)||((course.description.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1)))&&(course.isOpening == openingCourseFilter)) courseListSearchResult.push(course);
                 });
             });
         }

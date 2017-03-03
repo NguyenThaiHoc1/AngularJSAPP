@@ -72,6 +72,7 @@
                                         <img style="float:left; clear:both; margin-right: 10px;" alt="training-program-icon" class="img-responsive" ng-src="{{course.imgLink}}"
                                             width="70px">
                                             <font ng-bind-html="highlight(course.name, courseSearchKey)"></font>
+                                            <font ng-bind-html="highlight(course.description, courseSearchKey)"></font>
                                             <p class="crop" ng-bind-html="course.description"></p>
                                             <br>
                                     </blockquote>
