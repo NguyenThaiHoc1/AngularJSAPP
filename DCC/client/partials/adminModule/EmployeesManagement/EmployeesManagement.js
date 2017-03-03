@@ -17,22 +17,29 @@ myApp.factory('EmployeesManagementService', ['$http', function($http) {
     var factoryDefinition = {
         getProfilesList: function() {
             return $http.get('/user/userProfile/getAllUsers').success(function(data) { return data; });
+        },
+
+        deactivateUser: function(user) {    //change status to "deactivated"
+            return $http.post('/user/userProfile/updateUserProfile', user).success(function (data) { return data; });
         }
     }
 
     return factoryDefinition;
 }]);
 
-myApp.controller('getProfilesController', ['$scope','$sce', 'EmployeesManagementService', function($scope,$sce, EmployeesManagementService) {
+myApp.controller('getProfilesController', ['$scope', '$rootScope', '$sce', 'EmployeesManagementService', function($scope, $rootScope, $sce, EmployeesManagementService) {
     EmployeesManagementService.getProfilesList().then(function(userData) {
-        for (var i=userData.data.data.length-1; i>=0; i--) {
-            if (userData.data.data[i].status != "activated")
-                userData.data.data.splice(i, 1);
-        }
         $scope.UsersList = userData.data.data;
-        $scope.UsersListSearchResult = userData.data.data;
+        $scope.updateActivatedUser();
+        $scope.UsersListSearchResult = $scope.UsersList;
         $scope.sortbyName();
     });
+    $scope.updateActivatedUser = function() {   //remove all deactivated users
+        for (var i=$scope.UsersList.length-1; i>=0; i--) {
+            if ($scope.UsersList[i].status != "activated")
+                $scope.UsersList.splice(i, 1);
+        }
+    }
     $scope.findUser = function(userSearchKey) {
         var SearchResult = [];
         $scope.UsersList.forEach(user => {
@@ -76,5 +83,23 @@ myApp.controller('getProfilesController', ['$scope','$sce', 'EmployeesManagement
             return upper_prevUser < upper_nextUser ? -1 : upper_prevUser > upper_nextUser ? 1 : 0;
         });
     };
+    $scope.showDeactivateUserForm = function(user) {
+        $rootScope.deactivateUser = user;
+    };
+}]);
 
+myApp.controller('deactivateUserCtrl',['$scope', '$rootScope', 'EmployeesManagementService', function($scope, $rootScope, EmployeesManagementService) {
+    $scope.deactivateClick = function() {
+        $rootScope.deactivateUser.status = 'deactivated';
+        EmployeesManagementService.deactivateUser($rootScope.deactivateUser).then(function (result) {
+            if (result.data.success) {
+                $rootScope.ShowPopupMessage($rootScope.deactivateUser.username + ' deactivated', "success");
+                $rootScope.deactivateUser = undefined;
+                $scope.updateActivatedUser();
+            }
+            else {
+                $rootScope.ShowPopupMessage(result.data.msg, "error");
+            }
+        });
+    };
 }]);
