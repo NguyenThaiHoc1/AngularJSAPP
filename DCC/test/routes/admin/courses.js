@@ -31,6 +31,17 @@ describe('<Unit test for admin-course>', function () {
         request(DCC_Server).get('/logout')
         done();
     });
+    describe('Test case 14 : get /admin/courses/getAllCourse', function () {
+        return it('Should return success==true', function (done) {
+            var req = request(DCC_Server).get('/admin/courses/getAllCourse');
+            req.cookies = Cookies;
+            req.end(function (err, res) {
+                assert.equal(res.body.success, true);
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
 
     describe('Test case 1 : Post /admin/courses/addCourse', function () {
         return it('Should return success==true', function (done) {
@@ -160,7 +171,6 @@ describe('<Unit test for admin-course>', function () {
             var req = request(DCC_Server).get('/admin/courses/getTrainingProgramList');
             req.cookies = Cookies;
             req.end(function (err, res) {
-
                 assert.equal(res.body.success, true);
                 if (err) return done(err);
                 done();
@@ -347,19 +357,11 @@ describe('<Unit test for admin-course>', function () {
             });
         });
     });
-    describe('Test case 14 : get /admin/courses/getAllCourse', function () {
-        return it('Should return success==true', function (done) {
-            var req = request(DCC_Server).get('/admin/courses/getAllCourse');
-            req.end(function (err, res) {
-                assert.equal(res.body.success, true);
-                if (err) return done(err);
-                done();
-            });
-        });
-    });
+
     describe('Test case 15 : get /admin/courses/getAllTP', function () {
         return it('Should return success==true', function (done) {
             var req = request(DCC_Server).get('/admin/courses/getAllTP');
+            req.cookies = Cookies;
             req.end(function (err, res) {
                 assert.equal(res.body.success, true);
                 if (err) return done(err);

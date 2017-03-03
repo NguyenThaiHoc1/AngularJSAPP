@@ -203,6 +203,7 @@ describe('<Unit test for user profile>', function () {
     describe('Test case 6: get all users by admin /user/userProfile/getAllUsers', function () {
         return it('Should return sucess==true', function (done) {
             var req = request(DCC_Server).get('/user/userProfile/getAllUsers');
+            req.cookies = Cookies;
             req.end(function (err, res) {
                 assert.equal(res.body.success, true);
                 if (err) return done(err);
@@ -222,7 +223,8 @@ describe('<Unit test for user profile>', function () {
             req.end(function (err, res) {
                 assert.equal(res.body.success, true);
                 models.User.update({
-                    username: 'Quan WE'}, 
+                    username: 'Quan WE'
+                },
                     {
                         where: { email: 'qwe@gmail.com' }
                     });

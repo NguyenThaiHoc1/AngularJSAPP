@@ -57,12 +57,12 @@ module.exports =
         },
         // LDAP server config , port 389
         server: {
-        url: 'ldap://192.168.122.20:389',
-        bindDn: 'cn=admin,dc=example,dc=com',
-        bindCredentials: '123456',
-        searchBase: 'dc=example,dc=com',
-        searchFilter: '(mail={{username}})'
+            url: 'ldap://192.168.122.20:389',
+            bindDn: 'cn=admin,dc=example,dc=com',
+            bindCredentials: '123456',
+            searchBase: 'dc=example,dc=com',
+            searchFilter: '(mail={{username}})'
         },
         //Log config
-        "log":require('simple-node-logger').createLogManager(logConfigOptions).createLogger()
+        "log": require('simple-node-logger').createLogManager(logConfigOptions).createLogger()
     }

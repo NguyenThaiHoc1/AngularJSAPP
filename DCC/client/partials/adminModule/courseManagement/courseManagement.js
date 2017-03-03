@@ -143,7 +143,7 @@ myApp.controller('courseManagementCtrl', ['$scope', '$rootScope', 'courseManagem
     $scope.showDeleteCourseForm = function (course) {
         $rootScope.deleteClickId = 1;
         //course
-        $rootScope.deleteName = course.name + 'course';
+        $rootScope.deleteName = course.name + ' course';
         $rootScope.courseModel = {
             id: course.id,
         };
