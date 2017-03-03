@@ -5,6 +5,8 @@ var models = require("./index");
 
 module.exports = function(sequelize) {
     var courseType = sequelize.define('CourseType', _courseTypeModel, {
+        charset: 'utf8',
+        collate: 'utf8_unicode_ci',
         classMethods: {
         },
 
