@@ -1,6 +1,8 @@
 var _requestOpeningModel = require('./DataObjects/requestOpening');
 module.exports = function(sequelize) {
     var RequestOpening = sequelize.define('RequestOpening', _requestOpeningModel, {
+        charset: 'utf8',
+        collate: 'utf8_unicode_ci',
         classMethods: {
             addRequestRegister: function(userId, courseId, cb)
             {
