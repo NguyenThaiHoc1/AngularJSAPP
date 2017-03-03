@@ -1,6 +1,8 @@
 var _classrecordModel = require('./DataObjects/classRecord');
 module.exports = function (sequelize) {
     var Classrecord = sequelize.define('ClassRecord', _classrecordModel, {
+        charset: 'utf8',
+        collate: 'utf8_unicode_ci',
         classMethods: {
             unEnrollCourse: function (traineeId, classId, cb) {
                 var query = {

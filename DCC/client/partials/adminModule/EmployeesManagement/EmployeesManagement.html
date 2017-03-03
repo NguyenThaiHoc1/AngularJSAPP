@@ -1,4 +1,5 @@
 <div ng-include="'partials/adminModule/EmployeesManagement/register/registerModal.html'"></div>
+<div ng-include="'partials/adminModule/EmployeesManagement/deactivateUser.html'"></div>
 <div class="container">
     <div class="widget widget-nopad">
         <div class="widget-header">
@@ -25,7 +26,7 @@
                         <a ng-click="sortbyTeam()"><i class="fa fa-users"></i><b>&nbsp Team</b></a>
                     </div>
                     <div class="col-md-2 col-xs-2">
-                        <a select="sortbyArea()"><i class="glyphicon glyphicon-th-list"></i><b>&nbsp Area</b></a>
+                        <a ng-click="sortbyArea()"><i class="glyphicon glyphicon-th-list"></i><b>&nbsp Area</b></a>
                     </div>
                     <div class="col-md-4 col-xs-4">
                         <a><i class="glyphicon glyphicon-envelope"></i><b>&nbsp Mail</b></a>
@@ -43,8 +44,7 @@
                                             <font ng-bind-html="highlight(user.username, userSearchKey)"></font>
                                     </div>
                                     <div class="col-md-2 col-xs-2">
-                                        <iaria-hidden="true">
-                                            </i><span>&nbsp <font ng-bind-html="highlight(user.belong2Team, userSearchKey)"></font></span>
+                                        <i aria-hidden="true"></i><span>&nbsp <font ng-bind-html="highlight(user.belong2Team, userSearchKey)"></font></span>
                                     </div>
                                     <div class="col-md-2 col-xs-2">
                                         <i aria-hidden="true"></i><span>&nbsp <font ng-bind-html="highlight(user.userType, userSearchKey)"></font></span>
@@ -52,7 +52,8 @@
                                     <div class="col-md-4 col-xs-4">
                                         <i aria-hidden="true"></i><span><font ng-bind-html="highlight(user.email, userSearchKey)"></font></span>
                                     </div>
-                                    <div class="col-md-1 col-xs-1">
+                                    <div class="col-md-1 col-xs-1" style="padding-left: 0px"> <!--deactivate user, not delete-->
+                                        <a class="btn btn-danger" data-toggle="modal" data-target="#deactivateModal" ng-click="showDeactivateUserForm(user)"><span class="glyphicon glyphicon-trash"></span></a>
                                     </div>
                                 </blockquote>
                             </div>
@@ -94,11 +95,11 @@
                                         </div>
                                     </div>
                                 </blockquote>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>

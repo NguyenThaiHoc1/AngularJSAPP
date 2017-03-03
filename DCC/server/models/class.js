@@ -1,6 +1,8 @@
 var _classModel = require("./DataObjects/class");
 module.exports = function(sequelize) {
     var Class = sequelize.define('Class', _classModel, {
+        charset: 'utf8',
+        collate: 'utf8_unicode_ci',
         classMethods: {
             getOpeningClassByCourseID: function(courseId, cb)
             {
