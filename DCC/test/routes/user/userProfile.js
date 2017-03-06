@@ -189,11 +189,7 @@ describe('<Unit test for user profile>', function () {
                 models.User.update({
                     username: 'Your Name',
                     status: 'activated',
-<<<<<<< HEAD
-                    avatar: '/img/profiles/udefaultProfile.jpg',
-=======
                     avatar: '/img/profiles/userPhoto-1488196330543test.jpg',
->>>>>>> ab036cab2dfb375a72aca7084aa38cb063a58bde
                     dob: '01/01/2001',
                     phone: '0000 000 000',
                     password: null
