@@ -17,7 +17,7 @@
             </center>
             <div>
                 <blockquote class="blockquote">
-                    <div class="btn btn-success" data-toggle="modal" href="#addEditTPModal" ng-click="showAddTPForm()">
+                    <div class="btn btn-success" data-toggle="modal" data-target="#addEditTPModal" ng-click="showAddTPForm()">
                         <span class="glyphicon glyphicon-plus"></span>&nbsp Add Training Program
                     </div>
                 </blockquote>
@@ -31,8 +31,8 @@
                                 width="60px">
                                 {{trainingProgram.name}}
                                 <div class="pull-right">
-                                    <a class="btn btn-info" data-toggle="modal" href="#addEditTPModal" ng-click="showUpdateTPForm(trainingProgram)"><span class="glyphicon glyphicon-pencil"></span></a>
-                                    <a class="btn btn-danger" data-toggle="modal" href="#deleteModal" ng-click="showDeleteTPForm(trainingProgram)"><span class="glyphicon glyphicon-trash"></span></a>
+                                    <a class="btn btn-info" data-toggle="modal" data-target="#addEditTPModal" ng-click="showUpdateTPForm(trainingProgram)"><span class="glyphicon glyphicon-pencil"></span></a>
+                                    <a class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" ng-click="showDeleteTPForm(trainingProgram)"><span class="glyphicon glyphicon-trash"></span></a>
                                 </div>
                                 <p style="color:darkgrey; white-space: nowrap" ng-bind-html="trainingProgram.description" </p>
                                     <center ng-hide="trainingProgram.collapsed"><span class="glyphicon glyphicon-menu-down"></span></center>
@@ -48,7 +48,7 @@
                         <li class="row">
                             <div class="col-md-1"></div>
                             <div class="col-md-9 col-sm-8" style="border-left:2px solid #D3D3D3;">
-                                <div class="btn btn-success" data-toggle="modal" href="#addEditCourseModal" ng-click="showAddCourseForm(trainingProgram)">
+                                <div class="btn btn-success" data-toggle="modal" data-target="#addEditCourseModal" ng-click="showAddCourseForm(trainingProgram)">
                                     <span class="glyphicon glyphicon-plus"></span>&nbsp Add Course</div>
                             </div>
                             <div class="col-md-2 col-sm-4"></div>
@@ -61,7 +61,7 @@
                                         <img style="float:left; clear:both; margin-right:10px;" alt="course-icon" class="img-responsive" ng-src="{{course.imgLink}}"
                                             width="70px">
                                             {{course.name}}
-                                            <p class="crop" ng-bind-html="course.description" ></p>
+                                            <p class="crop" ng-bind-html="course.description"></p>
                                     </a>
                                 </blockquote>
                             </div>
@@ -69,9 +69,9 @@
                             <div class="col-md-3 col-sm-4">
                                 <center>
                                     <!-- Edit and Delete Course -->
-                                    <a class="btn btn-info" data-toggle="modal" href="#addEditCourseModal" ng-click="showUpdateCourseForm(trainingProgram, course )"><span class="glyphicon glyphicon-pencil"></span></a>
-                                    <a class="btn btn-danger" data-toggle="modal" href="#deleteModal" ng-click="showDeleteCourseForm(course)"><span class="glyphicon glyphicon-trash"></span></a>
-                                    <a class="btn btn-success" data-toggle="modal" href="#addEditClassModal" ng-click="showAddClassForm(course)"><span class="glyphicon glyphicon-plus"></span>&nbsp Add class</a>
+                                    <a class="btn btn-info" data-toggle="modal" data-target="#addEditCourseModal" ng-click="showUpdateCourseForm(trainingProgram, course )"><span class="glyphicon glyphicon-pencil"></span></a>
+                                    <a class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" ng-click="showDeleteCourseForm(course)"><span class="glyphicon glyphicon-trash"></span></a>
+                                    <a class="btn btn-success" data-toggle="modal" data-target="#addEditClassModal" ng-click="showAddClassForm(course)"><span class="glyphicon glyphicon-plus"></span>&nbsp Add class</a>
                                 </center>
                             </div>
                             <br />

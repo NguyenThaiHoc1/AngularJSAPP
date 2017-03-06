@@ -42,7 +42,7 @@ module.exports =
             "username": "root",
             "password": "dekvn@123321",
             "database": "DCC2",
-            "host": "192.168.122.20",
+            "host": "192.168.122.23",
             "pool": {
                 "max": 5,
                 "min": 0,
@@ -57,12 +57,12 @@ module.exports =
         },
         // LDAP server config , port 389
         server: {
-        url: 'ldap://192.168.122.20:389',
-        bindDn: 'cn=admin,dc=example,dc=com',
-        bindCredentials: '123456',
-        searchBase: 'dc=example,dc=com',
-        searchFilter: '(mail={{username}})'
+            url: 'ldap://192.168.122.20:389',
+            bindDn: 'cn=admin,dc=example,dc=com',
+            bindCredentials: '123456',
+            searchBase: 'dc=example,dc=com',
+            searchFilter: '(mail={{username}})'
         },
         //Log config
-        "log":require('simple-node-logger').createLogManager(logConfigOptions).createLogger()
+        "log": require('simple-node-logger').createLogManager(logConfigOptions).createLogger()
     }

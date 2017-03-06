@@ -65,7 +65,8 @@ router.post('/updateUserProfile', function (req, res) {
             dob: req.body.dob,
             phone: req.body.phone,
             //role: req.body.role,
-            password: req.body.password
+            password: req.body.password,
+            status: req.body.status
         },
         {
             where: { email: req.body.email }
@@ -84,14 +85,11 @@ router.post('/photo', function (req, res) {
     upload(req, res, function () {
         if (typeof req.file !== "undefined") {
             models.User.getUserByEmail(req.user.email, function (user) {
-                if (user.avatar != '/img/profiles/defaultProfile.jpg') {
-                    fs.unlink('client' + user.avatar, (err) => {
-                        if (err)
-                            console.log('fail');
-                        else
-                            console.log('successfully');
-                    });
-                }
+                // if (user.avatar !== '/img/profiles/defaultProfile.jpg') {
+                //     fs.unlink('client' + user.avatar, (err) => {
+
+                //     });
+                // }
                 models.User.update(
                     {
                         avatar: '/img/profiles/' + req.file.filename
