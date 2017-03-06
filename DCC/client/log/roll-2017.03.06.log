@@ -646,3 +646,28 @@
 11:08:55.872 INFO  Ensure admin middleware 
 11:08:56.043 INFO  Ensure authenticated middleware 
 11:08:56.043 INFO  Ensure admin middleware 
+11:58:20.669 INFO  Post /login 
+11:58:23.770 INFO  User login: bqd@gmail.com 
+11:58:23.857 INFO  Ensure authenticated middleware 
+11:58:23.858 INFO  Ensure trainee middleware 
+11:58:23.858 INFO  Ensure authenticated middleware 
+11:58:23.858 INFO  Ensure trainee middleware 
+11:58:23.872 INFO  Ensure authenticated middleware 
+11:58:23.872 INFO  Ensure trainee middleware 
+11:58:24.077 INFO  Ensure authenticated middleware 
+11:58:24.077 INFO  Ensure trainee middleware 
+12:00:19.016 INFO  GET /logout 
+12:00:29.618 INFO  Post /login 
+12:00:29.726 INFO  User login failed. 
+12:00:48.865 INFO  Post /login 
+12:00:48.917 INFO  User login failed. 
+12:01:39.817 INFO  Post /login 
+12:01:39.903 INFO  User login: bqd@gmail.com 
+12:01:39.987 INFO  Ensure authenticated middleware 
+12:01:39.988 INFO  Ensure trainee middleware 
+12:01:39.999 INFO  Ensure authenticated middleware 
+12:01:39.999 INFO  Ensure trainee middleware 
+12:01:40.000 INFO  Ensure authenticated middleware 
+12:01:40.000 INFO  Ensure trainee middleware 
+12:01:40.130 INFO  Ensure authenticated middleware 
+12:01:40.130 INFO  Ensure trainee middleware 
