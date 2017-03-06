@@ -1,42 +1,42 @@
 'use strict';
 angular.module('courseDetail', []);
 
-myApp.config(function($stateProvider) {
+myApp.config(function ($stateProvider) {
     $stateProvider.state('courseDetail', {
-        url:"/courseDetail",
+        url: "/courseDetail",
         templateUrl: 'partials/common/course/courseDetail.html',
         controller: 'courseDetailCtrl',
         params: {
             courseId: null,
         },
-        data:{
-            auth:true
+        data: {
+            auth: true
         }
     });
 });
 
 
 //Factories
-myApp.factory('courseDetailServices', ['$http', function($http) {
+myApp.factory('courseDetailServices', ['$http', function ($http) {
 
     var factoryDefinitions = {
-        getCourseDetailById: function(courseId) {
-            return $http.post('/common/course/getCourseDetail', {courseId : courseId}).success(function(data) { return data; });
+        getCourseDetailById: function (courseId) {
+            return $http.post('/common/course/getCourseDetail', { courseId: courseId }).success(function (data) { return data; });
         },
         // sendFeedback: function(req) {
         //     return $http.post('/course/giveFeedback', req).success(function(data) { return data; });
         // },
-        getClassByCourseID: function(courseId){
-            return $http.post('/common/course/getClassByCourseID', {courseId : courseId}).success(function(data) { return data; });
+        getClassByCourseID: function (courseId) {
+            return $http.post('/common/course/getClassByCourseID', { courseId: courseId }).success(function (data) { return data; });
         },
-        addClass: function(Class){
-            return $http.post('/admin/courses/addClass', Class).success(function(data){return data;});
+        addClass: function (Class) {
+            return $http.post('/admin/courses/addClass', Class).success(function (data) { return data; });
         },
-        updateClass: function(Class){
-            return $http.post('/admin/courses/updateClass', Class).success(function(data){return data;});
+        updateClass: function (Class) {
+            return $http.post('/admin/courses/updateClass', Class).success(function (data) { return data; });
         },
-        deleteClass: function(Class){
-            return $http.post('/admin/courses/deleteClass', Class).success(function(data){return data;});
+        deleteClass: function (Class) {
+            return $http.post('/admin/courses/deleteClass', Class).success(function (data) { return data; });
         }
     }
 
@@ -45,15 +45,15 @@ myApp.factory('courseDetailServices', ['$http', function($http) {
 ]);
 
 //Controllers
-myApp.controller('courseDetailCtrl', ['$scope', '$rootScope', '$stateParams', 'courseDetailServices', function($scope, $rootScope, $stateParams, courseDetailServices) {
+myApp.controller('courseDetailCtrl', ['$scope', '$rootScope', '$stateParams', 'courseDetailServices', function ($scope, $rootScope, $stateParams, courseDetailServices) {
     //getCourseDetail
     $scope.courseDetail = {};
-    courseDetailServices.getCourseDetailById($stateParams.courseId).then(function(result){
+    courseDetailServices.getCourseDetailById($stateParams.courseId).then(function (result) {
         $scope.courseDetail = result.data.data;
     });
 
     $scope.classList = {};
-    courseDetailServices.getClassByCourseID($stateParams.courseId).then(function(result){
+    courseDetailServices.getClassByCourseID($stateParams.courseId).then(function (result) {
         $scope.classList = result.data.data;
     });
 
@@ -78,26 +78,26 @@ myApp.controller('courseDetailCtrl', ['$scope', '$rootScope', '$stateParams', 'c
     $scope.max = 5;
     $scope.isReadonly = false;
 
-    $scope.hoveringOver = function(value) {
+    $scope.hoveringOver = function (value) {
         $scope.overStar = value;
     };
     //Class
-    $scope.showAddClassForm=function(){
-        $rootScope.addEditFormIsEditForm =  false;
+    $scope.showAddClassForm = function () {
+        $rootScope.addEditFormIsEditForm = false;
         //Class
         $rootScope.addEditClassFormTitle = 'Add Class';
         $rootScope.addEditClassFormAction = 'Add';
         //date and time
 
-        $rootScope.timeOfStart =  new Date();
-        $rootScope.timeOfStart.setHours (9);
-        $rootScope.timeOfStart.setMinutes (0);
-        $rootScope.dayOfStart =  new Date();
+        $rootScope.timeOfStart = new Date();
+        $rootScope.timeOfStart.setHours(9);
+        $rootScope.timeOfStart.setMinutes(0);
+        $rootScope.dayOfStart = new Date();
 
         $rootScope.adminClassModel = {
-            dayOfStart: $rootScope.dayOfStart ,
+            dayOfStart: $rootScope.dayOfStart,
             timeOfStart: $rootScope.timeOfStart,
-            courseId:   $stateParams.courseId,
+            courseId: $stateParams.courseId,
             location: '',
             //TODO
             // trainerId: '',
@@ -108,76 +108,87 @@ myApp.controller('courseDetailCtrl', ['$scope', '$rootScope', '$stateParams', 'c
         };
 
     };
-    $scope.showUpdateClassForm = function(Class){
-        $rootScope.addEditFormIsEditForm =  true;
+    $scope.showUpdateClassForm = function (Class) {
+        $rootScope.addEditFormIsEditForm = true;
         $rootScope.addEditClassFormTitle = 'Edit Class';
         $rootScope.addEditClassFormAction = 'Update Class';
 
         Class.startTime = new Date(Class.startTime);
         $rootScope.dayOfStart = Class.startTime;
-        $rootScope.timeOfStart =  new Date();
-        $rootScope.timeOfStart.setHours (Class.startTime.getHours());
-        $rootScope.timeOfStart.setMinutes (Class.startTime.getMinutes());
+        $rootScope.timeOfStart = new Date();
+        $rootScope.timeOfStart.setHours(Class.startTime.getHours());
+        $rootScope.timeOfStart.setMinutes(Class.startTime.getMinutes());
 
         $rootScope.adminClassModel = {
-            dayOfStart: $rootScope.dayOfStart  ,
+            dayOfStart: $rootScope.dayOfStart,
             timeOfStart: $rootScope.timeOfStart,
             id: Class.id,
-            location: Class.location ,
+            location: Class.location,
             // startTime: $rootScope.dayOfStart,
             duration: Class.duration,
             maxAttendant: Class.maxAttendant,
             note: Class.note,
-            courseId:{
+            courseId: {
                 id: Class.courseId
             }
         };
     };
-    $scope.showDeleteClassForm = function(Class){
-        $rootScope.deleteClass = Class.location + ' class';
-        $rootScope.adminClassModel = {
-            id: Class.id
-        };
+    $scope.DeleteClass = function (Class) {
+
+        var courseID = Class.courseId;
+        courseDetailServices.deleteClass(Class).then(function (result) {
+            if (result.data.success) {
+                courseDetailServices.getClassByCourseID(Class.courseId).then(function (result) {
+                    $scope.classList = result.data.data;
+                });
+                $rootScope.ShowPopupMessage(result.data.msg, "success");
+                //$location.path("#courseDetail");
+            } else {
+                $rootScope.ShowPopupMessage('Delete Class FAIL!', "error");
+            }
+
+        });
+
     };
 }]);
 
 
-myApp.controller('addEditClassCtrl', [ '$scope', '$rootScope','courseDetailServices','$stateParams', function($scope, $rootScope, courseDetailServices, $location, $stateParams) {
+myApp.controller('addEditClassCtrl', ['$scope', '$rootScope', 'courseDetailServices', '$stateParams', function ($scope, $rootScope, courseDetailServices, $location, $stateParams) {
 
     //Class
-    $scope.addEditClassClick = function(){
+    $scope.addEditClassClick = function () {
 
-        if ($rootScope.addEditFormIsEditForm){
+        if ($rootScope.addEditFormIsEditForm) {
             $rootScope.dateTimePicker = $rootScope.adminClassModel.dayOfStart;
-            $rootScope.dateTimePicker.setHours ($rootScope.adminClassModel.timeOfStart.getHours());
-            $rootScope.dateTimePicker.setMinutes ($rootScope.adminClassModel.timeOfStart.getMinutes());
+            $rootScope.dateTimePicker.setHours($rootScope.adminClassModel.timeOfStart.getHours());
+            $rootScope.dateTimePicker.setMinutes($rootScope.adminClassModel.timeOfStart.getMinutes());
             $rootScope.adminClassModel.startTime = $rootScope.dateTimePicker;
 
             //edit class
-            courseDetailServices.updateClass($rootScope.adminClassModel).then(function(result){
-                if (result.data.success){
+            courseDetailServices.updateClass($rootScope.adminClassModel).then(function (result) {
+                if (result.data.success) {
                     //Get Class List
-                    courseDetailServices.getClassByCourseID($rootScope.adminClassModel.courseId).then(function(result){
+                    courseDetailServices.getClassByCourseID($rootScope.adminClassModel.courseId).then(function (result) {
                         $scope.classList = result.data.data;
                     });
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
                     $location.path("#courseDetail");
-                }else{
-                    $rootScope.ShowPopupMessage('Edit Class FAIL!',"error");
+                } else {
+                    $rootScope.ShowPopupMessage('Edit Class FAIL!', "error");
                 }
             });
         }
         else {
             //add Class
             $rootScope.dateTimePicker = $rootScope.adminClassModel.dayOfStart;
-            $rootScope.dateTimePicker.setHours ($rootScope.adminClassModel.timeOfStart.getHours());
-            $rootScope.dateTimePicker.setMinutes ($rootScope.adminClassModel.timeOfStart.getMinutes());
+            $rootScope.dateTimePicker.setHours($rootScope.adminClassModel.timeOfStart.getHours());
+            $rootScope.dateTimePicker.setMinutes($rootScope.adminClassModel.timeOfStart.getMinutes());
             $rootScope.adminClassModel.startTime = $rootScope.dateTimePicker;
 
-            courseDetailServices.addClass($rootScope.adminClassModel).then(function(result) {
-                if (result.data.success){
+            courseDetailServices.addClass($rootScope.adminClassModel).then(function (result) {
+                if (result.data.success) {
                     //Get Class List
-                    courseDetailServices.getClassByCourseID($rootScope.adminClassModel.courseId).then(function(result){
+                    courseDetailServices.getClassByCourseID($rootScope.adminClassModel.courseId).then(function (result) {
                         $scope.classList = result.data.data;
                     });
                     // $location.path("/userProfile");
@@ -190,63 +201,63 @@ myApp.controller('addEditClassCtrl', [ '$scope', '$rootScope','courseDetailServi
     };
 }]);
 
-myApp.controller('DateTimepickerCtrl', function ($scope,$rootScope, $log) {
+myApp.controller('DateTimepickerCtrl', function ($scope, $rootScope, $log) {
     //time picker
 
-  $scope.hstep = 1;
-  $scope.mstep = 5;
+    $scope.hstep = 1;
+    $scope.mstep = 5;
 
-  $scope.options = {
-    hstep: [1, 2, 3],
-    mstep: [1, 5, 10, 15, 25, 30]
-  };
+    $scope.options = {
+        hstep: [1, 2, 3],
+        mstep: [1, 5, 10, 15, 25, 30]
+    };
 
-  $scope.ismeridian = false;
-  $scope.toggleMode = function() {
-    $scope.ismeridian = ! $scope.ismeridian;
-  };
+    $scope.ismeridian = false;
+    $scope.toggleMode = function () {
+        $scope.ismeridian = !$scope.ismeridian;
+    };
 
-  //DatePicker
-  $rootScope.dayOfStart = '';
-  $scope.today = function() {
-      $rootScope.dayOfStart = new Date();
-  };
+    //DatePicker
+    $rootScope.dayOfStart = '';
+    $scope.today = function () {
+        $rootScope.dayOfStart = new Date();
+    };
 
-  $scope.clear = function() {
-      $rootScope.dayOfStart = null;
-  };
+    $scope.clear = function () {
+        $rootScope.dayOfStart = null;
+    };
 
-  $scope.inlineOptions = {
-      minDate: new Date(),
-      showWeeks: true
-  };
+    $scope.inlineOptions = {
+        minDate: new Date(),
+        showWeeks: true
+    };
 
-  $scope.dateOptions = {
-      formatYear: 'yy',
-      maxDate: new Date(2020, 5, 22),
-      minDate: new Date(),
-      startingDay: 1
-  };
+    $scope.dateOptions = {
+        formatYear: 'yy',
+        maxDate: new Date(2020, 5, 22),
+        minDate: new Date(),
+        startingDay: 1
+    };
 
-  $scope.open1 = function() {
-      $scope.popup1.opened = true;
-  };
+    $scope.open1 = function () {
+        $scope.popup1.opened = true;
+    };
 
-  $scope.open2 = function() {
-      $scope.popup2.opened = true;
-  };
+    $scope.open2 = function () {
+        $scope.popup2.opened = true;
+    };
 
 
-  $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-  $scope.format = $scope.formats[1];
-  $scope.altInputFormats = ['M!/d!/yyyy'];
+    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+    $scope.format = $scope.formats[1];
+    $scope.altInputFormats = ['M!/d!/yyyy'];
 
-  $scope.popup1 = {
-      opened: false
-  };
+    $scope.popup1 = {
+        opened: false
+    };
 
-  $scope.popup2 = {
-      opened: false
-  };
+    $scope.popup2 = {
+        opened: false
+    };
 
 });
