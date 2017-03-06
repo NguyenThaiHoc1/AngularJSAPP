@@ -96,7 +96,7 @@ myApp.controller('getProfilesController', ['$scope', '$rootScope', '$sce', 'Empl
     };
 }]);
 
-myApp.controller('deactivateUserCtrl',['$scope', '$rootScope', 'EmployeesManagementService', function($scope, $rootScope, EmployeesManagementService) {
+myApp.controller('activateUserCtrl',['$scope', '$rootScope', 'EmployeesManagementService', function($scope, $rootScope, EmployeesManagementService) {
     $scope.toggleUserActivationStatus = function() {
         $rootScope.selectedActivationUser.status = ($rootScope.selectedActivationUser.status == 'activated' ?  'deactivated' : 'activated');
         EmployeesManagementService.updateUserStatus($rootScope.selectedActivationUser).then(function (result) {

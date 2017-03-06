@@ -1,6 +1,5 @@
 <div ng-include="'partials/adminModule/EmployeesManagement/register/registerModal.html'"></div>
-<div ng-include="'partials/adminModule/EmployeesManagement/deactivateUser.html'"></div>
-<div ng-include="'partials/adminModule/EmployeesManagement/reactivateUser.html'"></div>
+<div ng-include="'partials/adminModule/EmployeesManagement/UserActivation.html'"></div>
 <div class="container">
     <div class="widget widget-nopad">
         <div class="widget-header">
@@ -61,9 +60,9 @@
                                         <i aria-hidden="true"></i><span><font ng-bind-html="highlight(user.email, userSearchKey)"></font></span>
                                     </div>
                                     <div class="col-md-1 col-xs-1" style="padding-left: 0px"> <!--deactivate user, not delete-->
-                                        <a class="btn btn-danger" data-toggle="modal" data-target="#deactivateModal" ng-show="user.status=='activated'"
+                                        <a class="btn btn-danger" data-toggle="modal" data-target="#ActivationModal" ng-show="user.status=='activated'"
                                         ng-click="showUserActivationForm(user)"><span class="glyphicon glyphicon-trash"></span></a>
-                                        <a class="btn btn-success" data-toggle="modal" data-target="#reactivateModal" ng-show="user.status=='deactivated'"
+                                        <a class="btn btn-success" data-toggle="modal" data-target="#ActivationModal" ng-show="user.status=='deactivated'"
                                         ng-click="showUserActivationForm(user)"><span class="glyphicon glyphicon-repeat"></span></a>
                                     </div>
                                 </blockquote>
