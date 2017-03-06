@@ -1,25 +1,25 @@
-
+var settings = require('../../settings.js');
 var logConfigOptions = {
     //logDirectory: './client/assets/log',
-    logDirectory: './client/log',
+    logDirectory: './client',
     fileNamePattern: 'roll-<DATE>.log',
-    dateFormat: 'YYYY.MM.DD'
+    dateFormat: settings.dateFormat
 };
 module.exports =
     {
         //database config
-        "development": {
+        "environment": {
             "dialect": "mysql",
-            "username": "root",
-            "password": "dekvn@123321",
-            "database": "DCC2",
-            "host": "192.168.122.20",
+            "username": settings.environmentUserName,
+            "password": settings.environmentPassword,
+            "database": settings.environmentDatabase,
+            "host": settings.environmentHost,
             "pool": {
                 "max": 5,
                 "min": 0,
                 "idle": 10000
             },
-            port: 3306,
+            port: settings.environmentPort,
             "logging": false
         },
         "test": {
@@ -37,12 +37,12 @@ module.exports =
             port: 3311,
             "logging": false
         },
-        "production": {
+        "localDevelopment": {
             "dialect": "mysql",
             "username": "root",
-            "password": "dekvn@123321",
+            "password": "root",
             "database": "DCC2",
-            "host": "192.168.122.20",
+            "host": "127.0.0.1",
             "pool": {
                 "max": 5,
                 "min": 0,
@@ -57,7 +57,7 @@ module.exports =
         },
         // LDAP server config , port 389
         server: {
-            url: 'ldap://192.168.122.20:389',
+            url: settings.LDAPurl,
             bindDn: 'cn=admin,dc=example,dc=com',
             bindCredentials: '123456',
             searchBase: 'dc=example,dc=com',
