@@ -1,16 +1,16 @@
-<div class="modal fade" id="deactivateModal" role="dialog" ng-controller ="deactivateUserCtrl">
+<div class="modal fade" id="reactivateModal" role="dialog" ng-controller ="deactivateUserCtrl">
     <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Deactivate </h4>
+                <h4 class="modal-title">Reactivate </h4>
             </div>
-            <form name="deactivateUserForm" role="form" class="form-horizontal" novalidate>
+            <form name="reactivateUserForm" role="form" class="form-horizontal" novalidate>
                 <div class="modal-body" ng-controller ="getProfilesController">
                     <div>
-                        <p name="userNameDeactivate">
-                            Are you sure to deactivate
+                        <p name="userNameReactivate">
+                            Are you sure to reactivate
                             <span><b>{{selectedActivationUser.username}}</b></span>
                         </p>
                     </div>
