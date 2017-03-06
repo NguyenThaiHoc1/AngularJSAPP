@@ -159,12 +159,12 @@
                             </div>
                         </div>
                         <!--Enter new password-->
-                        <div class="form-group" ng-class="{ 'has-error' : changePasswordForm.newPassword.$invalid && !changePasswordForm.newPassword.$pristine }">
+                        <div class="form-group" ng-class="{ 'has-error' : (changePasswordForm.newPassword.$invalid && !changePasswordForm.newPassword.$pristine) || passStrengthError}">
                             <label class="col-xs-3 control-label">New Password</label>
                             <div class="col-xs-8">
-                                <input type="password" class="form-control" name="newPassword" ng-model="changePassword.newPassword" placeholder="Type your new password"
+                                <input type="password" class="form-control" name="newPassword" ng-model="changePassword.newPassword" ng-change="passwordMeasure(changePassword.newPassword)" placeholder="Type your new password"
                                     required>
-                                    <p ng-show="changePasswordForm.newPassword.$invalid && !changePasswordForm.newPassword.$pristine" class="help-block">Your new password is required!</p>
+                                    <p ng-show="(changePasswordForm.newPassword.$invalid && !changePasswordForm.newPassword.$pristine) || passStrengthError" class="help-block">{{passMeasuremessage}}</p>
                             </div>
                         </div>
                         <!--Confirm your password-->
@@ -177,19 +177,6 @@
                                         class="help-block"> These passwords don' t match!</p>
                             </div>
                         </div>
-                        <!--<div class="form-group">
-                            <label class="col-md-4 control-label">Re-type New Password</label>
-
-                            <input class="col-md-6" type="password" name="newPasswordAgain"
-                            value=""
-                            placeholder="Re-type your new Password"
-                            class="login "
-                            ng-model="changePassword.newPasswordAgain"
-                            validator="required"
-                            required-error-message="Your new password is required"
-                            valid-method="watch" />
-
-                        </div>-->
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-success" ng-click="confirmChange()" data-dismiss="modal" ng-disabled="changePasswordForm.$invalid">Confirm</button>
