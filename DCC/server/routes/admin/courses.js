@@ -262,17 +262,16 @@ router.post('/updateClass', function (req, res) {
 // Delete Class
 router.post('/deleteClass', function (req, res) {
     log.info('Get Delete Command');
-    models.ClassRecord.destroy({
+    models.Class.destroy({
         where: {
-            classId: req.body.id
+            id: req.body.id
         }
-    }).then(function () {
-        models.Class.destroy({
-            where: {
-                id: req.body.id
-            }
-        });
-    })
+    });
+    // models.ClassRecord.destroy({
+    //     where:{
+    //         classId: req.body.id
+    //     }
+    // });
     res.send({
         success: true,
         msg: 'Delete Class success'
@@ -303,27 +302,8 @@ router.get('/getAllTP', function (req, res) {
 });
 
 
-router.get('/setAccThachz', function(req,res){
-    models.User.update(
-        {
-            isTrainer : 1
-        }
-        ,{
-            where:{id: 2}
-        }
-    )
-});
 
 
-router.get('/addCourseType', function(req,res)
-{
-    models.CourseType.create(
-        {
-            name: 'AXE',
-            discription:'this training program for AXE'
-        }
-    );
 
-});
 
 module.exports = router;

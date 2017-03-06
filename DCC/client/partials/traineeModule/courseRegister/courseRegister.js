@@ -160,7 +160,7 @@ myApp.controller('courseRegisterCtrl', ['$sce', '$rootScope', '$scope', 'courseR
 
     $scope.findCourse = function(courseSearchKey, openingCourseFilter){
 
-        var courseListSearchResult = []
+        var courseListSearchResult = [];
         if (openingCourseFilter) {
             $scope.trainingProgramList.forEach(trainingProgram => {
                 trainingProgram.Courses.forEach(course => {
@@ -222,4 +222,4 @@ myApp.controller('courseRegisterCtrl', ['$sce', '$rootScope', '$scope', 'courseR
         );
 
     };
-}]);
+}}]);

@@ -85,11 +85,6 @@ router.post('/photo', function (req, res) {
     upload(req, res, function () {
         if (typeof req.file !== "undefined") {
             models.User.getUserByEmail(req.user.email, function (user) {
-                // if (user.avatar !== '/img/profiles/defaultProfile.jpg') {
-                //     fs.unlink('client' + user.avatar, (err) => {
-
-                //     });
-                // }
                 models.User.update(
                     {
                         avatar: '/img/profiles/' + req.file.filename
@@ -97,9 +92,12 @@ router.post('/photo', function (req, res) {
                     {
                         where: { email: req.user.email }
                     }
-                ).then(function () {
-                    res.redirect('/#/editUserProfile');
-                })
+                )
+                    .then(function () {
+                        var previousAvatarLink = user._previousDataValues.avatar;
+                        fs.unlink('client' + previousAvatarLink);
+                        res.redirect('/#/editUserProfile');
+                    })
             });
         }
     });
