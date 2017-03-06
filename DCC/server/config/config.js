@@ -1,7 +1,7 @@
 
 var logConfigOptions = {
     //logDirectory: './client/assets/log',
-    logDirectory: './client',
+    logDirectory: './client/log',
     fileNamePattern: 'roll-<DATE>.log',
     dateFormat: 'YYYY.MM.DD'
 };
