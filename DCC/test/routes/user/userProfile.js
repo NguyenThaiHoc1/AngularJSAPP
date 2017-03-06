@@ -1,7 +1,7 @@
 var request = require('supertest');
 var assert = require('chai').assert;
 var expect = require('chai').expect;
-// process.env.NODE_ENV = 'test';
+process.env.NODE_ENV = 'inMemoryDB';
 var DCC_Server = require('../../../app.js');
 var models = require('../../../server/models');
 
@@ -70,7 +70,7 @@ describe('<Unit test for user profile>', function () {
             var req = request(DCC_Server).post('/user/userProfile/getUserInfo');
             req.send(
                 {
-                    email: "bqd@gmail.com"
+                    email: "huy@gmail.com"
                 }
             );
             req.cookies = Cookies;
@@ -88,7 +88,7 @@ describe('<Unit test for user profile>', function () {
                 email: 'qwe@gmail.com',
                 username: 'Thao test',
                 status: 'test status',
-                avatar: '/img/profiles/userPhoto-1488194296868test.jpg',
+                avatar: '/img/profiles/defaultProfile.jpg',
                 dob: '01/01/2001',
                 phone: '0000 000 000',
                 password: null
@@ -100,6 +100,7 @@ describe('<Unit test for user profile>', function () {
                 models.User.update({
                     username: 'Your name',
                     status: 'activated',
+                    avatar: '/img/profiles/udefaultProfile.jpg',
                     avatar: '/img/profiles/userPhoto-1488194296868test.jpg',
                     dob: '01/01/2001',
                     phone: '0000 000 000',
@@ -134,7 +135,7 @@ describe('<Unit test for user profile>', function () {
             req.send({
                 email: 'xyz@gmail.com',
                 password: '123',
-                courseId: 'DCC'
+                userType: 'CBA'
             });
             req.cookies = Cookies;
             req.end(function (err, res) {
@@ -175,7 +176,7 @@ describe('<Unit test for user profile>', function () {
                 email: 'qwe@gmail.com',
                 username: 'Changed name',
                 status: 'Changed status',
-                avatar: '/img/profiles/userPhoto-1488196330543test.jpg',
+                avatar: '/img/profiles/udefaultProfile.jpg',
                 dob: '01/01/2001',
                 phone: '0000 000 000',
                 password: null

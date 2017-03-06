@@ -56,6 +56,7 @@ myApp.factory('userServices', ['$http', function ($http) {
         logout: function () {
             return $http.get('/logout').success(function (data) { return data; });
         },
+
         getUserProfile: function (user) {
             return $http.post('/user/userProfile/getUserInfo', user).success(function (data) { return data; });
         },
@@ -174,7 +175,6 @@ myApp.controller('logoutController', ['$scope', 'userServices', '$location', '$r
     })
 }]);
 
-//Get user information
 myApp.controller('userProfileCtrl', ['$scope', 'userServices', '$location', '$rootScope', function ($scope, userServices, $location, $rootScope) {
     userServices.getUserProfile($rootScope.userInfo).then(function (userData) {
         userData.data.role = $rootScope.userInfo.role;
@@ -183,6 +183,7 @@ myApp.controller('userProfileCtrl', ['$scope', 'userServices', '$location', '$ro
     })
 
     //update User Profile
+
     $scope.updateUserProfile = function () {
         userServices.updateUserProfile($scope.userDetail).then(function (result) {
 

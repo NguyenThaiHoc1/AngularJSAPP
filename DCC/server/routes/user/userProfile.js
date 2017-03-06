@@ -101,7 +101,6 @@ router.post('/photo', function (req, res) {
                     res.redirect('/#/editUserProfile');
                 })
             });
-
         }
     });
 });
@@ -143,7 +142,7 @@ router.post('/addUser', function (req, res) {
                     isTrainee: true, //default user is a trainee
                     belong2Team: 'InNoVa',
                     isExperienced: 0,
-                    userType: req.body.courseId,
+                    userType: req.body.userType,
                 }).then(function () {
                     res.send({
                         success: true,
