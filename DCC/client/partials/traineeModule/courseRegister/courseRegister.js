@@ -123,12 +123,7 @@ myApp.controller('courseRegisterCtrl', ['$sce', '$rootScope', '$scope', 'courseR
         }
         return true;
     }
-<<<<<<< HEAD
 
-
-    $scope.findCourse = function (courseSearchKey, openingCourseFilter) {
-=======
-    
     // $scope.findCourse = function(courseSearchKey, openingCourseFilter){
     //     // trainingProgram.collapsed = !trainingProgram.collapsed;
     //     var courseListSearchResult = []
@@ -158,31 +153,24 @@ myApp.controller('courseRegisterCtrl', ['$sce', '$rootScope', '$scope', 'courseR
     //     $scope.courseListSearchResult = courseListSearchResult;
     //     $scope.listSearchResult = listSearchResult;
     // };
-    $scope.findCourse = function(courseSearchKey, openingCourseFilter){
+    $scope.findCourse = function (courseSearchKey, openingCourseFilter) {
         // trainingProgram.collapsed = !trainingProgram.collapsed;
->>>>>>> 4cdbe1e3cc9c84b3095b05394c068fea57741373
+
         var courseListSearchResult = []
         if (openingCourseFilter) {
             $scope.trainingProgramList.forEach(trainingProgram => {
                 trainingProgram.Courses.forEach(course => {
-<<<<<<< HEAD
-                    if ((course.name.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1) && (course.isOpening == openingCourseFilter)) courseListSearchResult.push(course);
-=======
-                    if(((course.name.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1)||((course.description.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1)))&&(course.isOpening == openingCourseFilter)) courseListSearchResult.push(course);
->>>>>>> 4cdbe1e3cc9c84b3095b05394c068fea57741373
+
+                    if (((course.name.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1) || ((course.description.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1))) && (course.isOpening == openingCourseFilter)) courseListSearchResult.push(course);
                 });
             });
         }
         else {
             $scope.trainingProgramList.forEach(trainingProgram => {
                 trainingProgram.Courses.forEach(course => {
-<<<<<<< HEAD
-                    if (course.name.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1) courseListSearchResult.push(course);
-=======
-                    if((course.name.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1) ||
+                    if ((course.name.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1) ||
                         (course.description.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1)
                     ) courseListSearchResult.push(course);
->>>>>>> 4cdbe1e3cc9c84b3095b05394c068fea57741373
                 });
             });
         }

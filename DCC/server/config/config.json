@@ -1,8 +1,4 @@
 {
-<<<<<<< HEAD
-    "environment": "enviroment",
-=======
     "environment": "development",
->>>>>>> 4cdbe1e3cc9c84b3095b05394c068fea57741373
     "logConfig": "log"
 }

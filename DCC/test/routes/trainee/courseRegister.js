@@ -1,7 +1,7 @@
 var request = require('supertest');
 var assert = require('chai').assert;
 var expect = require('chai').expect;
-// process.env.NODE_ENV = 'test';
+process.env.NODE_ENV = 'inMemoryDB';
 var DCC_Server = require('../../../app.js');
 var models = require('../../../server/models');
 
@@ -113,7 +113,7 @@ describe('<Unit test for trainee-courseRegister>', function () {
                 .post('/trainee/courseRegister/sendRegisterRequest');
             req.cookies = Cookies;
             req.set('Accept', 'application/json')
-                .send({ userId: 1, courseId: 44 })
+                .send({ userId: 1, courseId: 13 })
                 .end(function (err, res) {
                     assert.equal(res.body.success, true);
                     models.RequestOpening.destroy({ where: { userId: 1, courseId: 44 } });
