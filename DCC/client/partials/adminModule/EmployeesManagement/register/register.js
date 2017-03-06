@@ -29,6 +29,7 @@ myApp.controller('registerCtrl', ['$scope', '$rootScope', 'registerServices', fu
     $scope.userPassword = '';
     $scope.passwordAgain = '';
     $scope.courseTypeId = "Intern";
+    $scope.passMeasuremessage="";
 
     $scope.applyValue = function () {
         $scope.NewUser = {
@@ -49,7 +50,41 @@ myApp.controller('registerCtrl', ['$scope', '$rootScope', 'registerServices', fu
                 $rootScope.ShowPopupMessage(result.data.msg, "error");
             }
         });
-
     }
+    $scope.passwordMeasure = function (newPassword) {
+        // validate user password to ensure its security strength
+        if(newPassword != null)
+        {
+            if(newPassword.match(/\d+/) != null)
+            {
+                if(( newPassword.match(/[a-z]/) != null ) && ( newPassword.match(/[A-Z]/) != null))
+                {
+                    if(newPassword.length > 7)
+                    {
+                        $scope.passStrengthError = false;
+                    }
+                    else
+                    {
+                        $scope.passMeasuremessage = 'Password should be at least 8 in length!';
+                        $scope.passStrengthError = true;
+                    }
+                }
+                else
+                {
+                    $scope.passMeasuremessage = 'Password should at least include 1 lower case char and 1 upper case char!';
+                    $scope.passStrengthError = true;
+                }
+            }
+            else
+            {
+                $scope.passMeasuremessage = 'Password should at least include one number!';
+                $scope.passStrengthError = true;
+            }
+        }
+        else
+        {
+            $scope.passMeasuremessage = 'This field should not be left empty!';
+        }
+     };
         ;
 }]);
