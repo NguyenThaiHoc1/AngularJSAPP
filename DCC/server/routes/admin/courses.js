@@ -262,16 +262,17 @@ router.post('/updateClass', function (req, res) {
 // Delete Class
 router.post('/deleteClass', function (req, res) {
     log.info('Get Delete Command');
-    models.Class.destroy({
+    models.ClassRecord.destroy({
         where: {
-            id: req.body.id
+            classId: req.body.id
         }
-    });
-    // models.ClassRecord.destroy({
-    //     where:{
-    //         classId: req.body.id
-    //     }
-    // });
+    }).then(function () {
+        models.Class.destroy({
+            where: {
+                id: req.body.id
+            }
+        });
+    })
     res.send({
         success: true,
         msg: 'Delete Class success'

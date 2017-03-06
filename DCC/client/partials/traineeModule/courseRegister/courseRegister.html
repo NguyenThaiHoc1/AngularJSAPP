@@ -18,53 +18,63 @@
         <div class="widget-content">
             <!--Here is the content of search return, show only when there is something in the search box-->
             <div ng-show="courseSearchKey">
-                <!--<div ng-repeat="trainingProgram in listSearchResult"  style="margin-top: 5px" ng-show = "!(courseListSearchResult.length == 0 && courseSearchKey)">
-                <div class="round-wrap">
-                    <a style="text-decoration : none">
-                        <blockquote class="blockquote" style="border-left: none; margin-bottom:5px;">
-                            <img  style="float:left; clear:both; margin-right: 10px;" alt="training-program-icon" class="img-responsive" ng-src = "{{trainingProgram.imgLink}}" width="70px">
-                            {{trainingProgram.name}}
-                            <p style="color:darkgrey; white-space: nowrap"  ng-bind-html="trainingProgram.description"</p>
-                            <br/>
-                            <p></p>
-                            <p></p>
-                        </blockquote>
-                    </a>
-                </div>
-                <div>
-                    <ul class="list-group">
-                        <li class="row" ng-repeat="course in trainingProgram.Courses" ng-hide="!course.isOpening&&openingCourseFilter" >
-                            <div class="col-md-1"></div>
-                            <div class="col-md-9 col-sm-8" style="border-left:2px solid{{course.buttonColor}};" class="row" style="padding-bottom:10px; margin-left: 90px; margin-right: 10px; border: 2px solid {{myCourse.backgroundColor}}; border-radius: 100px 5px 5px 100px; background-color: #f7f7f7;">
-
-                                <blockquote class="blockquote">
-                                    <a ui-sref="courseDetail({courseId: course.id})">
-                                        <img style="float:left; clear:both; margin-right:10px;" alt="course-icon" class="img-responsive" ng-src = "{{course.imgLink}}" width="70px">
-                                        {{course.name}}
-                                        <font ng-bind-html="highlight(course.name, courseSearchKey)"></font>
-                                        <p style="color:darkgrey; white-space: nowrap"  ng-bind-html="course.description"</p>
-                                    </a>
+                <<<<<<< HEAD <!--<div ng-repeat="trainingProgram in listSearchResult" style="margin-top: 5px" ng-show="!(courseListSearchResult.length == 0 && courseSearchKey)">
+                    =======
+                    <div ng-repeat="trainingProgram in trainingProgramList" style="margin-top: 5px" ng-show="!(courseListSearchResult.length == 0 && courseSearchKey)">
+                        >>>>>>> ab036cab2dfb375a72aca7084aa38cb063a58bde
+                        <div class="round-wrap">
+                            <a style="text-decoration : none">
+                                <blockquote class="blockquote" style="border-left: none; margin-bottom:5px;">
+                                    <img style="float:left; clear:both; margin-right: 10px;" alt="training-program-icon" class="img-responsive" ng-src="{{trainingProgram.imgLink}}"
+                                        width="70px">
+                                        {{trainingProgram.name}}
+                                        <p style="color:darkgrey; white-space: nowrap" ng-bind-html="trainingProgram.description" </p>
+                                            <br/>
+                                            <p style="visibility: hidden">Just to keep space</p>
                                 </blockquote>
-                            </div>
-                            <div ng-hide="!course.isOpening&&openingCourseFilter" class="col-md-2 col-sm-4">
-                                <center>
-                                    <div class="btn-group">
-                                        <button ng-click="registerCourse(course.id,courseRegisterStatus)" style="background-color: {{course.buttonColor}}" class="btn Absolute-Center {{course.buttonColor}} " type="button" aria-haspopup="true" aria-expanded="true">
-                                            {{course.buttonName}}<i aria-hidden="true"></i>
-                                        </button>
-                                    </div>
-                                </center>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <center ng-show = "courseListSearchResult.length == 0 && courseSearchKey">
-                        <h4>Could not find any course that matchs the keyword!</h4>
-            </center>-->
+                            </a>
+                        </div>
+                        <div>
+                            <ul class="list-group">
+                                <li class="row" ng-repeat="course in courseListSearchResult" ng-hide="(!course.isOpening&&openingCourseFilter)||(course.trainingProgramId != trainingProgram.id)">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-9 col-sm-8" style="border-left:2px solid{{course.buttonColor}};" class="row" style="padding-bottom:10px; margin-left: 90px; margin-right: 10px; border: 2px solid {{myCourse.backgroundColor}}; border-radius: 100px 5px 5px 100px; background-color: #f7f7f7;">
 
-                <div class="panel-group" ng-repeat="course in courseListSearchResult">
-                    <div class="panel-heading panel-title" style="margin-bottom:10px; border: 0px solid grey; border-radius: 5px;">
+                                        <blockquote class="blockquote">
+                                            <a ui-sref="courseDetail({courseId: course.id})">
+                                                <img style="float:left; clear:both; margin-right:10px;" alt="course-icon" class="img-responsive" ng-src="{{course.imgLink}}"
+                                                    width="70px">
+                                                    {{course.name}}
+                                                    <font ng-bind-html="highlight(course.name, courseSearchKey)"></font>
+                                                    <p style="visibility:hidden">Just to keep space</p>
+                                                    <p style="visibility:hidden">Just to keep space</p>
+                                                    <!--<font ng-bind-html="highlight(course.description, courseSearchKey)"></font>-->
+                                                    <p style="color:darkgrey; white-space: nowrap" ng-bind-html="highlight(course.description, courseSearchKey)"></p>
+                                            </a>
+                                        </blockquote>
+                                    </div>
+                                    <div ng-hide="!course.isOpening&&openingCourseFilter" class="col-md-2 col-sm-4">
+                                        <center>
+                                            <div class="btn-group">
+                                                <button ng-click="registerCourse(course.id,courseRegisterStatus)" style="background-color: {{course.buttonColor}}" class="btn Absolute-Center {{course.buttonColor}} "
+                                                    type="button" aria-haspopup="true" aria-expanded="true">
+                                                    {{course.buttonName}}<i aria-hidden="true"></i>
+                                                    </button>
+                                            </div>
+                                        </center>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <center ng-show="courseListSearchResult.length == 0 && courseSearchKey">
+                        <h4>Could not find any course that matchs the keyword!</h4>
+                    </center>
+
+
+                    <!--<div class="panel-group" ng-repeat="course in courseListSearchResult" >
+                    <div class="panel-heading panel-title"  style="margin-bottom:10px; border: 0px solid grey; border-radius: 5px;">
+
                         <div class="round-wrap">
                             <div class="row">
                                 <a ui-sref="courseDetail({courseId: course.id})" class="col-md-10" style="text-decoration : none">
@@ -94,7 +104,7 @@
                     <center ng-show="courseListSearchResult.length == 0 && courseSearchKey">
                         <h4>Could not find any course!</h4>
                     </center>
-                </div>
+                </div>-->
             </div>
             <!--Here is the usual showed content when search box is empty-->
             <div ng-repeat="trainingProgram in trainingProgramList" style="margin-top: 5px" ng-show="!courseSearchKey">

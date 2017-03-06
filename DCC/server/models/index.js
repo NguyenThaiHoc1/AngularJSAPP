@@ -2,13 +2,9 @@ var fs = require("fs");
 var path = require("path");
 var Sequelize = require("sequelize");
 
-var settings = require('../config/config.json');
-
-var env = process.env.NODE_ENV || 'development';// settings.environment;
-
-
-var config = require("../config/config")[env];
-var sequelize = module.exports = new Sequelize(config.database, config.username, config.password, config);
+var env = "environment";
+var config = require("../config/config")["environment"];
+var sequelize;
 
 
 var db = {};

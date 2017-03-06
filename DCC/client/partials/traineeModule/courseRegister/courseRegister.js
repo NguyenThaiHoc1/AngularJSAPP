@@ -124,6 +124,7 @@ myApp.controller('courseRegisterCtrl', ['$sce', '$rootScope', '$scope', 'courseR
         return true;
     }
 
+
     // $scope.findCourse = function(courseSearchKey, openingCourseFilter){
     //     // trainingProgram.collapsed = !trainingProgram.collapsed;
     //     var courseListSearchResult = []
@@ -155,6 +156,9 @@ myApp.controller('courseRegisterCtrl', ['$sce', '$rootScope', '$scope', 'courseR
     // };
     $scope.findCourse = function (courseSearchKey, openingCourseFilter) {
         // trainingProgram.collapsed = !trainingProgram.collapsed;
+
+
+    $scope.findCourse = function(courseSearchKey, openingCourseFilter){
 
         var courseListSearchResult = []
         if (openingCourseFilter) {
