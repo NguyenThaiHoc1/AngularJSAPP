@@ -222,4 +222,4 @@ myApp.controller('courseRegisterCtrl', ['$sce', '$rootScope', '$scope', 'courseR
         );
 
     };
-}]);
+}}]);

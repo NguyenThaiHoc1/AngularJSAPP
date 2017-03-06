@@ -57,13 +57,21 @@ myApp.controller('registerCtrl', ['$scope', '$rootScope', 'registerServices', fu
         {
             if(newPassword.match(/\d+/) != null)
             {
-                if(newPassword.length > 7)
+                if(( newPassword.match(/[a-z]/) != null ) && ( newPassword.match(/[A-Z]/) != null))
                 {
-                    $scope.passStrengthError = false;
+                    if(newPassword.length > 7)
+                    {
+                        $scope.passStrengthError = false;
+                    }
+                    else
+                    {
+                        $scope.passMeasuremessage = 'Password should be at least 8 in length!';
+                        $scope.passStrengthError = true;
+                    }
                 }
                 else
                 {
-                    $scope.passMeasuremessage = 'Password should be at least 8 in length!';
+                    $scope.passMeasuremessage = 'Password should at least include 1 lower case char and 1 upper case char!';
                     $scope.passStrengthError = true;
                 }
             }
