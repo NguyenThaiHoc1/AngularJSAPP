@@ -99,7 +99,7 @@ describe('<Unit test for user profile>', function () {
                 assert.equal(res.body.success, true);
                 models.User.update({
                     username: 'Your name',
-                    status: 'some status',
+                    status: 'activated',
                     avatar: '/img/profiles/userPhoto-1488194296868test.jpg',
                     dob: '01/01/2001',
                     phone: '0000 000 000',
@@ -187,7 +187,7 @@ describe('<Unit test for user profile>', function () {
                 assert.equal(res.body.success, true);
                 models.User.update({
                     username: 'Your Name',
-                    status: 'some status',
+                    status: 'activated',
                     avatar: '/img/profiles/userPhoto-1488196330543test.jpg',
                     dob: '01/01/2001',
                     phone: '0000 000 000',

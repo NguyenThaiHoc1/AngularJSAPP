@@ -47,7 +47,7 @@ router.post('/login', function (req, res, next) {
         if (!user) {
 
             models.User.getUserByEmailAndPassword(req.body.username, req.body.password, function (_user) {
-                if (_user) {
+                if (_user && _user.status !== 'deactivated') {
                     passport.serializeUser(function (_user, done) {
                         done(null, _user.email);
                     });
@@ -130,7 +130,7 @@ router.post('/login', function (req, res, next) {
                     where: { email: req.user.mail },
                     defaults: {
                         username: 'Your Name',
-                        status: 'some status',
+                        status: 'activated',
                         dob: '01/01/2001',
                         phone: '0000 000 000',
                         location: 'DEK Vietnam',
