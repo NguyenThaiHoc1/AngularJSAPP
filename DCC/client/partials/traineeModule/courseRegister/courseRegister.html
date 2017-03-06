@@ -25,8 +25,7 @@
                             {{trainingProgram.name}}
                             <p style="color:darkgrey; white-space: nowrap"  ng-bind-html="trainingProgram.description"</p>
                             <br/>
-                            <p></p>
-                            <p></p>
+                            <p style="visibility: hidden">Just to keep space</p>
                         </blockquote>
                     </a>
                 </div>
@@ -41,8 +40,10 @@
                                         <img style="float:left; clear:both; margin-right:10px;" alt="course-icon" class="img-responsive" ng-src = "{{course.imgLink}}" width="70px">
                                         {{course.name}}
                                         <font ng-bind-html="highlight(course.name, courseSearchKey)"></font>
-                                        <font ng-bind-html="highlight(course.description, courseSearchKey)"></font>
-                                        <p style="color:darkgrey; white-space: nowrap"  ng-bind-html="course.description"</p>
+                                        <p style="visibility:hidden">Just to keep space</p>
+                                        <p style="visibility:hidden">Just to keep space</p>
+                                        <!--<font ng-bind-html="highlight(course.description, courseSearchKey)"></font>-->
+                                        <p style="color:darkgrey; white-space: nowrap"  ng-bind-html="highlight(course.description, courseSearchKey)"></p>
                                     </a>
                                 </blockquote>
                             </div>
