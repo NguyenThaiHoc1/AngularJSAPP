@@ -22,17 +22,19 @@ router.get('/getOpeningClass', function (req, res) {
         {
             startTime:
             {
-                $lt: Date.now()
+                $gt: new Date()
             }
         },
         include: [models.Course]
     }
+    console.log(query);
     models.Class.findAll(query).then(function (openingClass) {
         var datasend = {
             success: true,
             msg: 'Get Opening Class Success',
             openingClass: openingClass
         };
+        //console.log(openingClass);
         res.send(datasend);
     });
 });
