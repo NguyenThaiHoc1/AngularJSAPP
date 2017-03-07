@@ -163,21 +163,27 @@ myApp.controller('courseManagementCtrl', ['$scope', '$rootScope', 'courseManagem
         $rootScope.addEditClassFormAction = 'Add';
         //date and time
         $rootScope.timeOfStart = new Date();
-        $rootScope.timeOfStart.setHours(9);
+        $rootScope.timeOfStart.setHours(10);
         $rootScope.timeOfStart.setMinutes(0);
         $rootScope.dayOfStart = new Date();
+
+        $rootScope.timeOfEnd = new Date();
+        $rootScope.timeOfEnd.setHours(12);
+        $rootScope.timeOfEnd.setMinutes(0);
+        $rootScope.dayOfEnd = new Date();
 
         $rootScope.adminClassModel = {
             dayOfStart: $rootScope.dayOfStart,
             timeOfStart: $rootScope.timeOfStart,
-            courseId: course.courseId,
+            dayOfEnd: $rootScope.dayOfEnd,
+            timeOfEnd: $rootScope.timeOfEnd,
+            courseId: course.id,
             location: '',
             //TODO
             // trainerId: '',
-            // startTime: $rootScope.dt,
-            duration: '',
+            startTime: $rootScope.dateTimePicker,
+            endTime: $rootScope.endTimePicker,
             maxAttendant: '',
-            note: ''
         };
     };
 }]);
@@ -309,6 +315,38 @@ myApp.controller('deleteCtrl', ['$scope', '$rootScope', 'courseManagementService
                 }
             });
         }
+
+    };
+}]);
+myApp.controller('addEditClassCtrl', ['$scope', '$rootScope', 'courseDetailServices', '$stateParams', function ($scope, $rootScope, courseDetailServices, $location, $stateParams) {
+
+    //Class
+    $scope.addEditClassClick = function () {
+
+
+        //add Class
+        $rootScope.dateTimePicker = $rootScope.adminClassModel.dayOfStart;
+        $rootScope.dateTimePicker.setHours($rootScope.adminClassModel.timeOfStart.getHours());
+        $rootScope.dateTimePicker.setMinutes($rootScope.adminClassModel.timeOfStart.getMinutes());
+        $rootScope.adminClassModel.startTime = $rootScope.dateTimePicker;
+
+        $rootScope.endTimePicker = $rootScope.adminClassModel.dayOfEnd;
+        $rootScope.endTimePicker.setHours($rootScope.adminClassModel.timeOfEnd.getHours());
+        $rootScope.endTimePicker.setMinutes($rootScope.adminClassModel.timeOfEnd.getMinutes());
+        $rootScope.adminClassModel.endTime = $rootScope.endTimePicker;
+
+        courseDetailServices.addClass($rootScope.adminClassModel).then(function (result) {
+            if (result.data.success) {
+                //Get Class List
+                courseDetailServices.getClassByCourseID($rootScope.adminClassModel.courseId).then(function (result) {
+                    $rootScope.classList = result.data.data;
+                });
+                // $location.path("/userProfile");
+                $rootScope.ShowPopupMessage(result.data.msg, "success");
+            } else {
+                $rootScope.ShowPopupMessage('Add Class Info FAIL!', "error");
+            }
+        });
 
     };
 }]);

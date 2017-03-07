@@ -220,9 +220,8 @@ router.post('/addClass', function (req, res) {
             location: req.body.location,
             // trainerId: req.body.trainerId.id,
             startTime: req.body.startTime,
-            duration: req.body.duration,
-            maxAttendant: req.body.maxAttendant,
-            note: req.body.note
+            endTime: req.body.endTime,
+            maxAttendant: req.body.maxAttendant
         }).then(function () {
             res.send({
                 success: true,
@@ -243,9 +242,8 @@ router.post('/updateClass', function (req, res) {
             location: req.body.location,
             // trainerId: req.body.trainerId,
             startTime: req.body.startTime,
-            duration: req.body.duration,
-            maxAttendant: req.body.maxAttendant,
-            note: req.body.note
+            endTime: req.body.endTime,
+            maxAttendant: req.body.maxAttendant
         }, {
                 where: {
                     id: req.body.id,
@@ -303,24 +301,23 @@ router.get('/getAllTP', function (req, res) {
 });
 
 
-router.get('/setAccThachz', function(req,res){
+router.get('/setAccThachz', function (req, res) {
     models.User.update(
         {
-            isTrainer : 1
+            isTrainer: 1
         }
-        ,{
-            where:{id: 2}
+        , {
+            where: { id: 2 }
         }
     )
 });
 
 
-router.get('/addCourseType', function(req,res)
-{
+router.get('/addCourseType', function (req, res) {
     models.CourseType.create(
         {
             name: 'AXE',
-            discription:'this training program for AXE'
+            discription: 'this training program for AXE'
         }
     );
 
