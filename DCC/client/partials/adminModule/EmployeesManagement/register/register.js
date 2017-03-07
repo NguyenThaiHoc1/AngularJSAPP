@@ -1,7 +1,6 @@
 'use strict';
 
 angular.module('register', []);
-
 //Routers
 myApp.config(function ($stateProvider) {
     $stateProvider.state('register', {
@@ -38,7 +37,8 @@ myApp.controller('registerCtrl', ['$scope', '$rootScope', 'registerServices', fu
             passworddAgain: $scope.passwordAgain,
             courseId: $scope.courseTypeId
         };
-
+        // var hash = MD5Lib.hexMD5($scope.NewUser.password);
+        // console.log(hash.toString());
         registerServices.addUser($scope.NewUser).then(function (result) {
             if (result.data.success) {
                 $rootScope.ShowPopupMessage(result.data.msg, "success");

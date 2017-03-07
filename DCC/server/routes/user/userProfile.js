@@ -2,6 +2,7 @@ var router = require('express').Router();
 var models = require('../../models');
 var config = require('../../config/config.json');
 var log = require('../../config/config')[config.logConfig];
+var md5 = require('md5');
 const fs = require('fs');
 // Upload file setting
 var multer = require('multer');
@@ -65,7 +66,7 @@ router.post('/updateUserProfile', function (req, res) {
             dob: req.body.dob,
             phone: req.body.phone,
             //role: req.body.role,
-            password: req.body.password,
+            password: md5(req.body.password),
             status: req.body.status
         },
         {
@@ -128,6 +129,7 @@ router.post('/addUser', function (req, res) {
                     msg: 'Email already existed. Add failed!'
                 });
             } else {
+                // console.log(md5('what the fack!'));
                 models.User.create({
                     username: 'Your Name',
                     status: 'activated',
@@ -135,7 +137,7 @@ router.post('/addUser', function (req, res) {
                     phone: '0000 000 000',
                     location: 'DEK Vietnam',
                     email: req.body.email,
-                    password: req.body.password,
+                    password: md5(req.body.password),
                     avatar: '/img/profiles/defaultProfile.jpg',
                     isAdmin: false,
                     isTrainer: false,
