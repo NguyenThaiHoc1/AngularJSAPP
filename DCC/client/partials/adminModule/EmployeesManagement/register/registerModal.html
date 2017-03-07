@@ -19,11 +19,11 @@
                         </div>
                     </div>
 
-                    <div class="form-group" ng-class="{ 'has-error' : frmregister.userPassword.$invalid && !frmregister.userPassword.$pristine }">
+                    <div class="form-group" ng-class="{ 'has-error' : (frmregister.userPassword.$invalid && !frmregister.userPassword.$pristine) || passStrengthError}">
                         <label class="col-xs-3 control-label">Password</label>
                         <div class="col-xs-8">
-                            <input type="password" class="form-control" name="userPassword" ng-model="userPassword" placeholder="Enter password..." required>
-                            <p ng-show="frmregister.userPassword.$invalid && !frmregister.userPassword.$pristine" class="help-block">Not valid password!</p>
+                            <input type="password" class="form-control" name="userPassword" ng-model="userPassword" ng-change="passwordMeasure(userPassword)" placeholder="Enter password..." required>
+                            <p ng-show="(frmregister.userPassword.$invalid && !frmregister.userPassword.$pristine) || passStrengthError" class="help-block">{{passMeasuremessage}}</p>
                         </div>
                     </div>
 
