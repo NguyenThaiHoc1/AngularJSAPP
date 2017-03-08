@@ -155,6 +155,27 @@ router.post('/addUser', function (req, res) {
         });
     });
 });
-
+router.post('/checkPassword', function (req, res) {
+    models.User.findOne({ where: { email: req.user.email, password: md5(req.body.password) }}).then(function() {
+        res.send({success : true});
+    })
+});
+router.post('/changePassword', function (req, res) {
+    models.User.update({
+        password: md5(req.body.newPassword)
+    },
+        {
+            where: {
+                email: req.body.email,
+                password: md5(req.body.oldPassword)
+            }
+        }
+    ).then(function (data) {
+        res.send({
+            // isTrue: data,
+            success: true
+        });
+    });
+});
 
 module.exports = router;
