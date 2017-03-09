@@ -35,16 +35,16 @@ myApp.controller('registerCtrl', ['$scope', '$rootScope', 'registerServices', fu
             email: $scope.userEmail,
             password: $scope.userPassword,
             passworddAgain: $scope.passwordAgain,
-            courseId: $scope.courseTypeId
+            team: $scope.team,
+            courseId: 'Intern'
         };
-        // var hash = MD5Lib.hexMD5($scope.NewUser.password);
-        // console.log(hash.toString());
         registerServices.addUser($scope.NewUser).then(function (result) {
             if (result.data.success) {
                 $rootScope.ShowPopupMessage(result.data.msg, "success");
                 $scope.userEmail = '';
                 $scope.userPassword = '';
                 $scope.passwordAgain = '';
+                $scope.team = '';
                 $scope.courseTypeId = "Intern";
             } else {
                 $rootScope.ShowPopupMessage(result.data.msg, "error");
