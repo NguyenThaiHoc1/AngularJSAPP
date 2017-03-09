@@ -27,7 +27,6 @@ router.get('/getOpeningClass', function (req, res) {
         },
         include: [models.Course]
     }
-    console.log(query);
     models.Class.findAll(query).then(function (openingClass) {
         var datasend = {
             success: true,
@@ -137,4 +136,20 @@ router.post('/getMyEnrolledClass', function (req, res) {
     });
 });
 
+router.post('/updateClassRecordStatus', function (req, res) {
+    // this function check if the user used comment for class
+    models.ClassRecord.update({
+        status: 'Learned'
+    }, {
+            where: {
+                traineeId: req.body.traineeId,
+                classId: req.body.classId
+            }
+        }).then(function () {
+            res.send({
+                success: true,
+                msg: 'update status success!'
+            });
+        });
+});
 module.exports = router;
