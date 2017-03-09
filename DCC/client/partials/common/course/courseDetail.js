@@ -163,68 +163,6 @@ myApp.controller('courseDetailCtrl', ['$scope', '$rootScope', '$stateParams', 'c
     };
 }]);
 
-
-myApp.controller('addEditClassCtrl', ['$scope', '$rootScope', 'courseDetailServices', '$stateParams', function ($scope, $rootScope, courseDetailServices, $location, $stateParams) {
-
-    //Class
-    $scope.addEditClassClick = function () {
-
-        if ($rootScope.addEditFormIsEditForm) {
-            //console.log($rootscope.adminClassModel);
-            $rootScope.dateTimePicker = $rootScope.adminClassModel.dayOfStart;
-            $rootScope.dateTimePicker.setHours($rootScope.adminClassModel.timeOfStart.getHours());
-            $rootScope.dateTimePicker.setMinutes($rootScope.adminClassModel.timeOfStart.getMinutes());
-            $rootScope.adminClassModel.startTime = $rootScope.dateTimePicker;
-
-            $rootScope.endTimePicker = $rootScope.adminClassModel.dayOfEnd;
-            $rootScope.endTimePicker.setHours($rootScope.adminClassModel.timeOfEnd.getHours());
-            $rootScope.endTimePicker.setMinutes($rootScope.adminClassModel.timeOfEnd.getMinutes());
-            $rootScope.adminClassModel.endTime = $rootScope.endTimePicker;
-
-            //edit class
-            courseDetailServices.updateClass($rootScope.adminClassModel).then(function (result) {
-                if (result.data.success) {
-                    //Get Class List
-                    courseDetailServices.getClassByCourseID($rootScope.adminClassModel.courseId.id).then(function (result) {
-                        $rootScope.classList = result.data.data;
-                    });
-
-                    $rootScope.ShowPopupMessage(result.data.msg, "success");
-                    //$location.path("#courseDetail");
-                } else {
-                    $rootScope.ShowPopupMessage('Edit Class FAIL!', "error");
-                }
-            });
-        }
-        else {
-
-            //add Class
-            $rootScope.dateTimePicker = $rootScope.adminClassModel.dayOfStart;
-            $rootScope.dateTimePicker.setHours($rootScope.adminClassModel.timeOfStart.getHours());
-            $rootScope.dateTimePicker.setMinutes($rootScope.adminClassModel.timeOfStart.getMinutes());
-            $rootScope.adminClassModel.startTime = $rootScope.dateTimePicker;
-
-            $rootScope.endTimePicker = $rootScope.adminClassModel.dayOfEnd;
-            $rootScope.endTimePicker.setHours($rootScope.adminClassModel.timeOfEnd.getHours());
-            $rootScope.endTimePicker.setMinutes($rootScope.adminClassModel.timeOfEnd.getMinutes());
-            $rootScope.adminClassModel.endTime = $rootScope.endTimePicker;
-
-            courseDetailServices.addClass($rootScope.adminClassModel).then(function (result) {
-                if (result.data.success) {
-                    //Get Class List
-                    courseDetailServices.getClassByCourseID($rootScope.adminClassModel.courseId).then(function (result) {
-                        $rootScope.classList = result.data.data;
-                    });
-                    // $location.path("/userProfile");
-                    $rootScope.ShowPopupMessage(result.data.msg, "success");
-                } else {
-                    $rootScope.ShowPopupMessage('Add Class Info FAIL!', "error");
-                }
-            });
-        }
-    };
-}]);
-
 myApp.controller('DateTimepickerCtrl', function ($scope, $rootScope, $log) {
     //time picker
 
