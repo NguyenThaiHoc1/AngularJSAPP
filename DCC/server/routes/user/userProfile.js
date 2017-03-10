@@ -178,4 +178,14 @@ router.post('/changePassword', function (req, res) {
     });
 });
 
+router.post('/getAdminUsers', function (req, res) {
+    log.info('GET /users/getAdminUsers');
+    models.User.getUserByRole('admin', function (users) {
+        res.send({
+            success: true,
+            data: users
+        });
+    });
+});
+
 module.exports = router;
