@@ -23,6 +23,28 @@ module.exports = function (sequelize) {
                 };
                 User.findOne(query).then(cb);
             },
+            getUserByrole: function (role, cb) {
+                var query;
+                if (role === 'admin')
+                    query = {
+                        where: {
+                            isAdmin: '1'
+                        }
+                    };
+                else if (role === 'trainee')
+                    query = {
+                        where: {
+                            isTrainee: '1'
+                        }
+                    };
+                else
+                    query = {
+                        where: {
+                            isTrainer: '1'
+                        }
+                    };
+                User.findOne(query).then(cb);
+            },
             getAllUsers: function (cb) {
                 User.findAll().then(cb);
             }

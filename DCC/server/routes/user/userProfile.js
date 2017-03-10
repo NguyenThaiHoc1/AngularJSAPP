@@ -2,6 +2,7 @@ var router = require('express').Router();
 var models = require('../../models');
 var config = require('../../config/config.json');
 var log = require('../../config/config')[config.logConfig];
+var md5 = require('md5');
 const fs = require('fs');
 // Upload file setting
 var multer = require('multer');
@@ -65,7 +66,7 @@ router.post('/updateUserProfile', function (req, res) {
             dob: req.body.dob,
             phone: req.body.phone,
             //role: req.body.role,
-            password: req.body.password,
+            password: md5(req.body.password),
             status: req.body.status
         },
         {
@@ -128,6 +129,7 @@ router.post('/addUser', function (req, res) {
                     msg: 'Email already existed. Add failed!'
                 });
             } else {
+                // console.log(md5('what the fack!'));
                 models.User.create({
                     username: 'Your Name',
                     status: 'activated',
@@ -135,7 +137,7 @@ router.post('/addUser', function (req, res) {
                     phone: '0000 000 000',
                     location: 'DEK Vietnam',
                     email: req.body.email,
-                    password: req.body.password,
+                    password: md5(req.body.password),
                     avatar: '/img/profiles/defaultProfile.jpg',
                     isAdmin: false,
                     isTrainer: false,
@@ -153,6 +155,27 @@ router.post('/addUser', function (req, res) {
         });
     });
 });
-
+router.post('/checkPassword', function (req, res) {
+    models.User.findOne({ where: { email: req.user.email, password: md5(req.body.password) }}).then(function() {
+        res.send({success : true});
+    })
+});
+router.post('/changePassword', function (req, res) {
+    models.User.update({
+        password: md5(req.body.newPassword)
+    },
+        {
+            where: {
+                email: req.body.email,
+                password: md5(req.body.oldPassword)
+            }
+        }
+    ).then(function (data) {
+        res.send({
+            // isTrue: data,
+            success: true
+        });
+    });
+});
 
 module.exports = router;

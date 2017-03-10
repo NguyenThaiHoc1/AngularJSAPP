@@ -7,6 +7,7 @@
     "acl": "^0.4.9",
     "acl-mongodb": "^0.1.0",
     "angular-bootstrap-toggle": "^0.1.2",
+    "angular-web-notification": "^1.2.10",
     "bcryptjs": "^2.3.0",
     "body-parser": "^1.15.2",
     "chai": "^3.4.1",
