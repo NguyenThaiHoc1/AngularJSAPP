@@ -1,9 +1,13 @@
 var email_config = require('./email_config.json');
 var request = require('request');
 var email = {
+<<<<<<< HEAD
+    send: function (receivers, subject, content, callback) {
+=======
     send: function (receivers, subject, content) {
 
         const nodemailer = require('nodemailer');
+>>>>>>> 27c9737945e157614d87e98d3e3fc123c42535ca
         var transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
@@ -22,10 +26,7 @@ var email = {
             text: content,
         };
         transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-                return console.log(error);
-            }
-        });
-    }
+            callback(error, info);
+        }
 }
 module.exports = email.send;
