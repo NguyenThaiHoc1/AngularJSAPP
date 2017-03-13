@@ -46,8 +46,8 @@
                             <div class="row">
                                 <blockquote class="blockquote" style="border-left: none; margin-bottom:24px; word-wrap: break-word;" id="shady-lady">
                                     <div class="col-md-3 col-xs-3">
-                                        <img style="float:left; clear:both; margin-right: 10px; border-radius: 50%; width:45px !important; height:45px !important"
-                                            alt="User Avatar" class="img-responsive" ng-src="{{user.avatar}}">
+                                        <img style="float:left; clear:both; margin-right: 10px; margin-top: -10px; border-radius: 50%;
+                                         width:45px !important; height:45px !important" alt="User Avatar" class="img-responsive" ng-src="{{user.avatar}}">
                                             <font ng-bind-html="highlight(user.username, userSearchKey)"></font>
                                     </div>
                                     <div class="col-md-2 col-xs-2">
@@ -59,7 +59,7 @@
                                     <div class="col-md-4 col-xs-4">
                                         <i aria-hidden="true"></i><span><font ng-bind-html="highlight(user.email, userSearchKey)"></font></span>
                                     </div>
-                                    <div class="col-md-1 col-xs-1" style="padding-left: 0px">
+                                    <div class="col-md-1 col-xs-1" style="padding-left: 0px;margin-top: -5px;">
                                         <!--deactivate user, not delete-->
                                         <a class="btn btn-danger" data-toggle="modal" data-target="#ActivationModal" ng-show="user.status=='activated'" ng-click="showUserActivationForm(user)"><span class="glyphicon glyphicon-trash"></span></a>
                                         <a class="btn btn-success" data-toggle="modal" data-target="#ActivationModal" ng-show="user.status=='deactivated'" ng-click="showUserActivationForm(user)"><span class="glyphicon glyphicon-repeat"></span></a>
