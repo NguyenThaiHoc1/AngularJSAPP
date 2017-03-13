@@ -56,7 +56,7 @@ myApp.controller('registerCtrl', ['$scope', '$rootScope', 'registerServices', fu
         var email = {
             subject: 'Resgister Noti',
             content: 'you are now registered!',
-            listOfReceiver: ['banhquocdanh.2011@gmail.com']
+            listOfReceiver: [$scope.userEmail]
         }
         registerServices.sendEmail(email);
     }

@@ -7,7 +7,7 @@
             <!-- Search box -->
             <div class="col-xs-5 col-md-4 col-sm-6">
                 <input ng-model="userSearchKey" class="box-group col-xs-6 col-md-6 col-sm-6" type="text" placeholder="Search" name="ng-srch-term"
-                    id="ng-srch-term" ng-change="findUser(userSearchKey)">
+                    id="ng-srch-term">
                     <div class="col-xs-6 col-md-6" uib-dropdown>
                         <select class="box-group col-xs-12 col-md-12" ng-model="opt">
                         <option value="1" selected="selected">Activated</option>
@@ -40,7 +40,7 @@
                     </div>
                 </div>
                 <!--Employees list-->
-                <div ng-repeat="user in UsersListDisplay" style="margin-top: 5px; cursor: pointer;">
+                <div ng-repeat="user in UsersList" style="margin-top: 5px; cursor: pointer;">
                     <div data-toggle="collapse" data-target="#collapse{{user.id}}" class="round-wrap" ng-show="userListFilterCondition(user)">
                         <a style="text-decoration : none" ng-click="user.collapsed = !user.collapsed">
                             <div class="row">
