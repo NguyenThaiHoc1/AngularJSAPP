@@ -161,5 +161,4 @@ router.post('/checkPassword', function (req, res) {
         else res.send({success: false});
     })
 });
-
 module.exports = router;

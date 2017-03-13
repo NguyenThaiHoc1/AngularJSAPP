@@ -993,10 +993,6 @@ blockquote {
     border-radius: 6px;
     /*box-shadow: 10px 2px 0 2px #AAAAAA;*/
 }
-.round-wrap:hover{
-	box-shadow: 5px 5px #DDDDDD;
-	transform: translate(6px, -2px);
-}
 .Absolute-Center {
     margin: auto;
     position: absolute;
