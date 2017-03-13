@@ -1,3 +1,4 @@
 module.exports= {
-    email: require('./email')
+    email: require('./email'),
+    desktop: require('./desktop')
 }
