@@ -38,7 +38,6 @@ router.post('/getTrainingProgramByTPType', function (req, res) {
                 var checkForEnrolledCourses;
                 trainingProgram.Courses.forEach(course => {
                     course.Classes.forEach(classes => {
-                        console.log(classes);
                         classes.ClassRecords.forEach(classRecords => {
                             if (classRecords.User.email === req.body.email) {
                                 checkForEnrolledCourses = 1;
