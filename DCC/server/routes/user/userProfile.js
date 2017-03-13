@@ -4,7 +4,7 @@ var config = require('../../config/config.json');
 var log = require('../../config/config')[config.logConfig];
 var md5 = require('md5');
 const fs = require('fs');
-var notifier = require('node-notifier');
+
 
 // Upload file setting
 var multer = require('multer');
