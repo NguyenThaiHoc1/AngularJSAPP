@@ -30,24 +30,9 @@ myApp.factory('EmployeesManagementService', ['$http', function($http) {
 myApp.controller('getProfilesController', ['$scope', '$rootScope', '$sce', 'EmployeesManagementService', function($scope, $rootScope, $sce, EmployeesManagementService) {
     EmployeesManagementService.getProfilesList().then(function(userData) {
         $scope.UsersList = userData.data.data;
-        $scope.UsersListDisplay = $scope.UsersList;
         $scope.sortbyName();
         $scope.opt = '1';
     });
-
-    $scope.findUser = function(userSearchKey) {
-        var SearchResult = [];
-        $scope.UsersList.forEach(user => {
-            if ((user.username.toUpperCase().indexOf(userSearchKey.toUpperCase()) !== -1) ||
-                (user.belong2Team.toUpperCase().indexOf(userSearchKey.toUpperCase()) !== -1) ||
-                (user.userType.toUpperCase().indexOf(userSearchKey.toUpperCase()) !== -1) ||
-                (user.dob.toUpperCase().indexOf(userSearchKey.toUpperCase()) !== -1) ||
-                (user.email.toUpperCase().indexOf(userSearchKey.toUpperCase()) !== -1) ||
-                (user.phone.toUpperCase().indexOf(userSearchKey.toUpperCase()) !== -1))
-                    SearchResult.push(user);
-        });
-        $scope.UsersListDisplay = SearchResult ? SearchResult : $scope.UsersList;
-    };
 
     $scope.highlight = function(text, search) {
         if (!search) {
@@ -57,7 +42,7 @@ myApp.controller('getProfilesController', ['$scope', '$rootScope', '$sce', 'Empl
     };
 
     $scope.sortbyArea = function() {
-        $scope.UsersListDisplay.sort(function(prevUser, nextUser) {
+        $scope.UsersList.sort(function(prevUser, nextUser) {
             var upper_prevUser = prevUser.userType.toUpperCase();
             var upper_nextUser = nextUser.userType.toUpperCase();
 
@@ -67,7 +52,7 @@ myApp.controller('getProfilesController', ['$scope', '$rootScope', '$sce', 'Empl
     };
 
     $scope.sortbyTeam = function() {
-        $scope.UsersListDisplay.sort(function(prevUser, nextUser) {
+        $scope.UsersList.sort(function(prevUser, nextUser) {
             var upper_prevUser = prevUser.belong2Team.toUpperCase();
             var upper_nextUser = nextUser.belong2Team.toUpperCase();
 
@@ -77,7 +62,7 @@ myApp.controller('getProfilesController', ['$scope', '$rootScope', '$sce', 'Empl
     };
 
     $scope.sortbyName = function() {
-        $scope.UsersListDisplay.sort(function(prevUser, nextUser) {
+        $scope.UsersList.sort(function(prevUser, nextUser) {
             var upper_prevUser = prevUser.username.toUpperCase();
             var upper_nextUser = nextUser.username.toUpperCase();
 
@@ -91,8 +76,22 @@ myApp.controller('getProfilesController', ['$scope', '$rootScope', '$sce', 'Empl
     };
 
     $scope.userListFilterCondition = function(user) {
-        return ((user.status=='activated') && ($scope.opt & '1')) ||
-               ((user.status=='deactivated') && ($scope.opt & '2'));
+        var checkStatus = ((user.status == 'activated') && ($scope.opt & '1')) ||
+            ((user.status == 'deactivated') && ($scope.opt & '2'));
+        var checkSearch = true;
+
+        if ($scope.userSearchKey) {
+            checkSearch = (user.username.toUpperCase().includes($scope.userSearchKey.toUpperCase())
+                || user.email.toUpperCase().includes($scope.userSearchKey.toUpperCase())
+                || user.dob.toUpperCase().includes($scope.userSearchKey.toUpperCase())
+                || (user.phone && user.phone.toUpperCase().includes($scope.userSearchKey.toUpperCase()))
+                || (user.belong2Team && user.belong2Team.toUpperCase().includes($scope.userSearchKey.toUpperCase()))
+                || (user.userType && user.userType.toUpperCase().includes($scope.userSearchKey.toUpperCase()))
+            );
+
+        }
+
+        return checkStatus && checkSearch;
     };
 }]);
 
