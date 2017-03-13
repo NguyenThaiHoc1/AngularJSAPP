@@ -176,8 +176,8 @@ describe('<Unit test for trainee-courseRegister>', function () {
             req.cookies = Cookies;
             req.set('Accept', 'application/json')
             req.send({
-                classId: 1,
-                traineeId: 1
+                classId: 3,
+                traineeId: 2
             });
             req.end(function (err, res) {
                 assert.equal(res.body.success, true);
