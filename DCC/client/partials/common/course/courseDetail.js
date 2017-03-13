@@ -145,8 +145,13 @@ myApp.controller('courseDetailCtrl', ['$scope', '$rootScope', '$stateParams', 'c
             }
         };
     };
-    $scope.DeleteClass = function (Class) {
+    $rootScope.classDelete;
+    $scope.sendDeleteClass = function (Class) {
+        $rootScope.classDelete = Class;
+    }
 
+    $scope.DeleteClass = function () {
+        var Class = $rootScope.classDelete;
         var courseID = Class.courseId;
         courseDetailServices.deleteClass(Class).then(function (result) {
             if (result.data.success) {
