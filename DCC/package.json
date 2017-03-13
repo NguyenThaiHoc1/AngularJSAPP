@@ -61,8 +61,8 @@
     "gulp-nodemon": "^1.0.4"
   },
   "scripts": {
-    "start": "gulp",
-    "test": "mocha"
+    "start": " gulp",
+    "test": " mocha"
   },
   "author": "thach",
   "license": "ISC"

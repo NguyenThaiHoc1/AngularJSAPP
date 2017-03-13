@@ -303,4 +303,27 @@ router.get('/getAllTP', function (req, res) {
 });
 
 
+router.get('/setAccThachz', function(req,res){
+    models.User.update(
+        {
+            isTrainer : 1
+        }
+        ,{
+            where:{id: 2}
+        }
+    )
+});
+
+
+router.get('/addCourseType', function(req,res)
+{
+    models.CourseType.create(
+        {
+            name: 'AXE',
+            discription:'this training program for AXE'
+        }
+    );
+
+});
+
 module.exports = router;

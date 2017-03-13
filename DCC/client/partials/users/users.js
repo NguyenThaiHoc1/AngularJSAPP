@@ -56,6 +56,7 @@ myApp.factory('userServices', ['$http', function ($http) {
         logout: function () {
             return $http.get('/logout').success(function (data) { return data; });
         },
+
         getUserProfile: function (user) {
             return $http.post('/user/userProfile/getUserInfo', user).success(function (data) { return data; });
         },
@@ -99,6 +100,7 @@ myApp.controller('loginController', ['$scope', 'userServices', '$location', '$ro
 }]);
 myApp.controller('changePasswordController', ['$scope', 'userServices', '$location', '$rootScope', function ($scope, userServices, $location, $rootScope) {
     $scope.changePassword = {};
+    $scope.passMeasuremessage="";
     $scope.confirmChange = function () {
         // get user info to check password, also ensure untouched field not null when update profile
         userServices.getUserProfile($rootScope.userInfo).then(function (userData) {
@@ -110,22 +112,21 @@ myApp.controller('changePasswordController', ['$scope', 'userServices', '$locati
         {
             if ($scope.changePassword.newPassword == $scope.changePassword.newPasswordAgain) //check password match
             {
-                $scope.userDetail.password = $scope.changePassword.newPassword;
-                userServices.updateUserProfile($scope.userDetail).then(function (result)    //call update profile service
-                {
-                    if (result.data.success) {
-                        userServices.getUserProfile($scope.userDetail).then(function (userData) {
-                            $rootScope.userInfo = userData.data;
-                            window.sessionStorage["userInfo"] = JSON.stringify($rootScope.userInfo);
-                            $rootScope.ShowPopupMessage(result.data.msg, "success");
-                            $location.path("/userProfile");
-                        })
-                    }
-                    else {
-                        $rootScope.ShowPopupMessage(result.data.msg, "error");
-                    }
-
-                });
+                    $scope.userDetail.password = $scope.changePassword.newPassword;
+                    userServices.updateUserProfile($scope.userDetail).then(function (result)    //call update profile service
+                    {
+                        if (result.data.success) {
+                            userServices.getUserProfile($scope.userDetail).then(function (userData) {
+                                $rootScope.userInfo = userData.data;
+                                window.sessionStorage["userInfo"] = JSON.stringify($rootScope.userInfo);
+                                $rootScope.ShowPopupMessage(result.data.msg, "success");
+                                $location.path("/userProfile");
+                            })
+                        }
+                        else {
+                            $rootScope.ShowPopupMessage(result.data.msg, "error");
+                        }
+                    });
             }
             else {
                 $rootScope.ShowPopupMessage("Password not match, re-type please!", "error");
@@ -135,6 +136,42 @@ myApp.controller('changePasswordController', ['$scope', 'userServices', '$locati
             $rootScope.ShowPopupMessage("Current password is not correct!", "error");
         }
     };
+    //Password measurement
+    $scope.passwordMeasure = function (newPassword) {
+        // validate user password to ensure its security strength
+        if(newPassword != null)
+        {
+            if(newPassword.match(/\d+/) != null)
+            {
+                if(( newPassword.match(/[a-z]/) != null ) && ( newPassword.match(/[A-Z]/) != null))
+                {
+                    if(newPassword.length > 7)
+                    {
+                        $scope.passStrengthError = false;
+                    }
+                    else
+                    {
+                        $scope.passMeasuremessage = 'Password should be at least 8 in length!';
+                        $scope.passStrengthError = true;
+                    }
+                }
+                else
+                {
+                    $scope.passMeasuremessage = 'Password should at least include 1 lower case char and 1 upper case char!';
+                    $scope.passStrengthError = true;
+                }
+            }
+            else
+            {
+                $scope.passMeasuremessage = 'Password should at least include one number!';
+                $scope.passStrengthError = true;
+            }
+        }
+        else
+        {
+            $scope.passMeasuremessage = 'This field should not be left empty!';
+        }
+     };
 }]);
 myApp.controller('logoutController', ['$scope', 'userServices', '$location', '$rootScope', function ($scope, userServices, $location, $rootScope) {
     userServices.logout().then(function () {
@@ -146,7 +183,6 @@ myApp.controller('logoutController', ['$scope', 'userServices', '$location', '$r
     })
 }]);
 
-//Get user information
 myApp.controller('userProfileCtrl', ['$scope', 'userServices', '$location', '$rootScope', function ($scope, userServices, $location, $rootScope) {
     userServices.getUserProfile($rootScope.userInfo).then(function (userData) {
         userData.data.role = $rootScope.userInfo.role;
@@ -155,6 +191,7 @@ myApp.controller('userProfileCtrl', ['$scope', 'userServices', '$location', '$ro
     })
 
     //update User Profile
+
     $scope.updateUserProfile = function () {
         userServices.updateUserProfile($scope.userDetail).then(function (result) {
 
