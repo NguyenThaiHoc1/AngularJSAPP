@@ -46,7 +46,7 @@ myApp.controller('getProfilesController', ['$scope', '$rootScope', '$sce', 'Empl
                 (user.phone.toUpperCase().indexOf(userSearchKey.toUpperCase()) !== -1))
                     SearchResult.push(user);
         });
-            $scope.UsersListDisplay = SearchResult ? SearchResult : $scope.UsersList;
+        $scope.UsersListDisplay = SearchResult ? SearchResult : $scope.UsersList;
     };
 
     $scope.highlight = function(text, search) {

@@ -50,12 +50,11 @@ router.post('/getClassByCourseID', function (req, res) {
                 location: classByCourseId.location,
                 trainerName: classByCourseId.User ? classByCourseId.User.username : "Not Assigned",
                 startTime: classByCourseId.startTime,
+                endTime: classByCourseId.endTime,
                 trainerAvatar: classByCourseId.User ? classByCourseId.User.avatar : "/img/profiles/defaultProfile.jpg",
                 traineeList: traineeList,
-                duration: classByCourseId.duration,
                 maxAttendant: classByCourseId.maxAttendant,
                 ratingAverage: ratingAverage,
-                note: classByCourseId.note,
                 numTrainee: count,
                 courseId: classByCourseId.courseId
             });

@@ -2,7 +2,10 @@ var router = require('express').Router();
 var models = require('../../models');
 var config = require('../../config/config.json');
 var log = require('../../config/config')[config.logConfig];
+var md5 = require('md5');
 const fs = require('fs');
+
+
 // Upload file setting
 var multer = require('multer');
 var storage = multer.diskStorage({
@@ -65,7 +68,7 @@ router.post('/updateUserProfile', function (req, res) {
             dob: req.body.dob,
             phone: req.body.phone,
             //role: req.body.role,
-            password: req.body.password,
+            password: md5(req.body.password),
             status: req.body.status
         },
         {
@@ -101,7 +104,6 @@ router.post('/photo', function (req, res) {
                     res.redirect('/#/editUserProfile');
                 })
             });
-
         }
     });
 });
@@ -129,6 +131,7 @@ router.post('/addUser', function (req, res) {
                     msg: 'Email already existed. Add failed!'
                 });
             } else {
+                // console.log(md5('what the fack!'));
                 models.User.create({
                     username: 'Your Name',
                     status: 'activated',
@@ -136,14 +139,14 @@ router.post('/addUser', function (req, res) {
                     phone: '0000 000 000',
                     location: 'DEK Vietnam',
                     email: req.body.email,
-                    password: req.body.password,
+                    password: md5(req.body.password),
                     avatar: '/img/profiles/defaultProfile.jpg',
                     isAdmin: false,
                     isTrainer: false,
                     isTrainee: true, //default user is a trainee
-                    belong2Team: 'InNoVa',
+                    belong2Team: 'Innova',
                     isExperienced: 0,
-                    userType: req.body.courseId,
+                    userType: req.body.userType,
                 }).then(function () {
                     res.send({
                         success: true,
@@ -154,6 +157,11 @@ router.post('/addUser', function (req, res) {
         });
     });
 });
-
+router.post('/checkPassword', function (req, res) {
+    models.User.findOne({ where: { email: req.body.email, password: md5(req.body.password) } }).then(function (result) {
+        if (result) res.send({ success: true });
+        else res.send({ success: false });
+    })
+});
 
 module.exports = router;
