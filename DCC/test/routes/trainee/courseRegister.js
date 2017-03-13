@@ -76,20 +76,20 @@ describe('<Unit test for trainee-courseRegister>', function () {
         });
     });
 
-    describe('Test case 4 : Send Register Request: Request is existed', function () {
-        return it('Should return success==false', function (done) {
-            var req = request(DCC_Server)
-                .post('/trainee/courseRegister/sendRegisterRequest');
-            req.cookies = Cookies;
-            req.set('Accept', 'application/json')
-                .send({ userId: 2, courseId: 5 })
-                .end(function (err, res) {
-                    assert.equal(res.body.success, false);
-                    if (err) return done(err);
-                    done();
-                });
-        });
-    });
+    // describe('Test case 4 : Send Register Request: Request is existed', function () {
+    //     return it('Should return success==false', function (done) {
+    //         var req = request(DCC_Server)
+    //             .post('/trainee/courseRegister/sendRegisterRequest');
+    //         req.cookies = Cookies;
+    //         req.set('Accept', 'application/json')
+    //             .send({ userId: 2, courseId: 5 })
+    //             .end(function (err, res) {
+    //                 assert.equal(res.body.success, false);
+    //                 if (err) return done(err);
+    //                 done();
+    //             });
+    //     });
+    // });
 
     // describe('Test case 5 : Send Register Request: Request is not existed, request-type is join (class is opening)', function () {
     //     return it('Should return success==true', function (done) {

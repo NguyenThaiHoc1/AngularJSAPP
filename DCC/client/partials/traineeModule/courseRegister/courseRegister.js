@@ -40,8 +40,7 @@ myApp.factory('courseRegisterServices', ['$http', function($http) {
 //Controllers
 myApp.controller('courseRegisterCtrl', ['$sce','$rootScope', '$scope', 'courseRegisterServices', function($sce,$rootScope ,$scope, courseRegisterServices) {
     courseRegisterServices.getMyEnrolledClass({userEmail:$rootScope.userInfo.email}).then(function(result){
-        var myEnrolledCourse = [];
-        result.data.classRecord.forEach(classRecord => {
+    result.data.classRecord.forEach(classRecord => {
             var today = new Date();
             var startTime = new Date(classRecord.Class.startTime);
             if(today < startTime) myEnrolledCourse.push(classRecord.Class.Course);

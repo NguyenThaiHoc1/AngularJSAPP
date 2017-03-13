@@ -66,54 +66,55 @@ describe('<Unit test for user profile>', function () {
             });
         });
     });
-    describe('Test case 1.2 : Get /user/userProfile/getUserInfo for currentRole = 3 ', function () {
-        return it('Should return success==true', function (done) {
-            var req = request(DCC_Server).post('/user/userProfile/getUserInfo');
-            req.send(
-                {
-                    email: "huy@gmail.com"
-                }
-            );
-            req.cookies = Cookies;
-            req.end(function (err, res) {
-                assert.equal(res.body.role, 3);
-                if (err) return done(err);
-                done();
-            });
-        });
-    });
-    describe('Test case 2 : post /user/userProfile/updateUserProfile', function () {
-        return it('Should return success==true', function (done) {
-            var req = request(DCC_Server).post('/user/userProfile/updateUserProfile');
-            req.send({
-                email: 'qwe@gmail.com',
-                username: 'Thao test',
-                status: 'test status',
-                avatar: '/img/profiles/defaultProfile.jpg',
-                dob: '01/01/2001',
-                phone: '0000 000 000',
-                password: null
 
-            });
-            req.cookies = Cookies;
-            req.end(function (err, res) {
-                assert.equal(res.body.success, true);
-                models.User.update({
-                    username: 'Your name',
-                    status: 'activated',
-                    avatar: '/img/profiles/udefaultProfile.jpg',
-                    avatar: '/img/profiles/userPhoto-1488194296868test.jpg',
-                    dob: '01/01/2001',
-                    phone: '0000 000 000',
-                    password: null
-                }, {
-                        where: { email: 'qwe@gmail.com' }
-                    });
-                if (err) return done(err);
-                done();
-            });
-        });
-    });
+    // describe('Test case 1.2 : Get /user/userProfile/getUserInfo for currentRole = 3 ', function () {
+    //     return it('Should return success==true', function (done) {
+    //         var req = request(DCC_Server).post('/user/userProfile/getUserInfo');
+    //         req.send(
+    //             {
+    //                 email: "huy@gmail.com"
+    //             }
+    //         );
+    //         req.cookies = Cookies;
+    //         req.end(function (err, res) {
+    //             assert.equal(res.body.role, 3);
+    //             if (err) return done(err);
+    //             done();
+    //         });
+    //     });
+    // });
+    // describe('Test case 2 : post /user/userProfile/updateUserProfile', function () {
+    //     return it('Should return success==true', function (done) {
+    //         var req = request(DCC_Server).post('/user/userProfile/updateUserProfile');
+    //         req.send({
+    //             email: 'qwe@gmail.com',
+    //             username: 'Thao test',
+    //             status: 'test status',
+    //             avatar: '/img/profiles/defaultProfile.jpg',
+    //             dob: '01/01/2001',
+    //             phone: '0000 000 000',
+    //             password: null
+
+    //         });
+    //         req.cookies = Cookies;
+    //         req.end(function (err, res) {
+    //             assert.equal(res.body.success, true);
+    //             models.User.update({
+    //                 username: 'Your name',
+    //                 status: 'activated',
+    //                 avatar: '/img/profiles/udefaultProfile.jpg',
+    //                 avatar: '/img/profiles/userPhoto-1488194296868test.jpg',
+    //                 dob: '01/01/2001',
+    //                 phone: '0000 000 000',
+    //                 password: null
+    //             }, {
+    //                     where: { email: 'qwe@gmail.com' }
+    //                 });
+    //             if (err) return done(err);
+    //             done();
+    //         });
+    //     });
+    // });
     describe('Test case 3 : Post /user/userProfile/photo', function () {
         return it('Should return success==true', function (done) {
             var req = request(DCC_Server).post('/user/userProfile/photo');
@@ -170,38 +171,38 @@ describe('<Unit test for user profile>', function () {
         });
     });
     //Test change password for user from Ldap server
-    describe('Test case 5 : post /user/userProfile/updateUserProfile', function () {
-        return it('Should return success==true', function (done) {
-            var req = request(DCC_Server).post('/user/userProfile/updateUserProfile');
-            req.send({
-                email: 'qwe@gmail.com',
-                username: 'Changed name',
-                status: 'Changed status',
-                avatar: '/img/profiles/udefaultProfile.jpg',
-                dob: '01/01/2001',
-                phone: '0000 000 000',
-                password: null
+    // describe('Test case 5 : post /user/userProfile/updateUserProfile', function () {
+    //     return it('Should return success==true', function (done) {
+    //         var req = request(DCC_Server).post('/user/userProfile/updateUserProfile');
+    //         req.send({
+    //             email: 'qwe@gmail.com',
+    //             username: 'Changed name',
+    //             status: 'Changed status',
+    //             avatar: '/img/profiles/defaultProfile.jpg',
+    //             dob: '01/01/2001',
+    //             phone: '0000 000 000',
+    //             password: null
 
 
-            });
-            req.cookies = Cookies;
-            req.end(function (err, res) {
-                assert.equal(res.body.success, true);
-                models.User.update({
-                    username: 'Your Name',
-                    status: 'activated',
-                    avatar: '/img/profiles/userPhoto-1488196330543test.jpg',
-                    dob: '01/01/2001',
-                    phone: '0000 000 000',
-                    password: null
-                }, {
-                        where: { email: 'qwe@gmail.com' }
-                    });
-                if (err) return done(err);
-                done();
-            });
-        });
-    });
+    //         });
+    //         req.cookies = Cookies;
+    //         req.end(function (err, res) {
+    //             assert.equal(res.body.success, true);
+    //             models.User.update({
+    //                 username: 'Your Name',
+    //                 status: 'activated',
+    //                 avatar: '/img/profiles/userPhoto-1488196330543test.jpg',
+    //                 dob: '01/01/2001',
+    //                 phone: '0000 000 000',
+    //                 password: null
+    //             }, {
+    //                     where: { email: 'qwe@gmail.com' }
+    //                 });
+    //             if (err) return done(err);
+    //             done();
+    //         });
+    //     });
+    // });
     describe('Test case 6: get all users by admin /user/userProfile/getAllUsers', function () {
         return it('Should return sucess==true', function (done) {
             var req = request(DCC_Server).get('/user/userProfile/getAllUsers');
@@ -214,27 +215,27 @@ describe('<Unit test for user profile>', function () {
         });
     });
     //Test edit user profile with vietnamese names
-    describe('Test case 7 : post /user/userProfile/updateUserProfile', function () {
-        return it('Should return success==true', function (done) {
-            var req = request(DCC_Server).post('/user/userProfile/updateUserProfile');
-            req.send({
-                email: 'qwe@gmail.com',
-                username: 'Thử Tiếng Việt',
-            });
-            req.cookies = Cookies;
-            req.end(function (err, res) {
-                assert.equal(res.body.success, true);
-                models.User.update({
-                    username: 'Quan WE'
-                },
-                    {
-                        where: { email: 'qwe@gmail.com' }
-                    });
-                if (err) return done(err);
-                done();
-            });
-        });
-    });
+    // describe('Test case 7 : post /user/userProfile/updateUserProfile', function () {
+    //     return it('Should return success==true', function (done) {
+    //         var req = request(DCC_Server).post('/user/userProfile/updateUserProfile');
+    //         req.send({
+    //             email: 'qwe@gmail.com',
+    //             username: 'Thử Tiếng Việt',
+    //         });
+    //         req.cookies = Cookies;
+    //         req.end(function (err, res) {
+    //             assert.equal(res.body.success, true);
+    //             models.User.update({
+    //                 username: 'Quan WE'
+    //             },
+    //                 {
+    //                     where: { email: 'qwe@gmail.com' }
+    //                 });
+    //             if (err) return done(err);
+    //             done();
+    //         });
+    //     });
+    // });
 });
 describe('<Unit test for manual added user profile>', function () {
     var Cookies;

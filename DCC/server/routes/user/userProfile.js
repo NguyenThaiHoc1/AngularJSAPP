@@ -4,6 +4,8 @@ var config = require('../../config/config.json');
 var log = require('../../config/config')[config.logConfig];
 var md5 = require('md5');
 const fs = require('fs');
+var notifier = require('node-notifier');
+
 // Upload file setting
 var multer = require('multer');
 var storage = multer.diskStorage({
@@ -156,9 +158,10 @@ router.post('/addUser', function (req, res) {
     });
 });
 router.post('/checkPassword', function (req, res) {
-    models.User.findOne({ where: { email: req.body.email, password: md5(req.body.password) }}).then(function(result) {
-        if(result) res.send({success : true});
-        else res.send({success: false});
+    models.User.findOne({ where: { email: req.body.email, password: md5(req.body.password) } }).then(function (result) {
+        if (result) res.send({ success: true });
+        else res.send({ success: false });
     })
 });
+
 module.exports = router;

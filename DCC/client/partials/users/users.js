@@ -102,7 +102,8 @@ myApp.controller('loginController', ['$scope', 'userServices', '$location', '$ro
 }]);
 myApp.controller('changePasswordController', ['$scope', 'userServices', '$location', '$rootScope', function ($scope, userServices, $location, $rootScope) {
     $scope.changePassword = {};
-    $scope.passMeasuremessage="";
+
+    $scope.passMeasuremessage = "";
     $scope.userDetail = {};
     $scope.confirmChange = function () {
         // get user info to check password, also ensure untouched field not null when update profile
@@ -111,28 +112,27 @@ myApp.controller('changePasswordController', ['$scope', 'userServices', '$locati
             $rootScope.userInfo = userData.data;
             $scope.userDetail = (JSON.parse(JSON.stringify($rootScope.userInfo)));
         })
+
         $scope.userDetail.password = $scope.changePassword.oldPassword;
         userServices.checkPassword($scope.userDetail).then(function (result) {
-            if(result.data.success)
-            {
+            if (result.data.success) {
                 $scope.userDetail.password = $scope.changePassword.newPassword;
                 userServices.updateUserProfile($scope.userDetail).then(function (result)    //call update profile service
-                    {
-                        if (result.data.success) {
-                            userServices.getUserProfile($scope.userDetail).then(function (userData) {
-                                $rootScope.userInfo = userData.data;
-                                window.sessionStorage["userInfo"] = JSON.stringify($rootScope.userInfo);
-                                $rootScope.ShowPopupMessage(result.data.msg, "success");
-                                $location.path("/userProfile");
-                            })
-                        }
-                        else {
-                            $rootScope.ShowPopupMessage(result.data.msg, "error");
-                        }
-                    });
+                {
+                    if (result.data.success) {
+                        userServices.getUserProfile($scope.userDetail).then(function (userData) {
+                            $rootScope.userInfo = userData.data;
+                            window.sessionStorage["userInfo"] = JSON.stringify($rootScope.userInfo);
+                            $rootScope.ShowPopupMessage(result.data.msg, "success");
+                            $location.path("/userProfile");
+                        })
+                    }
+                    else {
+                        $rootScope.ShowPopupMessage(result.data.msg, "error");
+                    }
+                });
             }
-            else
-            {
+            else {
                 $rootScope.ShowPopupMessage("Current password is not correct!", "error");
             }
         })
@@ -140,39 +140,31 @@ myApp.controller('changePasswordController', ['$scope', 'userServices', '$locati
     //Password measurement
     $scope.passwordMeasure = function (newPassword) {
         // validate user password to ensure its security strength
-        if(newPassword != null)
-        {
-            if(newPassword.match(/\d+/) != null)
-            {
-                if(( newPassword.match(/[a-z]/) != null ) && ( newPassword.match(/[A-Z]/) != null))
-                {
-                    if(newPassword.length > 7)
-                    {
+        if (newPassword != null) {
+            if (newPassword.match(/\d+/) != null) {
+                if ((newPassword.match(/[a-z]/) != null) && (newPassword.match(/[A-Z]/) != null)) {
+                    if (newPassword.length > 7) {
                         $scope.passStrengthError = false;
                     }
-                    else
-                    {
+                    else {
                         $scope.passMeasuremessage = 'Password should be at least 8 in length!';
                         $scope.passStrengthError = true;
                     }
                 }
-                else
-                {
+                else {
                     $scope.passMeasuremessage = 'Password should at least include 1 lower case char and 1 upper case char!';
                     $scope.passStrengthError = true;
                 }
             }
-            else
-            {
+            else {
                 $scope.passMeasuremessage = 'Password should at least include one number!';
                 $scope.passStrengthError = true;
             }
         }
-        else
-        {
+        else {
             $scope.passMeasuremessage = 'This field should not be left empty!';
         }
-     };
+    };
 }]);
 myApp.controller('logoutController', ['$scope', 'userServices', '$location', '$rootScope', function ($scope, userServices, $location, $rootScope) {
     userServices.logout().then(function () {
