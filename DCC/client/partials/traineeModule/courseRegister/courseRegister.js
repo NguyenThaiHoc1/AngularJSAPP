@@ -38,6 +38,7 @@ myApp.factory('courseRegisterServices', ['$http', function ($http) {
 
 
 //Controllers
+
 myApp.controller('courseRegisterCtrl', ['$sce', '$rootScope', '$scope', 'courseRegisterServices', function ($sce, $rootScope, $scope, courseRegisterServices) {
     courseRegisterServices.getMyEnrolledClass({ userEmail: $rootScope.userInfo.email }).then(function (result) {
 
@@ -126,12 +127,14 @@ myApp.controller('courseRegisterCtrl', ['$sce', '$rootScope', '$scope', 'courseR
         }
         return true;
     }
+
     $scope.findCourse = function (courseSearchKey, openingCourseFilter) {
         var courseListSearchResult = []
         if (openingCourseFilter) {
             $scope.trainingProgramList.forEach(trainingProgram => {
                 trainingProgram.Courses.forEach(course => {
                     if ((course.name.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1) && (course.isOpening == openingCourseFilter)) courseListSearchResult.push(course);
+
                 });
             });
         }
