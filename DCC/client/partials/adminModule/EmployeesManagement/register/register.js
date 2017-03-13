@@ -31,7 +31,7 @@ myApp.controller('registerCtrl', ['$scope', '$rootScope', 'registerServices', fu
     $scope.userPassword = '';
     $scope.passwordAgain = '';
     $scope.courseTypeId = "Intern";
-    $scope.passMeasuremessage="";
+    $scope.passMeasuremessage = "";
 
     $scope.applyValue = function () {
         $scope.NewUser = {
@@ -39,7 +39,7 @@ myApp.controller('registerCtrl', ['$scope', '$rootScope', 'registerServices', fu
             password: $scope.userPassword,
             passworddAgain: $scope.passwordAgain,
             team: $scope.team,
-            courseId: 'Intern'
+            userType: 'Intern'
         };
         registerServices.addUser($scope.NewUser).then(function (result) {
             if (result.data.success) {
@@ -62,38 +62,30 @@ myApp.controller('registerCtrl', ['$scope', '$rootScope', 'registerServices', fu
     }
     $scope.passwordMeasure = function (newPassword) {
         // validate user password to ensure its security strength
-        if(newPassword != null)
-        {
-            if(newPassword.match(/\d+/) != null)
-            {
-                if(( newPassword.match(/[a-z]/) != null ) && ( newPassword.match(/[A-Z]/) != null))
-                {
-                    if(newPassword.length > 7)
-                    {
+        if (newPassword != null) {
+            if (newPassword.match(/\d+/) != null) {
+                if ((newPassword.match(/[a-z]/) != null) && (newPassword.match(/[A-Z]/) != null)) {
+                    if (newPassword.length > 7) {
                         $scope.passStrengthError = false;
                     }
-                    else
-                    {
+                    else {
                         $scope.passMeasuremessage = 'Password should be at least 8 in length!';
                         $scope.passStrengthError = true;
                     }
                 }
-                else
-                {
+                else {
                     $scope.passMeasuremessage = 'Password should at least include 1 lower case char and 1 upper case char!';
                     $scope.passStrengthError = true;
                 }
             }
-            else
-            {
+            else {
                 $scope.passMeasuremessage = 'Password should at least include one number!';
                 $scope.passStrengthError = true;
             }
         }
-        else
-        {
+        else {
             $scope.passMeasuremessage = 'This field should not be left empty!';
         }
-     };
-        ;
+    };
+    ;
 }]);
