@@ -38,8 +38,8 @@ router.post('/getTrainingProgramByTPType', function (req, res) {
                 var checkForEnrolledCourses;
                 trainingProgram.Courses.forEach(course => {
                     course.Classes.forEach(classes => {
-                        classes.ClassRecords.forEach(classRecords => {
-                            if (classRecords.User.email === req.body.email) {
+                        classes.ClassRecords.forEach(classRecord => {
+                            if (classRecord.User.email === req.body.email) {
                                 checkForEnrolledCourses = 1;
                                 resDataCourse.push(course);
                             }
@@ -86,6 +86,4 @@ router.post('/getRequestOpenCourse', function (req, res) {
         res.send(datasend);
     });
 });
-
-
 module.exports = router;
