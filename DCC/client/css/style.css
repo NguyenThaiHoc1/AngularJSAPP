@@ -945,9 +945,6 @@ However, delay the fade out process for 2.5 seconds */
 .highlightedText {
     background: yellow;
 }
-.highlightedText {
-    background: yellow;
-}
 
 @media (max-width: 767px) {
     .container-fluid, .row {
