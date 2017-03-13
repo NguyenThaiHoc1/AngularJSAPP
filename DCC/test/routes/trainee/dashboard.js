@@ -73,7 +73,7 @@ describe('<Unit test for trainee-dashboard>', function () {
             var req = request(DCC_Server)
                 .post('/trainee/dashboard/getRequestOpenCourse');
             req.cookies = Cookies;
-            req.send({ userId: 2 });
+            req.send({ userId: 1 });
             req.end(function (err, res) {
                 assert.equal(res.body.success, true);
                 console.log(err);
