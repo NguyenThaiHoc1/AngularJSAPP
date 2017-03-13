@@ -310,37 +310,13 @@ router.get('/getAllTP', function (req, res) {
 });
 
 
-<<<<<<< HEAD
 router.post('/addClass', function (req, res) {
-=======
-router.get('/setAccThachz', function (req, res) {
-    models.User.update(
-        {
-            isTrainer: 1
-        }
-        , {
-            where: { id: 2 }
-        }
-    )
-});
->>>>>>> 1607d3056967fdc95a314a762fb6496757838761
-
     var listUserID = [];
 
-<<<<<<< HEAD
     var data = {
         success: true,
         msg: "Add Class Success"
     };
-=======
-router.get('/addCourseType', function (req, res) {
-    models.CourseType.create(
-        {
-            name: 'AXE',
-            discription: 'this training program for AXE'
-        }
-    );
->>>>>>> 1607d3056967fdc95a314a762fb6496757838761
 
     models.Class.create({
         courseId: req.body.courseId,
