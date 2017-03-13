@@ -142,7 +142,7 @@ router.post('/addUser', function (req, res) {
                     isAdmin: false,
                     isTrainer: false,
                     isTrainee: true, //default user is a trainee
-                    belong2Team: 'InNoVa',
+                    belong2Team: 'Innova',
                     isExperienced: 0,
                     userType: req.body.userType,
                 }).then(function () {
@@ -156,36 +156,10 @@ router.post('/addUser', function (req, res) {
     });
 });
 router.post('/checkPassword', function (req, res) {
-    models.User.findOne({ where: { email: req.user.email, password: md5(req.body.password) }}).then(function() {
-        res.send({success : true});
+    models.User.findOne({ where: { email: req.body.email, password: md5(req.body.password) }}).then(function(result) {
+        if(result) res.send({success : true});
+        else res.send({success: false});
     })
-});
-router.post('/changePassword', function (req, res) {
-    models.User.update({
-        password: md5(req.body.newPassword)
-    },
-        {
-            where: {
-                email: req.body.email,
-                password: md5(req.body.oldPassword)
-            }
-        }
-    ).then(function (data) {
-        res.send({
-            // isTrue: data,
-            success: true
-        });
-    });
-});
-
-router.post('/getAdminUsers', function (req, res) {
-    log.info('GET /users/getAdminUsers');
-    models.User.getUserByRole('admin', function (users) {
-        res.send({
-            success: true,
-            data: users
-        });
-    });
 });
 
 module.exports = router;

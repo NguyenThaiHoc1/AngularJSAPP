@@ -1,7 +1,6 @@
 'use strict';
 
 angular.module('register', []);
-
 //Routers
 myApp.config(function ($stateProvider) {
     $stateProvider.state('register', {
@@ -17,6 +16,9 @@ myApp.factory('registerServices', ['$http', function ($http) {
         addUser: function (user) {
             return $http.post("/user/userProfile/addUser", user).success(function (data) { return data; });
 
+        },
+        sendEmail: function (user) {
+            return $http.post("/notiModule/noti_email/noti_email", user).success(function (data) { return data; });
         }
     }
     return factoryDefinitions;
@@ -36,20 +38,27 @@ myApp.controller('registerCtrl', ['$scope', '$rootScope', 'registerServices', fu
             email: $scope.userEmail,
             password: $scope.userPassword,
             passworddAgain: $scope.passwordAgain,
-            courseId: $scope.courseTypeId
+            team: $scope.team,
+            courseId: 'Intern'
         };
-
         registerServices.addUser($scope.NewUser).then(function (result) {
             if (result.data.success) {
                 $rootScope.ShowPopupMessage(result.data.msg, "success");
                 $scope.userEmail = '';
                 $scope.userPassword = '';
                 $scope.passwordAgain = '';
+                $scope.team = '';
                 $scope.courseTypeId = "Intern";
             } else {
                 $rootScope.ShowPopupMessage(result.data.msg, "error");
             }
         });
+        var email = {
+            subject: 'Resgister Noti',
+            content: 'you are now registered!',
+            listOfReceiver: ['banhquocdanh.2011@gmail.com']
+        }
+        registerServices.sendEmail(email);
     }
     $scope.passwordMeasure = function (newPassword) {
         // validate user password to ensure its security strength
