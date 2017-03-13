@@ -1,5 +1,3 @@
 {
-    "logConfig":"log"
-    "environment": "development",
     "logConfig": "log"
 }
