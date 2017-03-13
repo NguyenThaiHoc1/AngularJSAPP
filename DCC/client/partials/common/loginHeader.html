@@ -12,8 +12,8 @@
             </a>
         </div>
 
-        <div class="collapse  navbar-collapse" id="loginNavbar">
-            <ul class="nav navbar-nav navbar-right" style="margin-top: 8px;">
+        <div class="collapse navbar-collapse" id="loginNavbar">
+            <ul class="navbar-nav navbar-right" style="margin-top: 8px; width: max-content; padding-right: 20px; padding-top: 10px;">
 
                 <li ng-show="$state.current.name == 'home'">
                     <a ng-show="userInfo.role == 3" id="button-dashboard" href="#trainee_dashboard">Dashboard</a>
@@ -21,34 +21,34 @@
                     <a ng-show="userInfo.role == 1" id="button-dashboard" href="#admin_dashboard">Dashboard</a>
                 </li>
                 <li>
-                    <a id="button-calendar" href="#calendar">Training Calendar</a>
+                    <a id="button-calendar" href="#calendar" style="padding-right: 10px;"><b>Training Calendar</b></a>
                 </li>
                 <li>
-                    <a id="button-contact" href="#contact">Contact</a>
+                    <a id="button-contact" href="#contact" style="padding-right: 10px;"><b>Contact</b></a>
                 </li>
                 <li>
-                    <a data-toggle="modal" data-target="#loginModal" ng-show="!userInfo">Login</a>
+                    <a data-toggle="modal" data-target="#loginModal" ng-show="!userInfo" style="padding-right: 10px;"><b>Login</b></a>
                 </li>
-                <li class="brand dropdown" ng-show="userInfo" style="hover:{}">
-                    <a class="dropdown-toggle" data-toggle="dropdown" style="padding:2px;">
+                <li class="brand dropdown" ng-show="userInfo" id="userMenu">
+                    <a class="dropdown-toggle" data-toggle="dropdown" style="padding:2px; font-weight: bold;">
                         <img style="display: inline-block; margin-right: 5px; border-radius: 50%; border: 1px solid black; width:45px !important; height:45px !important"
                             class="img-responsive" ng-src="{{userInfo.avatar}}">
                             {{userInfo.username}} &nbsp <b class="caret"></b>
                     </a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu" style="margin: 2px;">
                         <li ng-show="userInfo.role == 3">
                             <a href="#trainee_dashboard">
-                                <font size="3"><span class="icon-dashboard">&nbsp&nbsp&nbsp&nbsp</span>Dashboard</font>
+                                <font size="3"><span class="glyphicon glyphicon-dashboard">&nbsp</span>Dashboard</font>
+
                             </a>
                         </li>
                         <li ng-show="userInfo.role == 2">
                             <a href="#trainer_dashboard">
-                                <font size="3"><span class="icon-dashboard">&nbsp&nbsp&nbsp&nbsp</span>Dashboard</font>
-                            </a>
+                                <font size="3"><span class="glyphicon glyphicon-dashboard">&nbsp</span>Dashboard</font>
                         </li>
                         <li ng-show="userInfo.role == 1">
                             <a href="#admin_dashboard">
-                                <font size="3"><span class="icon-dashboard">&nbsp&nbsp&nbsp&nbsp</span>Dashboard</font>
+                                <font size="3"><span class="glyphicon glyphicon-dashboard">&nbsp</span>Dashboard</font>
                             </a>
                         </li>
 
@@ -162,9 +162,10 @@
                         <div class="form-group" ng-class="{ 'has-error' : (changePasswordForm.newPassword.$invalid && !changePasswordForm.newPassword.$pristine) || passStrengthError}">
                             <label class="col-xs-3 control-label">New Password</label>
                             <div class="col-xs-8">
-                                <input type="password" class="form-control" name="newPassword" ng-model="changePassword.newPassword" ng-change="passwordMeasure(changePassword.newPassword)" placeholder="Type your new password"
-                                    required>
-                                    <p ng-show="(changePasswordForm.newPassword.$invalid && !changePasswordForm.newPassword.$pristine) || passStrengthError" class="help-block">{{passMeasuremessage}}</p>
+                                <input type="password" class="form-control" name="newPassword" ng-model="changePassword.newPassword" ng-change="passwordMeasure(changePassword.newPassword)"
+                                    placeholder="Type your new password" required>
+                                    <p ng-show="(changePasswordForm.newPassword.$invalid && !changePasswordForm.newPassword.$pristine) || passStrengthError"
+                                        class="help-block">{{passMeasuremessage}}</p>
                             </div>
                         </div>
                         <!--Confirm your password-->
