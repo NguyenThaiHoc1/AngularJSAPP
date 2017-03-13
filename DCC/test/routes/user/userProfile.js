@@ -1,6 +1,7 @@
 var request = require('supertest');
 var assert = require('chai').assert;
 var expect = require('chai').expect;
+var md5 = require('md5');
 process.env.NODE_ENV = 'inMemoryDB';
 var DCC_Server = require('../../../app.js');
 var models = require('../../../server/models');
@@ -245,7 +246,7 @@ describe('<Unit test for manual added user profile>', function () {
             .set('Accept', 'application/json')
             .send({
                 username: 'tranhoangnam3108@gmail.com',
-                password: 'nam'
+                password: md5('Nam12345')
             })
             .end(function (err, res) {
                 Cookies = res.headers['set-cookie'].pop().split(';')[0];
@@ -281,14 +282,46 @@ describe('<Unit test for manual added user profile>', function () {
                 assert.equal(res.body.success, true);
                 models.User.update({
                     username: 'Nam Tran',
-                    status: 'Bug Breeder',
+                    status: 'activated',
                     avatar: '/img/profiles/userPhoto-1488169863745developer-icon.jpg',
                     dob: '31/08/1995',
                     phone: '0123456789',
-                    password: 'nam'
+                    password: md5('Nam12345')
                 }, {
                         where: { email: 'tranhoangnam3108@gmail.com' }
                     });
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
+    //test checkPassword, case : password correct
+    describe('Test case 2 : post /user/userProfile/checkPassword', function () {
+        return it('Should return success==true', function (done) {
+            var req = request(DCC_Server).post('/user/userProfile/checkPassword');
+            req.send({
+                email: 'tranhoangnam3108@gmail.com',
+                password: 'Nam12345'
+            });
+            req.cookies = Cookies;
+            req.end(function (err, res) {
+                assert.equal(res.body.success, true);
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
+    //test checkPassword, case : password incorrect
+    describe('Test case 3 : post /user/userProfile/checkPassword', function () {
+        return it('Should return success==false', function (done) {
+            var req = request(DCC_Server).post('/user/userProfile/checkPassword');
+            req.send({
+                email: 'tranhoangnam3108@gmail.com',
+                password: 'Nam123'
+            });
+            req.cookies = Cookies;
+            req.end(function (err, res) {
+                assert.equal(res.body.success, false);
                 if (err) return done(err);
                 done();
             });

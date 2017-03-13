@@ -11,7 +11,7 @@ var LdapStrategy = require('passport-ldapauth').Strategy;
 // admin's credentials for connecting to openLDAP server
 var BASE_OPTS = require("../../config/config");
 var md5 = require('md5');
-const notifier = require('node-notifier');
+
 // get homepage
 router.get('/', function (req, res) {
     res.render('./index');

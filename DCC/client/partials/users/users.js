@@ -63,9 +63,7 @@ myApp.factory('userServices', ['$http', function ($http) {
         updateUserProfile: function (emailReq) {
             return $http.post('/user/userProfile/updateUserProfile', emailReq).success(function (data) { return data; });
         },
-        changePassword: function (oldPassword, newPassword, email) {
-            return $http.post('/user/userProfile/changePassword', oldPassword, newPassword, email).success(function (data) { return data });
-        },
+
         checkPassword: function (user) {
             return $http.post('/user/userProfile/checkPassword', user).success(function (data) { return data });
         }
@@ -106,6 +104,7 @@ myApp.controller('loginController', ['$scope', 'userServices', '$location', '$ro
 }]);
 myApp.controller('changePasswordController', ['$scope', 'userServices', '$location', '$rootScope', function ($scope, userServices, $location, $rootScope) {
     $scope.changePassword = {};
+
     $scope.passMeasuremessage = "";
     $scope.userDetail = {};
     $scope.confirmChange = function () {
@@ -115,7 +114,7 @@ myApp.controller('changePasswordController', ['$scope', 'userServices', '$locati
             $rootScope.userInfo = userData.data;
             $scope.userDetail = (JSON.parse(JSON.stringify($rootScope.userInfo)));
         })
-        console.log($scope.userDetail);
+
         $scope.userDetail.password = $scope.changePassword.oldPassword;
         userServices.checkPassword($scope.userDetail).then(function (result) {
             if (result.data.success) {
