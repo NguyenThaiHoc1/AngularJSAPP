@@ -63,9 +63,6 @@ myApp.factory('userServices', ['$http', function ($http) {
         updateUserProfile: function (emailReq) {
             return $http.post('/user/userProfile/updateUserProfile', emailReq).success(function (data) { return data; });
         },
-        // changePassword: function (oldPassword, newPassword, email) {
-        //     return $http.post('/user/userProfile/changePassword', oldPassword, newPassword, email).success(function (data) { return data });
-        // },
         checkPassword: function (user) {
             return $http.post('/user/userProfile/checkPassword', user).success(function (data) { return data });
         }
@@ -96,7 +93,6 @@ myApp.controller('loginController', ['$scope', 'userServices', '$location', '$ro
                     } else if ($rootScope.userInfo.role == 1) {
                         $location.path("/admin_dashboard");
                     }
-
                 } else {
                     $rootScope.ShowPopupMessage(result.data.msg, "error");
                 }

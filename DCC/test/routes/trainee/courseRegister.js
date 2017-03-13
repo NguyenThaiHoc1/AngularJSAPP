@@ -169,4 +169,22 @@ describe('<Unit test for trainee-courseRegister>', function () {
         });
     });
 
+    describe('Test case 10 : update ClassRecord status from Enrolled to Learned', function () {
+        return it('Should return success==true', function (done) {
+            var req = request(DCC_Server)
+                .post('/trainee/courseRegister/updateClassRecordStatus');
+            req.cookies = Cookies;
+            req.set('Accept', 'application/json')
+            req.send({
+                classId: 1,
+                traineeId: 1
+            });
+            req.end(function (err, res) {
+                assert.equal(res.body.success, true);
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
+
 });

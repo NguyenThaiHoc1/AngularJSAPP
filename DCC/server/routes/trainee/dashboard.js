@@ -86,5 +86,4 @@ router.post('/getRequestOpenCourse', function (req, res) {
         res.send(datasend);
     });
 });
-
 module.exports = router;

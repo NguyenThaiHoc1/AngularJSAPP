@@ -161,22 +161,4 @@ router.post('/checkPassword', function (req, res) {
         else res.send({success: false});
     })
 });
-// router.post('/changePassword', function (req, res) {
-//     models.User.update({
-//         password: md5(req.body.newPassword)
-//     },
-//         {
-//             where: {
-//                 email: req.body.email,
-//                 password: md5(req.body.oldPassword)
-//             }
-//         }
-//     ).then(function (data) {
-//         res.send({
-//             // isTrue: data,
-//             success: true
-//         });
-//     });
-// });
-
 module.exports = router;
