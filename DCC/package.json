@@ -29,6 +29,7 @@
     "mongodb": "^2.1.18",
     "mongoose": "^4.5.3",
     "multer": "^1.2.0",
+    "node-notifier": "^5.0.2",
     "nodemailer": "^2.5.0",
     "passport": "^0.3.2",
     "passport-ldapauth": "*",

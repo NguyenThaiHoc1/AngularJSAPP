@@ -6,8 +6,8 @@ var env = process.env.NODE_ENV || "environment";
 var config = require("../config/config")[env];
 var sequelize = module.exports = new Sequelize(config.database, config.username, config.password, config);
 
-
 var db = {};
+
 
 fs
     .readdirSync(__dirname)
@@ -24,6 +24,8 @@ Object.keys(db).forEach(function (modelName) {
         db[modelName].associate(db);
     }
 });
+
+
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

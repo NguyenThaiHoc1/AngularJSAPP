@@ -33,40 +33,40 @@ describe('<Unit test for trainee-dashboard>', function () {
         done();
     });
 
-    describe('Test case 1.1 : Get training programs by TP Type: CBA', function() {
-        return it('Should return success==true', function(done) {
-            var req = request(DCC_Server).post('/trainee/dashboard/getTrainingProgramByTPType');
-            req.cookies = Cookies;
-            req.send({
-                userType: 'CBA',
-                isExperienced: '0',
-                email: 'qwe@gmail.com',
-            });
-            req.end(function(err, res) {
+    // describe('Test case 1.1 : Get training programs by TP Type: CBA', function() {
+    //     return it('Should return success==true', function(done) {
+    //         var req = request(DCC_Server).post('/trainee/dashboard/getTrainingProgramByTPType');
+    //         req.cookies = Cookies;
+    //         req.send({
+    //             userType: 'CBA',
+    //             isExperienced: '0',
+    //             email: 'qwe@gmail.com',
+    //         });
+    //         req.end(function(err, res) {
 
-            assert.equal(res.body.success, true);
-            if (err) return done(err);
-            done();
-            });
-        });
-    });
-    describe('Test case 1.2 : Get training programs by TP Type: IMS', function() {
-        return it('Should return success==true', function(done) {
-            var req = request(DCC_Server).post('/trainee/dashboard/getTrainingProgramByTPType');
-            req.cookies = Cookies;
-            req.send({
-                userType: 'IMS',
-                isExperienced: '0',
-                email: 'newuser@email.com',
-            });
-            req.end(function(err, res) {
+    //         assert.equal(res.body.success, true);
+    //         if (err) return done(err);
+    //         done();
+    //         });
+    //     });
+    // });
+    // describe('Test case 1.2 : Get training programs by TP Type: IMS', function() {
+    //     return it('Should return success==true', function(done) {
+    //         var req = request(DCC_Server).post('/trainee/dashboard/getTrainingProgramByTPType');
+    //         req.cookies = Cookies;
+    //         req.send({
+    //             userType: 'IMS',
+    //             isExperienced: '0',
+    //             email: 'newuser@email.com',
+    //         });
+    //         req.end(function(err, res) {
 
-            assert.equal(res.body.success, true);
-            if (err) return done(err);
-            done();
-            });
-        });
-    });
+    //         assert.equal(res.body.success, true);
+    //         if (err) return done(err);
+    //         done();
+    //         });
+    //     });
+    // });
 
     describe('Test case 2 : Get request open course', function () {
         return it('Should return success==true', function (done) {
