@@ -6,15 +6,15 @@
             <h3 class="col-xs-7 col-md-8 col-sm-6">Employees list</h3>
             <!-- Search box -->
             <div class="col-xs-5 col-md-4 col-sm-6">
-                <input ng-model="userSearchKey" class="box-group col-xs-6 col-md-6 col-sm-6" type="text" 
-                 placeholder="Search" name="ng-srch-term" id="ng-srch-term" ng-change="findUser(userSearchKey)">
-                 <div class="col-xs-6 col-md-6" uib-dropdown>
-                    <select class="box-group col-xs-12 col-md-12" ng-model="opt">
+                <input ng-model="userSearchKey" class="box-group col-xs-6 col-md-6 col-sm-6" type="text" placeholder="Search" name="ng-srch-term"
+                    id="ng-srch-term" ng-change="findUser(userSearchKey)">
+                    <div class="col-xs-6 col-md-6" uib-dropdown>
+                        <select class="box-group col-xs-12 col-md-12" ng-model="opt">
                         <option value="1" selected="selected">Activated</option>
                         <option value="2">Deactivated</option>
                         <option value="3">Both</option>
                     </select>
-                </div>
+                    </div>
             </div>
         </div>
         <!--Tab header-->
@@ -40,9 +40,9 @@
                     </div>
                 </div>
                 <!--Employees list-->
-                <div ng-repeat="user in UsersListDisplay" style="margin-top: 5px">
-                    <div class="round-wrap" ng-show="userListFilterCondition(user)">
-                        <a data-toggle="collapse" data-target="#collapse{{user.id}}" style="text-decoration : none" ng-click="user.collapsed = !user.collapsed">
+                <div ng-repeat="user in UsersListDisplay" style="margin-top: 5px; cursor: pointer;">
+                    <div data-toggle="collapse" data-target="#collapse{{user.id}}" class="round-wrap" ng-show="userListFilterCondition(user)">
+                        <a style="text-decoration : none" ng-click="user.collapsed = !user.collapsed">
                             <div class="row">
                                 <blockquote class="blockquote" style="border-left: none; margin-bottom:24px; word-wrap: break-word;" id="shady-lady">
                                     <div class="col-md-3 col-xs-3">
@@ -59,16 +59,13 @@
                                     <div class="col-md-4 col-xs-4">
                                         <i aria-hidden="true"></i><span><font ng-bind-html="highlight(user.email, userSearchKey)"></font></span>
                                     </div>
-                                    <div class="col-md-1 col-xs-1" style="padding-left: 0px"> <!--deactivate user, not delete-->
-                                        <a class="btn btn-danger" data-toggle="modal" data-target="#ActivationModal" ng-show="user.status=='activated'"
-                                        ng-click="showUserActivationForm(user)"><span class="glyphicon glyphicon-trash"></span></a>
-                                        <a class="btn btn-success" data-toggle="modal" data-target="#ActivationModal" ng-show="user.status=='deactivated'"
-                                        ng-click="showUserActivationForm(user)"><span class="glyphicon glyphicon-repeat"></span></a>
+                                    <div class="col-md-1 col-xs-1" style="padding-left: 0px">
+                                        <!--deactivate user, not delete-->
+                                        <a class="btn btn-danger" data-toggle="modal" data-target="#ActivationModal" ng-show="user.status=='activated'" ng-click="showUserActivationForm(user)"><span class="glyphicon glyphicon-trash"></span></a>
+                                        <a class="btn btn-success" data-toggle="modal" data-target="#ActivationModal" ng-show="user.status=='deactivated'" ng-click="showUserActivationForm(user)"><span class="glyphicon glyphicon-repeat"></span></a>
                                     </div>
                                 </blockquote>
                             </div>
-                            <center ng-hide="user.collapsed"><span class="glyphicon glyphicon-menu-down"></span></center>
-                            <center ng-show="user.collapsed"><span class="glyphicon glyphicon-menu-up"></span></center>
                         </a>
                     </div>
                     <!--User full information-->
@@ -105,11 +102,11 @@
                                         </div>
                                     </div>
                                 </blockquote>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
