@@ -6,6 +6,7 @@ var expressLayouts = require('express-ejs-layouts');
 var session = require('express-session');
 var passport = require('passport');
 var models = require('./server/models');
+var http = require('http');
 
 // Init App
 var app = express();
@@ -44,8 +45,11 @@ app.use('/', require('./server/routes/index.js'));
 // models.sequelize.sync({force:false});
 
 // Set Port
+
 app.set('port', (process.env.PORT || 3210));
-var server = app.listen(app.get('port'), function () {
+var server = http.createServer(app);
+createServer(server);
+server.listen(app.get('port'), function () {
     console.log('Server started on port ' + app.get('port'));
 });
 module.exports = server;

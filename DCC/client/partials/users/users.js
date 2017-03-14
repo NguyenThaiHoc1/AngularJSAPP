@@ -93,6 +93,7 @@ myApp.controller('loginController', ['$scope', 'userServices', '$location', '$ro
                     } else if ($rootScope.userInfo.role == 1) {
                         $location.path("/admin_dashboard");
                     }
+                    connectSocket($rootScope.userInfo.email);
                 } else {
                     $rootScope.ShowPopupMessage(result.data.msg, "error");
                 }
