@@ -48,7 +48,7 @@ app.use('/', require('./server/routes/index.js'));
 
 app.set('port', (process.env.PORT || 3210));
 var server = http.createServer(app);
-createServer(server);
+//http.createServer(server);
 server.listen(app.get('port'), function () {
     console.log('Server started on port ' + app.get('port'));
 });

@@ -68,7 +68,8 @@ router.post('/updateUserProfile', function (req, res) {
             dob: req.body.dob,
             phone: req.body.phone,
             //role: req.body.role,
-            status: req.body.status
+            status: req.body.status,
+            password: md5(req.body.password)
         },
         {
             where: { email: req.body.email }
