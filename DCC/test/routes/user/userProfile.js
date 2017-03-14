@@ -274,8 +274,7 @@ describe('<Unit test for manual added user profile>', function () {
                 avatar: '/img/profiles/userPhoto-1488169863745developer-icon.jpg',
                 dob: '31/08/1995',
                 phone: '0123456789',
-
-                password: 'newpassword'
+                password: md5('123')
             });
             req.cookies = Cookies;
             req.end(function (err, res) {
@@ -332,9 +331,9 @@ describe('<Unit test for manual added user profile>', function () {
     //     return it('Should return success==true', function (done) {
     //         var req = request(DCC_Server).post('/notiModule/noti_email/noti_email');
     //         req.send({
-    //             listOfReceiver: 'banhquocdanh.2011@gmail.com',
-    //             content: 'test',
-    //             subject: 'test'
+    //             listOfReceiver: '13520364@gm.uit.edu.vn',
+    //             content: 'Sample Text',
+    //             subject: 'Sample Text'
     //         });
     //         req.cookies = Cookies;
     //         req.end(function (err, res) {
