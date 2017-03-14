@@ -274,8 +274,6 @@ describe('<Unit test for manual added user profile>', function () {
                 avatar: '/img/profiles/userPhoto-1488169863745developer-icon.jpg',
                 dob: '31/08/1995',
                 phone: '0123456789',
-
-                password: 'newpassword'
             });
             req.cookies = Cookies;
             req.end(function (err, res) {
@@ -286,7 +284,6 @@ describe('<Unit test for manual added user profile>', function () {
                     avatar: '/img/profiles/userPhoto-1488169863745developer-icon.jpg',
                     dob: '31/08/1995',
                     phone: '0123456789',
-                    password: md5('Nam12345')
                 }, {
                         where: { email: 'tranhoangnam3108@gmail.com' }
                     });
