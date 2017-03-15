@@ -67,22 +67,22 @@ describe('<Unit test for user profile>', function () {
         });
     });
 
-    // describe('Test case 1.2 : Get /user/userProfile/getUserInfo for currentRole = 3 ', function () {
-    //     return it('Should return success==true', function (done) {
-    //         var req = request(DCC_Server).post('/user/userProfile/getUserInfo');
-    //         req.send(
-    //             {
-    //                 email: "huy@gmail.com"
-    //             }
-    //         );
-    //         req.cookies = Cookies;
-    //         req.end(function (err, res) {
-    //             assert.equal(res.body.role, 3);
-    //             if (err) return done(err);
-    //             done();
-    //         });
-    //     });
-    // });
+    describe('Test case 1.2 : Get /user/userProfile/getUserInfo for currentRole = 3 ', function () {
+        return it('Should return success==true', function (done) {
+            var req = request(DCC_Server).post('/user/userProfile/getUserInfo');
+            req.send(
+                {
+                    email: "huy@gmail.com"
+                }
+            );
+            req.cookies = Cookies;
+            req.end(function (err, res) {
+                assert.equal(res.body.role, 3);
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
     // describe('Test case 2 : post /user/userProfile/updateUserProfile', function () {
     //     return it('Should return success==true', function (done) {
     //         var req = request(DCC_Server).post('/user/userProfile/updateUserProfile');
