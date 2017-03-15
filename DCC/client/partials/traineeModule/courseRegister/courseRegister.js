@@ -123,44 +123,13 @@ myApp.controller('courseRegisterCtrl', ['$sce','$rootScope', '$scope', 'courseRe
         }
         return true;
     }
-    
-    // $scope.findCourse = function(courseSearchKey, openingCourseFilter){
-    //     // trainingProgram.collapsed = !trainingProgram.collapsed;
-    //     var courseListSearchResult = []
-    //     var listSearchResult = []
-    //     if(openingCourseFilter)
-    //     {
-    //         $scope.trainingProgramList.forEach(trainingProgram => {
-    //             trainingProgram.Courses.forEach(course => {
-    //                 if((course.name.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1)&&(course.isOpening == openingCourseFilter)) courseListSearchResult.push(course);
-    //             });
-    //             listSearchResult.push({
-    //                 Courses: courseListSearchResult
-    //             });
-    //         });
-    //     }
-    //     else
-    //     {
-    //         $scope.trainingProgramList.forEach(trainingProgram => {
-    //             trainingProgram.Courses.forEach(course => {
-    //                 if(course.name.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1) courseListSearchResult.push(course);
-    //             });
-    //             listSearchResult.push({
-    //                 Courses: courseListSearchResult
-    //             });
-    //         });
-    //     }
-    //     $scope.courseListSearchResult = courseListSearchResult;
-    //     $scope.listSearchResult = listSearchResult;
-    // };
     $scope.findCourse = function(courseSearchKey, openingCourseFilter){
-        // trainingProgram.collapsed = !trainingProgram.collapsed;
         var courseListSearchResult = []
         if(openingCourseFilter)
         {
             $scope.trainingProgramList.forEach(trainingProgram => {
                 trainingProgram.Courses.forEach(course => {
-                    if(((course.name.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1)||((course.description.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1)))&&(course.isOpening == openingCourseFilter)) courseListSearchResult.push(course);
+                    if((course.name.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1)&&(course.isOpening == openingCourseFilter)) courseListSearchResult.push(course);
                 });
             });
         }

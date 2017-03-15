@@ -10,6 +10,7 @@ var passport = require('passport');
 var LdapStrategy = require('passport-ldapauth').Strategy;
 // admin's credentials for connecting to openLDAP server
 var BASE_OPTS = require("../../config/config");
+var md5 = require('md5');
 
 // get homepage
 router.get('/', function (req, res) {
@@ -46,8 +47,8 @@ router.post('/login', function (req, res, next) {
         // if user does not exist, login fail
         if (!user) {
 
-            models.User.getUserByEmailAndPassword(req.body.username, req.body.password, function (_user) {
-                if (_user) {
+            models.User.getUserByEmailAndPassword(req.body.username, md5(req.body.password), function (_user) {
+                if (_user && _user.status !== 'deactivated') {
                     passport.serializeUser(function (_user, done) {
                         done(null, _user.email);
                     });
@@ -130,7 +131,7 @@ router.post('/login', function (req, res, next) {
                     where: { email: req.user.mail },
                     defaults: {
                         username: 'Your Name',
-                        status: 'some status',
+                        status: 'activated',
                         dob: '01/01/2001',
                         phone: '0000 000 000',
                         location: 'DEK Vietnam',
@@ -210,5 +211,8 @@ router.get('/logout', function (req, res) {
     });
 
 });
+
+
+
 
 module.exports = router;

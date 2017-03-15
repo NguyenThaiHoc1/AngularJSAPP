@@ -1,5 +1,5 @@
 <div ng-include="'partials/common/course/addEditClassModal.html'"></div>
-
+<div ng-include="'partials/common/course/deleteClassModal.html'"></div>
 <div class="container" ng-controller="courseDetailCtrl">
     <div class="container row">
         <div class="span12">
@@ -31,7 +31,7 @@
                                                 <div class="btn btn-success" data-toggle="modal" data-target="#addEditClassModal" ng-click="showAddClassForm()"><span class="glyphicon glyphicon-plus"></span>&nbsp Add class</span>
                                                 </div>
                                                 <div ng-repeat="class in classList" style="margin-top: 5px">
-                                                    <div class="round-wrap" data-toggle="collapse" data-target="#collapse{{class.id}}">
+                                                    <div class="round-wrap" data-toggle="collapse" data-target="#collapse{{class.id}}" ng-click="class.traineeList.collapsed = !class.traineeList.collapsed">
                                                         <a>
                                                             <blockquote class="blockquote">
                                                                 <div class="row">
@@ -61,10 +61,13 @@
                                                                     </div>
                                                                     <div class="col-md-2">
                                                                         <a class="btn btn-info" data-toggle="modal" data-target="#addEditClassModal" ng-click="showUpdateClassForm(class)"><span class="glyphicon glyphicon-pencil"></span></a>
-                                                                        <a class="btn btn-danger" data-toggle="modal" data-target="#deleteClassModal" ng-click="showDeleteClassForm(class)"><span class="glyphicon glyphicon-trash"></span></a>
+                                                                        <a class="btn btn-danger" data-toggle="modal" data-target="#deleteClassModal" ng-click="sendDeleteClass(class)"><span class="glyphicon glyphicon-trash"></span></a>
                                                                     </div>
                                                                 </div>
-                                                                <center ng-show="class.traineeList.length > 0"><span class="glyphicon glyphicon-menu-down"></span></center>
+
+                                                                <center ng-hide="class.traineeList.collapsed"><span class="glyphicon glyphicon-menu-down"></span></center>
+                                                                <center ng-show="class.traineeList.collapsed"><span class="glyphicon glyphicon-menu-up"></span></center>
+
                                                             </blockquote>
                                                         </a>
                                                     </div>

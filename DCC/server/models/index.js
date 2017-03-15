@@ -1,19 +1,12 @@
 var fs = require("fs");
 var path = require("path");
 var Sequelize = require("sequelize");
-var settings = require('../config/config.json');
-var env = process.env.NODE_ENV || settings.environment;
+
+var env = process.env.NODE_ENV || "environment";
 var config = require("../config/config")[env];
-var sequelize;
+var sequelize = module.exports = new Sequelize(config.database, config.username, config.password, config);
 
 var db = {};
-
-if (env === "inMemoryDB") {
-    sequelize = module.exports = new Sequelize('database', 'name', 'password', config);
-}
-else {
-    sequelize = module.exports = new Sequelize(config.database, config.username, config.password, config);
-}
 
 
 fs
@@ -31,6 +24,8 @@ Object.keys(db).forEach(function (modelName) {
         db[modelName].associate(db);
     }
 });
+
+
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

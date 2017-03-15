@@ -1,7 +1,7 @@
 
 
-INSERT INTO `DCC2`.`user`(`username`,`status`,`dob`,`phone`,`location`,`email`,`avatar`,`isAdmin`,`isTrainee`,`isTrainer`,`belong2Team`,`userType`,`isExperienced`)VALUES('Thanh Sanh','some status','01/01/2001','0000 000 000','DEK Vietnam','thach@gmail.com','/img/profiles/defaultProfile.jpg',0,1,0,'Team 7Up','CBA',0);
-INSERT INTO `DCC2`.`user`(`username`,`status`,`dob`,`phone`,`location`,`email`,`avatar`,`isAdmin`,`isTrainee`,`isTrainer`,`belong2Team`,`userType`,`isExperienced`)VALUES('Quan WE','some status','01/01/2001','0000 000 000','DEK Vietnam','qwe@gmail.com','/img/profiles/defaultProfile.jpg',1,1,0,'Team 7Up','CBA',0);
+INSERT INTO `DCC2`.`user`(`username`,`status`,`dob`,`phone`,`location`,`email`,`avatar`,`isAdmin`,`isTrainee`,`isTrainer`,`belong2Team`,`userType`,`isExperienced`)VALUES('Thanh Sanh','activated','01/01/2001','0000 000 000','DEK Vietnam','thach@gmail.com','/img/profiles/defaultProfile.jpg',0,1,0,'Team 7Up','CBA',0);
+INSERT INTO `DCC2`.`user`(`username`,`status`,`dob`,`phone`,`location`,`email`,`avatar`,`isAdmin`,`isTrainee`,`isTrainer`,`belong2Team`,`userType`,`isExperienced`)VALUES('Quan WE','activated','01/01/2001','0000 000 000','DEK Vietnam','qwe@gmail.com','/img/profiles/defaultProfile.jpg',1,1,0,'Team 7Up','CBA',0);
 
 INSERT INTO `DCC2`.`course_type` (`name`, `discription`) VALUES ('EVERYONE', 'this training program for everyone');
 INSERT INTO `DCC2`.`course_type` (`name`, `discription`) VALUES ('OPTIONAL', 'this training program for optional');

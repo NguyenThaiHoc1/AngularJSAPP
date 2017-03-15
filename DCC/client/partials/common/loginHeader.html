@@ -29,26 +29,26 @@
                 <li>
                     <a data-toggle="modal" data-target="#loginModal" ng-show="!userInfo">Login</a>
                 </li>
-                <li class="brand dropdown" ng-show="userInfo" style="hover:{}">
-                    <a class="dropdown-toggle" data-toggle="dropdown" style="padding:2px;">
+                <li class="brand dropdown" ng-show="userInfo" id="userMenu">
+                    <a class="dropdown-toggle" data-toggle="dropdown" style="padding:2px; font-weight: bold;">
                         <img style="display: inline-block; margin-right: 5px; border-radius: 50%; border: 1px solid black; width:45px !important; height:45px !important"
                             class="img-responsive" ng-src="{{userInfo.avatar}}">
                             {{userInfo.username}} &nbsp <b class="caret"></b>
                     </a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu" style="margin: 2px;">
                         <li ng-show="userInfo.role == 3">
                             <a href="#trainee_dashboard">
-                                <font size="3"><span class="icon-dashboard">&nbsp&nbsp&nbsp</span>Dashboard</font>
+                                <font size="3"><span class="glyphicon glyphicon-dashboard">&nbsp</span>Dashboard</font>
                             </a>
                         </li>
                         <li ng-show="userInfo.role == 2">
                             <a href="#trainer_dashboard">
-                                <font size="3"><span class="icon-dashboard">&nbsp&nbsp&nbsp</span>Dashboard</font>
+                                <font size="3"><span class="glyphicon glyphicon-dashboard">&nbsp</span>Dashboard</font>
                             </a>
                         </li>
                         <li ng-show="userInfo.role == 1">
                             <a href="#admin_dashboard">
-                                <font size="3"><span class="icon-dashboard">&nbsp&nbsp&nbsp</span>Dashboard</font>
+                                <font size="3"><span class="glyphicon glyphicon-dashboard">&nbsp</span>Dashboard</font>
                             </a>
                         </li>
 
