@@ -86,22 +86,22 @@ router.post('/photo', function (req, res) {
     log.info('/routes/users: Upload avatar');
     // upload avatar
     upload(req, res, function () {
-        if (typeof req.file !== "undefined") {
-            models.User.getUserByEmail(req.user.email, function (user) {
-                models.User.update(
-                    {
-                        avatar: '/img/profiles/' + req.file.filename
-                    },
-                    {
-                        where: { email: req.user.email }
-                    }
-                ).then(function () {
-                    var previousAvatar = user._previousDataValues.avatar;
-                    fs.unlink('client' + previousAvatar);
-                    res.redirect('/#/editUserProfile');
-                })
-            });
-        }
+
+        models.User.getUserByEmail(req.user.email, function (user) {
+            models.User.update(
+                {
+                    avatar: '/img/profiles/' + req.file.filename
+                },
+                {
+                    where: { email: req.user.email }
+                }
+            ).then(function () {
+                var previousAvatar = user._previousDataValues.avatar;
+                fs.unlink('client' + previousAvatar);
+                res.redirect('/#/editUserProfile');
+            })
+        });
+
     });
 });
 
