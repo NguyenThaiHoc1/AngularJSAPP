@@ -1,31 +1,19 @@
 var _requestOpeningModel = require('./DataObjects/requestOpening');
-module.exports = function(sequelize) {
+module.exports = function (sequelize) {
     var RequestOpening = sequelize.define('RequestOpening', _requestOpeningModel, {
         charset: 'utf8',
         collate: 'utf8_unicode_ci',
         classMethods: {
-            addRequestRegister: function(userId, courseId, cb)
-            {
+            addRequestRegister: function (userId, courseId, cb) {
                 var query = {
-                    userId : userId,
-                    courseId : courseId,
+                    userId: userId,
+                    courseId: courseId,
                     requestType: "register",
-                    requestTime : Date.now()
+                    requestTime: Date.now()
                 };
                 RequestOpening.create(query).then(cb);
             },
-            addRequestEnroll: function(userId, courseId, cb)
-            {
-                var query = {
-                    userId : userId,
-                    courseId : courseId,
-                    requestType: "enroll",
-                    requestTime : Date.now()
-                };
-                RequestOpening.create(query).then(cb);
-            },
-            getRequestedOpeningCourse: function(userId, cb)
-            {
+            getRequestedOpeningCourse: function (userId, cb) {
                 var query = {
                     where:
                     {
@@ -34,7 +22,7 @@ module.exports = function(sequelize) {
                 };
                 RequestOpening.findAll(query).then(cb);
             },
-            deleteRequestOpening: function(userId,courseId, cb){
+            deleteRequestOpening: function (userId, courseId, cb) {
                 var query = {
                     where:
                     {
