@@ -5,7 +5,6 @@ var log = require('../../config/config')[config.logConfig];
 var sequelize = require("sequelize");
 
 router.post('/getEnrolledCourseList', function (req, res) {
-    //var resData={}
     var query = {
         include: [
             {
