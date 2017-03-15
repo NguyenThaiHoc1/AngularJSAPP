@@ -51,8 +51,8 @@ describe('<Unit test for Login>', function () {
             request(DCC_Server)
                 .post('/login')
                 .send({
-                    username: 'newuser@email.com',
-                    password: '1234'
+                    username: 'huy@email.com',
+                    password: 'soledad'
                 })
                 .end(function (err, res) {
                     if (res.body.success === true)
@@ -63,17 +63,17 @@ describe('<Unit test for Login>', function () {
         });
     });
 
-    describe('Test case 1.3 : Login success, role = admin', function () {
+    describe('Test case 1.3 : Login success, role = trainer', function () {
         return it('Should return success==true', function (done) {
             request(DCC_Server)
                 .post('/login')
                 .send({
-                    username: 'qwe@gmail.com',
-                    password: 'qwe'
+                    username: 'thach@gmail.com',
+                    password: '123456'
                 })
                 .end(function (err, res) {
                     if (res.body.success === true)
-                        assert.equal(res.body.role, 1);
+                        assert.equal(res.body.role, 2);
                     else
                         assert.equal(res.body.success, true);
                     // globalCookies = res.headers['set-cookie'].pop().split(';')[0];
