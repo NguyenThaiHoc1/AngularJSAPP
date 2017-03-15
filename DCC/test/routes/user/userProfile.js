@@ -327,20 +327,20 @@ describe('<Unit test for manual added user profile>', function () {
         });
     });
     //test mail notification
-    // describe('Test case 4 : post /notiModule/noti_email/noti_email', function () {
-    //     return it('Should return success==true', function (done) {
-    //         var req = request(DCC_Server).post('/notiModule/noti_email/noti_email');
-    //         req.send({
-    //             listOfReceiver: '13520364@gm.uit.edu.vn',
-    //             content: 'Sample Text',
-    //             subject: 'Sample Text'
-    //         });
-    //         req.cookies = Cookies;
-    //         req.end(function (err, res) {
-    //             assert.equal(res.body.success, true);
-    //             if (err) return done(err);
-    //             done();
-    //         });
-    //     });
-    // });
+    describe('Test case 4 : post /notiModule/noti_email/noti_email', function () {
+        return it('Should return success==true', function (done) {
+            var req = request(DCC_Server).post('/notiModule/noti_email/noti_email');
+            req.send({
+                listOfReceiver: '13520364@gm.uit.edu.vn',
+                content: 'Sample Text',
+                subject: 'Sample Text'
+            });
+            req.cookies = Cookies;
+            req.end(function (err, res) {
+                assert.equal(res.body.success, true);
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
 });
