@@ -212,8 +212,6 @@ router.post('/getClass', function (req, res) {
 
 router.post('/addClass', function (req, res) {
 
-    var listUserID = [];
-
     var data = {
         success: true,
         msg: "Add Class Success"
@@ -310,36 +308,6 @@ router.get('/getAllTP', function (req, res) {
 });
 
 
-router.post('/addClass', function (req, res) {
-    var listUserID = [];
-
-    var data = {
-        success: true,
-        msg: "Add Class Success"
-    };
-
-    models.Class.create({
-        courseId: req.body.courseId,
-        location: req.body.location,
-        // trainerId: req.body.trainerId.id,
-        startTime: req.body.startTime,
-        endTime: req.body.endTime,
-        maxAttendant: req.body.maxAttendant,
-    })
-        .then(function (classDetail) {
-            models.RequestOpening.findAll({ where: { courseId: req.body.courseId } }).then(function (reqOpns) {
-                reqOpns.forEach(reqOpn => {
-                    models.ClassRecord.create({
-                        classId: classDetail.dataValues.id,
-                        status: "Enrolled",
-                        traineeId: reqOpn.userId
-                    })
-                    reqOpn.destroy();
-                });
-            });
-            res.send(data);
-        });
-});
 
 
 module.exports = router;

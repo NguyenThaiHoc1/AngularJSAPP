@@ -112,7 +112,6 @@ myApp.controller('courseManagementCtrl', ['$scope', '$rootScope', 'courseManagem
         //course
         $rootScope.addEditCourseFormTitle = 'Edit Course';
         $rootScope.addEditCourseFormAction = 'Update';
-        // console.log( course); //debug
         $rootScope.courseModel = {
             id: course.id,
             name: course.name,
@@ -124,7 +123,7 @@ myApp.controller('courseManagementCtrl', ['$scope', '$rootScope', 'courseManagem
             // trainerId: adminclass.trainerId,
             trainingProgramId: trainingProgram.id
         };
-        // console.log($rootScope.courseModel);//debug
+
     };
     $scope.showUpdateTPForm = function (trainingProgram) {
         $rootScope.addEditFormIsEditForm = true;

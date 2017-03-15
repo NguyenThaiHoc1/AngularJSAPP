@@ -96,7 +96,7 @@ router.post('/photo', function (req, res) {
                         where: { email: req.user.email }
                     }
                 ).then(function () {
-                    previousAvatar = user._previousDataValues.avatar;
+                    var previousAvatar = user._previousDataValues.avatar;
                     fs.unlink('client' + previousAvatar);
                     res.redirect('/#/editUserProfile');
                 })
@@ -128,7 +128,6 @@ router.post('/addUser', function (req, res) {
                     msg: 'Email already existed. Add failed!'
                 });
             } else {
-                // console.log(md5('what the fack!'));
                 models.User.create({
                     username: 'Your Name',
                     status: 'activated',
@@ -156,7 +155,8 @@ router.post('/addUser', function (req, res) {
 });
 router.post('/checkPassword', function (req, res) {
     models.User.findOne({ where: { email: req.body.email, password: md5(req.body.password) } }).then(function (result) {
-        if (result) res.send({ success: true });
+        if (result)
+            res.send({ success: true });
         else res.send({ success: false });
     })
 });
