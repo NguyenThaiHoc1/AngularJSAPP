@@ -69,7 +69,7 @@ router.post('/login', function (req, res, next) {
                             currentRole = 1;
                         } else if (_user.isTrainer) {
                             currentRole = 2;
-                        } else if (_user.isTrainee) {
+                        } else {
                             currentRole = 3
                         }
 
@@ -126,61 +126,62 @@ router.post('/login', function (req, res, next) {
                     log.error(err);
                     return next();
                 }
-                log.info('User login: ' + user.mail);
-                models.User.findOrCreate({
-                    where: { email: req.user.mail },
-                    defaults: {
-                        username: 'Your Name',
-                        status: 'activated',
-                        dob: '01/01/2001',
-                        phone: '0000 000 000',
-                        location: 'DEK Vietnam',
-                        email: req.user.mail,
-                        //password: '',     //password null 
-                        avatar: '/img/profiles/defaultProfile.jpg',
-                        isAdmin: false,
-                        isTrainer: false,
-                        isTrainee: true, //default user is a trainee
-                        belong2Team: 'Team 7Up',
-                        isExperienced: 0,
-                        courseTypeId: 'CBA'
-                    }
-                })
-                    .then(function (user) {
-                        var currentRole;
-                        if (user[0].dataValues.isAdmin) {
-                            currentRole = 1;
-                        } else if (user[0].dataValues.isTrainer) {
-                            currentRole = 2;
-                        } else if (user[0].dataValues.isTrainee) {
-                            currentRole = 3
+                else {
+                    log.info('User login: ' + user.mail);
+                    models.User.findOrCreate({
+                        where: { email: req.user.mail },
+                        defaults: {
+                            username: 'Your Name',
+                            status: 'activated',
+                            dob: '01/01/2001',
+                            phone: '0000 000 000',
+                            location: 'DEK Vietnam',
+                            email: req.user.mail,
+                            //password: '',     //password null 
+                            avatar: '/img/profiles/defaultProfile.jpg',
+                            isAdmin: false,
+                            isTrainer: false,
+                            isTrainee: true, //default user is a trainee
+                            belong2Team: 'Team 7Up',
+                            isExperienced: 0,
+                            courseTypeId: 'CBA'
                         }
+                    })
+                        .then(function (user) {
+                            var currentRole;
+                            if (user[0].dataValues.isAdmin) {
+                                currentRole = 1;
+                            } else if (user[0].dataValues.isTrainer) {
+                                currentRole = 2;
+                            } else {
+                                currentRole = 3
+                            }
 
-                        res.send({
-                            id: user[0].dataValues.id,
-                            username: user[0].dataValues.username,
-                            status: user[0].dataValues.status,
-                            dob: user[0].dataValues.dob,
-                            phone: user[0].dataValues.phone,
-                            location: user[0].dataValues.location,
-                            email: user[0].dataValues.email,
-                            password: user[0].dataValues.password,
-                            avatar: user[0].dataValues.avatar,
-                            role: currentRole,
-                            isAdmin: user[0].dataValues.isAdmin,
-                            isTrainer: user[0].dataValues.isTrainer,
-                            isTrainee: user[0].dataValues.isTrainee, //default user is a trainee
-                            trainer: user[0].dataValues.trainer,
-                            trainee: user[0].dataValues.trainee,
-                            belong2Team: user[0].dataValues.belong2Team,
-                            isExperienced: user[0].dataValues.isExperienced,
-                            userType: user[0].dataValues.userType,
+                            res.send({
+                                id: user[0].dataValues.id,
+                                username: user[0].dataValues.username,
+                                status: user[0].dataValues.status,
+                                dob: user[0].dataValues.dob,
+                                phone: user[0].dataValues.phone,
+                                location: user[0].dataValues.location,
+                                email: user[0].dataValues.email,
+                                password: user[0].dataValues.password,
+                                avatar: user[0].dataValues.avatar,
+                                role: currentRole,
+                                isAdmin: user[0].dataValues.isAdmin,
+                                isTrainer: user[0].dataValues.isTrainer,
+                                isTrainee: user[0].dataValues.isTrainee, //default user is a trainee
+                                trainer: user[0].dataValues.trainer,
+                                trainee: user[0].dataValues.trainee,
+                                belong2Team: user[0].dataValues.belong2Team,
+                                isExperienced: user[0].dataValues.isExperienced,
+                                userType: user[0].dataValues.userType,
 
-                            success: true,
-                            msg: 'You are authenticated!'
+                                success: true,
+                                msg: 'You are authenticated!'
+                            });
                         });
-                    });
-
+                }
             });
         }
     })(req, res, next);
