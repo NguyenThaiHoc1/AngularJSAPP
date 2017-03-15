@@ -212,8 +212,6 @@ router.post('/getClass', function (req, res) {
 
 router.post('/addClass', function (req, res) {
 
-    var listUserID = [];
-
     var data = {
         success: true,
         msg: "Add Class Success"
@@ -311,7 +309,6 @@ router.get('/getAllTP', function (req, res) {
 
 
 router.post('/addClass', function (req, res) {
-    var listUserID = [];
 
     var data = {
         success: true,
