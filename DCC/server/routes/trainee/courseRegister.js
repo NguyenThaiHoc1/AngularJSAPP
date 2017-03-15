@@ -22,7 +22,7 @@ router.get('/getOpeningClass', function (req, res) {
         {
             startTime:
             {
-                $lt: Date.now()
+                $gt: Date.now()
             }
         },
         include: [models.Course]
@@ -121,7 +121,7 @@ router.post('/getMyEnrolledClass', function (req, res) {
             },
             {
                 model: models.User,
-                where: { email: req.body.email}
+                where: { email: req.body.email }
             }
         ]
     };
@@ -134,5 +134,26 @@ router.post('/getMyEnrolledClass', function (req, res) {
         res.send(datasend);
     });
 });
+
+
+
+
+router.post('/updateClassRecordStatus', function (req, res) {
+    // this function check if the user used comment for class
+    models.ClassRecord.update({
+        status: 'Learned'
+    }, {
+            where: {
+                traineeId: req.body.traineeId,
+                classId: req.body.classId
+            }
+        }).then(function () {
+            res.send({
+                success: true,
+                msg: 'update status success!'
+            });
+        });
+});
+
 
 module.exports = router;

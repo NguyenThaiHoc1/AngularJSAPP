@@ -27,6 +27,9 @@ myApp.factory('dashboardServices', ['$http', function ($http) {
         deleteRequestOpenCourse: function (req) {
             return $http.post('/trainee/courseRegister/deleteRequestOpening', req).success(function (data) { return data; });
         },
+        updateClassRecordStatus: function (req) {
+            return $http.post('/trainee/courseRegister/updateClassRecordStatus', req).success(function (data) { return data; });
+        },
         unEnrollCourse: function (req) {
             return $http.post('/trainee/courseRegister/unEnrollCourse', req).success(function (data) { return data; });
         },
@@ -86,7 +89,18 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices', '$rootScope', 
                                         course.status = course.Classes[i].ClassRecords[j].status;
                                     }
                                 }
-                                if (course.status == STATUS_ENROLLED) { course.backgroundColor = '#4FC3F7' }
+                                if (course.status == STATUS_ENROLLED) {
+                                    course.Classes.forEach(classes => {
+                                        var today = new Date();
+                                        if (Date.parse(classes.endTime) < Date.parse(today)) {
+                                            classes.ClassRecords.forEach(classRecord => {
+                                                dashboardServices.updateClassRecordStatus(classRecord)
+                                            });
+                                            course.backgroundColor = '#8BC34A';
+                                        }
+                                        else course.backgroundColor = '#4FC3F7';
+                                    });
+                                }
                                 else if (course.status == STATUS_LEARNED) {
                                     course.backgroundColor = '#8BC34A';
                                     trainingProgram.count = trainingProgram.count + 1;

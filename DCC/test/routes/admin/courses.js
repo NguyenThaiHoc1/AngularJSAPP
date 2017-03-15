@@ -1,7 +1,7 @@
 var request = require('supertest');
 var assert = require('chai').assert;
 var expect = require('chai').expect;
-//process.env.NODE_ENV = 'test';
+process.env.NODE_ENV = 'inMemoryDB';
 var DCC_Server = require('../../../app.js');
 var models = require('../../../server/models');
 
@@ -13,8 +13,8 @@ describe('<Unit test for admin-course>', function () {
             .post('/login')
             .set('Accept', 'application/json')
             .send({
-                username: 'qwe@gmail.com',
-                password: 'qwe'
+                username: 'huy@gmail.com',
+                password: 'soledad'
             })
             .end(function (err, res) {
                 Cookies = res.headers['set-cookie'].pop().split(';')[0];
@@ -285,21 +285,42 @@ describe('<Unit test for admin-course>', function () {
             req.cookies = Cookies;
             req.send({
                 courseId: '1',
-                location: 'test creat loc',
+                location: 'test create loc',
                 startTime: '2017-02-03 17:00:00',
                 duration: '2',
                 maxAttendant: '12',
-                note: 'test crat note'
+                note: 'test create note'
             });
             req.end(function (err, res) {
-
                 assert.equal(res.body.success, true);
-                models.Class.destroy({ where: { location: 'test creat loc' } });
+                models.Class.destroy({ where: { location: 'test create loc' } });
                 if (err) return done(err);
                 done();
             });
         });
     });
+
+    // describe('Test case 11.1 : Post /admin/courses/addClass Failed', function () {
+    //     return it('Should return success==false', function (done) {
+    //         var req = request(DCC_Server).post('/admin/courses/addClass');
+    //         req.cookies = Cookies;
+    //         req.send({
+    //             location: 'test create loc',
+    //             startTime: '2017-02-03 17:00:00',
+    //             duration: '2',
+    //             maxAttendant: '12',
+    //             note: 'test create note'
+    //         });
+    //         req.end(function (err, res) {
+    //             assert.equal(res.body.success, false);
+    //             if (err) return done(err);
+    //             done();
+    //         });
+    //     });
+    // });
+
+
+
     describe('Test case 12 : Post /admin/courses/updateClass', function () {
         return it('Should return success==true', function (done) {
             var req = request(DCC_Server).post('/admin/courses/updateClass');

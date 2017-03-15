@@ -209,29 +209,38 @@ router.post('/getClass', function (req, res) {
     });
 });
 
-//Add Class
-router.post('/addClass', function (req, res) {
-    log.info('/admin/courses/addClass: Add Class :' + req.body.location);
-    models.Class.sync({
-        force: false
-    }).then(function () {
-        models.Class.create({
-            courseId: req.body.courseId,
-            location: req.body.location,
-            // trainerId: req.body.trainerId.id,
-            startTime: req.body.startTime,
-            duration: req.body.duration,
-            maxAttendant: req.body.maxAttendant,
-            note: req.body.note
-        }).then(function () {
-            res.send({
-                success: true,
-                msg: "Add Class Success"
-            });
-        });
-    });
-});
 
+router.post('/addClass', function (req, res) {
+
+    var listUserID = [];
+
+    var data = {
+        success: true,
+        msg: "Add Class Success"
+    };
+
+    models.Class.create({
+        courseId: req.body.courseId,
+        location: req.body.location,
+        // trainerId: req.body.trainerId.id,
+        startTime: req.body.startTime,
+        endTime: req.body.endTime,
+        maxAttendant: req.body.maxAttendant,
+    })
+        .then(function (classDetail) {
+            models.RequestOpening.findAll({ where: { courseId: req.body.courseId } }).then(function (reqOpns) {
+                reqOpns.forEach(reqOpn => {
+                    models.ClassRecord.create({
+                        classId: classDetail.dataValues.id,
+                        status: "Enrolled",
+                        traineeId: reqOpn.userId
+                    })
+                    reqOpn.destroy();
+                });
+            });
+            res.send(data);
+        });
+});
 //Update Class
 router.post('/updateClass', function (req, res) {
     log.info('/admin/updateClass: update Class :' + req.body.id);
@@ -243,9 +252,8 @@ router.post('/updateClass', function (req, res) {
             location: req.body.location,
             // trainerId: req.body.trainerId,
             startTime: req.body.startTime,
-            duration: req.body.duration,
-            maxAttendant: req.body.maxAttendant,
-            note: req.body.note
+            endTime: req.body.endTime,
+            maxAttendant: req.body.maxAttendant
         }, {
                 where: {
                     id: req.body.id,
@@ -299,6 +307,38 @@ router.get('/getAllTP', function (req, res) {
         };
         res.send(datasend);
     });
+});
+
+
+router.post('/addClass', function (req, res) {
+    var listUserID = [];
+
+    var data = {
+        success: true,
+        msg: "Add Class Success"
+    };
+
+    models.Class.create({
+        courseId: req.body.courseId,
+        location: req.body.location,
+        // trainerId: req.body.trainerId.id,
+        startTime: req.body.startTime,
+        endTime: req.body.endTime,
+        maxAttendant: req.body.maxAttendant,
+    })
+        .then(function (classDetail) {
+            models.RequestOpening.findAll({ where: { courseId: req.body.courseId } }).then(function (reqOpns) {
+                reqOpns.forEach(reqOpn => {
+                    models.ClassRecord.create({
+                        classId: classDetail.dataValues.id,
+                        status: "Enrolled",
+                        traineeId: reqOpn.userId
+                    })
+                    reqOpn.destroy();
+                });
+            });
+            res.send(data);
+        });
 });
 
 
