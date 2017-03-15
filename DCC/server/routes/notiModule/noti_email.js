@@ -8,7 +8,7 @@ router.post('/noti_email', function (req, res) {
     var content = req.body.content;
     var listOfReceiver = req.body.listOfReceiver;
     noti.email(listOfReceiver, subject, content);
-    datasend = {
+    var datasend = {
         success: true,
         msg: 'sent email successfully'
     };
