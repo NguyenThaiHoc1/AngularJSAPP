@@ -3,13 +3,12 @@ var config = require('../config/config.json');
 var log = require('../config/config')[config.logConfig];
 var models = require("./index");
 
-module.exports = function(sequelize) {
+module.exports = function (sequelize) {
     var Course = sequelize.define('Course', _courseModel, {
         charset: 'utf8',
         collate: 'utf8_unicode_ci',
         classMethods: {
-            getByID: function(id, cb)
-            {
+            getByID: function (id, cb) {
                 var query = {
                     where: {
 
@@ -19,8 +18,7 @@ module.exports = function(sequelize) {
                 Course.findOne(query).then(cb);
             },
 
-            getByName: function(name, cb)
-            {
+            getByName: function (name, cb) {
                 var query = {
                     where: {
 
@@ -28,17 +26,6 @@ module.exports = function(sequelize) {
                     }
                 };
                 Course.findOne(query).then(cb);
-            },
-
-            getByTraningProgramID: function(trainingProgramId, cb)
-            {
-                var query = {
-                    where: {
-
-                        trainingProgramId: trainingProgramId
-                    }
-                };
-                Course.findAll(query).then(cb);
             }
         },
         tableName: 'course',
