@@ -31,7 +31,7 @@ router.post('/getUserInfo', function (req, res) {
             currentRole = 1;
         } else if (user.isTrainer) {
             currentRole = 2;
-        } else if (user.isTrainee) {
+        } else {
             currentRole = 3;
         }
         res.send({
