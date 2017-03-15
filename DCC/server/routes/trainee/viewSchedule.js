@@ -19,9 +19,6 @@ router.post('/getEnrolledCourseList', function (req, res) {
                         }
                     }],
             }
-            // {
-            //     model: models.Course
-            // }],
         ],
         order: '`startTime` ASC'
     };
