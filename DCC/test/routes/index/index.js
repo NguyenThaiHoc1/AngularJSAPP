@@ -26,27 +26,24 @@ describe('<Unit test for Login>', function () {
         });
     });
 
-
-
-    // describe('Test case 1.2 : Login success, role = trainee', function() {
-    //     return it('Should return success==true', function(done) {
-    //         request(DCC_Server)
-    //         .post('/login')
-    //         .send({
-    //             username: 'qwe@gmail.com',
-    //             password: 'qwe'
-    //         })
-    //         .end(function(err, res) {
-    //             if (res.body.success === true )
-    //                 assert.equal(res.body.role, 3);
-    //             else
-    //                 assert.equal(res.body.success, true);
-    //             // globalCookies = res.headers['set-cookie'].pop().split(';')[0];
-    //             if (err) return done(err);
-    //             done();
-    //         });
-    //     });
-    // });
+    describe('Test case 1.1.1 : Login failed, role = admin', function () {
+        return it('Should return success==false', function (done) {
+            request(DCC_Server)
+                .post('/login')
+                .send({
+                    username: 'qwe@gmail.com',
+                    password: 'qqwe'
+                })
+                .end(function (err, res) {
+                    if (res.body.success === true)
+                        assert.equal(res.body.role, 1);
+                    else
+                        assert.equal(res.body.success, false);
+                    if (err) return done(err);
+                    done();
+                });
+        });
+    });
 
 
     describe('Test case 1.2 : Login success, role = trainee', function () {
