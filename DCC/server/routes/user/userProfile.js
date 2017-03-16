@@ -4,6 +4,7 @@ var config = require('../../config/config.json');
 var log = require('../../config/config')[config.logConfig];
 var md5 = require('md5');
 const fs = require('fs');
+var notification = require('../../notification');
 
 // Upload file setting
 var multer = require('multer');
@@ -143,6 +144,14 @@ router.post('/addUser', function (req, res) {
                     isExperienced: 0,
                     userType: req.body.userType,
                 }).then(function () {
+                    var subject = "Account Information";
+                    var content = "Your account has been registered as " + req.body.email + "with password: " + req.body.password;
+                    notification.email([req.body.email], subject, content, function (error, info) {
+                        // if (error)
+                        //     console.log(error);
+                        // else
+                        //     console.log("Sent");
+                    });
                     res.send({
                         success: true,
                         msg: "Add User Success",

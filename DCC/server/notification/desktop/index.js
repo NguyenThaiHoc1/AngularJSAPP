@@ -2,8 +2,8 @@ var io;
 var onlineUsers = [];
 var desktop = {
     send: function (receivers, subject, content) {
-        var noti = {title: subject, msg: content};
-        for(i = 0; i < receivers.length; i++) {
+        var noti = { title: subject, msg: content };
+        for (i = 0; i < receivers.length; i++) {
             for (j = 0; j < onlineUsers.length; j++) {
                 if (onlineUsers[j].email === receivers[i]) {
                     onlineUsers[j].socket.emit('pushNoti', noti);
@@ -34,13 +34,13 @@ createServer = function (server_socket) {
             };
             onlineUsers.push(item);
             //Sort list of user for optimize the search algorithm later
-            onlineUsers.sort(function(prevUser, nextUser) {
-                var upper_prevUser = prevUser.username.toUpperCase();
-                var upper_nextUser = nextUser.username.toUpperCase();
+            // onlineUsers.sort(function(prevUser, nextUser) {
+            //     var upper_prevUser = prevUser.username.toUpperCase();
+            //     var upper_nextUser = nextUser.username.toUpperCase();
 
-                return upper_prevUser < upper_nextUser ? -1 :
-                    upper_prevUser > upper_nextUser ? 1 : 0;
-            })
+            //     return upper_prevUser < upper_nextUser ? -1 :
+            //         upper_prevUser > upper_nextUser ? 1 : 0;
+            // })
         });
     });
 }
