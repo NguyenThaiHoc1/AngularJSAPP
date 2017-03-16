@@ -1,8 +1,6 @@
 var router = require('express').Router();
 var models = require('../../models');
-var config = require('../../config/config.json');
-var log = require('../../config/config')[config.logConfig];
-
+var log = require('../../config/config')["log"];
 // add course to database
 router.post('/addCourse', function (req, res) {
     models.Course.sync({
@@ -156,7 +154,7 @@ router.post('/updateTrainingProgram', function (req, res) {
         models.TrainingProgram.update({
             name: req.body.name,
             description: req.body.description,
-            courseTypeId: req.body.courseTypeId,
+            courseTypeId: req.body.courseTypeId.id,
             imgLink: '/img/trainingProgram/training-icon-1.svg',
         }, {
                 where: {

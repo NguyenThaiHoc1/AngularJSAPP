@@ -28,8 +28,7 @@ module.exports =
         },
         password: {
             type: SequelizeDatatypes.TEXT,
-            allowNull: true,
-
+            allowNull: true
         },
         avatar: {
             type: SequelizeDatatypes.STRING,

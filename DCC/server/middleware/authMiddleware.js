@@ -1,6 +1,5 @@
 var models = require('../models');
-var config = require('../config/config.json');
-var log = require('../config/config')[config.logConfig];
+var log = require('../config/config')["log"];
 
 var authMiddleware = {
     ensureAuthenticated: function ensureAuthenticated(req, res, next) {
