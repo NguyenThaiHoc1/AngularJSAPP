@@ -1,6 +1,5 @@
 var router = require('express').Router();
 var models = require('../../models');
-var config = require('../../config/config.json');
 var noti = require('../../noti');
 
 router.post('/noti_email', function (req, res) {

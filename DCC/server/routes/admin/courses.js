@@ -1,8 +1,6 @@
 var router = require('express').Router();
 var models = require('../../models');
-var config = require('../../config/config.json');
-var log = require('../../config/config')[config.logConfig];
-
+var log = require('../../config/config')["log"];
 // add course to database
 router.post('/addCourse', function (req, res) {
     models.Course.sync({
