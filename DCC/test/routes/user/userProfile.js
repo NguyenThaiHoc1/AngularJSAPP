@@ -67,22 +67,22 @@ describe('<Unit test for user profile>', function () {
         });
     });
 
-    // describe('Test case 1.2 : Get /user/userProfile/getUserInfo for currentRole = 3 ', function () {
-    //     return it('Should return success==true', function (done) {
-    //         var req = request(DCC_Server).post('/user/userProfile/getUserInfo');
-    //         req.send(
-    //             {
-    //                 email: "huy@gmail.com"
-    //             }
-    //         );
-    //         req.cookies = Cookies;
-    //         req.end(function (err, res) {
-    //             assert.equal(res.body.role, 3);
-    //             if (err) return done(err);
-    //             done();
-    //         });
-    //     });
-    // });
+    describe('Test case 1.2 : Get /user/userProfile/getUserInfo for currentRole = 3 ', function () {
+        return it('Should return success==true', function (done) {
+            var req = request(DCC_Server).post('/user/userProfile/getUserInfo');
+            req.send(
+                {
+                    email: "huy@gmail.com"
+                }
+            );
+            req.cookies = Cookies;
+            req.end(function (err, res) {
+                assert.equal(res.body.role, 3);
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
     // describe('Test case 2 : post /user/userProfile/updateUserProfile', function () {
     //     return it('Should return success==true', function (done) {
     //         var req = request(DCC_Server).post('/user/userProfile/updateUserProfile');
@@ -274,6 +274,7 @@ describe('<Unit test for manual added user profile>', function () {
                 avatar: '/img/profiles/userPhoto-1488169863745developer-icon.jpg',
                 dob: '31/08/1995',
                 phone: '0123456789',
+                password: md5('123')
             });
             req.cookies = Cookies;
             req.end(function (err, res) {
@@ -284,6 +285,7 @@ describe('<Unit test for manual added user profile>', function () {
                     avatar: '/img/profiles/userPhoto-1488169863745developer-icon.jpg',
                     dob: '31/08/1995',
                     phone: '0123456789',
+                    password: md5('Nam12345')
                 }, {
                         where: { email: 'tranhoangnam3108@gmail.com' }
                     });
@@ -325,20 +327,20 @@ describe('<Unit test for manual added user profile>', function () {
         });
     });
     //test mail notification
-    // describe('Test case 4 : post /notiModule/noti_email/noti_email', function () {
-    //     return it('Should return success==true', function (done) {
-    //         var req = request(DCC_Server).post('/notiModule/noti_email/noti_email');
-    //         req.send({
-    //             listOfReceiver: '13520364@gm.uit.edu.vn',
-    //             content: 'Sample Text',
-    //             subject: 'Sample Text'
-    //         });
-    //         req.cookies = Cookies;
-    //         req.end(function (err, res) {
-    //             assert.equal(res.body.success, true);
-    //             if (err) return done(err);
-    //             done();
-    //         });
-    //     });
-    // });
+    describe('Test case 4 : post /notiModule/noti_email/noti_email', function () {
+        return it('Should return success==true', function (done) {
+            var req = request(DCC_Server).post('/notiModule/noti_email/noti_email');
+            req.send({
+                listOfReceiver: '13520364@gm.uit.edu.vn',
+                content: 'Sample Text',
+                subject: 'Sample Text'
+            });
+            req.cookies = Cookies;
+            req.end(function (err, res) {
+                assert.equal(res.body.success, true);
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
 });

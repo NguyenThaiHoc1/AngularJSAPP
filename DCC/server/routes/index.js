@@ -17,5 +17,4 @@ router.use('/admin', require('./admin'));
 router.use('/user', require('./user'));
 router.use('/notiModule', require('./notiModule'));
 
-
 module.exports = router;

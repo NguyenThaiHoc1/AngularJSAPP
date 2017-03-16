@@ -28,13 +28,3 @@ socket.on('pushNoti', function (noti) {
 
 socket.on('error', console.error.bind(console));
 socket.on('message', console.log.bind(console));
-
-function sendNoti(emails, msg) {
-    for (email in emails) {
-        var data = {
-            email: emails[email],
-            noti: msg
-        }
-        socket.emit('sendNoti', data);
-    }
-}

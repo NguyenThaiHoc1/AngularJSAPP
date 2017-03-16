@@ -96,7 +96,6 @@ router.post('/login', function (req, res, next) {
                             success: true,
                             msg: 'You are authenticated!'
                         });
-
                     });
                 } else {
                     log.info('User login failed.');

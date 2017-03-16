@@ -5,7 +5,6 @@ var log = require('../../config/config')[config.logConfig];
 var md5 = require('md5');
 const fs = require('fs');
 
-
 // Upload file setting
 var multer = require('multer');
 var storage = multer.diskStorage({
@@ -31,7 +30,7 @@ router.post('/getUserInfo', function (req, res) {
             currentRole = 1;
         } else if (user.isTrainer) {
             currentRole = 2;
-        } else if (user.isTrainee) {
+        } else {
             currentRole = 3;
         }
         res.send({
@@ -68,7 +67,8 @@ router.post('/updateUserProfile', function (req, res) {
             dob: req.body.dob,
             phone: req.body.phone,
             //role: req.body.role,
-            status: req.body.status
+            status: req.body.status,
+            password: md5(req.body.password)
         },
         {
             where: { email: req.body.email }
@@ -85,22 +85,22 @@ router.post('/photo', function (req, res) {
     log.info('/routes/users: Upload avatar');
     // upload avatar
     upload(req, res, function () {
-        if (typeof req.file !== "undefined") {
-            models.User.getUserByEmail(req.user.email, function (user) {
-                models.User.update(
-                    {
-                        avatar: '/img/profiles/' + req.file.filename
-                    },
-                    {
-                        where: { email: req.user.email }
-                    }
-                ).then(function () {
-                    previousAvatar = user._previousDataValues.avatar;
-                    fs.unlink('client' + previousAvatar);
-                    res.redirect('/#/editUserProfile');
-                })
-            });
-        }
+
+        models.User.getUserByEmail(req.user.email, function (user) {
+            models.User.update(
+                {
+                    avatar: '/img/profiles/' + req.file.filename
+                },
+                {
+                    where: { email: req.user.email }
+                }
+            ).then(function () {
+                var previousAvatar = user._previousDataValues.avatar;
+                fs.unlink('client' + previousAvatar);
+                res.redirect('/#/editUserProfile');
+            })
+        });
+
     });
 });
 
@@ -127,7 +127,6 @@ router.post('/addUser', function (req, res) {
                     msg: 'Email already existed. Add failed!'
                 });
             } else {
-                // console.log(md5('what the fack!'));
                 models.User.create({
                     username: 'Your Name',
                     status: 'activated',
@@ -155,7 +154,8 @@ router.post('/addUser', function (req, res) {
 });
 router.post('/checkPassword', function (req, res) {
     models.User.findOne({ where: { email: req.body.email, password: md5(req.body.password) } }).then(function (result) {
-        if (result) res.send({ success: true });
+        if (result)
+            res.send({ success: true });
         else res.send({ success: false });
     })
 });
