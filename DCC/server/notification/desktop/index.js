@@ -18,16 +18,16 @@ function binarySearch(key, first, last) {
 
 var desktop = {
     send: function (receivers, subject, content) {
-        var noti = { title: subject, msg: content };
+        var notification = { title: subject, msg: content };
         for (i = 0; i < receivers.length; i++) {
             for (j = 0; j < onlineUsers.length; j++) {
                 if (onlineUsers[j].email === receivers[i]) {
-                    onlineUsers[j].socket.emit('pushNoti', noti);
+                    onlineUsers[j].socket.emit('pushNotification', notification);
                     break;
                 }
                 var index = binarySearch(receivers[i], 0, onlineUsers.length - 1)
                 if (index !== -1) {
-                    onlineUsers[index].socket.emit('pushNoti', noti);
+                    onlineUsers[index].socket.emit('pushNotification', notification);
                     break;
                 }
                 console.log('index: ' + index);
