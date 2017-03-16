@@ -1,7 +1,6 @@
 var router = require('express').Router();
 var models = require('../../models');
-var config = require('../../config/config.json');
-var log = require('../../config/config')[config.logConfig];
+var log = require('../../config/config')["log"];
 
 router.post ('/getMyFeedbackByClass', function(req, res){
     var query = {

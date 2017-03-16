@@ -1,8 +1,7 @@
 var settings = require('../../settings.js');
 var logConfigOptions = {
-    //logDirectory: './client/assets/log',
-    logDirectory: './client/log',
-    fileNamePattern: 'roll-<DATE>.log',
+    logDirectory: settings.logDirectory,
+    fileNamePattern: settings.fileNamePattern,
     dateFormat: settings.dateFormat
 };
 module.exports =

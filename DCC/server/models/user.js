@@ -1,5 +1,4 @@
-var config = require('../config/config.json');
-var log = require('../config/config')[config.logConfig];
+var log = require('../config/config')["log"];
 var _userModel = require('./DataObjects/user');
 var md5 = require('md5');
 module.exports = function (sequelize) {
