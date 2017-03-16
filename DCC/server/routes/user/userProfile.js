@@ -144,7 +144,7 @@ router.post('/addUser', function (req, res) {
                     userType: req.body.userType,
                 }).then(function () {
                     var subject = "Account Information";
-                    var content = "Your account has been registered as " + req.body.email + "with password: " + req.body.password;
+                    var content = "Your account has been registered as " + req.body.email + " with password: " + req.body.password;
                     notification.email([req.body.email], subject, content, function (error, info) {
                         // if (error)
                         //     console.log(error);

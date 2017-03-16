@@ -56,20 +56,15 @@ createServer = function (server_socket) {
             };
             onlineUsers.push(item);
             //Sort list of user for optimize the search algorithm later
-<<<<<<< HEAD:DCC/server/notification/desktop/index.js
-            // onlineUsers.sort(function(prevUser, nextUser) {
-            //     var upper_prevUser = prevUser.username.toUpperCase();
-            //     var upper_nextUser = nextUser.username.toUpperCase();
-=======
+
             onlineUsers.sort(function (prevUser, nextUser) {
                 var upper_prevUser = prevUser.email.toUpperCase();
                 var upper_nextUser = nextUser.email.toUpperCase();
->>>>>>> b35b6a7b361c038263f6c4ab5df965cd13227881:DCC/server/noti/desktop/index.js
-
-            //     return upper_prevUser < upper_nextUser ? -1 :
-            //         upper_prevUser > upper_nextUser ? 1 : 0;
-            // })
+                //     return upper_prevUser < upper_nextUser ? -1 :
+                //         upper_prevUser > upper_nextUser ? 1 : 0;
+                // })
+            });
         });
     });
-}
+};
 module.exports = desktop.send;
