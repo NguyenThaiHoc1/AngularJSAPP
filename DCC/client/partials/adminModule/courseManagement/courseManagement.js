@@ -61,7 +61,7 @@ myApp.factory('courseManagementServices', ['$http', function ($http) {
     return factoryDefinitions;
 }
 ]);
-
+var temp;
 //controller
 myApp.controller('courseManagementCtrl', ['$scope', '$rootScope', 'courseManagementServices', function ($scope, $rootScope, courseManagementServices, $location) {
     //GetTrainingProgram
@@ -134,11 +134,9 @@ myApp.controller('courseManagementCtrl', ['$scope', '$rootScope', 'courseManagem
             id: trainingProgram.id,
             name: trainingProgram.name,
             description: trainingProgram.description,
-            courseTypeId: {
-                id: trainingProgram.CourseType
-            }
+            courseTypeId: { id:trainingProgram.courseTypeId}
         };
-    };
+     };
     $scope.showDeleteCourseForm = function (course) {
         $rootScope.deleteClickId = 1;
         //course
