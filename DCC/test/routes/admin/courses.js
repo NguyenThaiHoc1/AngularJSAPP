@@ -13,8 +13,8 @@ describe('<Unit test for admin-course>', function () {
             .post('/login')
             .set('Accept', 'application/json')
             .send({
-                username: 'huy@gmail.com',
-                password: 'soledad'
+                username: 'qwe@gmail.com',
+                password: 'qwe'
             })
             .end(function (err, res) {
                 Cookies = res.headers['set-cookie'].pop().split(';')[0];
@@ -283,8 +283,15 @@ describe('<Unit test for admin-course>', function () {
 
             var req = request(DCC_Server).post('/admin/courses/addClass');
             req.cookies = Cookies;
+
+            models.RequestOpening.create({
+                userId: 1,
+                courseId: 1,
+                requestType: "register"
+            });
+
             req.send({
-                courseId: '1',
+                courseId: 1,
                 location: 'test create loc',
                 startTime: '2017-02-03 17:00:00',
                 duration: '2',
@@ -293,7 +300,8 @@ describe('<Unit test for admin-course>', function () {
             });
             req.end(function (err, res) {
                 assert.equal(res.body.success, true);
-                models.Class.destroy({ where: { location: 'test create loc' } });
+
+
                 if (err) return done(err);
                 done();
             });
@@ -325,6 +333,8 @@ describe('<Unit test for admin-course>', function () {
         return it('Should return success==true', function (done) {
             var req = request(DCC_Server).post('/admin/courses/updateClass');
             req.cookies = Cookies;
+
+
             req.send({
                 id: 1,
                 courseId: '1',
