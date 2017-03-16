@@ -51,7 +51,9 @@ router.post('/getUserInfo', function (req, res) {
             isExperienced: user.isExperienced,
             userType: user.userType,
             success: true,
-            getCurrentRole: true
+            getCurrentRole: true,
+            isNotificationDesktop: user.isNotificationDesktop,
+            isNotificationEmail: user.isNotificationEmail
         });
     });
 });
@@ -68,7 +70,8 @@ router.post('/updateUserProfile', function (req, res) {
             phone: req.body.phone,
             //role: req.body.role,
             status: req.body.status,
-            password: md5(req.body.password)
+            isNotificationDesktop: req.body.isNotificationDesktop,
+            isNotificationEmail: req.body.isNotificationEmail
         },
         {
             where: { email: req.body.email }
@@ -77,6 +80,23 @@ router.post('/updateUserProfile', function (req, res) {
         res.send({
             success: true,
             msg: "Update your profile Success"
+        });
+    });
+});
+
+router.post('/changePasswordMD5', function (req, res) {
+    log.info('/routes/users: Save edit userprofile');
+    models.User.update(
+        {
+            password: md5(req.body.password),
+        },
+        {
+            where: { email: req.body.email }
+        }
+    ).then(function () {
+        res.send({
+            success: true,
+            msg: "Update Your Password Success"
         });
     });
 });

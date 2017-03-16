@@ -212,7 +212,7 @@ router.post('/addClass', function (req, res) {
 
     var data = {
         success: true,
-        msg: "Add Class Success"
+        msg: "Add Class and Delete Requests Successfully"
     };
 
     models.Class.create({
