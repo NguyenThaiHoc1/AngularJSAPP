@@ -246,7 +246,7 @@ describe('<Unit test for manual added user profile>', function () {
             .set('Accept', 'application/json')
             .send({
                 username: 'huy@gmail.com',
-                password: md5('soledad')
+                password: 'Soledad00'
             })
             .end(function (err, res) {
                 Cookies = res.headers['set-cookie'].pop().split(';')[0];
@@ -268,26 +268,26 @@ describe('<Unit test for manual added user profile>', function () {
         return it('Should return success==true', function (done) {
             var req = request(DCC_Server).post('/user/userProfile/updateUserProfile');
             req.send({
-                email: 'tranhoangnam3108@gmail.com',
-                username: 'Nam test',
+                email: 'huy@gmail.com',
+                username: 'Huy test',
                 status: 'test status',
                 avatar: '/img/profiles/userPhoto-1488169863745developer-icon.jpg',
                 dob: '31/08/1995',
                 phone: '0123456789',
-                password: md5('123')
+                password: '123'
             });
             req.cookies = Cookies;
             req.end(function (err, res) {
                 assert.equal(res.body.success, true);
                 models.User.update({
-                    username: 'Nam Tran',
+                    username: 'Huy Lam',
                     status: 'activated',
                     avatar: '/img/profiles/userPhoto-1488169863745developer-icon.jpg',
                     dob: '31/08/1995',
                     phone: '0123456789',
-                    password: md5('Nam12345')
+                    password: md5('Soledad00')
                 }, {
-                        where: { email: 'tranhoangnam3108@gmail.com' }
+                        where: { email: 'huy@gmail.com' }
                     });
                 if (err) return done(err);
                 done();
@@ -300,7 +300,7 @@ describe('<Unit test for manual added user profile>', function () {
             var req = request(DCC_Server).post('/user/userProfile/checkPassword');
             req.send({
                 email: 'huy@gmail.com',
-                password: 'soledad'
+                password: 'Soledad00'
             });
             req.cookies = Cookies;
             req.end(function (err, res) {
@@ -327,20 +327,20 @@ describe('<Unit test for manual added user profile>', function () {
         });
     });
     //test mail notification
-    describe('Test case 4 : post /notiModule/noti_email/noti_email', function () {
-        return it('Should return success==true', function (done) {
-            var req = request(DCC_Server).post('/notiModule/noti_email/noti_email');
-            req.send({
-                listOfReceiver: '13520364@gm.uit.edu.vn',
-                content: 'Sample Text',
-                subject: 'Sample Text'
-            });
-            req.cookies = Cookies;
-            req.end(function (err, res) {
-                assert.equal(res.body.success, true);
-                if (err) return done(err);
-                done();
-            });
-        });
-    });
+    // describe('Test case 4 : post /notiModule/noti_email/noti_email', function () {
+    //     return it('Should return success==true', function (done) {
+    //         var req = request(DCC_Server).post('/notiModule/noti_email/noti_email');
+    //         req.send({
+    //             listOfReceiver: '13520364@gm.uit.edu.vn',
+    //             content: 'Sample Text',
+    //             subject: 'Sample Text'
+    //         });
+    //         req.cookies = Cookies;
+    //         req.end(function (err, res) {
+    //             assert.equal(res.body.success, true);
+    //             if (err) return done(err);
+    //             done();
+    //         });
+    //     });
+    // });
 });
