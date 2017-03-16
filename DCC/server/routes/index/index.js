@@ -93,11 +93,12 @@ router.post('/login', function (req, res, next) {
                                 belong2Team: _user.belong2Team,
                                 isExperienced: _user.isExperienced,
                                 userType: _user.userType,
+                                isNotificationDesktop: _user.isNotificationDesktop,
+                                isNotificationEmail: _user.isNotificationEmail,
 
                                 success: true,
                                 msg: 'You are authenticated!'
                             });
-
                         });
                     } else {
                         log.info('User login failed.');
@@ -177,6 +178,8 @@ router.post('/login', function (req, res, next) {
                                     belong2Team: user[0].dataValues.belong2Team,
                                     isExperienced: user[0].dataValues.isExperienced,
                                     userType: user[0].dataValues.userType,
+                                    isNotificationDesktop: user[0].dataValues.isNotificationDesktop,
+                                    isNotificationEmail: user[0].dataValues.isNotificationEmail,
 
                                     success: true,
                                     msg: 'You are authenticated!'

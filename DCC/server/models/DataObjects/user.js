@@ -59,5 +59,13 @@ module.exports =
         isExperienced: {
             type: SequelizeDatatypes.BOOLEAN,
             allowNull: true
+        },
+        isNotificationEmail: {
+            type: SequelizeDatatypes.BOOLEAN,
+            allowNull: true
+        },
+        isNotificationDesktop: {
+            type: SequelizeDatatypes.BOOLEAN,
+            allowNull: true
         }
     }

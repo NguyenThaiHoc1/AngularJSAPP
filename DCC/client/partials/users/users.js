@@ -65,6 +65,9 @@ myApp.factory('userServices', ['$http', function ($http) {
         },
         checkPassword: function (user) {
             return $http.post('/user/userProfile/checkPassword', user).success(function (data) { return data });
+        },
+         changePasswordMD5: function (emailReq) {
+            return $http.post('/user/userProfile/changePasswordMD5', emailReq).success(function (data) { return data; });
         }
     }
 
@@ -118,7 +121,7 @@ myApp.controller('changePasswordController', ['$scope', 'userServices', '$locati
         userServices.checkPassword($scope.userDetail).then(function (result) {
             if (result.data.success) {
                 $scope.userDetail.password = $scope.changePassword.newPassword;
-                userServices.updateUserProfile($scope.userDetail).then(function (result)    //call update profile service
+                userServices.changePasswordMD5($scope.userDetail).then(function (result)    //call update profile service
                 {
                     if (result.data.success) {
                         userServices.getUserProfile($scope.userDetail).then(function (userData) {
@@ -210,7 +213,4 @@ myApp.controller('userProfileCtrl', ['$scope', 'userServices', '$location', '$ro
         $rootScope.ShowPopupMessage("Ignore all changes", "info");
         $location.path("/userProfile");
     }
-}]);
-
-myApp.controller('NotiSettingController', ['$scope', function($scope) {
 }]);
