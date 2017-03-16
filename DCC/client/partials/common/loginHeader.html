@@ -210,11 +210,10 @@
                         <input type="checkbox" name="NotiSettingOption" ng-model="NotiSetting.email"><label class="control-label">&nbsp Email</label></br>
                         <div class="col-xs-1"></div>
                         <input type="checkbox" name="NotiSettingOption" ng-model="NotiSetting.SMS"><label class="control-label">&nbsp SMS</label></br>
-                        <center><h4>This function is in process</h4></center>
+                        <center><h4>{{NotiSetting}}</h4></center>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-success" ng-click="" data-dismiss="modal" ng-disabled="NotiSettingForm.$invalid">Save</button>
-                        <button class="btn btn-default" data-dismiss="modal" ng-disabled="NotiSettingForm.$invalid">Cancel</button>
+                        <button class="btn btn-default" data-dismiss="modal" ng-disabled="NotiSettingForm.$invalid">Back</button>
                     </div>
                 </form>
             </div>

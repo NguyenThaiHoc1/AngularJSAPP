@@ -33,6 +33,14 @@ createServer = function (server_socket) {
                 email: data.email
             };
             onlineUsers.push(item);
+            //Sort list of user for optimize the search algorithm later
+            onlineUsers.sort(function(prevUser, nextUser) {
+                var upper_prevUser = prevUser.username.toUpperCase();
+                var upper_nextUser = nextUser.username.toUpperCase();
+
+                return upper_prevUser < upper_nextUser ? -1 :
+                    upper_prevUser > upper_nextUser ? 1 : 0;
+            })
         });
     });
 }

@@ -213,5 +213,4 @@ myApp.controller('userProfileCtrl', ['$scope', 'userServices', '$location', '$ro
 }]);
 
 myApp.controller('NotiSettingController', ['$scope', function($scope) {
-
 }]);
