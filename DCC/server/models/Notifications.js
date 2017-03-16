@@ -7,6 +7,7 @@ module.exports = function (sequelize) {
         charset: 'utf8',
         collate: 'utf8_unicode_ci',
         classMethods: {
+
             getAllNotificationByEmail: function (userEmail, cb) {
                 var query = {
                     where: {
@@ -24,7 +25,6 @@ module.exports = function (sequelize) {
                 };
                 Notifications.findAll(query).then(cb);
             },
-
         },
         tableName: 'notification',
         timestamps: false

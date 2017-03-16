@@ -1,5 +1,6 @@
 var SequelizeDatatypes = require('sequelize');
 
+
 module.exports =
     {
         email:
@@ -23,3 +24,4 @@ module.exports =
             allowNull: true
         }
     }
+
