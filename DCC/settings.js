@@ -3,19 +3,19 @@ var settings = {
     /**       
     / ---------- DATABASE CONFIG ------------
     */
-    // Host config
+    //choose Host config
     environmentHost : "192.168.122.20",
     
-     // Port config
+     //choose Port config
     environmentPort : 3306,
 
-    //Username Config
+    //choose Username Config
     environmentUserName: "root",
 
-    //Password Config
+    //Choose Password Config dekvn@123321 or root
     environmentPassword: "dekvn@123321",
 
-    //Database Config
+    //Choose Database Config
     environmentDatabase: "DCC2",
 
     /**       
@@ -28,8 +28,13 @@ var settings = {
     /**       
     *---------- LOG CONFIG ------------
     */
-    //dateFormat in log
+    //choose date format
     dateFormat : 'YYYY.MM.DD',
 
+    //choose log directory folder
+    logDirectory: './client/log',
+
+    // choose file name pattern
+    fileNamePattern: 'roll-<DATE>.log'
 };
 module.exports = settings;
