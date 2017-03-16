@@ -1,5 +1,21 @@
 var io;
 var onlineUsers = [];
+
+function binarySearch(key, first, last) {
+    var mid;
+
+    while (first <= last) {
+        mid = (last + first) / 2;
+        if (key === onlineUsers[mid].email)
+            return mid;
+        if (key > onlineUsers[mid].email)
+            first = mid + 1;
+        if (key < onlineUsers[mid].email)
+            last = mid - 1;
+    }
+    return - 1;
+}
+
 var desktop = {
     send: function (receivers, subject, content) {
         var noti = { title: subject, msg: content };
@@ -9,6 +25,12 @@ var desktop = {
                     onlineUsers[j].socket.emit('pushNoti', noti);
                     break;
                 }
+                var index = binarySearch(receivers[i], 0, onlineUsers.length - 1)
+                if (index !== -1) {
+                    onlineUsers[index].socket.emit('pushNoti', noti);
+                    break;
+                }
+                console.log('index: ' + index);
             }
         }
     }
@@ -34,9 +56,15 @@ createServer = function (server_socket) {
             };
             onlineUsers.push(item);
             //Sort list of user for optimize the search algorithm later
+<<<<<<< HEAD:DCC/server/notification/desktop/index.js
             // onlineUsers.sort(function(prevUser, nextUser) {
             //     var upper_prevUser = prevUser.username.toUpperCase();
             //     var upper_nextUser = nextUser.username.toUpperCase();
+=======
+            onlineUsers.sort(function (prevUser, nextUser) {
+                var upper_prevUser = prevUser.email.toUpperCase();
+                var upper_nextUser = nextUser.email.toUpperCase();
+>>>>>>> b35b6a7b361c038263f6c4ab5df965cd13227881:DCC/server/noti/desktop/index.js
 
             //     return upper_prevUser < upper_nextUser ? -1 :
             //         upper_prevUser > upper_nextUser ? 1 : 0;
