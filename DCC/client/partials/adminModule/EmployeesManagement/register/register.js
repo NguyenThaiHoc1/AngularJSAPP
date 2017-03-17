@@ -17,9 +17,6 @@ myApp.factory('registerServices', ['$http', function ($http) {
             return $http.post("/user/userProfile/addUser", user).success(function (data) { return data; });
 
         },
-        sendEmail: function (user) {
-            return $http.post("/notiModule/noti_email/noti_email", user).success(function (data) { return data; });
-        }
     }
     return factoryDefinitions;
 }
@@ -58,7 +55,6 @@ myApp.controller('registerCtrl', ['$scope', '$rootScope', 'registerServices', fu
             content: 'you are now registered!',
             listOfReceiver: [$scope.userEmail]
         }
-        registerServices.sendEmail(email);
     }
     $scope.passwordMeasure = function (newPassword) {
         // validate user password to ensure its security strength

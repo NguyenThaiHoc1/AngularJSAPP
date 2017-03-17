@@ -28,8 +28,7 @@ module.exports =
         },
         password: {
             type: SequelizeDatatypes.TEXT,
-            allowNull: true,
-
+            allowNull: true
         },
         avatar: {
             type: SequelizeDatatypes.STRING,
@@ -57,6 +56,14 @@ module.exports =
             allowNull: true
         },
         isExperienced: {
+            type: SequelizeDatatypes.BOOLEAN,
+            allowNull: true
+        },
+        isNotificationEmail: {
+            type: SequelizeDatatypes.BOOLEAN,
+            allowNull: true
+        },
+        isNotificationDesktop: {
             type: SequelizeDatatypes.BOOLEAN,
             allowNull: true
         }

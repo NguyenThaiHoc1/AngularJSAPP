@@ -3,6 +3,7 @@ var models = require('../../models');
 var log = require('../../config/config')["log"];
 var md5 = require('md5');
 const fs = require('fs');
+var notification = require('../../notification');
 
 // Upload file setting
 var multer = require('multer');
@@ -50,7 +51,9 @@ router.post('/getUserInfo', function (req, res) {
             isExperienced: user.isExperienced,
             userType: user.userType,
             success: true,
-            getCurrentRole: true
+            getCurrentRole: true,
+            isNotificationDesktop: user.isNotificationDesktop,
+            isNotificationEmail: user.isNotificationEmail
         });
     });
 });
@@ -67,7 +70,8 @@ router.post('/updateUserProfile', function (req, res) {
             phone: req.body.phone,
             //role: req.body.role,
             status: req.body.status,
-            password: md5(req.body.password)
+            isNotificationDesktop: req.body.isNotificationDesktop,
+            isNotificationEmail: req.body.isNotificationEmail
         },
         {
             where: { email: req.body.email }
@@ -76,6 +80,23 @@ router.post('/updateUserProfile', function (req, res) {
         res.send({
             success: true,
             msg: "Update your profile Success"
+        });
+    });
+});
+
+router.post('/changePasswordMD5', function (req, res) {
+    log.info('/routes/users: Save edit userprofile');
+    models.User.update(
+        {
+            password: md5(req.body.password),
+        },
+        {
+            where: { email: req.body.email }
+        }
+    ).then(function () {
+        res.send({
+            success: true,
+            msg: "Update Your Password Success"
         });
     });
 });
@@ -142,6 +163,14 @@ router.post('/addUser', function (req, res) {
                     isExperienced: 0,
                     userType: req.body.userType,
                 }).then(function () {
+                    var subject = "Account Information";
+                    var content = "Your account has been registered as " + req.body.email + " with password: " + req.body.password;
+                    notification.email([req.body.email], subject, content, function (error, info) {
+                        // if (error)
+                        //     console.log(error);
+                        // else
+                        //     console.log("Sent");
+                    });
                     res.send({
                         success: true,
                         msg: "Add User Success",
