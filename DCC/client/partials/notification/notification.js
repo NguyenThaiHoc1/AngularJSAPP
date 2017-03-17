@@ -14,17 +14,22 @@ myApp.factory('NotificationService',['$http','$rootScope', function($http, $root
     var factoryDefinition = {
         updateNotificationSetting: function() {
             return $http.post('/user/userProfile/updateUserProfile', $rootScope.userInfo).success(function (data) { return data; });
+        },
+        getNotifications: function() {
+            return $http.post('/notification/notification/getNotifications', $rootScope.userInfo).success(function (data) { return data; });            
         }
     }
     return factoryDefinition;
 }]);
 
 myApp.controller('NotiController', ['$scope', '$rootScope', 'NotificationService', function($scope, $rootScope, NotificationService) {
-    $scope.NotiSetting = {desktop: false, email: false};
+    $scope.getNotificationsList = function(){
+        NotificationService.getNotifications().then(function(notifications) {
+            $rootScope.userInfo.userNotifications = notifications.data.data;
+        });
+    };
+
     $scope.SaveSetting = function() {
-        $rootScope.userInfo.isNotificationDesktop = $scope.NotiSetting.desktop;
-        $rootScope.userInfo.isNotificationEmail = $scope.NotiSetting.email;
-        // $rootScope.userInfo.isNotificationSMS = $scope.NotiSetting.SMS ? 1 : 0;
         NotificationService.updateNotificationSetting().then(function (result) {
             if (result.data.success) {
                 $rootScope.ShowPopupMessage("Setting saved", "success");
@@ -33,10 +38,5 @@ myApp.controller('NotiController', ['$scope', '$rootScope', 'NotificationService
                 $rootScope.ShowPopupMessage(result.data.msg, "error");
             }
         });
-    };
-    $scope.getNotificationSetting = function() {
-        $scope.NotiSetting.desktop = $rootScope.userInfo.isNotificationDesktop;
-        $scope.NotiSetting.email = $rootScope.userInfo.isNotificationEmail;
-        // $scope.NotiSetting.SMS = $rootScope.userInfo.isNotificationSMS;
     };
 }]);
