@@ -274,7 +274,6 @@ describe('<Unit test for manual added user profile>', function () {
                 avatar: '/img/profiles/userPhoto-1488169863745developer-icon.jpg',
                 dob: '31/08/1995',
                 phone: '0123456789',
-                password: '123'
             });
             req.cookies = Cookies;
             req.end(function (err, res) {
@@ -285,7 +284,6 @@ describe('<Unit test for manual added user profile>', function () {
                     avatar: '/img/profiles/userPhoto-1488169863745developer-icon.jpg',
                     dob: '31/08/1995',
                     phone: '0123456789',
-                    password: md5('Soledad00')
                 }, {
                         where: { email: 'huy@gmail.com' }
                     });
@@ -326,21 +324,22 @@ describe('<Unit test for manual added user profile>', function () {
             });
         });
     });
-    //test mail notification
-    // describe('Test case 4 : post /notiModule/noti_email/noti_email', function () {
-    //     return it('Should return success==true', function (done) {
-    //         var req = request(DCC_Server).post('/notiModule/noti_email/noti_email');
-    //         req.send({
-    //             listOfReceiver: '13520364@gm.uit.edu.vn',
-    //             content: 'Sample Text',
-    //             subject: 'Sample Text'
-    //         });
-    //         req.cookies = Cookies;
-    //         req.end(function (err, res) {
-    //             assert.equal(res.body.success, true);
-    //             if (err) return done(err);
-    //             done();
-    //         });
-    //     });
-    // });
+
+    // test changePasswordMd5, case: correct password
+    describe('Test case 4: post /user/userProfile/changePasswordMd5', function () {
+        return it('Should return success = true', function (done) {
+            var req = request(DCC_Server).post('/user/userProfile/changePasswordMd5');
+            req.send({
+                email: "huy@gmail.com",
+                password: "Soledad00"
+            });
+            req.cookies = Cookies;
+            req.end(function (err, res) {
+                assert.equal(res.body.success, true);
+                if (err) return done(err);
+                done();
+            });
+        });
+
+    });
 });

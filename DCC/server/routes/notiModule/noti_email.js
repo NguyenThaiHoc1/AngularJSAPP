@@ -11,9 +11,7 @@ router.post('/noti_email', function (req, res) {
         msg: 'sent email successfully',
     };
 
-    noti.email(listOfReceiver, subject, content, function (err, data) {
-        if (err) return console.error(err);
-    });
+    noti.email(listOfReceiver, subject, content);
     res.send(datasend);
 
 });

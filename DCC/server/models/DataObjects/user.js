@@ -60,12 +60,11 @@ module.exports =
             allowNull: true
         },
         isNotificationEmail: {
-            type: SequelizeDatatypes.INTEGER,
+            type: SequelizeDatatypes.BOOLEAN,
             allowNull: true
         },
         isNotificationDesktop: {
-            type: SequelizeDatatypes.INTEGER,
+            type: SequelizeDatatypes.BOOLEAN,
             allowNull: true
-        },
-
+        }
     }

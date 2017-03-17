@@ -2,7 +2,7 @@ var fs = require("fs");
 var path = require("path");
 var Sequelize = require("sequelize");
 
-var env = process.env.NODE_ENV || "environment";
+var env = process.env.NODE_ENV || "inMemoryDB";
 var config = require("../config/config")[env];
 var sequelize = module.exports = new Sequelize(config.database, config.username, config.password, config);
 
@@ -55,5 +55,7 @@ db.RequestOpening.belongsTo(db.Course, { foreignKey: 'courseId' });
 db.Course.hasMany(db.RequestOpening, { foreignKey: 'courseId' });
 db.RequestOpening.belongsTo(db.User, { foreignKey: 'userId' });
 db.User.hasMany(db.RequestOpening, { foreignKey: 'userId' });
-
+//association of table notification and user
+db.Notifications.belongsTo(db.User, { foreignKey: 'email' });
+db.User.hasMany(db.Notifications, { foreignKey: 'email' });
 module.exports = db;
