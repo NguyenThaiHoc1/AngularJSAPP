@@ -8,7 +8,7 @@ module.exports =
     {
         //database config
         "environment": {
-            "dialect": "mysql",
+            "dialect": "sqlite",
             "username": settings.environmentUserName,
             "password": settings.environmentPassword,
             "database": settings.environmentDatabase,

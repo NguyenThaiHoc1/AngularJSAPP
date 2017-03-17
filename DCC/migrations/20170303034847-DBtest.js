@@ -11,7 +11,7 @@ module.exports = {
       .then(function () { return queryInterface.createTable(models.RequestOpening.tableName, models.RequestOpening.attributes) })
       .then(function () { return queryInterface.createTable(models.Class.tableName, models.Class.attributes) })
       .then(function () { return queryInterface.createTable(models.ClassRecord.tableName, models.ClassRecord.attributes) })
-
+      .then(function () { return queryInterface.createTable(models.Notifications.tableName, models.Notifications.attributes) })
   },
 
   down: function (queryInterface, Sequelize) {
