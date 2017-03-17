@@ -211,3 +211,6 @@ myApp.controller('userProfileCtrl', ['$scope', 'userServices', '$location', '$ro
         $location.path("/userProfile");
     }
 }]);
+
+myApp.controller('NotiSettingController', ['$scope', function($scope) {
+}]);
