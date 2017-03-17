@@ -61,7 +61,6 @@ router.post('/getUserInfo', function (req, res) {
 
 router.post('/updateUserProfile', function (req, res) {
     log.info('/routes/users: Save edit userprofile');
-    notification.desktop(["bqd@gmail.com"], 'update profile', 'msg');
     models.User.update(
         {
             username: req.body.username,
