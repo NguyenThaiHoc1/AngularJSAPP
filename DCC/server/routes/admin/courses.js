@@ -1,6 +1,7 @@
 var router = require('express').Router();
 var models = require('../../models');
 var log = require('../../config/config')["log"];
+var notification = require('../../notification');
 // add course to database
 router.post('/addCourse', function (req, res) {
     models.Course.sync({
@@ -207,9 +208,8 @@ router.post('/getClass', function (req, res) {
     });
 });
 
-
+var emailReceivers = [];
 router.post('/addClass', function (req, res) {
-
     var data = {
         success: true,
         msg: "Add Class and Delete Requests Successfully"
@@ -224,6 +224,7 @@ router.post('/addClass', function (req, res) {
         maxAttendant: req.body.maxAttendant,
     })
         .then(function (classDetail) {
+
             models.RequestOpening.findAll({ where: { courseId: req.body.courseId } }).then(function (reqOpns) {
                 reqOpns.forEach(reqOpn => {
                     models.ClassRecord.create({
@@ -231,11 +232,31 @@ router.post('/addClass', function (req, res) {
                         status: "Enrolled",
                         traineeId: reqOpn.userId
                     })
-                    reqOpn.destroy();
-                });
+                    models.User.findOne({ where: { id: reqOpn.userId, isNotificationEmail: 1 } }).then(function (dataResults) {
+                        emailReceivers.push(
+                            dataResults.email
+                        )
+
+                    });
+
+                })
+                //reqOpn.destroy();
             });
-            res.send(data);
         });
+    res.send(data);
+});
+
+router.get('/sendMail', function (req, res) {
+    console.log(emailReceivers);
+
+    var datasend = {
+        success: true,
+        msg: "get all courses done"
+    };
+    //   notification.email(emailReceivers, 'Enroll Class', 'You have enrolled successfully')
+    //emailReceivers = [];
+    res.send(datasend);
+
 });
 //Update Class
 router.post('/updateClass', function (req, res) {
