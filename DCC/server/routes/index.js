@@ -15,5 +15,6 @@ router.use('/trainee', require('./trainee'));
 router.use('/trainer', require('./trainer'));
 router.use('/admin', require('./admin'));
 router.use('/user', require('./user'));
+router.use('/notification', require('./notification'));
 
 module.exports = router;
