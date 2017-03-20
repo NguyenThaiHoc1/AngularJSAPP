@@ -16,7 +16,9 @@
                 <li ng-class="{active: $state.includes('admin_courseManagement')}"><a ui-sref="admin_courseManagement"><i class="icon-plus-sign-alt"></i><span>Training Programs</span> </a></li>
                 <li ng-class="{active: $state.includes('userProfile')}"><a ui-sref="userProfile"><i class="icon-user "></i><span>Profile</span> </a> </li>
                 <li ng-class="{active: $state.includes('EmployeesManagement')}"><a ui-sref="EmployeesManagement"><i class="icon-group "></i><span>Employees Management</span> </a> </li>
-                <li ng-class="{active: $state.includes('notification')}"><a ui-sref="notification"><i class="icon-bell-alt "></i><sup id="NotifyCounter" ng-show="userInfo.NumberofNewNotification > 0">{{userInfo.NumberofNewNotification}}</sup><span>Notification</span> </a> </li>
+                <li ng-class="{active: $state.includes('notification')}">
+                    <a ui-sref="notification"><i class="icon-bell-alt "></i><sup id="NotifyCounter" ng-show="userInfo.NumberofNewNotification > 0">{{userInfo.NumberofNewNotification}}</sup>
+                    <span>Notification</span> </a> </li>
             </ul>
         </div>
         <!-- /container -->
