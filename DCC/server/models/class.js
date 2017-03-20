@@ -8,7 +8,7 @@ module.exports = function (sequelize) {
                 var query = {
                     where:
                     {
-                        endTime:
+                        startTime:
                         {
                             $gt: Date.now()
                         },
