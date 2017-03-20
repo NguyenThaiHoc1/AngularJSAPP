@@ -16,14 +16,14 @@ module.exports = function (sequelize) {
                 };
                 Notifications.findAll(query).then(cb);
             },
-            getNewNotificationByEmail: function (userEmail, cb) {
+            getNotificationsNewNumber: function (userEmail, cb) {
                 var query = {
                     where: {
                         email: userEmail,
                         status: 1
                     }
                 };
-                Notifications.findAll(query).then(cb);
+                Notifications.findAndCountAll(query).then(cb);
             },
         },
         tableName: 'notification',
