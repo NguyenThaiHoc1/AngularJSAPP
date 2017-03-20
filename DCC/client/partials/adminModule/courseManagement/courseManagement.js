@@ -134,9 +134,9 @@ myApp.controller('courseManagementCtrl', ['$scope', '$rootScope', 'courseManagem
             id: trainingProgram.id,
             name: trainingProgram.name,
             description: trainingProgram.description,
-            courseTypeId: { id:trainingProgram.courseTypeId}
+            courseTypeId: { id: trainingProgram.courseTypeId }
         };
-     };
+    };
     $scope.showDeleteCourseForm = function (course) {
         $rootScope.deleteClickId = 1;
         //course
@@ -362,6 +362,7 @@ myApp.controller('addEditClassCtrl', ['$scope', '$rootScope', 'courseDetailServi
 
             courseDetailServices.addClass($rootScope.adminClassModel).then(function (result) {
                 if (result.data.success) {
+                    courseDetailServices.sendMail();
                     //Get Class List
                     courseDetailServices.getClassByCourseID($rootScope.adminClassModel.courseId).then(function (result) {
                         $rootScope.classList = result.data.data;
