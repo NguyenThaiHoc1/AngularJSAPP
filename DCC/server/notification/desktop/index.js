@@ -23,11 +23,19 @@ var desktop = {
             var index = binarySearch(receivers[i], 0, onlineUsers.length - 1)
             if (index !== -1) {
                 onlineUsers[index].socket.emit('pushNotification', notification);
+                models.Notifications.create({
+                    email: receivers[i],
+                    title: subject,
+                    content: content,
+                    time: new Date(),
+                    status: 0
+                });
             } else {
                 models.Notifications.create({
                     email: receivers[i],
                     title: subject,
                     content: content,
+                    time: new Date(),
                     status: 1
                 });
             }
@@ -55,8 +63,8 @@ createServer = function (server_socket) {
             };
             onlineUsers.push(item);
             //Sort list of user for optimize the search algorithm later
-            models.Notifications.getNewNotificationByEmail(data.email, function (notifications) {
-                socket.emit('NewNotifications', notifications);
+            models.Notifications.getNumberofNewNotification(data.email, function (notifications) {
+                socket.emit('NewNotifications', notifications.count);
             });
 
             onlineUsers.sort(function (prevUser, nextUser) {
