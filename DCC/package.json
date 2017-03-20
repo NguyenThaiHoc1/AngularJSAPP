@@ -32,7 +32,7 @@
     "mongoose": "^4.5.3",
     "multer": "^1.2.0",
     "node-notifier": "^5.0.2",
-    "nodemailer": "^2.7.2",
+    "nodemailer": "^3.1.5",
     "passport": "^0.3.2",
     "passport-ldapauth": "*",
     "passport-local": "^1.0.0",
