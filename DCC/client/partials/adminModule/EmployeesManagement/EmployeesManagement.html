@@ -67,11 +67,11 @@
                 </div>
                 <!--User full information-->
                 <div id="collapse{{user.id}}" class="panel-collapse collapse">
-                    <div class="row">
+                    <div class="row" ng-show="userListFilterCondition(user)">
                         <div class="col-md-1"></div>
                         <div class="col-md-9 col-sm-8" style="border-left:2px none;" class="row" style="padding-bottom:10px; margin-left: 90px;
-                            margin-right: 10px; border: 2px solid; border-radius: 100px 5px 5px 100px; background-color: #f7f7f7;">
-                            <!--<blockquote class="blockquote">-->
+                        margin-right: 10px; border: 2px solid; border-radius: 100px 5px 5px 100px; background-color: #f7f7f7;">
+                        <!--<blockquote class="blockquote">-->
                             <div class="panel-body">
                                 <div class=" col-md-9 col-lg-9 col-sm-8" style="border-left: 4px solid #D3D3D3">
                                     <table class="table " id="shady-lady">

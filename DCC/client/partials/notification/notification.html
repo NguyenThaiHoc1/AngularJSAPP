@@ -18,7 +18,7 @@
                     <div ng-repeat="notification in userInfo.userNotifications">
                         <div class="round-wrap" ng-style="{'background-color': notification.status ? '#EAEAEF' : 'white'}">
                             <blockquote class="blockquote" style="margin-bottom: 5px;">
-                                {{notification.title}}
+                                <a>{{notification.title}}</a>
                                 <p class="pull-right">{{notification.time}}</p>
                                 <p style="color:darkgrey; white-space: nowrap" ng-bind-html="notification.content"></p>
                             </blockquote>
