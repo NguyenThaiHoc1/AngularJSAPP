@@ -208,7 +208,7 @@ router.post('/getClass', function (req, res) {
     });
 });
 
-var emailReceivers = [];
+var receivers = [];
 router.post('/addClass', function (req, res) {
     var data = {
         success: true,
@@ -233,7 +233,7 @@ router.post('/addClass', function (req, res) {
                         traineeId: reqOpn.userId
                     })
                     models.User.findOne({ where: { id: reqOpn.userId, isNotificationEmail: 1 } }).then(function (dataResults) {
-                        emailReceivers.push(
+                        receivers.push(
                             dataResults.email
                         )
 
@@ -250,7 +250,7 @@ router.post('/addClass', function (req, res) {
 });
 
 router.get('/sendMail', function (req, res) {
-    console.log(emailReceivers);
+    console.log(receivers);
 
     var datasend = {
         success: true,
@@ -258,12 +258,13 @@ router.get('/sendMail', function (req, res) {
     };
 
     res.send(datasend);
-    notification.email(emailReceivers, 'Enroll Class', 'You have enrolled successfully', function (err, info) {
-        if (err) console.log(err)
-        else console.log("SENT");
-    })
+    notification.email(receivers, 'Enroll Class', 'You have enrolled successfully', function (err, info) {
+        // if (err) console.log(err)
+        // else console.log("SENT");
+    });
+    notification.desktop(receivers, 'Enroll Class', 'You have enrolled successfully');
 
-    emailReceivers = [];
+    receivers = [];
 });
 //Update Class
 router.post('/updateClass', function (req, res) {
