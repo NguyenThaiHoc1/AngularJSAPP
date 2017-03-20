@@ -27,14 +27,16 @@ function pushNotification(noti) {
     });
 };
 
-socket.on('NewNotifications', function (notifications) {
-    for (i = 0; i < notifications.length; i++) {
+socket.on('NewNotifications', function (numberNotification) {
+    if(numberNotification > 0)
+    {
         var noti = {
-            title: notifications[i].title,
-            msg: notifications[i].content
+            title: 'Thông Báo',
+            msg: 'Bạn có ' + numberNotification + ' thông báo mới'
         }
-        //pushNotification(noti);
+        pushNotification(noti);
     }
+    
 });
 
 
