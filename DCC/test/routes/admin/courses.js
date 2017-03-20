@@ -286,7 +286,7 @@ describe('<Unit test for admin-course>', function () {
 
             models.RequestOpening.create({
                 userId: 1,
-                courseId: 1,
+                courseId: 5,
                 requestType: "register"
             });
 
