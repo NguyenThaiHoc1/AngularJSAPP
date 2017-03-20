@@ -33,7 +33,7 @@ socket.on('NewNotifications', function (notifications) {
             title: notifications[i].title,
             msg: notifications[i].content
         }
-        pushNotification(noti);
+        //pushNotification(noti);
     }
 });
 

@@ -33,7 +33,7 @@
                                 <a class="btn btn-info" data-toggle="modal" data-target="#addEditTPModal" ng-click="showUpdateTPForm(trainingProgram)"><span class="glyphicon glyphicon-pencil"></span></a>
                                 <a class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" ng-click="showDeleteTPForm(trainingProgram)"><span class="glyphicon glyphicon-trash"></span></a>
                             </div>
-                            <p style="color:darkgrey; white-space: nowrap" ng-bind-html="trainingProgram.description" </p>
+                            <p style="color:darkgrey; white-space: nowrap" ng-bind-html="trainingProgram.description"> </p>
                                 <center ng-hide="trainingProgram.collapsed"><span class="glyphicon glyphicon-menu-down"></span></center>
                                 <center ng-show="trainingProgram.collapsed"><span class="glyphicon glyphicon-menu-up"></span></center>
                                 <!-- TODO Edit add Training Program -->
