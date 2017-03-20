@@ -37,6 +37,9 @@ myApp.factory('courseDetailServices', ['$http', function ($http) {
         },
         deleteClass: function (Class) {
             return $http.post('/admin/courses/deleteClass', Class).success(function (data) { return data; });
+        },
+        sendMail: function () {
+            return $http.get('/admin/courses/sendMail').success(function (data) { return data; });
         }
     }
 
