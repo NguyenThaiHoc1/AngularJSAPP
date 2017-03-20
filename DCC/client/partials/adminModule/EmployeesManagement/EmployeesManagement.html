@@ -42,7 +42,7 @@
                 <!--Employees list-->
                 <div ng-repeat="user in UsersList" style="margin-top: 5px;">
                     <div class="round-wrap" ng-show="userListFilterCondition(user)" style="cursor: pointer;">
-                        <div class="row" id="shady-lady" style="padding: 0.7em;">
+                        <div class="row" id="shady-lady" style="padding: 0.7em; margin: 0;">
                             <div class="col-md-3 col-xs-3" data-toggle="collapse" data-target="#collapse{{user.id}}" ng-click="user.collapsed = !user.collapsed">
                                 <img style="float:left; clear:both; margin-right: 10px; border-radius: 50%; width:45px !important; height:45px !important"
                                     alt="User Avatar" class="img-responsive" ng-src="{{user.avatar}}">

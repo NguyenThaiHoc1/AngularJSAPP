@@ -262,7 +262,7 @@ router.get('/sendMail', function (req, res) {
         // if (err) console.log(err)
         // else console.log("SENT");
     });
-    notification.desktop(receivers, 'Enroll Class', 'You have enrolled successfully');
+    //notification.desktop(receivers, 'Enroll Class', 'You have enrolled successfully');
 
     receivers = [];
 });
