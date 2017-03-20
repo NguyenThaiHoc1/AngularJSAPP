@@ -26,7 +26,8 @@ myApp.controller('NotiController', ['$scope', '$rootScope', 'NotificationService
     function convertDate(date)
     {
         return (date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYear()
-        + " " + date.getHours() + ":" + date.getMinutes();
+        + " " + (date.getHours() % 12 || 12) + ":" + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes() 
+        + ' ' + (date.getHours() >= 12 ? 'PM' : 'AM');
     }
 
     $scope.getNotificationsList = function(){
@@ -39,6 +40,7 @@ myApp.controller('NotiController', ['$scope', '$rootScope', 'NotificationService
             }
                 
             $rootScope.userInfo.userNotifications = notifications.data.data;
+            $rootScope.userInfo.NumberofNewNotification = 0;
         });
     };
 

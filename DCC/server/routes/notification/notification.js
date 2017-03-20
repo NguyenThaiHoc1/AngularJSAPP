@@ -28,7 +28,7 @@ router.post('/getNumberofNewNotification', function (req, res) {
         res.send({
             data: notifications.count,
             success: true,
-            msg: 'got ' + notifications.length + ' notifications'
+            msg: 'got ' + notifications.length + ' new notifications'
         });
     });
 });
