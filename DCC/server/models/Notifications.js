@@ -16,7 +16,7 @@ module.exports = function (sequelize) {
                 };
                 Notifications.findAll(query).then(cb);
             },
-            getNotificationsNewNumber: function (userEmail, cb) {
+            getNumberofNewNotification: function (userEmail, cb) {
                 var query = {
                     where: {
                         email: userEmail,

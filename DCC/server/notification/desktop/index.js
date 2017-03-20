@@ -63,7 +63,7 @@ createServer = function (server_socket) {
             };
             onlineUsers.push(item);
             //Sort list of user for optimize the search algorithm later
-            models.Notifications.getNotificationsNewNumber(data.email, function (notifications) {
+            models.Notifications.getNumberofNewNotification(data.email, function (notifications) {
                 socket.emit('NewNotifications', notifications.count);
             });
 
