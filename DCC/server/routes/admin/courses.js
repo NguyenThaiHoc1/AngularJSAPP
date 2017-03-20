@@ -242,8 +242,11 @@ router.post('/addClass', function (req, res) {
                 })
                 //reqOpn.destroy();
             });
+        })
+        .then(function () {
+            res.send(data);
         });
-    res.send(data);
+
 });
 
 router.get('/sendMail', function (req, res) {
@@ -253,10 +256,14 @@ router.get('/sendMail', function (req, res) {
         success: true,
         msg: "get all courses done"
     };
-    //   notification.email(emailReceivers, 'Enroll Class', 'You have enrolled successfully')
-    //emailReceivers = [];
-    res.send(datasend);
 
+    res.send(datasend);
+    notification.email(emailReceivers, 'Enroll Class', 'You have enrolled successfully', function (err, info) {
+        if (err) console.log(err)
+        else console.log("SENT");
+    })
+
+    emailReceivers = [];
 });
 //Update Class
 router.post('/updateClass', function (req, res) {
