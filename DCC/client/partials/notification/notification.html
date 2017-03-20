@@ -12,10 +12,14 @@
             <div class="widget-content">
                 <!--List of notification here-->
                 <div ng-init="getNotificationsList()" >
+                    <div ng-show="userInfo.userNotifications.length == 0">
+                        <center><h4>No notification</h4></center>
+                    </div>
                     <div ng-repeat="notification in userInfo.userNotifications">
                         <div class="round-wrap" ng-style="{'background-color': notification.status ? '#EAEAEF' : 'white'}">
                             <blockquote class="blockquote" style="margin-bottom: 5px;">
                                 {{notification.title}}
+                                <p class="pull-right">{{notification.time}}</p>
                                 <p style="color:darkgrey; white-space: nowrap" ng-bind-html="notification.content"></p>
                             </blockquote>
                         </div>

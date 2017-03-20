@@ -18,6 +18,11 @@ module.exports =
             type: SequelizeDatatypes.STRING,
             allowNull: true
         },
+        time:
+        {
+            type: SequelizeDatatypes.DATE,
+            allowNull: true
+        },
         status:
         {
             type: SequelizeDatatypes.INTEGER,

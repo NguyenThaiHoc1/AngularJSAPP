@@ -1029,6 +1029,16 @@ html, body {
     font-size: 14px;
 }
 
+/* Notification tab */
+#NotifyCounter {
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+    vertical-align: super;
+    padding-left: 3px;
+    padding-right: 4px;
+}
+
 @media only screen and (max-device-width: 480px) {
     .modal.fade.in {
         top: 30px !important;
