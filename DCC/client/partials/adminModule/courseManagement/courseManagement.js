@@ -362,17 +362,20 @@ myApp.controller('addEditClassCtrl', ['$scope', '$rootScope', 'courseDetailServi
 
             courseDetailServices.addClass($rootScope.adminClassModel).then(function (result) {
                 if (result.data.success) {
-                    courseDetailServices.sendMail();
+
                     //Get Class List
                     courseDetailServices.getClassByCourseID($rootScope.adminClassModel.courseId).then(function (result) {
                         $rootScope.classList = result.data.data;
+                        courseDetailServices.sendMail();
                     });
                     // $location.path("/userProfile");
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
                 } else {
                     $rootScope.ShowPopupMessage('Add Class Info FAIL!', "error");
                 }
+
             });
+
         }
     };
 }]);
