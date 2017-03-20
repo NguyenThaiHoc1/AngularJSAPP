@@ -23,10 +23,10 @@ router.post('/getNotifications', function (req, res) {
 
 });
 
-router.post('/getNotificationsNewNumber', function (req, res) {
-    models.Notifications.getNotificationsNewNumber(req.body.email, notifications => {
+router.post('/getNumberofNewNotification', function (req, res) {
+    models.Notifications.getNumberofNewNotification(req.body.email, notifications => {
         res.send({
-            data: notifications,
+            data: notifications.count,
             success: true,
             msg: 'got ' + notifications.length + ' notifications'
         });
