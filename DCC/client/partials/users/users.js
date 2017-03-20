@@ -47,7 +47,7 @@ myApp.config(function ($stateProvider) {
 });
 
 //Factories
-myApp.factory('userServices', ['$http', function ($http) {
+myApp.factory('userServices', ['$http', '$rootScope', function ($http, $rootScope) {
 
     var factoryDefinitions = {
         login: function (loginReq) {
@@ -68,6 +68,9 @@ myApp.factory('userServices', ['$http', function ($http) {
         },
          changePasswordMD5: function (emailReq) {
             return $http.post('/user/userProfile/changePasswordMD5', emailReq).success(function (data) { return data; });
+        },
+        getNumberofNewNotifications: function() {
+            return $http.post('/notification/notification/getNumberofNewNotification', $rootScope.userInfo).success(function (data) { return data; });
         }
     }
 
@@ -97,6 +100,9 @@ myApp.controller('loginController', ['$scope', 'userServices', '$location', '$ro
                         $location.path("/admin_dashboard");
                     }
                     connectSocket($rootScope.userInfo.email);
+                    userServices.getNumberofNewNotifications().then(function(NewNotification) {
+                        $rootScope.userInfo.NumberofNewNotification = NewNotification.data.data;
+                    });
                 } else {
                     $rootScope.ShowPopupMessage(result.data.msg, "error");
                 }

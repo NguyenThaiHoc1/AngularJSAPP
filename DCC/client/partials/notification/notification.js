@@ -18,9 +18,6 @@ myApp.factory('NotificationService',['$http','$rootScope', function($http, $root
         getNotifications: function() {
             return $http.post('/notification/notification/getNotifications', $rootScope.userInfo).success(function (data) { return data; });            
         },
-        getNumberofNewNotifications: function() {
-            return $http.post('notification/notification/getNumberofNewNotifications', $rootScope.userInfo).success(function (data) { return data; });
-        }
     }
     return factoryDefinition;
 }]);
@@ -33,9 +30,6 @@ myApp.controller('NotiController', ['$scope', '$rootScope', 'NotificationService
     }
 
     $scope.getNotificationsList = function(){
-        NotificationService.getNumberofNewNotifications().then(function(NewNotification) {
-            $rootScope.userInfo.NumberofNewNotification = NewNotification.data.data;
-        });
         NotificationService.getNotifications().then(function(notifications) {
             for(var i = 0; i < notifications.data.data.length; i++)
             {
