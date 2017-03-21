@@ -56,32 +56,64 @@ myApp.controller('registerCtrl', ['$scope', '$rootScope', 'registerServices', fu
             listOfReceiver: [$scope.userEmail]
         }
     }
-    $scope.passwordMeasure = function (newPassword) {
+    // $scope.passwordMeasure = function (newPassword) {
+    //     // validate user password to ensure its security strength
+    //     if (newPassword != null) {
+    //         if (newPassword.match(/\d+/) != null) {
+    //             if ((newPassword.match(/[a-z]/) != null) && (newPassword.match(/[A-Z]/) != null)) {
+    //                 if (newPassword.length > 7) {
+    //                     $scope.passStrengthError = false;
+    //                 }
+    //                 else {
+    //                     $scope.passMeasuremessage = 'Password should be at least 8 in length!';
+    //                     $scope.passStrengthError = true;
+    //                 }
+    //             }
+    //             else {
+    //                 $scope.passMeasuremessage = 'Password should at least include 1 lower case char and 1 upper case char!';
+    //                 $scope.passStrengthError = true;
+    //             }
+    //         }
+    //         else {
+    //             $scope.passMeasuremessage = 'Password should at least include one number!';
+    //             $scope.passStrengthError = true;
+    //         }
+    //     }
+    //     else {
+    //         $scope.passMeasuremessage = 'This field should not be left empty!';
+    //     }
+    // };
+    $scope.passwordMeasure = function (newPassword, userEmail) {
         // validate user password to ensure its security strength
         if (newPassword != null) {
-            if (newPassword.match(/\d+/) != null) {
-                if ((newPassword.match(/[a-z]/) != null) && (newPassword.match(/[A-Z]/) != null)) {
-                    if (newPassword.length > 7) {
+            if (newPassword.length > 7) {
+                var passStrenght = 0;
+                if (newPassword.match(/[a-z]/) != null) { passStrenght = passStrenght + 1; }
+                if (newPassword.match(/[A-Z]/) != null) { passStrenght = passStrenght + 1; }
+                if (newPassword.match(/\d+/) != null) { passStrenght = passStrenght + 1; }
+                if (newPassword.match(/.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/) != null) { passStrenght = passStrenght + 1; }
+                if (passStrenght > 2) {
+                    var accountName = userEmail.split('@')[0];
+                    if (newPassword.match(accountName) == null) {
                         $scope.passStrengthError = false;
                     }
                     else {
-                        $scope.passMeasuremessage = 'Password should be at least 8 in length!';
+                        $scope.passMeasuremessage = 'Password should not contain account name!';
                         $scope.passStrengthError = true;
                     }
                 }
                 else {
-                    $scope.passMeasuremessage = 'Password should at least include 1 lower case char and 1 upper case char!';
+                    $scope.passMeasuremessage = 'Password must contain at least 3 out of 4 character types : uppercase, lowercase, number and symbol';
                     $scope.passStrengthError = true;
                 }
             }
             else {
-                $scope.passMeasuremessage = 'Password should at least include one number!';
+                $scope.passMeasuremessage = 'Password must have at least 8 characters!';
                 $scope.passStrengthError = true;
             }
         }
         else {
-            $scope.passMeasuremessage = 'This field should not be left empty!';
+            $scope.passMeasuremessage = 'Password must not be left null!';
         }
     };
-    ;
 }]);
