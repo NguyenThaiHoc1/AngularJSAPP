@@ -9,9 +9,9 @@ module.exports =
         //database config
         "environment": {
             "dialect": "mysql",
-            "username": settings.databaseUsername,
+            "username": settings.databaseUserName,
             "password": settings.databasePassword,
-            "database": settings.databaseDatabase,
+            "database": settings.databaseName,
             "host": settings.databaseHost,
             "pool": {
                 "max": 5,
