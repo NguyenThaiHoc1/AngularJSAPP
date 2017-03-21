@@ -48,9 +48,9 @@ describe('<Unit test for notification>', function () {
         });
     });
 
-    describe('Test case 2: POST /notification/notification/getNewNotifications', function() {
+    describe('Test case 2: POST /notification/notification/getNumberofNewNotification', function() {
         return it('Should return success==true', function (done) {
-            var req = request(DCC_Server).post('/notification/notification/getNewNotifications');
+            var req = request(DCC_Server).post('/notification/notification/getNumberofNewNotification');
             req.cookies = Cookies;
             req.send({
                 email: 'qwe@gmail.com',

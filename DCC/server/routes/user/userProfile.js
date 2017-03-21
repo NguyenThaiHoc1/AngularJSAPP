@@ -166,6 +166,10 @@ router.post('/addUser', function (req, res) {
                     isExperienced: 0,
                     userType: req.body.userType,
                 }).then(function () {
+                    res.send({
+                        success: true,
+                        msg: "Add User Success",
+                    });
                     var subject = "Account Information";
                     var content = "Your account has been registered as " + req.body.email + " with password: " + req.body.password;
                     notification.email([req.body.email], subject, content, function (error, info) {
@@ -173,10 +177,6 @@ router.post('/addUser', function (req, res) {
                         //     console.log(error);
                         // else
                         //     console.log("Sent");
-                    });
-                    res.send({
-                        success: true,
-                        msg: "Add User Success",
                     });
                 });
             }

@@ -25,20 +25,28 @@ myApp.factory('NotificationService',['$http','$rootScope', function($http, $root
 myApp.controller('NotiController', ['$scope', '$rootScope', 'NotificationService', function($scope, $rootScope, NotificationService) {
     function convertDate(date)
     {
+        var hour = date.getHours();
+        var minute = date.getMinutes();
         return (date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYear()
-        + " " + (date.getHours() % 12 || 12) + ":" + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes() 
-        + ' ' + (date.getHours() >= 12 ? 'PM' : 'AM');
+        + " " + (hour % 12 || 12) + ":" + (minute < 10 ? '0' : '') + minute 
+        + ' ' + (hour >= 12 ? 'PM' : 'AM');
     }
 
     $scope.getNotificationsList = function(){
         NotificationService.getNotifications().then(function(notifications) {
+            notifications.data.data.sort(function(prevNoti, nextNoti) {
+                var prevNoti_date = Date.parse(prevNoti.time);
+                var nextNoti_date = Date.parse(nextNoti.time);
+                return prevNoti_date < nextNoti_date ? 1 :
+                   prevNoti_date > nextNoti_date ? -1 : 0;
+            });
+
             for(var i = 0; i < notifications.data.data.length; i++)
             {
                 var date  = new Date(notifications.data.data[i].time);
                 notifications.data.data[i].time = convertDate(date);
-
             }
-                
+
             $rootScope.userInfo.userNotifications = notifications.data.data;
             $rootScope.userInfo.NumberofNewNotification = 0;
         });
