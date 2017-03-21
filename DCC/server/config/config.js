@@ -9,16 +9,16 @@ module.exports =
         //database config
         "environment": {
             "dialect": "mysql",
-            "username": settings.environmentUserName,
-            "password": settings.environmentPassword,
-            "database": settings.environmentDatabase,
-            "host": settings.environmentHost,
+            "username": settings.databaseUsername,
+            "password": settings.databasePassword,
+            "database": settings.databaseDatabase,
+            "host": settings.databaseHost,
             "pool": {
                 "max": 5,
                 "min": 0,
                 "idle": 10000
             },
-            port: settings.environmentPort,
+            port: settings.databasePort,
             "logging": false
         },
         "test": {

@@ -1,7 +1,7 @@
 var request = require('supertest');
 var assert = require('chai').assert;
 var expect = require('chai').expect;
-process.env.NODE_ENV = 'inMemoryDB';
+process.env.NODE_ENV = require('../../../settings.js').testDatabase;
 var DCC_Server = require('../../../app.js');
 var models = require('../../../server/models');
 
@@ -32,7 +32,7 @@ describe('<Unit test for notification>', function () {
         done();
     });
 
-    describe('Test case 1: POST /notification/notification/getNotifications', function() {
+    describe('Test case 1: POST /notification/notification/getNotifications', function () {
         return it('Should return success==true', function (done) {
             var req = request(DCC_Server).post('/notification/notification/getNotifications');
             req.cookies = Cookies;
@@ -48,7 +48,7 @@ describe('<Unit test for notification>', function () {
         });
     });
 
-    describe('Test case 2: POST /notification/notification/getNumberofNewNotification', function() {
+    describe('Test case 2: POST /notification/notification/getNumberofNewNotification', function () {
         return it('Should return success==true', function (done) {
             var req = request(DCC_Server).post('/notification/notification/getNumberofNewNotification');
             req.cookies = Cookies;
