@@ -1039,6 +1039,15 @@ html, body {
     padding-right: 4px;
 }
 
+#NotificationHeader {
+    margin: 2px;
+     color: black;
+    width: 40vw;
+}
+.NotificationDivider {
+    margin: 0;
+}
+
 @media only screen and (max-device-width: 480px) {
     .modal.fade.in {
         top: 30px !important;

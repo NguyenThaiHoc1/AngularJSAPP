@@ -9,18 +9,6 @@ router.post('/getNotifications', function (req, res) {
             msg: 'got ' + notifications.length + ' notifications'
         });
     });
-    models.Notifications.update(
-        {
-            status: 0
-        },
-        {
-            where: {
-                email: req.body.email,
-                status: 1
-            }
-        }
-    );
-
 });
 
 router.post('/getNumberofNewNotification', function (req, res) {
