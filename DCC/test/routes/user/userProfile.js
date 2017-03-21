@@ -136,8 +136,9 @@ describe('<Unit test for user profile>', function () {
             var req = request(DCC_Server).post('/user/userProfile/addUser');
             req.send({
                 email: 'xyz@gmail.com',
-                password: '123',
-                userType: 'CBA'
+                username: 'newuser',
+                password: '12345',
+                userType: 'Intern'
             });
             req.cookies = Cookies;
             req.end(function (err, res) {
