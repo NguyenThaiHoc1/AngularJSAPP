@@ -31,10 +31,13 @@ myApp.controller('registerCtrl', ['$scope', '$rootScope', 'registerServices', fu
     $scope.passMeasuremessage = "";
 
     $scope.applyValue = function () {
+        var randomstring = Math.random().toString(36).slice(-8);
         $scope.NewUser = {
             email: $scope.userEmail,
-            password: $scope.userPassword,
-            passworddAgain: $scope.passwordAgain,
+            username: $scope.userName,
+            // password: $scope.userPassword,
+            // passworddAgain: $scope.passwordAgain,
+            password: randomstring,
             team: $scope.team,
             userType: 'Intern'
         };
@@ -42,6 +45,7 @@ myApp.controller('registerCtrl', ['$scope', '$rootScope', 'registerServices', fu
             if (result.data.success) {
                 $rootScope.ShowPopupMessage(result.data.msg, "success");
                 $scope.userEmail = '';
+                username: $scope.userName = '';
                 $scope.userPassword = '';
                 $scope.passwordAgain = '';
                 $scope.team = '';
