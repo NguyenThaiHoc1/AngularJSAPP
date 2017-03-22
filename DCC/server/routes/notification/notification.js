@@ -16,7 +16,47 @@ router.post('/getNumberofNewNotification', function (req, res) {
         res.send({
             data: notifications.count,
             success: true,
-            msg: 'got ' + notifications.length + ' new notifications'
+            msg: 'got ' + notifications.count + ' new notifications'
+        });
+    });
+});
+
+router.post('/updateNotificationStatus', function(req, res) {
+    models.Notifications.update(
+        {
+            status: 0
+        },
+        {
+            where: {
+                email: req.body.email,
+                status: 1,
+                id: req.body.id
+            }
+        }
+    ).then(function() {
+            res.send({
+                msg: "Status updated"
+        });
+    });
+});
+
+router.post('/getAllNewNotificationAndUpdateStatus', function(req, res) {
+    models.Notifications.getAllNewNotifications(req.body.email, notifications => {
+        models.Notifications.update(
+            {
+                status: 0
+            },
+            {
+                where: {
+                    email: req.body.email,
+                    status: 1,
+                }
+            }
+        ).then(function() {
+            res.send({
+                data: notifications,
+                msg: "All status updated"
+            });
         });
     });
 });

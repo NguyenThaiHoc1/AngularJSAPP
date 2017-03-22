@@ -25,6 +25,24 @@ module.exports = function (sequelize) {
                 };
                 Notifications.findAndCountAll(query).then(cb);
             },
+            getAllNewNotifications: function(userEmail, cb) {
+                var query = {
+                    where: {
+                        email: userEmail,
+                        status: 1
+                    }
+                };
+                Notifications.findAll(query).then(cb);
+            },
+            getNotificationbyIdnEmail: function(notificatinIdnEmail, cb) {
+                var query = {
+                    where: {
+                        id: notificatinIdnEmail.id,
+                        email: notificatinIdnEmail.email
+                    }
+                };
+                Notifications.findOne(query).then(cb);
+            },
         },
         tableName: 'notification',
         timestamps: false
