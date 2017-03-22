@@ -92,12 +92,17 @@ myApp.controller('loginController', ['$scope', 'userServices', '$location', '$ro
                     $rootScope.userInfo = JSON.parse(window.sessionStorage["userInfo"]);
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
                     // redirect to dashboard after login
-                    if ($rootScope.userInfo.role == 3) {
-                        $location.path("/trainee_dashboard");
-                    } else if ($rootScope.userInfo.role == 2) {
-                        $location.path("/trainer_dashboard");
-                    } else if ($rootScope.userInfo.role == 1) {
-                        $location.path("/admin_dashboard");
+                    if ($rootScope.userInfo.status == 'newuser') {
+                        ;
+                    }
+                    else {
+                        if ($rootScope.userInfo.role == 3) {
+                            $location.path("/trainee_dashboard");
+                        } else if ($rootScope.userInfo.role == 2) {
+                            $location.path("/trainer_dashboard");
+                        } else if ($rootScope.userInfo.role == 1) {
+                            $location.path("/admin_dashboard");
+                        }
                     }
                     connectSocket($rootScope.userInfo.email);
                     userServices.getNumberofNewNotifications().then(function (NewNotification) {
