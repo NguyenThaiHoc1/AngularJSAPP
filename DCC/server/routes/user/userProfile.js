@@ -89,6 +89,7 @@ router.post('/changePasswordMD5', function (req, res) {
     models.User.update(
         {
             password: md5(req.body.password),
+            status: 'activated'
         },
         {
             where: { email: req.body.email }

@@ -93,7 +93,12 @@ myApp.controller('loginController', ['$scope', 'userServices', '$location', '$ro
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
                     // redirect to dashboard after login
                     if ($rootScope.userInfo.status == 'newuser') {
-                        $location.path("/first_Password");
+                        $('#firstPassword').modal({
+                            backdrop: 'static',
+                            keyboard: false
+                        })
+                        $('#firstPassword').modal('show');
+                        $location.path("/userProfile");
                     }
                     else {
                         if ($rootScope.userInfo.role == 3) {
@@ -127,7 +132,6 @@ myApp.controller('changePasswordController', ['$scope', 'userServices', '$locati
             $rootScope.userInfo = userData.data;
             $scope.userDetail = (JSON.parse(JSON.stringify($rootScope.userInfo)));
         })
-
         $scope.userDetail.password = $scope.changePassword.oldPassword;
         userServices.checkPassword($scope.userDetail).then(function (result) {
             if (result.data.success) {
@@ -151,6 +155,18 @@ myApp.controller('changePasswordController', ['$scope', 'userServices', '$locati
                 $rootScope.ShowPopupMessage("Current password is not correct!", "error");
             }
         })
+    };
+    $scope.firstPassword = {};
+    $scope.firstConfirmChange = function () {
+        $rootScope.userInfo.password = $scope.firstPassword.newPassword;
+        console.log($rootScope.userInfo);
+        userServices.changePasswordMD5($rootScope.userInfo).then(function (result) {
+            if (result.data.success) {
+                $rootScope.ShowPopupMessage(result.data.msg, "success");
+            } else {
+                $rootScope.ShowPopupMessage(result.data.msg, "error");
+            }
+        });
     };
     //Password measurement
     $scope.passwordMeasure = function (newPassword, oldPassword) {
@@ -208,6 +224,7 @@ myApp.controller('userProfileCtrl', ['$scope', 'userServices', '$location', '$ro
         userData.data.role = $rootScope.userInfo.role;
         $rootScope.userInfo = userData.data;
         $scope.userDetail = (JSON.parse(JSON.stringify($rootScope.userInfo)));
+
     })
 
     //update User Profile

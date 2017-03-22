@@ -18,6 +18,9 @@ myApp.factory('NotificationService',['$http','$rootScope', function($http, $root
         getNotifications: function() {
             return $http.post('/notification/notification/getNotifications', $rootScope.userInfo).success(function (data) { return data; });            
         },
+        UpdateNotificationStatus: function(notification) {
+            return $http.post('/notification/notification/updateNotificationStatus', notification).success(function (data) {return data; });
+        }
     }
     return factoryDefinition;
 }]);
@@ -62,4 +65,12 @@ myApp.controller('NotiController', ['$scope', '$rootScope', 'NotificationService
             }
         });
     };
+
+    $scope.UpdateNotificationStatus = function(notification) {
+        NotificationService.UpdateNotificationStatus(notification).then(function (result) {
+            if (result.data.status != 0) {
+                $rootScope.ShowPopupMessage("Something went wrong", "error");
+            }
+        });
+    }
 }]);
