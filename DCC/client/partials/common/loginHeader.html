@@ -1,3 +1,5 @@
+<div ng-include="'partials/notification/notification.html'"></div>
+
 <nav class="navbar navbar-dcc navbar-fixed-top topnav" role="navigation">
     <div class="container container-fluid">
         <div class="navbar-header">
@@ -68,6 +70,33 @@
                             <a href="#logout">
                                 <font size="3"><span class="glyphicon glyphicon-log-out">&nbsp</span>Logout</font>
                             </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="brand dropdown" ng-show="userInfo" id="userMenu" ng-controller="NotiController">
+                    <a class="dropdown-toggle" data-toggle="dropdown" ng-click="getNotificationsList()">
+                        <span class="glyphicon glyphicon-bell"></span>
+                        <sup id="NotifyCounter" ng-show="userInfo.NumberofNewNotification > 0">{{userInfo.NumberofNewNotification}}</sup>
+                    </a>
+                    <ul class="dropdown-menu" id="NotificationHeader">
+                        <li style="padding-left: 20px;">
+                            Notifications
+                            <a data-toggle="modal" data-target="#NotiSetting" class="pull-right">
+                                <span class="glyphicon glyphicon-cog"></span>
+                            </a>
+                        </li>
+                        <li class="divider" style="margin-bottom: 0;"></li>
+
+                        <li ng-show="userInfo.userNotifications.length == 0">
+                            <center>No notification</center>
+                        </li>
+                        <li ng-repeat="notification in userInfo.userNotifications" ng-style="{'background-color': notification.status ? '#EAEAEF' : 'white'}">
+                            <div style="padding-left: 20px; padding-right: 20px;">
+                                <font>{{notification.title}}</font>
+                                <p class="pull-right">{{notification.time}}</p>
+                                <p style="color:darkgrey; white-space: nowrap" ng-bind-html="notification.content"></p>
+                            </div>
+                        <div class="divider" style="margin: 0;"></div>
                         </li>
                     </ul>
                 </li>

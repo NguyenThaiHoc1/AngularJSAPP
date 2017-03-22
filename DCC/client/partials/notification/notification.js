@@ -34,12 +34,12 @@ myApp.controller('NotiController', ['$scope', '$rootScope', 'NotificationService
 
     $scope.getNotificationsList = function(){
         NotificationService.getNotifications().then(function(notifications) {
-            notifications.data.data.sort(function(prevNoti, nextNoti) {
-                var prevNoti_date = Date.parse(prevNoti.time);
-                var nextNoti_date = Date.parse(nextNoti.time);
-                return prevNoti_date < nextNoti_date ? 1 :
-                   prevNoti_date > nextNoti_date ? -1 : 0;
-            });
+            for (var i = 0, j = notifications.data.data.length - 1; i < j; i++, j--)
+            {
+                var temp = notifications.data.data[i];
+                notifications.data.data[i] = notifications.data.data[j];
+                notifications.data.data[j] = temp;
+            }
 
             for(var i = 0; i < notifications.data.data.length; i++)
             {

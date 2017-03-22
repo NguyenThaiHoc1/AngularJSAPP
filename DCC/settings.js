@@ -1,40 +1,30 @@
 var settings = {
-    
+
     /**       
     / ---------- DATABASE CONFIG ------------
     */
-    //choose Host config
-    environmentHost : "192.168.122.20",
-    
-     //choose Port config
-    environmentPort : 3306,
-
-    //choose Username Config
-    environmentUserName: "root",
-
-    //Choose Password Config dekvn@123321 or root
-    environmentPassword: "dekvn@123321",
-
-    //Choose Database Config
-    environmentDatabase: "DCC2",
+    databaseHost: "192.168.122.20", //127.0.0.1
+    databasePort: 3306, //3306
+    databaseUserName: "root", // root
+    databasePassword: "dekvn@123321", // dekvn@123321 or root
+    databaseName: "DCC2", // dcc_development, DCC2, DCC_test
 
     /**       
     *---------- LDAP SERVER CONFIG ------------
     */
-    //LDAP URL config, port 389
-    LDAPurl : 'ldap://192.168.122.20:389',
-
+    LDAPurl: 'ldap://192.168.122.20:389', //192.168.122.23:389
 
     /**       
     *---------- LOG CONFIG ------------
     */
     //choose date format
-    dateFormat : 'YYYY.MM.DD',
+    dateFormat: 'YYYY.MM.DD',
+    logDirectory: './client/log', //log file folder
+    fileNamePattern: 'roll-<DATE>.log',
 
-    //choose log directory folder
-    logDirectory: './client/log',
-
-    // choose file name pattern
-    fileNamePattern: 'roll-<DATE>.log'
+    /**       
+    *---------- UNIT TESTING CONFIG ------------
+    */
+    testDatabase: 'inMemoryDB' // In-memory Database
 };
 module.exports = settings;
