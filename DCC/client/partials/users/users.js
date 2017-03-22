@@ -93,7 +93,7 @@ myApp.controller('loginController', ['$scope', 'userServices', '$location', '$ro
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
                     // redirect to dashboard after login
                     if ($rootScope.userInfo.status == 'newuser') {
-                        ;
+                        $location.path("/first_Password");
                     }
                     else {
                         if ($rootScope.userInfo.role == 3) {
