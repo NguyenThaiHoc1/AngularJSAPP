@@ -1040,7 +1040,7 @@ html, body {
 }
 
 #NotificationCard {
-    margin: 2px;
+    /*margin: 2px;*/
      color: black;
     width: 40vw;
 }

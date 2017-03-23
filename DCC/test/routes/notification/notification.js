@@ -78,7 +78,7 @@ describe('<Unit test for notification>', function () {
             });
 
             req.end(function (err, res) {
-                assert.equal(res.body.success, true);
+                assert.equal(res.body.data, 2); //2 new notifications created for this test
                 if (err) return done(err);
                 done();
             });
@@ -86,7 +86,7 @@ describe('<Unit test for notification>', function () {
     });
 
     describe('Test case 3 : POST /notification/notification/updateNotificationStatus', function () {
-        return it('Should return status==0', function (done) {
+        it('Should return status==0', function (done) {
             var req = request(DCC_Server).post('/notification/notification/updateNotificationStatus');
             req.send({
                 email: 'qwe@gmail.com',
@@ -94,16 +94,20 @@ describe('<Unit test for notification>', function () {
             });
             req.cookies = Cookies;
             req.end(function (err, res) {
-                models.Notifications.getNotificationbyIdnEmail({email: 'qwe@gmail.com', id: 10}, notification => {
-                    assert.equal(notification.status, 0);
-                });
                 if (err) return done(err);
-                done();
+                models.Notifications.getNotificationbyIdnEmail({email: 'qwe@gmail.com', id: 10}, notification => {
+                    try {
+                        assert.equal(notification.status, 0);
+                    } catch(err) {
+                        return done(err);
+                    }
+                    done();
+                });
             });
         });
     });
 
-    describe('Test case 4 : POST /notification/notification/getAllNewNotificationsAndUpdateStatus', function () {
+    describe('Test case 4 : POST /notification/notification/getAllNewNotificationAndUpdateStatus', function () {
         return it('Should return notifications==null', function (done) {
             var req = request(DCC_Server).post('/notification/notification/getAllNewNotificationsAndUpdateStatus');
             req.send({
@@ -111,11 +115,15 @@ describe('<Unit test for notification>', function () {
             });
             req.cookies = Cookies;
             req.end(function (err, res) {
-                models.Notifications.getAllNewNotifications({email:'qwe@gmail.com'}, notifications => {
-                    assert.equal(notifications, null);
-                })
                 if (err) return done(err);
-                done();
+                models.Notifications.getAllNewNotifications('qwe@gmail.com', notifications => {
+                        try {
+                            assert.equal(notifications.length, 0);  //no new status available
+                        } catch(err) {
+                            return done(err);
+                        }
+                    done();
+                });
             });
         });
     });

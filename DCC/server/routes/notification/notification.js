@@ -34,13 +34,13 @@ router.post('/updateNotificationStatus', function(req, res) {
             }
         }
     ).then(function() {
-            res.send({
-                msg: "Status updated"
+        res.send({
+            msg: "Status updated"
         });
     });
 });
 
-router.post('/getAllNewNotificationAndUpdateStatus', function(req, res) {
+router.post('/getAllNewNotificationsAndUpdateStatus', function(req, res) {
     models.Notifications.getAllNewNotifications(req.body.email, notifications => {
         models.Notifications.update(
             {

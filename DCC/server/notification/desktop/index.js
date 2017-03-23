@@ -21,16 +21,8 @@ var desktop = {
         var notification = { title: subject, msg: content };
         for (i = 0; i < receivers.length; i++) {
             var index = binarySearch(receivers[i], 0, onlineUsers.length - 1)
-            if (index !== -1) {
+            if (index !== -1)
                 onlineUsers[index].socket.emit('pushNotification', notification);
-                models.Notifications.create({
-                    email: receivers[i],
-                    title: subject,
-                    content: content,
-                    time: new Date(),
-                    status: 0
-                });
-            } else {
                 models.Notifications.create({
                     email: receivers[i],
                     title: subject,
@@ -38,7 +30,7 @@ var desktop = {
                     time: new Date(),
                     status: 1
                 });
-            }
+            
         }
     }
 }
