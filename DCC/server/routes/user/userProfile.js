@@ -89,7 +89,8 @@ router.post('/changePasswordMD5', function (req, res) {
     models.User.update(
         {
             password: md5(req.body.password),
-            status: 'activated'
+            status: 'activated',
+            isTrainee: true
         },
         {
             where: { email: req.body.email }
@@ -159,7 +160,7 @@ router.post('/addUser', function (req, res) {
                     avatar: '/img/profiles/defaultProfile.jpg',
                     isAdmin: false,
                     isTrainer: false,
-                    isTrainee: true, //default user is a trainee
+                    isTrainee: false,
                     belong2Team: 'Innova',
                     isExperienced: 0,
                     userType: req.body.userType,
