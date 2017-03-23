@@ -25,16 +25,15 @@ models.User.sync({
 router.post('/getUserInfo', function (req, res) {
     log.info('GET /users/getUserInfo');
     models.User.getUserByEmail(req.body.email, function (user) {
-        // if (!fs.existsSync("./client" + user.avatar)) {
-        //     user.avatar = "/img/profiles/defaultProfile.jpg"
-        // }
         var currentRole;
         if (user.isAdmin) {
             currentRole = 1;
         } else if (user.isTrainer) {
             currentRole = 2;
-        } else {
+        } else if (user.isTrainee) {
             currentRole = 3;
+        } else {
+            currentRole = 0;
         }
         res.send({
             id: user.id,
@@ -67,11 +66,9 @@ router.post('/updateUserProfile', function (req, res) {
     models.User.update(
         {
             username: req.body.username,
-            // userType: req.body.userType,
             avatar: req.body.avatar,
             dob: req.body.dob,
             phone: req.body.phone,
-            //role: req.body.role,
             status: req.body.status,
             isNotificationDesktop: req.body.isNotificationDesktop,
             isNotificationEmail: req.body.isNotificationEmail
@@ -108,7 +105,6 @@ router.post('/changePasswordMD5', function (req, res) {
 
 router.post('/photo', function (req, res) {
     log.info('/routes/users: Upload avatar');
-    // upload avatar
     upload(req, res, function () {
 
         models.User.getUserByEmail(req.user.email, function (user) {
@@ -144,7 +140,6 @@ router.post('/addUser', function (req, res) {
     models.User.sync({
         force: false
     }).then(function () {
-        // this function check if the courseName is already existed
         models.User.getUserByEmail(req.body.email, function (result) {
             if (result) {
                 res.send({
@@ -164,21 +159,17 @@ router.post('/addUser', function (req, res) {
                     isAdmin: false,
                     isTrainer: false,
                     isTrainee: false,
-                    belong2Team: 'Innova',
+                    belong2Team: req.body.team,
                     isExperienced: 0,
                     userType: req.body.userType,
                 }).then(function () {
                     res.send({
                         success: true,
-                        msg: "Add User Success",
+                        msg: "Register New User Successfully",
                     });
-                    var subject = "Account Information";
-                    var content = "Your account has been registered as " + req.body.email + "with the auto-generated password of: " + req.body.password;
+                    var subject = "Register - Account Information";
+                    var content = "Your account has been registered as " + req.body.username + " using the email: " + req.body.email + "with the auto-generated password of: " + req.body.password + " . You must change your password the first time you login otherwise you won't be able to access other features.";
                     notification([req.body.email], subject, content, function (error, info) {
-                        // if (error)
-                        //     console.log(error);
-                        // else
-                        //     console.log("Sent");
                     });
                 });
             }

@@ -82,7 +82,25 @@ describe('<Unit test for Login>', function () {
                 });
         });
     });
-
+    describe('Test case 1.4 : Login success, role = newuser', function () {
+        return it('Should return success==true', function (done) {
+            request(DCC_Server)
+                .post('/login')
+                .send({
+                    username: 'daviondawn3108@gmail.com',
+                    password: 'Nam123456'
+                })
+                .end(function (err, res) {
+                    if (res.body.success === true)
+                        assert.equal(res.body.role, 0);
+                    else
+                        assert.equal(res.body.success, true);
+                    // globalCookies = res.headers['set-cookie'].pop().split(';')[0];
+                    if (err) return done(err);
+                    done();
+                });
+        });
+    });
     describe('Test case 2 : Login fail, username true, password false', function () {
         return it('Should return success==false', function (done) {
             request(DCC_Server)

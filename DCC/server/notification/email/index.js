@@ -1,4 +1,4 @@
-var email_config = require('./email_config.json');
+var email_config = require('../../../settings').email;
 var request = require('request');
 var email = {
 
@@ -17,7 +17,7 @@ var email = {
             }
         });
         var mailOptions = {
-            from: '"DEK Notification System" <dektech@dekemail.com>',
+            from: '"DEK Notification System" <dektech.dcc@gmail.com>',
             to: receivers.toString(),
             subject: subject,
             text: content,
