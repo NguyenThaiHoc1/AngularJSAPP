@@ -17,7 +17,7 @@ var email = {
             }
         });
         var mailOptions = {
-            from: '"DEK Notification System" <dektech@dekemail.com>',
+            from: '"DEK Notification System" <dektech.dcc@gmail.com>',
             to: receivers.toString(),
             subject: subject,
             text: content,

@@ -173,7 +173,7 @@ router.post('/addUser', function (req, res) {
                         msg: "Add User Success",
                     });
                     var subject = "Account Information";
-                    var content = "Your account has been registered as " + req.body.email + "with the auto-generated password of: " + req.body.password;
+                    var content = "Your account has been registered as " + req.body.username + " using the email: " + req.body.email + "with the auto-generated password of: " + req.body.password;
                     notification([req.body.email], subject, content, function (error, info) {
                         // if (error)
                         //     console.log(error);

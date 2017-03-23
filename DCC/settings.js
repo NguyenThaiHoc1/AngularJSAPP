@@ -32,11 +32,11 @@ var settings = {
     */
     // copy from consonle.developer.google
     email: {
-        "USER_EMAIL": "namfsone@gmail.com",
-        "USER_CLIENT_ID": "498994352858-ugq1ncq0j0tufk1jl3q4mahiirf576cf.apps.googleusercontent.com",
-        "USER_CLIENT_SECRET": "6OhEtkFhtWJfvJr-d2seh3sa",
-        "USER_ACCESS_TOKEN": "ya29.GlsMBKdkiBe8Ml-I8dozvd7dW-uP0UFeLCwWkrz1UACfGyiNq6LEU1s8KDbE09x_LoLjzdmnkfG1odbKX12qcoD2dTFYgqBw29G-bwh2gso-dsTn6x2Gks9mDH-I",
-        "USER_REFRESH_TOKEN": "1/6UDX-C78TKdlwXALyld507KUbEXL7P5fERQRUI7R2Fg5n3H_nrJ4PVReZ6_fEpfv"
+        "USER_EMAIL": "dektech.dcc@gmail.com",
+        "USER_CLIENT_ID": "985840088773-5s0rmeo36dd1v2h15h658c8flikvu63j.apps.googleusercontent.com",
+        "USER_CLIENT_SECRET": "Zk2q9G6IDYLATjkLCB0-R9P3",
+        "USER_ACCESS_TOKEN": "ya29.GlsXBKtapW12VeEXUil-kRM3vpdq6dkmY7-J00vnYbDSoNZwO86BmpOZRJm-aqX1hJvhPEvl1oNY7uoTbvHxVDkkGSUYChdcJy9pJjH6EqVc1A0YXkqymV7E972_",
+        "USER_REFRESH_TOKEN": "1/boN86F0olFg8TbihDAJRPkeJWKuAWp7Ik3HSV0s3nXE"
     },
 };
 module.exports = settings;
