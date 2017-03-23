@@ -69,8 +69,10 @@ router.post('/login', function (req, res, next) {
                                 currentRole = 1;
                             } else if (_user.isTrainer) {
                                 currentRole = 2;
+                            } else if (_user.isTrainee) {
+                                currentRole = 3;
                             } else {
-                                currentRole = 3
+                                currentRole = 0;
                             }
 
                             res.send({
