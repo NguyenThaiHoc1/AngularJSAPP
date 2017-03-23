@@ -25,6 +25,9 @@ models.User.sync({
 router.post('/getUserInfo', function (req, res) {
     log.info('GET /users/getUserInfo');
     models.User.getUserByEmail(req.body.email, function (user) {
+        // if (!fs.existsSync("./client" + user.avatar)) {
+        //     user.avatar = "/img/profiles/defaultProfile.jpg"
+        // }
         var currentRole;
         if (user.isAdmin) {
             currentRole = 1;
