@@ -1,4 +1,4 @@
-var email_config = require('./email_config.json');
+var email_config = require('../../../settings').email;
 var request = require('request');
 var email = {
 
