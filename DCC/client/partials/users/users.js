@@ -120,15 +120,15 @@ myApp.controller('loginController', ['$scope', 'userServices', '$location', '$ro
     };
 }]);
 myApp.controller('changePasswordController', ['$scope', 'userServices', '$location', '$rootScope', function ($scope, userServices, $location, $rootScope) {
-    $scope.changePassword = {};
+    // $scope.changePassword = {};
 
     $scope.passMeasuremessage = "";
-    $scope.userDetail = {};
+    // $scope.userDetail = {};
     $scope.confirmChange = function () {
         // get user info to check password, also ensure untouched field not null when update profile
         userServices.getUserProfile($rootScope.userInfo).then(function (userData) {
             userData.data.role = $rootScope.userInfo.role;
-            $rootScope.userInfo = userData.data;
+            // $rootScope.userInfo = userData.data;
             $scope.userDetail = (JSON.parse(JSON.stringify($rootScope.userInfo)));
         })
         $scope.userDetail.password = $scope.changePassword.oldPassword;
