@@ -98,7 +98,6 @@ myApp.controller('loginController', ['$scope', 'userServices', '$location', '$ro
                             keyboard: false
                         })
                         $('#firstPassword').modal('show');
-                        $location.path("/userProfile");
                     }
                     else {
                         if ($rootScope.userInfo.role == 3) {
