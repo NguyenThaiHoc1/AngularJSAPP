@@ -92,6 +92,8 @@ router.post('/changePasswordMD5', function (req, res) {
     models.User.update(
         {
             password: md5(req.body.password),
+            status: 'activated',
+            isTrainee: true
         },
         {
             where: { email: req.body.email }
@@ -152,7 +154,7 @@ router.post('/addUser', function (req, res) {
             } else {
                 models.User.create({
                     username: req.body.username,
-                    status: 'activated',
+                    status: 'newuser',
                     dob: '01/01/2001',
                     phone: '0000 000 000',
                     location: 'DEK Vietnam',
@@ -161,7 +163,7 @@ router.post('/addUser', function (req, res) {
                     avatar: '/img/profiles/defaultProfile.jpg',
                     isAdmin: false,
                     isTrainer: false,
-                    isTrainee: true, //default user is a trainee
+                    isTrainee: false,
                     belong2Team: 'Innova',
                     isExperienced: 0,
                     userType: req.body.userType,

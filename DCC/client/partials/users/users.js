@@ -92,12 +92,21 @@ myApp.controller('loginController', ['$scope', 'userServices', '$location', '$ro
                     $rootScope.userInfo = JSON.parse(window.sessionStorage["userInfo"]);
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
                     // redirect to dashboard after login
-                    if ($rootScope.userInfo.role == 3) {
-                        $location.path("/trainee_dashboard");
-                    } else if ($rootScope.userInfo.role == 2) {
-                        $location.path("/trainer_dashboard");
-                    } else if ($rootScope.userInfo.role == 1) {
-                        $location.path("/admin_dashboard");
+                    if ($rootScope.userInfo.status == 'newuser') {
+                        $('#firstPassword').modal({
+                            backdrop: 'static',
+                            keyboard: false
+                        })
+                        $('#firstPassword').modal('show');
+                    }
+                    else {
+                        if ($rootScope.userInfo.role == 3) {
+                            $location.path("/trainee_dashboard");
+                        } else if ($rootScope.userInfo.role == 2) {
+                            $location.path("/trainer_dashboard");
+                        } else if ($rootScope.userInfo.role == 1) {
+                            $location.path("/admin_dashboard");
+                        }
                     }
                     connectSocket($rootScope.userInfo.email);
                     userServices.getNumberofNewNotifications().then(function (NewNotification) {
@@ -122,7 +131,6 @@ myApp.controller('changePasswordController', ['$scope', 'userServices', '$locati
             $rootScope.userInfo = userData.data;
             $scope.userDetail = (JSON.parse(JSON.stringify($rootScope.userInfo)));
         })
-
         $scope.userDetail.password = $scope.changePassword.oldPassword;
         userServices.checkPassword($scope.userDetail).then(function (result) {
             if (result.data.success) {
@@ -146,6 +154,18 @@ myApp.controller('changePasswordController', ['$scope', 'userServices', '$locati
                 $rootScope.ShowPopupMessage("Current password is not correct!", "error");
             }
         })
+    };
+    $scope.firstPassword = {};
+    $scope.firstConfirmChange = function () {
+        $rootScope.userInfo.password = $scope.firstPassword.newPassword;
+        console.log($rootScope.userInfo);
+        userServices.changePasswordMD5($rootScope.userInfo).then(function (result) {
+            if (result.data.success) {
+                $rootScope.ShowPopupMessage(result.data.msg, "success");
+            } else {
+                $rootScope.ShowPopupMessage(result.data.msg, "error");
+            }
+        });
     };
     //Password measurement
     $scope.passwordMeasure = function (newPassword, oldPassword) {
@@ -203,6 +223,7 @@ myApp.controller('userProfileCtrl', ['$scope', 'userServices', '$location', '$ro
         userData.data.role = $rootScope.userInfo.role;
         $rootScope.userInfo = userData.data;
         $scope.userDetail = (JSON.parse(JSON.stringify($rootScope.userInfo)));
+
     })
 
     //update User Profile

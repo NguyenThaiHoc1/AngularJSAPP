@@ -5,7 +5,7 @@ angular.module('register', []);
 myApp.config(function ($stateProvider) {
     $stateProvider.state('register', {
         url: '/register',
-        templateUrl: 'partials/register/register.html'
+        templateUrl: 'partials/register/registerModal.html'
     });
 
 });

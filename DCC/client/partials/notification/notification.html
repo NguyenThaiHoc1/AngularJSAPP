@@ -13,6 +13,14 @@
                         <input type="checkbox" name="NotiSettingOption" ng-model="userInfo.isNotificationDesktop"><label class="control-label">&nbsp Desktop</label></br>
                         <div class="col-xs-1"></div>
                         <input type="checkbox" name="NotiSettingOption" ng-model="userInfo.isNotificationEmail"><label class="control-label">&nbsp Email</label></br>
+                        <div ng-show="userInfo.isNotificationEmail">
+                            <div class="col-xs-2" ng-show="userInfo.isNotificationEmail"></div>
+                            <input type="radio" name="MailPeriod" value="daily" ng-model="EmailPeriod">&nbsp Daily<br>
+                            <div class="col-xs-2" ng-show="userInfo.isNotificationEmail"></div>
+                            <input type="radio" name="MailPeriod" value="weekly" ng-model="EmailPeriod">&nbsp Weekly<br>
+                            <div class="col-xs-2" ng-show="userInfo.isNotificationEmail"></div>
+                            <input type="radio" name="MailPeriod" value="monthly" ng-model="EmailPeriod">&nbsp Monthly<br>
+                        </div>
                         <div class="col-xs-1"></div>
                         <input type="checkbox" name="NotiSettingOption" ng-model="userInfo.isNotificationSMS" disabled><label class="control-label">&nbsp SMS</label></br>
                     </div>
