@@ -17,11 +17,11 @@
                         <blockquote class="blockquote">
                             <img style="float:left; clear:both; margin-right: 10px;" alt="training-program-icon" class="img-responsive" ng-src="{{trainingProgram.imgLink}}"
                                 width="70px"> {{trainingProgram.name}}
-                            <p style="color:darkgrey; white-space: nowrap" ng-bind-html="trainingProgram.description" </p>
-                                <p></p>
-                                <uib-progressbar style="margin:0" class="progress-striped" max="100" value=trainingProgram.completePercent type="success"><i>{{trainingProgram.completePercent}}% completed</i></uib-progressbar>
-                                <center ng-hide="trainingProgram.collapsed"><span class="glyphicon glyphicon-menu-down"></span></center>
-                                <center ng-show="trainingProgram.collapsed"><span class="glyphicon glyphicon-menu-up"></span></center>
+                                <p style="color:darkgrey; white-space: nowrap" ng-bind-html="trainingProgram.description" </p>
+                                    <p></p>
+                                    <uib-progressbar style="margin:0" class="progress-striped" max="100" value=trainingProgram.completePercent type="success"><i>{{trainingProgram.completePercent}}% completed</i></uib-progressbar>
+                                    <center ng-hide="trainingProgram.collapsed"><span class="glyphicon glyphicon-menu-down"></span></center>
+                                    <center ng-show="trainingProgram.collapsed"><span class="glyphicon glyphicon-menu-up"></span></center>
                         </blockquote>
                     </a>
                 </div>
@@ -34,7 +34,7 @@
                                     <a ui-sref="courseDetail({courseId: myCourse.id})">
                                         <img style="float:left; clear:both; margin-right:10px;" alt="course-icon" class="img-responsive" ng-src="{{myCourse.imgLink}}"
                                             width="70px"> {{myCourse.name}}
-                                        <p class="crop" ng-bind-html="myCourse.description"></p>
+                                            <p class="crop" ng-bind-html="myCourse.description"></p>
 
                                     </a>
                                 </blockquote>
@@ -76,19 +76,27 @@
             </center>
 
             <div class="row round-wrap" ng-repeat="requestOpenCourse in myRequestOpenCourseList">
-                <div class="col-md-8 col-sm-6">
+                <div class="col-md-9 col-sm-8">
                     <blockquote class="blockquote">
                         <a ui-sref="courseDetail({courseId: requestOpenCourse.id})" style="text-decoration: none">
                             <img style="float:left; clear:both; margin:8px;margin-top:-5px" alt="course-icon" class="img-responsive" ng-src="{{requestOpenCourse.imgLink}}"
                                 width="70px"> {{requestOpenCourse.name}}
-                            <p style="color: black;">Requesting</p>
+                                <p style="color: black;">Requesting</p>
                         </a>
                     </blockquote>
                 </div>
-                <div class="col-md-4 col-sm-4">
+                <div ng-repeat="class in requestOpenCourse.Classes">
+                    <div class="col-md-1 col-sm-1" ng-show="checkDate(class.startTime)">
+                        <center>
+                            <br>
+                            <a ng-click="enrollClassClick(class.id,class.courseId)" class=" btn " style="margin-top:5px; margin-left:50px; background-color: #4FC3F7 ">Enroll</a>
+                        </center>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-1" style="float:right ">
                     <center>
                         <br>
-                        <a ng-click="cancelRequestClick(requestOpenCourse.id)" class="btn btn-warning" style="margin-top:5px;">Cancel Request</a>
+                        <a ng-click="cancelRequestClick(requestOpenCourse.id) " class="btn btn-warning " style="margin-top:5px; ">Cancel</a>
                     </center>
                 </div>
             </div>
@@ -96,19 +104,19 @@
     </div>
 </div>
 
-<div class="container" ng-controller="viewScheduleCtrl">
-    <div class="widget">
-        <div class="widget-header">
-            <h3 id="mySchedule">My Schedule</h3>
+<div class="container " ng-controller="viewScheduleCtrl ">
+    <div class="widget ">
+        <div class="widget-header ">
+            <h3 id="mySchedule ">My Schedule</h3>
         </div>
-        <div class="widget-content">
-            <!--<center ng-show="myEnrolledCourseList.length == 0">
+        <div class="widget-content ">
+            <!--<center ng-show="myEnrolledCourseList.length==0 ">
                 <h4>You did not enroll any course.</h4>
                 <h5>To enroll new course, go to register menu and choose a course.</h5>
             </center>&nbsp<br/>-->
-            <div id="calendar" style="padding: 1em;">
-                <div class="container-fluid">
-                    <div ui-calendar="uiConfig.calendar" class="calendar" ng-model="eventSources"></div>
+            <div id="calendar " style="padding: 1em; ">
+                <div class="container-fluid ">
+                    <div ui-calendar="uiConfig.calendar " class="calendar " ng-model="eventSources "></div>
                 </div>
             </div>
 
