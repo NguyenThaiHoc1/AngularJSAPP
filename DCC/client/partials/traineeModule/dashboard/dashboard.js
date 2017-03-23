@@ -295,6 +295,7 @@ myApp.controller('requestOpenCourseCtrl', ['$scope', 'dashboardServices', '$root
     $scope.enrollClassClick = function (classID, requestOpenCourseId) {
         dashboardServices.enrollClass({ classId: classID, userId: $rootScope.userInfo.id }).then(function (result) {
             if (result.data.success) {
+                $rootScope.ShowPopupMessage("Enroll class successfully", "success");
                 dashboardServices.deleteRequestOpenCourse({ courseId: requestOpenCourseId, userId: $rootScope.userInfo.id });
                 dashboardServices.getRequestOpenCourse({ userId: $rootScope.userInfo.id }).then(function (result) {
                     $scope.myRequestOpenCourseList = result.data.data;
