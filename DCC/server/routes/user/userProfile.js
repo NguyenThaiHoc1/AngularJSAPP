@@ -3,7 +3,7 @@ var models = require('../../models');
 var log = require('../../config/config')["log"];
 var md5 = require('md5');
 const fs = require('fs');
-var notification = require('../../notification');
+var notification = require('../../notification/email');
 
 // Upload file setting
 var multer = require('multer');
@@ -171,7 +171,7 @@ router.post('/addUser', function (req, res) {
                     });
                     var subject = "Account Information";
                     var content = "Your account has been registered as " + req.body.email + "with the auto-generated password of: " + req.body.password;
-                    notification.email([req.body.email], subject, content, function (error, info) {
+                    notification([req.body.email], subject, content, function (error, info) {
                         // if (error)
                         //     console.log(error);
                         // else
