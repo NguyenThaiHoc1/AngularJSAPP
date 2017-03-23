@@ -72,9 +72,13 @@ router.post('/getRequestOpenCourse', function (req, res) {
     var query =
         {
             include: [{
+                model: models.Class,
+            },
+            {
                 model: models.RequestOpening,
                 where: { userId: req.body.userId }
-            }]
+            }
+            ]
         };
     models.Course.findAll(query).then(function (course) {
         var datasend = {
@@ -85,4 +89,19 @@ router.post('/getRequestOpenCourse', function (req, res) {
         res.send(datasend);
     });
 });
+
+router.post('/enrollClass', function (req, res) {
+    models.ClassRecord.create({
+        classId: req.body.classId,
+        traineeId: req.body.userId,
+        status: "Enrolled"
+    }).then(function (data) {
+        var dataSend = {
+            success: true,
+            data: data
+        }
+        res.send(dataSend);
+    })
+})
+
 module.exports = router;

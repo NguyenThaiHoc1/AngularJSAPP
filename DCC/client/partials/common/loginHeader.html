@@ -17,7 +17,7 @@
         <div class="collapse  navbar-collapse" id="loginNavbar">
             <ul class="nav navbar-nav navbar-right" style="margin-top: 8px;">
 
-                <li ng-show="$state.current.name == 'home'">
+                <li ng-show="($state.current.name == 'home')&&(userInfo.status != 'newuser')">
                     <a ng-show="userInfo.role == 3" id="button-dashboard" href="#trainee_dashboard">Dashboard</a>
                     <a ng-show="userInfo.role == 2" id="button-dashboard" href="#trainer_dashboard">Dashboard</a>
                     <a ng-show="userInfo.role == 1" id="button-dashboard" href="#admin_dashboard">Dashboard</a>
@@ -38,23 +38,23 @@
                             {{userInfo.username}} &nbsp <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu" style="margin: 2px;">
-                        <li ng-show="userInfo.role == 3">
+                        <li ng-show="(userInfo.role == 3)&&(userInfo.status != 'newuser')">
                             <a href="#trainee_dashboard">
                                 <font size="3"><span class="glyphicon glyphicon-dashboard">&nbsp</span>Dashboard</font>
                             </a>
                         </li>
-                        <li ng-show="userInfo.role == 2">
+                        <li ng-show="(userInfo.role == 2)&&(userInfo.status != 'newuser')">
                             <a href="#trainer_dashboard">
                                 <font size="3"><span class="glyphicon glyphicon-dashboard">&nbsp</span>Dashboard</font>
                             </a>
                         </li>
-                        <li ng-show="userInfo.role == 1">
+                        <li ng-show="(userInfo.role == 1)&&(userInfo.status != 'newuser')">
                             <a href="#admin_dashboard">
                                 <font size="3"><span class="glyphicon glyphicon-dashboard">&nbsp</span>Dashboard</font>
                             </a>
                         </li>
 
-                        <li>
+                        <li ng-show="userInfo.status != 'newuser'">
                             <a href="#userProfile">
                                 <font size="3"><span class="glyphicon glyphicon-user">&nbsp</span>Profile</font>
                             </a>

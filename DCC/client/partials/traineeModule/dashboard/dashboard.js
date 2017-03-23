@@ -45,6 +45,9 @@ myApp.factory('dashboardServices', ['$http', function ($http) {
         },
         getEnrolledCourseList: function (userId) {
             return $http.post('trainee/viewSchedule/getEnrolledCourseList', userId).success(function (data) { return data; });
+        },
+        enrollClass: function (classId, userId) {
+            return $http.post('trainee/dashboard/enrollClass', classId, userId).success(function (data) { return data; })
         }
     }
 
@@ -282,12 +285,31 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices', '$rootScope', 
 myApp.controller('requestOpenCourseCtrl', ['$scope', 'dashboardServices', '$rootScope', function ($scope, dashboardServices, $rootScope) {
     dashboardServices.getRequestOpenCourse({ userId: $rootScope.userInfo.id }).then(function (result) {
         $scope.myRequestOpenCourseList = result.data.data;
+
     });
+
+    $scope.checkDate = function (startTime) {
+        return Date.parse(startTime) > Date.parse(Date(Date.now())) ? true : false;
+    }
+
+    $scope.enrollClassClick = function (classID, requestOpenCourseId) {
+        dashboardServices.enrollClass({ classId: classID, userId: $rootScope.userInfo.id }).then(function (result) {
+            if (result.data.success) {
+                $rootScope.ShowPopupMessage("Enroll class successfully", "success");
+                dashboardServices.deleteRequestOpenCourse({ courseId: requestOpenCourseId, userId: $rootScope.userInfo.id });
+                dashboardServices.getRequestOpenCourse({ userId: $rootScope.userInfo.id }).then(function (result) {
+                    $scope.myRequestOpenCourseList = result.data.data;
+                });
+            } else {
+                $rootScope.ShowPopupMessage(result.data.msg, "error");
+            }
+        })
+    }
 
     $scope.cancelRequestClick = function (requestOpenCourseId) {
         dashboardServices.deleteRequestOpenCourse({ courseId: requestOpenCourseId, userId: $rootScope.userInfo.id }).then(function (result) {
             if (result.data.success) {
-                $rootScope.ShowPopupMessage(result.data.msg, "success");
+
 
                 //refesh the request open course list
                 dashboardServices.getRequestOpenCourse({ userId: $rootScope.userInfo.id }).then(function (result) {

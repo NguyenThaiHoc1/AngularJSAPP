@@ -3,7 +3,7 @@ var models = require('../../models');
 var log = require('../../config/config')["log"];
 var md5 = require('md5');
 const fs = require('fs');
-var notification = require('../../notification');
+var notification = require('../../notification/email');
 
 // Upload file setting
 var multer = require('multer');
@@ -25,6 +25,9 @@ models.User.sync({
 router.post('/getUserInfo', function (req, res) {
     log.info('GET /users/getUserInfo');
     models.User.getUserByEmail(req.body.email, function (user) {
+        // if (!fs.existsSync("./client" + user.avatar)) {
+        //     user.avatar = "/img/profiles/defaultProfile.jpg"
+        // }
         var currentRole;
         if (user.isAdmin) {
             currentRole = 1;
@@ -89,7 +92,8 @@ router.post('/changePasswordMD5', function (req, res) {
     models.User.update(
         {
             password: md5(req.body.password),
-            status: 'activated'
+            status: 'activated',
+            isTrainee: true
         },
         {
             where: { email: req.body.email }
@@ -159,7 +163,7 @@ router.post('/addUser', function (req, res) {
                     avatar: '/img/profiles/defaultProfile.jpg',
                     isAdmin: false,
                     isTrainer: false,
-                    isTrainee: true, //default user is a trainee
+                    isTrainee: false,
                     belong2Team: 'Innova',
                     isExperienced: 0,
                     userType: req.body.userType,
@@ -170,7 +174,7 @@ router.post('/addUser', function (req, res) {
                     });
                     var subject = "Account Information";
                     var content = "Your account has been registered as " + req.body.email + "with the auto-generated password of: " + req.body.password;
-                    notification.email([req.body.email], subject, content, function (error, info) {
+                    notification([req.body.email], subject, content, function (error, info) {
                         // if (error)
                         //     console.log(error);
                         // else
