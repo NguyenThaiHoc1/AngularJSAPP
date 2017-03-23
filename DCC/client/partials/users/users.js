@@ -158,11 +158,16 @@ myApp.controller('changePasswordController', ['$scope', 'userServices', '$locati
     $scope.firstPassword = {};
     $scope.firstConfirmChange = function () {
         $rootScope.userInfo.password = $scope.firstPassword.newPassword;
-        console.log($rootScope.userInfo);
         userServices.changePasswordMD5($rootScope.userInfo).then(function (result) {
             if (result.data.success) {
-                $rootScope.ShowPopupMessage(result.data.msg, "success");
-            } else {
+                userServices.getUserProfile($rootScope.userInfo).then(function (userData) {
+                    $rootScope.userInfo = userData.data;
+                    window.sessionStorage["userInfo"] = JSON.stringify($rootScope.userInfo);
+                    $rootScope.ShowPopupMessage(result.data.msg, "success");
+                    $location.path("/userProfile");
+                })
+            }
+            else {
                 $rootScope.ShowPopupMessage(result.data.msg, "error");
             }
         });
