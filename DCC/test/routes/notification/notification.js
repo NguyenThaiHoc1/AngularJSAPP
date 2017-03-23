@@ -39,6 +39,14 @@ describe('<Unit test for notification>', function () {
             status: 1,
             time: new Date().toLocaleString()
         });
+        models.Notifications.create({
+            id: 12,
+            email: 'qwe@gmail.com',
+            title: 'Test Notification 3',
+            content: 'Test Notification content 3',
+            status: 0,
+            time: new Date().toLocaleString()
+        });
     });
 
     afterEach(function (done) {
@@ -48,13 +56,14 @@ describe('<Unit test for notification>', function () {
                 email: 'qwe@gmail.com'
             }
         });
+        console.log('destroyed');
         //logout
         request(DCC_Server).get('/logout');
         done();
     });
 
     describe('Test case 1: POST /notification/notification/getNotifications', function () {
-        return it('Should return success==true', function (done) {
+        return it('Should return length==3', function (done) {
             var req = request(DCC_Server).post('/notification/notification/getNotifications');
             req.cookies = Cookies;
             req.send({
@@ -62,7 +71,7 @@ describe('<Unit test for notification>', function () {
             });
 
             req.end(function (err, res) {
-                assert.equal(res.body.success, true);
+                assert.equal(res.body.data.length, 3);  //total 3 notifications created for this test
                 if (err) return done(err);
                 done();
             });
@@ -70,7 +79,7 @@ describe('<Unit test for notification>', function () {
     });
 
     describe('Test case 2: POST /notification/notification/getNumberofNewNotification', function () {
-        return it('Should return success==true', function (done) {
+        return it('Should return 2', function (done) {
             var req = request(DCC_Server).post('/notification/notification/getNumberofNewNotification');
             req.cookies = Cookies;
             req.send({
@@ -86,7 +95,7 @@ describe('<Unit test for notification>', function () {
     });
 
     describe('Test case 3 : POST /notification/notification/updateNotificationStatus', function () {
-        it('Should return status==0', function (done) {
+        return it('Should return status==0', function (done) {
             var req = request(DCC_Server).post('/notification/notification/updateNotificationStatus');
             req.send({
                 email: 'qwe@gmail.com',
@@ -117,11 +126,11 @@ describe('<Unit test for notification>', function () {
             req.end(function (err, res) {
                 if (err) return done(err);
                 models.Notifications.getAllNewNotifications('qwe@gmail.com', notifications => {
-                        try {
-                            assert.equal(notifications.length, 0);  //no new status available
-                        } catch(err) {
-                            return done(err);
-                        }
+                    try {
+                        assert.equal(notifications.length, 0);  //no new status available
+                    } catch(err) {
+                        return done(err);
+                    }
                     done();
                 });
             });
