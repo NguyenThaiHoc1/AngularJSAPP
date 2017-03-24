@@ -18,35 +18,35 @@ describe('<Unit test for notification>', function () {
             })
             .end(function (err, res) {
                 Cookies = res.headers['set-cookie'].pop().split(';')[0];
+                //create 3 notifications for each test
+                models.Notifications.create({
+                    id: 10,
+                    email: 'qwe@gmail.com',
+                    title: 'Test Notification 1',
+                    content: 'Test Notification content 1',
+                    status: 1,
+                    time: new Date().toLocaleString()
+                });
+                models.Notifications.create({
+                    id: 11,
+                    email: 'qwe@gmail.com',
+                    title: 'Test Notification 2',
+                    content: 'Test Notification content 2',
+                    status: 1,
+                    time: new Date().toLocaleString()
+                });
+                models.Notifications.create({
+                    id: 12,
+                    email: 'qwe@gmail.com',
+                    title: 'Test Notification 3',
+                    content: 'Test Notification content 3',
+                    status: 0,
+                    time: new Date().toLocaleString()
+                });
                 if (err)
                     return done(err);
                 done();
             });
-        //create 2 notifications for each test
-        models.Notifications.create({
-            id: 10,
-            email: 'qwe@gmail.com',
-            title: 'Test Notification 1',
-            content: 'Test Notification content 1',
-            status: 1,
-            time: new Date().toLocaleString()
-        });
-        models.Notifications.create({
-            id: 11,
-            email: 'qwe@gmail.com',
-            title: 'Test Notification 2',
-            content: 'Test Notification content 2',
-            status: 1,
-            time: new Date().toLocaleString()
-        });
-        models.Notifications.create({
-            id: 12,
-            email: 'qwe@gmail.com',
-            title: 'Test Notification 3',
-            content: 'Test Notification content 3',
-            status: 0,
-            time: new Date().toLocaleString()
-        });
     });
 
     afterEach(function (done) {
@@ -56,7 +56,6 @@ describe('<Unit test for notification>', function () {
                 email: 'qwe@gmail.com'
             }
         });
-        console.log('destroyed');
         //logout
         request(DCC_Server).get('/logout');
         done();

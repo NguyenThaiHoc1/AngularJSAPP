@@ -55,7 +55,9 @@ router.post('/getUserInfo', function (req, res) {
             success: true,
             getCurrentRole: true,
             isNotificationDesktop: user.isNotificationDesktop,
-            isNotificationEmail: user.isNotificationEmail
+            isNotificationEmail: user.isNotificationEmail,
+            EmailPeriod: user.EmailPeriod,
+            TimeOption: user.TimeOption
         });
     });
 });
@@ -71,7 +73,9 @@ router.post('/updateUserProfile', function (req, res) {
             phone: req.body.phone,
             status: req.body.status,
             isNotificationDesktop: req.body.isNotificationDesktop,
-            isNotificationEmail: req.body.isNotificationEmail
+            isNotificationEmail: req.body.isNotificationEmail,
+            EmailPeriod: req.body.EmailPeriod,
+            TimeOption: req.body.TimeOption
         },
         {
             where: { email: req.body.email }

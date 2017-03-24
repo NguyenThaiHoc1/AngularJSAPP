@@ -96,6 +96,8 @@ router.post('/login', function (req, res, next) {
                                 userType: _user.userType,
                                 isNotificationDesktop: _user.isNotificationDesktop,
                                 isNotificationEmail: _user.isNotificationEmail,
+                                EmailPeriod: _user.EmailPeriod,
+                                TimeOption: _user.TimeOption,
 
                                 success: true,
                                 msg: 'You are authenticated!'
@@ -183,6 +185,8 @@ router.post('/login', function (req, res, next) {
                                     userType: user[0].dataValues.userType,
                                     isNotificationDesktop: user[0].dataValues.isNotificationDesktop,
                                     isNotificationEmail: user[0].dataValues.isNotificationEmail,
+                                    EmailPeriod: user[0].EmailPeriod,
+                                    TimeOption: user[0].TimeOption,
 
                                     success: true,
                                     msg: 'You are authenticated!'

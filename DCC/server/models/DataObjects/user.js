@@ -66,5 +66,13 @@ module.exports =
         isNotificationDesktop: {
             type: SequelizeDatatypes.BOOLEAN,
             allowNull: true
+        },
+        EmailPeriod: {
+            type: SequelizeDatatypes.STRING,
+            allowNull: true
+        },
+        TimeOption: {
+            type: SequelizeDatatypes.TIME,
+            allowNull: true
         }
     }
