@@ -91,7 +91,6 @@ myApp.controller('loginController', ['$scope', 'userServices', '$location', '$ro
                     window.sessionStorage["userInfo"] = JSON.stringify(result.data);
                     $rootScope.userInfo = JSON.parse(window.sessionStorage["userInfo"]);
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
-                    // redirect to dashboard after login
                     if ($rootScope.userInfo.status == 'newuser') {
                         $('#firstPassword').modal({
                             backdrop: 'static',
@@ -123,20 +122,15 @@ myApp.controller('changePasswordController', ['$scope', 'userServices', '$locati
     $scope.changePassword = {};
     $scope.passMeasuremessage = "";
     $scope.confirmChange = function () {
-        // get user info to check password, also ensure untouched field not null when update profile
         userServices.getUserProfile($rootScope.userInfo).then(function (userData) {
             userData.data.role = $rootScope.userInfo.role;
             $rootScope.userInfo = userData.data;
             $scope.userDetail = (JSON.parse(JSON.stringify($rootScope.userInfo)));
-            console.log($scope.userDetail);
-            console.log($scope.userDetail.password);
             $scope.userDetail.password = $scope.changePassword.oldPassword;
-            console.log($scope.userDetail);
             userServices.checkPassword($scope.userDetail).then(function (result) {
                 if (result.data.success) {
                     $scope.userDetail.password = $scope.changePassword.newPassword;
-                    userServices.changePasswordMD5($scope.userDetail).then(function (result)    //call update profile service
-                    {
+                    userServices.changePasswordMD5($scope.userDetail).then(function (result) {
                         if (result.data.success) {
                             userServices.getUserProfile($scope.userDetail).then(function (userData) {
                                 $rootScope.userInfo = userData.data;
@@ -175,7 +169,6 @@ myApp.controller('changePasswordController', ['$scope', 'userServices', '$locati
     };
     //Password measurement
     $scope.passwordMeasure = function (newPassword, oldPassword) {
-        // validate user password to ensure its security strength
         if (newPassword != null) {
             if (newPassword.length > 7) {
                 var passStrenght = 0;
@@ -219,7 +212,6 @@ myApp.controller('logoutController', ['$scope', 'userServices', '$location', '$r
         sessionStorage.clear();
         $rootScope.userInfo = false;
         $rootScope.ShowPopupMessage("Logout successfully", "success");
-        // redirect ro home page after logout
         $location.path("/home");
     })
 }]);
@@ -253,8 +245,6 @@ myApp.controller('userProfileCtrl', ['$scope', 'userServices', '$location', '$ro
     };
 
     $scope.cancel = function () {
-        // reset user infor back to original
-
         $rootScope.ShowPopupMessage("Ignore all changes", "info");
         $location.path("/userProfile");
     }
