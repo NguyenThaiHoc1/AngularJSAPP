@@ -17,26 +17,25 @@
                             <div class="col-xs-1"></div>
                             <div class="col-xs-3">
                                 <div class="col-xs-2" ng-show="userInfo.isNotificationEmail"></div>
-                                <label><input type="radio" name="MailPeriod" value="daily" ng-model="EmailPeriod"/>&nbsp Daily </label><br/>
+                                <label><input type="radio" name="MailPeriod" value="Daily" ng-model="userInfo.EmailPeriod"/>&nbsp Daily </label><br/>
                                 <div class="col-xs-2" ng-show="userInfo.isNotificationEmail"></div>
-                                <label><input type="radio" name="MailPeriod" value="weekly" ng-model="EmailPeriod"/>&nbsp Weekly</label ><br/>
+                                <label><input type="radio" name="MailPeriod" value="Weekly" ng-model="userInfo.EmailPeriod"/>&nbsp Weekly</label ><br/>
                                 <div class="col-xs-2" ng-show="userInfo.isNotificationEmail"></div>
-                                <label><input type="radio" name="MailPeriod" value="monthly" ng-model="EmailPeriod"/>&nbsp Monthly</label ><br/>
+                                <label><input type="radio" name="MailPeriod" value="Monthly" ng-model="userInfo.EmailPeriod"/>&nbsp Monthly</label ><br/>
                                 <div class="col-xs-2" ng-show="userInfo.isNotificationEmail"></div>
-                                <label><input type="radio" name="MailPeriod" value="custom" ng-model="EmailPeriod" disabled/>&nbsp Custom</label ><br/>
+                                <label><input type="radio" name="MailPeriod" value="Custom" ng-model="userInfo.EmailPeriod" disabled/>&nbsp Custom</label ><br/>
                             </div>
                             <div class="col-xs-8">
-                                <div class="col-xs-4" ng-show="EmailPeriod">
-                                    <div uib-timepicker ng-model="TimeOption" hour-step="1" minute-step="1" show-meridian="false"></div>
+                                <div class="col-xs-4" ng-show="userInfo.EmailPeriod">
+                                    <div uib-timepicker ng-model="userInfo.TimeOption" hour-step="1" minute-step="1" show-meridian="false"></div>
                                 </div>
-                                <div class="col-xs-4"  style="margin-top: 40px;" uib-dropdown ng-show="EmailPeriod == 'weekly'">
-                                    <select ng-model="WeekdayOption">
-                                        <option value="{{weekday}}" ng-repeat="weekday in ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']">{{weekday}}</option>
+                                <div class="col-xs-4"  style="margin-top: 40px;" uib-dropdown ng-show="userInfo.EmailPeriod == 'Weekly'">
+                                    <select ng-init="Weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']"
+                                            ng-model="userInfo.WeekdayOption" ng-options="Weekdays.indexOf(weekday) as weekday for weekday in Weekdays">
                                     </select>
                                 </div>
-                                <div class="col-xs-4" style="margin-top: 40px;" uib-dropdown ng-show="EmailPeriod == 'monthly'">
-                                    <select ng-model="DayOption">
-                                        <option value="{{$index+1}}" ng-repeat="n in [].constructor(31) track by $index">{{$index+1}}</option>
+                                <div class="col-xs-4" style="margin-top: 40px;" uib-dropdown ng-show="userInfo.EmailPeriod == 'Monthly'">
+                                    <select ng-model="userInfo.DateOption" ng-options="date as date for date in Dates"><!--date == value-->
                                     </select>
                                 </div>
                             </div>
@@ -45,7 +44,7 @@
                         <input type="checkbox" name="NotiSettingOption" ng-model="userInfo.isNotificationSMS" disabled><label class="control-label">&nbsp SMS</label></br>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-success" ng-click="SaveSetting()" data-dismiss="modal" ng-disabled="NotiSettingForm.$invalid">Save</button>
+                        <button type="submit" class="btn btn-success" ng-click="SaveSetting()" data-dismiss="modal" ng-disabled="NotiSettingForm.$invalid || (userInfo.isNotificationEmail && userInfo.EmailPeriod === null)">Save</button>
                         <button class="btn btn-default" data-dismiss="modal" ng-disabled="NotiSettingForm.$invalid">Cancel</button>
                     </div>
                 </form>

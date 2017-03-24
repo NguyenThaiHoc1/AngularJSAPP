@@ -72,7 +72,7 @@ module.exports =
             allowNull: true
         },
         TimeOption: {
-            type: SequelizeDatatypes.TIME,
+            type: SequelizeDatatypes.DATE,
             allowNull: true
         }
     }

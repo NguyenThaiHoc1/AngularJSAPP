@@ -26,6 +26,7 @@ myApp.factory('NotificationService', ['$http', '$rootScope', function ($http, $r
 }]);
 
 myApp.controller('NotiController', ['$scope', '$rootScope', 'NotificationService', function ($scope, $rootScope, NotificationService) {
+    $scope.Dates = Array.from(Array(31),(val,index)=>index+1);
     function convertDate(date) {
         var hour = date.getHours();
         var minute = date.getMinutes();
@@ -33,6 +34,10 @@ myApp.controller('NotiController', ['$scope', '$rootScope', 'NotificationService
             + " " + (hour % 12 || 12) + ":" + (minute < 10 ? '0' : '') + minute
             + ' ' + (hour >= 12 ? 'PM' : 'AM');
     }
+
+    Date.prototype.setDay = function(dayOfWeek) {
+        this.setDate(this.getDate() - this.getDay() + dayOfWeek);
+    };
 
     $scope.getNotificationsList = function () {
         NotificationService.getNotifications().then(function (notifications) {
@@ -52,7 +57,34 @@ myApp.controller('NotiController', ['$scope', '$rootScope', 'NotificationService
         });
     };
 
+    $scope.SyncNotificationSetting = function() {
+        $rootScope.userInfo.TimeOption = new Date($rootScope.userInfo.TimeOption);
+        $rootScope.userInfo.WeekdayOption = $rootScope.userInfo.TimeOption.getDay();
+        $rootScope.userInfo.DateOption = $rootScope.userInfo.TimeOption.getDate();
+    };
+
     $scope.SaveSetting = function () {
+        if ($rootScope.userInfo.isNotificationEmail){
+            switch ($rootScope.userInfo.EmailPeriod) {
+                case 'Daily':   //This case has been handled synchronously
+                    break;
+
+                case 'Weekly':
+                    $rootScope.userInfo.TimeOption.setDay($rootScope.userInfo.WeekdayOption);
+                    break;
+
+                case 'Monthly':
+                    $rootScope.userInfo.TimeOption.setDate($rootScope.userInfo.DateOption);
+                    break;
+                
+                // case 'Custom':   //not handled yet
+
+                //     break;
+                default:
+                    $rootScope.userInfo.TimeOption = new Date();    //set to current time if other case happen
+                break;
+            }
+        }
         NotificationService.updateNotificationSetting().then(function (result) {
             if (result.data.success) {
                 $rootScope.ShowPopupMessage("Setting saved", "success");
