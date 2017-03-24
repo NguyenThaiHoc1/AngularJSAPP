@@ -285,7 +285,12 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices', '$rootScope', 
 myApp.controller('requestOpenCourseCtrl', ['$scope', 'dashboardServices', '$rootScope', function ($scope, dashboardServices, $rootScope) {
     dashboardServices.getRequestOpenCourse({ userId: $rootScope.userInfo.id }).then(function (result) {
         $scope.myRequestOpenCourseList = result.data.data;
-
+        $scope.myRequestOpenCourseList.forEach(course => {
+            course.haveClass = false;
+            if (Date.parse(course.Classes[course.Classes.length - 1].startTime) > Date.parse(Date(Date.now()))) {
+                course.haveClass = true;
+            }
+        })
     });
 
     $scope.checkDate = function (startTime) {
