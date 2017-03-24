@@ -209,45 +209,56 @@ router.post('/getClass', function (req, res) {
 });
 
 var receivers = [];
+
 router.post('/addClass', function (req, res) {
-    var data = {
-        success: true,
-        msg: "Add Class and Delete Requests Successfully"
-    };
-
-    models.Class.create({
-        courseId: req.body.courseId,
-        location: req.body.location,
-        // trainerId: req.body.trainerId.id,
-        startTime: req.body.startTime,
-        endTime: req.body.endTime,
-        maxAttendant: req.body.maxAttendant,
-    })
-        .then(function (classDetail) {
-
+    var dataSend = {};
+    models.Class.findOne({
+        where: {
+            courseId: req.body.courseId,
+            startTime:
+            {
+                $gt: Date.now()
+            }
+        }
+    }).then(function (result) {
+        if (result) {
+            dataSend = {
+                success: false,
+                msg: "Class is already opening!"
+            }
+        }
+        else {
+            models.Class.create({
+                courseId: req.body.courseId,
+                location: req.body.location,
+                // trainerId: req.body.trainerId.id,
+                startTime: req.body.startTime,
+                endTime: req.body.endTime,
+                maxAttendant: req.body.maxAttendant,
+            })
+            //.then(function (ClassDetail) {
+            dataSend = {
+                success: true,
+                msg: "Add class successfully",
+            }
             models.RequestOpening.findAll({ where: { courseId: req.body.courseId } }).then(function (reqOpns) {
                 reqOpns.forEach(reqOpn => {
-                    models.ClassRecord.create({
-                        classId: classDetail.dataValues.id,
-                        status: "Enrolled",
-                        traineeId: reqOpn.userId
-                    })
                     models.User.findOne({ where: { id: reqOpn.userId, isNotificationEmail: 1 } }).then(function (dataResults) {
                         receivers.push(
                             dataResults.email
                         )
-
                     });
-
                 })
                 //reqOpn.destroy();
             });
-        })
-        .then(function () {
-            res.send(data);
-        });
-
+            // });
+        }
+        res.send(dataSend);
+    })
 });
+
+
+
 
 router.get('/sendMail', function (req, res) {
     console.log(receivers);
