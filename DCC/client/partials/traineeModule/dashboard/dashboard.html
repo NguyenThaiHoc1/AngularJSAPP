@@ -76,16 +76,24 @@
             </center>
 
             <div class="row round-wrap" style="background-color: #fff; margin-top: 3px" ng-repeat="requestOpenCourse in myRequestOpenCourseList">
-                <div class="col-md-9 col-sm-8">
+                <div class="col-md-7 col-sm-8">
                     <blockquote class="blockquote">
                         <a ui-sref="courseDetail({courseId: requestOpenCourse.id})" style="text-decoration: none">
                             <img style="float:left; clear:both; margin:8px;margin-top:-5px" alt="course-icon" class="img-responsive" ng-src="{{requestOpenCourse.imgLink}}"
                                 width="70px"> {{requestOpenCourse.name}}
-                                <p style="color: black;">Requesting</p>
+                                <p style="color: black" ng-show="requestOpenCourse.haveClass">
+                                    Opening</p>
+                                <p style="color: black" ng-show="!requestOpenCourse.haveClass">
+                                    Requesting</p>
                         </a>
                     </blockquote>
                 </div>
                 <div ng-repeat="class in requestOpenCourse.Classes">
+                    <div class="col-md-2 col-sm-1" style="margin-top:1%;color:indianred;" ng-show="checkDate(class.startTime)">
+                        <br>
+                        <strong style="font-size:14px">
+                            {{class.startTime | date:"MMM d, y h:mm:ss a"}} </strong>
+                    </div>
                     <div class="col-md-1 col-sm-1" ng-show="checkDate(class.startTime)">
                         <center>
                             <br>
