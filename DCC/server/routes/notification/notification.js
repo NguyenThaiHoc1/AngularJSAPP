@@ -5,7 +5,6 @@ router.post('/getNotifications', function (req, res) {
     models.Notifications.getAllNotificationByEmail(req.body.email, notifications => {
         res.send({
             data: notifications,
-            success: true,
             msg: 'got ' + notifications.length + ' notifications'
         });
     });

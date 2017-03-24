@@ -7,6 +7,7 @@ var authMiddleware = require('../middleware/authMiddleware.js');
 // router.use('/trainer', authMiddleware.ensureAuthenticated, authMiddleware.ensureTrainerPrivilege, require('./trainer'));
 // router.use('/admin', authMiddleware.ensureAuthenticated, authMiddleware.ensureAdminPrivilege, require('./admin'));
 // router.use('/user', authMiddleware.ensureAuthenticated, require('./user'));
+// router.use('/notification', authMiddleware.ensureAuthenticated, require('./notification'));
 
 
 router.use('/', require('./index/index.js'));
