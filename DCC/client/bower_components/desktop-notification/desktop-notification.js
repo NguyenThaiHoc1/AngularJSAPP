@@ -28,20 +28,19 @@ function pushNotification(noti) {
 };
 
 socket.on('NewNotifications', function (numberNotification) {
-    if(numberNotification > 0)
-    {
+    if (numberNotification > 0) {
         var noti = {
             title: 'Thông Báo',
             msg: 'Bạn có ' + numberNotification + ' thông báo mới'
         }
         pushNotification(noti);
     }
-    
+
 });
 
 
 
-socket.on('pushNoti', function (noti) {
+socket.on('pushNotification', function (noti) {
     webNotification.showNotification(noti.title, {
         body: noti.msg,
         onClick: function onNotificationClicked() {
