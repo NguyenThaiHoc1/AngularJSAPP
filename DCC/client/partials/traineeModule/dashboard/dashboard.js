@@ -305,6 +305,7 @@ myApp.controller('requestOpenCourseCtrl', ['$scope', 'dashboardServices', '$root
                 dashboardServices.getRequestOpenCourse({ userId: $rootScope.userInfo.id }).then(function (result) {
                     $scope.myRequestOpenCourseList = result.data.data;
                 });
+                window.location.reload();
             } else {
                 $rootScope.ShowPopupMessage(result.data.msg, "error");
             }
