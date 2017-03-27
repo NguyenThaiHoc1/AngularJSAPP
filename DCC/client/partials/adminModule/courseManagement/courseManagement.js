@@ -63,7 +63,7 @@ myApp.factory('courseManagementServices', ['$http', function ($http) {
 ]);
 var temp;
 //controller
-myApp.controller('courseManagementCtrl', ['$scope', '$rootScope', 'courseManagementServices', function ($scope, $rootScope, courseManagementServices, $location) {
+myApp.controller('courseManagementCtrl', ['$sce', '$scope', '$rootScope', 'courseManagementServices', function ($sce, $scope, $rootScope, courseManagementServices, $location) {
     //GetTrainingProgram
     courseManagementServices.getTrainingProgramList().then(function (result) {
         result.data.trainingProgram.forEach(traningProgram => {
@@ -182,6 +182,22 @@ myApp.controller('courseManagementCtrl', ['$scope', '$rootScope', 'courseManagem
             endTime: $rootScope.endTimePicker,
             maxAttendant: '',
         };
+    };
+    $scope.findCourse = function (courseSearchKey) {
+        var courseListSearchResult = []
+        var listSearchResult = []
+        $rootScope.adminTrainingProgramList.forEach(trainingProgram => {
+            trainingProgram.Courses.forEach(course => {
+                if ((course.name.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1) || (course.description.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1)) courseListSearchResult.push(course);
+            });
+        });
+        $scope.courseListSearchResult = courseListSearchResult;
+    };
+    $scope.highlight = function (text, search) {
+        if (!search) {
+            return $sce.trustAsHtml(text);
+        }
+        return $sce.trustAsHtml(text.replace(new RegExp(search, 'gi'), '<span class="highlightedText">$&</span>'));
     };
 }]);
 
