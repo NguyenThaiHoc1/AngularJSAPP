@@ -338,7 +338,7 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices', '$rootScope', 
 }]);
 
 //Request Open Course controller
-myApp.controller('requestOpenCourseCtrl', ['$scope', 'dashboardServices', '$rootScope', function ($scope, dashboardServices, $rootScope) {
+myApp.controller('requestOpenCourseCtrl', ['$scope', 'dashboardServices', '$rootScope','$state', function ($scope, dashboardServices, $rootScope,$state) {
     dashboardServices.getRequestOpenCourse({ userId: $rootScope.userInfo.id }).then(function (result) {
         $scope.myRequestOpenCourseList = result.data.data;
         $scope.myRequestOpenCourseList.forEach(course => {
@@ -361,7 +361,8 @@ myApp.controller('requestOpenCourseCtrl', ['$scope', 'dashboardServices', '$root
                 dashboardServices.getRequestOpenCourse({ userId: $rootScope.userInfo.id }).then(function (result) {
                     $scope.myRequestOpenCourseList = result.data.data;
                 });
-                window.location.reload();
+                //window.location.reload();
+                $state.go("courseDetail",{courseId:requestOpenCourseId});
             } else {
                 $rootScope.ShowPopupMessage(result.data.msg, "error");
             }
