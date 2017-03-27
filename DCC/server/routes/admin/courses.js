@@ -2,6 +2,7 @@ var router = require('express').Router();
 var models = require('../../models');
 var log = require('../../config/config')["log"];
 var notification = require('../../notification');
+var Job = require('../../automatic');
 // add course to database
 router.post('/addCourse', function (req, res) {
     models.Course.sync({
@@ -235,7 +236,22 @@ router.post('/addClass', function (req, res) {
                 startTime: req.body.startTime,
                 endTime: req.body.endTime,
                 maxAttendant: req.body.maxAttendant,
-            })
+            }).then(cb => {
+                models.Course.findOne({
+                    where: {
+                        id: req.body.courseId
+                    }
+                }).then(function (course) {
+                    var date = new Date(req.body.startTime);
+                    date.setDate(date.getDate() - 1);
+                    var noti = {
+                        subject: course.name,
+                        content: "Your " + req.body.courseId + " class has been openned and scheduled to start tomorrow at location: " + req.body.location + ". Please be on time, thank you."
+                    };
+                    Job.job_sendnoti_ClassStart(date, cb.id, noti);
+                });
+
+            });
             //.then(function (ClassDetail) {
             dataSend = {
                 success: true,
@@ -243,10 +259,9 @@ router.post('/addClass', function (req, res) {
             }
             models.RequestOpening.findAll({ where: { courseId: req.body.courseId } }).then(function (reqOpns) {
                 reqOpns.forEach(reqOpn => {
-                    models.User.findOne({ where: { id: reqOpn.userId, isNotificationEmail: 1 } }).then(function (dataResults) {
-                        receivers.push(
-                            dataResults.email
-                        )
+                    models.User.findOne({ where: { id: reqOpn.userId } }).then(function (dataResults) {
+                        if (dataResults.email)
+                            receivers.push(dataResults.email);
                     });
                 })
                 //reqOpn.destroy();
@@ -261,7 +276,7 @@ router.post('/addClass', function (req, res) {
 
 
 router.get('/sendMail', function (req, res) {
-    console.log(receivers);
+    //console.log(receivers);
 
     var datasend = {
         success: true,
@@ -269,11 +284,7 @@ router.get('/sendMail', function (req, res) {
     };
 
     res.send(datasend);
-    notification.email(receivers, 'Enroll Class', 'You have enrolled successfully', function (err, info) {
-        // if (err) console.log(err)
-        // else console.log("SENT");
-    });
-    //notification.desktop(receivers, 'Enroll Class', 'You have enrolled successfully');
+    notification(receivers, 'Enroll Class', 'You have enrolled successfully');
 
     receivers = [];
 });

@@ -16,9 +16,15 @@ module.exports = function (sequelize) {
                     }
                 };
                 Class.findOne(query).then(cb);
+            },
+            getUserInClass: function (classId, cb) {
+                sequelize.query('SELECT us.*'
+                    + ' FROM class cl, class_record clr, user us '
+                    + 'where cl.id = :classId and cl.id = clr.classId and us.id = clr.traineeId',
+                    { replacements: { classId: classId }, type: sequelize.QueryTypes.SELECT }
+                ).then(cb);
             }
         },
-
         tableName: 'class',
         timestamps: false
     });
