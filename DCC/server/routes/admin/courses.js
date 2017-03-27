@@ -284,7 +284,11 @@ router.get('/sendMail', function (req, res) {
     };
 
     res.send(datasend);
-    notification(receivers, 'Enroll Class', 'You have enrolled successfully');
+    var noti = {
+        subject: 'Enroll Class',
+        content: 'You have enrolled successfully'
+    }
+    notification(receivers, noti);
 
     receivers = [];
 });

@@ -2,7 +2,7 @@ var email = require('./email');
 var desktop = require('./desktop');
 var models = require('../models');
 
-function send(receivers, notification, callback) {
+function send(receivers, notification) {
     models.User.getAllUsers(listUser => {
         var arr_email = [];
         var arr_desktop = [];
