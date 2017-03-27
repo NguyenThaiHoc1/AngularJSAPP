@@ -21,22 +21,26 @@ router.post('/getNumberofNewNotification', function (req, res) {
 });
 
 router.post('/updateNotificationStatus', function(req, res) {
-    models.Notifications.update(
-        {
-            status: 0
-        },
-        {
-            where: {
-                email: req.body.email,
-                status: 1,
-                id: req.body.id
+    models.Course.findOne({where:{name:req.body.title}}).then(function(course) {
+        models.Notifications.update(
+            {
+                status: 0
+            },
+            {
+                where: {
+                    email: req.body.email,
+                    status: 1,
+                    id: req.body.id
+                }
             }
-        }
-    ).then(function() {
-        res.send({
-            msg: "Status updated"
+        ).then(function() {
+            res.send({
+                msg: "Status updated",
+                course: course
+            });
         });
-    });
+
+    })
 });
 
 router.post('/getAllNewNotificationsAndUpdateStatus', function(req, res) {
