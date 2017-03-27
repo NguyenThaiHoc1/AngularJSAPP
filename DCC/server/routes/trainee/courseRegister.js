@@ -65,13 +65,28 @@ router.post('/sendRegisterRequest', function (req, res) {
                 //If class is opening, add user request to request_course table with requestType = "enroll"
                 //If not, add user request to request_course table with requestType = "register"
                 if (openingClass) {
-                    models.ClassRecord.enrollCourse(userId, openingClass.id, function () {
+                models.ClassRecord.findOne({where:{
+                    traineeId: userId,
+                    classId: openingClass.id,
+                    status: 'Enrolled'
+                }}).then(function(result){
+                   if (result) {
+                     var datasend = {
+                            success: false,
+                            msg: 'You Have Already Enrolled'
+                        };
+                        res.send(datasend);
+                   }
+                   else {
+                        models.ClassRecord.enrollCourse(userId, openingClass.id, function () {
                         var datasend = {
                             success: true,
                             msg: 'Enroll Successfully'
                         };
                         res.send(datasend);
                     });
+                   }
+                })
                 } else {
                     models.RequestOpening.addRequestRegister(userId, courseId, function () {
                         var datasend = {
