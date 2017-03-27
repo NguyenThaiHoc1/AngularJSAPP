@@ -169,7 +169,13 @@ router.post('/updateClassRecordStatus', function (req, res) {
         });
 });
 
-
+router.post('/getCoursebyName', function(req, res) {
+    models.Course.getByName(req.body.name, function (result) {
+        res.send({
+            course: result
+        })
+    });
+});
 
 
 

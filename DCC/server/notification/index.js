@@ -23,7 +23,7 @@ function send(receivers, notification) {
             }
         }
         if (arr_desktop.length > 0)
-            desktop(arr_desktop, notification.subject, notification.content);
+            desktop(arr_desktop, notification.subject, notification.content, notification.link);
         if (arr_email.length > 0)
             email(arr_email, notification.subject, notification.content);
     });

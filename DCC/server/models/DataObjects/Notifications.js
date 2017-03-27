@@ -27,6 +27,11 @@ module.exports =
         {
             type: SequelizeDatatypes.INTEGER,
             allowNull: true
+        },
+        reference:
+        {
+            type: SequelizeDatatypes.STRING,
+            allowNull: true
         }
     }
 

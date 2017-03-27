@@ -20,6 +20,9 @@ myApp.factory('NotificationService', ['$http', '$rootScope', function ($http, $r
         },
         UpdateNotificationStatus: function (notification) {
             return $http.post('/notification/notification/updateNotificationStatus', notification).success(function (data) { return data; });
+        },
+        getCoursebyName: function(CourseName) {
+            return $http.post('/trainee/courseRegister/getCoursebyName', {name: CourseName}).success(function (data) { return data; });
         }
     }
     return factoryDefinition;
@@ -96,11 +99,28 @@ myApp.controller('NotiController', ['$scope', '$rootScope', '$location', '$state
     };
 
     $scope.UpdateNotificationStatus = function (notification) {
-        NotificationService.UpdateNotificationStatus(notification).then(function (param) {
-            $state.go("trainee_dashboard").then(function () {
-                $location.hash('requestCourse');
-                $anchorScroll('requestCourse');
-            });
+        NotificationService.UpdateNotificationStatus(notification).then(function () {
+            var link = notification.reference.split("/");
+            if (link != null) {
+                switch (link[0]){
+                    case 'trainee_dashboard':
+                        $state.go('trainee_dashboard').then(function() {
+                            $location.hash(link[1]);
+                            $anchorScroll(link[1]);
+                        });
+                        break;
+                    case 'courseDetail':
+                        NotificationService.getCoursebyName(link[1]).then(function(res) {
+                            $state.go('courseDetail', {courseId: res.data.course.id}).then(function() {
+                                $location.hash(link[1]);
+                                $anchorScroll(link[1]);
+                            });
+                        });
+                        break;
+                    default:
+                        $state.go('home');
+                }
+            }
         });
     }
 }]);

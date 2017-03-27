@@ -186,4 +186,24 @@ describe('<Unit test for trainee-courseRegister>', function () {
         });
     });
 
+    describe('Test case 11: get Course by Name /trainee/courseRegister/getCoursebyName' ,function() {
+        return it('Should return id==1', function(done) {
+            var req = request(DCC_Server).post('/trainee/courseRegister/getCoursebyName');
+            req.cookies = Cookies;
+            req.send({
+                name: 'Training Overview'
+            })
+            .end(function(err, res) {
+                if (err)
+                    return done(err);
+                try {
+                    assert.equal(res.body.course.id, 1); //Training Overview has id = 1
+                } catch(error) {
+                    return done(error);
+                }
+                done();
+            });
+
+        });
+    });
 });

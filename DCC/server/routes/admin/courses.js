@@ -248,7 +248,8 @@ router.post('/addClass', function (req, res) {
                     courseName = course.name;
                     var noti = {
                         subject: course.name,
-                        content: "Your " + req.body.courseId + " class has been openned and scheduled to start tomorrow at location: " + req.body.location + ". Please be on time, thank you."
+                        content: "Your " + req.body.courseId + " class has been openned and scheduled to start tomorrow at location: " + req.body.location + ". Please be on time, thank you.",
+                        link:'courseDetail/' + course.name
                     };
                     Job.job_sendnoti_ClassStart(date, cb.id, noti);
 
@@ -261,7 +262,8 @@ router.post('/addClass', function (req, res) {
                                 console.log(courseName);
                                 var noti = {
                                     subject: courseName,
-                                    content: 'You have enrolled successfully'
+                                    content: 'You have enrolled successfully',
+                                    link: 'trainee_dashboard/requestCourse'
                                 }
                                 notification(receivers, noti);
                             });
@@ -351,8 +353,5 @@ router.get('/getAllTP', function (req, res) {
         res.send(datasend);
     });
 });
-
-
-
 
 module.exports = router;

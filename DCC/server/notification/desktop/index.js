@@ -17,7 +17,7 @@ function binarySearch(key, first, last) {
 }
 
 var desktop = {
-    send: function (receivers, subject, content) {
+    send: function (receivers, subject, content, link) {
         var notification = { title: subject, msg: content };
         for (i = 0; i < receivers.length; i++) {
             var index = binarySearch(receivers[i], 0, onlineUsers.length - 1)
@@ -28,7 +28,8 @@ var desktop = {
                     title: subject,
                     content: content,
                     time: new Date(),
-                    status: 1
+                    status: 1,
+                    reference: link
                 });
             
         }
