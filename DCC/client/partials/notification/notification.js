@@ -25,7 +25,7 @@ myApp.factory('NotificationService', ['$http', '$rootScope', function ($http, $r
     return factoryDefinition;
 }]);
 
-myApp.controller('NotiController', ['$scope', '$rootScope', 'NotificationService', function ($scope, $rootScope, NotificationService) {
+myApp.controller('NotiController', ['$scope', '$rootScope', '$location', '$state', 'NotificationService', function ($scope, $rootScope, $location, $state, NotificationService) {
     $scope.Dates = Array.from(Array(31),(val,index)=>index+1);
     function convertDate(date) {
         var hour = date.getHours();
@@ -96,6 +96,10 @@ myApp.controller('NotiController', ['$scope', '$rootScope', 'NotificationService
     };
 
     $scope.UpdateNotificationStatus = function (notification) {
-        NotificationService.UpdateNotificationStatus(notification);
+        NotificationService.UpdateNotificationStatus(notification).then(function(param) {
+            $state.go("trainee_dashboard").then(function() {
+                $location.hash('requestCourse');
+        });  
+        });
     }
 }]);
