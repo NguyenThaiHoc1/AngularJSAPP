@@ -22,8 +22,10 @@ function send(receivers, notification, callback) {
                 arr_desktop.push(receivers[i]);
             }
         }
-        desktop(arr_desktop, notification.subject, notification.content);
-        email(arr_email, notification.subject, notification.content);
+        if (arr_desktop.length > 0)
+            desktop(arr_desktop, notification.subject, notification.content);
+        if (arr_email.length > 0)
+            email(arr_email, notification.subject, notification.content);
     });
 
 }
