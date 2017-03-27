@@ -25,7 +25,7 @@ myApp.factory('NotificationService', ['$http', '$rootScope', function ($http, $r
     return factoryDefinition;
 }]);
 
-myApp.controller('NotiController', ['$scope', '$rootScope', '$location', '$state', 'NotificationService', function ($scope, $rootScope, $location, $anchorScroll, $state, NotificationService) {
+myApp.controller('NotiController', ['$scope', '$rootScope', '$location', '$state', 'NotificationService', function ($scope, $rootScope, $location, $state, NotificationService) {
     $scope.Dates = Array.from(Array(31),(val,index)=>index+1);
     function convertDate(date) {
         var hour = date.getHours();
