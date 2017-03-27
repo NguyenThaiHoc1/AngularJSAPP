@@ -25,8 +25,8 @@ myApp.factory('NotificationService', ['$http', '$rootScope', function ($http, $r
     return factoryDefinition;
 }]);
 
-myApp.controller('NotiController', ['$scope', '$rootScope', '$location', '$state', 'NotificationService', function ($scope, $rootScope, $location, $state, NotificationService) {
-    $scope.Dates = Array.from(Array(31),(val,index)=>index+1);
+myApp.controller('NotiController', ['$scope', '$rootScope', '$location', '$state', '$anchorScroll', 'NotificationService', function ($scope, $rootScope, $location, $state, $anchorScroll, NotificationService) {
+    $scope.Dates = Array.from(Array(31), (val, index) => index + 1);
     function convertDate(date) {
         var hour = date.getHours();
         var minute = date.getMinutes();
@@ -35,7 +35,7 @@ myApp.controller('NotiController', ['$scope', '$rootScope', '$location', '$state
             + ' ' + (hour >= 12 ? 'PM' : 'AM');
     }
 
-    Date.prototype.setDay = function(dayOfWeek) {
+    Date.prototype.setDay = function (dayOfWeek) {
         this.setDate(this.getDate() - this.getDay() + dayOfWeek);
     };
 
@@ -57,14 +57,14 @@ myApp.controller('NotiController', ['$scope', '$rootScope', '$location', '$state
         });
     };
 
-    $scope.SyncNotificationSetting = function() {
+    $scope.SyncNotificationSetting = function () {
         $rootScope.userInfo.TimeOption = new Date($rootScope.userInfo.TimeOption);
         $rootScope.userInfo.WeekdayOption = $rootScope.userInfo.TimeOption.getDay();
         $rootScope.userInfo.DateOption = $rootScope.userInfo.TimeOption.getDate();
     };
 
     $scope.SaveSetting = function () {
-        if ($rootScope.userInfo.isNotificationEmail){
+        if ($rootScope.userInfo.isNotificationEmail) {
             switch ($rootScope.userInfo.EmailPeriod) {
                 case 'Daily':   //This case has been handled synchronously
                     break;
@@ -76,13 +76,13 @@ myApp.controller('NotiController', ['$scope', '$rootScope', '$location', '$state
                 case 'Monthly':
                     $rootScope.userInfo.TimeOption.setDate($rootScope.userInfo.DateOption);
                     break;
-                
+
                 // case 'Custom':   //not handled yet
 
                 //     break;
                 default:
                     $rootScope.userInfo.TimeOption = new Date();    //set to current time if other case happen
-                break;
+                    break;
             }
         }
         NotificationService.updateNotificationSetting().then(function (result) {
@@ -96,10 +96,11 @@ myApp.controller('NotiController', ['$scope', '$rootScope', '$location', '$state
     };
 
     $scope.UpdateNotificationStatus = function (notification) {
-        NotificationService.UpdateNotificationStatus(notification).then(function(param) {
-            $state.go("trainee_dashboard").then(function() {
+        NotificationService.UpdateNotificationStatus(notification).then(function (param) {
+            $state.go("trainee_dashboard").then(function () {
                 $location.hash('requestCourse');
-        });  
+                $anchorScroll('requestCourse');
+            });
         });
     }
 }]);
