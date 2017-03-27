@@ -2,6 +2,7 @@ var router = require('express').Router();
 var models = require('../../models');
 var log = require('../../config/config')["log"];
 var notification = require('../../notification');
+var Job = require('../../automatic');
 // add course to database
 router.post('/addCourse', function (req, res) {
     models.Course.sync({
@@ -228,6 +229,7 @@ router.post('/addClass', function (req, res) {
             }
         }
         else {
+            var courseName;
             models.Class.create({
                 courseId: req.body.courseId,
                 location: req.body.location,
@@ -235,48 +237,53 @@ router.post('/addClass', function (req, res) {
                 startTime: req.body.startTime,
                 endTime: req.body.endTime,
                 maxAttendant: req.body.maxAttendant,
-            })
+            }).then(cb => {
+                models.Course.findOne({
+                    where: {
+                        id: req.body.courseId
+                    }
+                }).then(function (course) {
+                    var date = new Date(req.body.startTime);
+                    date.setDate(date.getDate() - 1);
+                    courseName = course.name;
+                    var noti = {
+                        subject: course.name,
+                        content: "Your " + req.body.courseId + " class has been openned and scheduled to start tomorrow at location: " + req.body.location + ". Please be on time, thank you."
+                    };
+                    Job.job_sendnoti_ClassStart(date, cb.id, noti);
+
+                    models.RequestOpening.findAll({ where: { courseId: req.body.courseId } }).then(function (reqOpns) {
+                        reqOpns.forEach(reqOpn => {
+                            models.User.findOne({ where: { id: reqOpn.userId } }).then(function (dataResults) {
+                                if (dataResults.email)
+                                    receivers.push(dataResults.email);
+                            }).then(function () {
+                                console.log(courseName);
+                                var noti = {
+                                    subject: courseName,
+                                    content: 'You have enrolled successfully'
+                                }
+                                notification(receivers, noti);
+                            });
+                        })
+
+                    });
+
+                });
+
+            });
             //.then(function (ClassDetail) {
             dataSend = {
                 success: true,
                 msg: "Add class successfully",
             }
-            models.RequestOpening.findAll({ where: { courseId: req.body.courseId } }).then(function (reqOpns) {
-                reqOpns.forEach(reqOpn => {
-                    models.User.findOne({ where: { id: reqOpn.userId, isNotificationEmail: 1 } }).then(function (dataResults) {
-                        receivers.push(
-                            dataResults.email
-                        )
-                    });
-                })
-                //reqOpn.destroy();
-            });
+
             // });
         }
         res.send(dataSend);
     })
 });
 
-
-
-
-router.get('/sendMail', function (req, res) {
-    console.log(receivers);
-
-    var datasend = {
-        success: true,
-        msg: "get all courses done"
-    };
-
-    res.send(datasend);
-    notification.email(receivers, 'Enroll Class', 'You have enrolled successfully', function (err, info) {
-        // if (err) console.log(err)
-        // else console.log("SENT");
-    });
-    //notification.desktop(receivers, 'Enroll Class', 'You have enrolled successfully');
-
-    receivers = [];
-});
 //Update Class
 router.post('/updateClass', function (req, res) {
     log.info('/admin/updateClass: update Class :' + req.body.id);

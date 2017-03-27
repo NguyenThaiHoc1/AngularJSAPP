@@ -168,7 +168,9 @@ myApp.controller('courseRegisterCtrl', ['$sce', '$rootScope', '$scope', 'courseR
         courseRegisterServices.sendRegisterRequest(request).then(
             function (result) {
                 if (result.data.msg) {
+                    if (result.data.success)
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
+                    else $rootScope.ShowPopupMessage(result.data.msg, "error");
                     for (var i = $scope.trainingProgramList.length - 1; i >= 0; i--) {
                         for (var j = $scope.trainingProgramList[i].Courses.length - 1; j >= 0; j--) {
                             if ($scope.trainingProgramList[i].Courses[j].id == courseId) {
