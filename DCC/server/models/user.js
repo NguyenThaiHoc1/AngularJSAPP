@@ -25,6 +25,9 @@ module.exports = function (sequelize) {
             },
             getAllUsers: function (cb) {
                 User.findAll().then(cb);
+            },
+            getEmailUsers: function (cb) {
+                sequelize.query('SELECT * FROM user us where us.isNotificationEmail = 1 order by us.email', { type: sequelize.QueryTypes.SELECT }).then(cb);
             }
         },
         tableName: 'user',
