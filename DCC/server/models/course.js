@@ -25,6 +25,10 @@ module.exports = function (sequelize) {
                     }
                 };
                 Course.findOne(query).then(cb);
+            },
+
+            getAll: function(cb) {
+                Course.findAll().then(cb);
             }
         },
         tableName: 'course',

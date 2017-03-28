@@ -238,17 +238,6 @@ describe('<Unit test for Logout>', function () {
             });
     });
 });
-// describe('Test case 5: Get Events', function () {
-//     return it('Should return success==true', function (done) {
-//         request(DCC_Server)
-//             .get('/getEvents')
-//             .end(function (err, res) {
-//                 assert.equal(res.body.success, true);
-//                 if (err) return done(err);
-//                 done();
-//             });
-//     });
-// });
 
 describe('Test case 6: get homepage', function () {
     return it('Should return success==true', function (done) {
@@ -303,30 +292,3 @@ describe('<Unit test for isLogin success>', function () {
 
 
 });
-//
-// describe('', function() {
-//     var Cookies;
-//     return it('Test case 0.1 : Check authenticated: Not Logged in', function(done) {
-//         var req = request(DCC_Server).get('/isLogged');
-//         req.cookies = Cookies;
-//         req.set('Accept', 'application/json')
-//         .end(function(err, res) {
-//             assert.equal(res.text, '');
-//             if(err)
-//             return done(err);
-//             done();
-//         });
-//     });
-// });
-//
-// return it('Test case 0 : Check authenticated: Logged in', function(done) {
-//     var req = request(DCC_Server).get('/isLogged');
-//     req.cookies = Cookies;
-//     req.set('Accept', 'application/json')
-//     .end(function(err, res) {
-//         assert.equal(res.text, 'qwe@gmail.com');
-//         if(err)
-//         return done(err);
-//         done();
-//     });
-// });

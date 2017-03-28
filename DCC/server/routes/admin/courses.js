@@ -76,12 +76,11 @@ router.post('/deleteCourse', function (req, res) {
 
 //getCourseTypeList
 router.get('/getCourseTypeList', function (req, res) {
-    var query = {};
-    models.CourseType.findAll(query).then(function (courseType) {
+    models.CourseType.getAll(courseTypes => {
         var datasend = {
             success: true,
             msg: 'send list success',
-            courseType: courseType
+            courseType: courseTypes
         };
         res.send(datasend);
     });
@@ -345,7 +344,7 @@ router.post('/deleteClass', function (req, res) {
 
 
 router.get('/getAllCourse', function (req, res) {
-    models.Course.findAll().then(function (data) {
+    models.Course.getAll(data => {
         var datasend = {
             success: true,
             msg: "get all courses done",
@@ -356,10 +355,10 @@ router.get('/getAllCourse', function (req, res) {
 });
 
 router.get('/getAllTP', function (req, res) {
-    models.TrainingProgram.findAll().then(function (data) {
+    models.TrainingProgram.getAll(data => {
         var datasend = {
             success: true,
-            msg: "get all courses done",
+            msg: "get all training programs done",
             data: data
         };
         res.send(datasend);

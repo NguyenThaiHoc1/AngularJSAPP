@@ -8,6 +8,9 @@ module.exports = function(sequelize) {
         charset: 'utf8',
         collate: 'utf8_unicode_ci',
         classMethods: {
+            getAll: function (cb) {
+                courseType.findAll().then(cb);
+            }
         },
 
         tableName: 'course_type',
