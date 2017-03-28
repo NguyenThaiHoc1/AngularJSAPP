@@ -4,7 +4,7 @@ var log = require('../../config/config')["log"];
 var md5 = require('md5');
 const fs = require('fs');
 var notification = require('../../notification/email');
-
+var auto = require('../../automatic')
 // Upload file setting
 var multer = require('multer');
 var storage = multer.diskStorage({
@@ -81,6 +81,7 @@ router.post('/updateUserProfile', function (req, res) {
             where: { email: req.body.email }
         }
     ).then(function () {
+        auto.job_sendEmail.updateJobs(req.body.email);
         res.send({
             success: true,
             msg: "Update your profile Success"

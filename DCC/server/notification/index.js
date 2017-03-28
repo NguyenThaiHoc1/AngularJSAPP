@@ -4,7 +4,6 @@ var models = require('../models');
 
 function send(receivers, notification) {
     models.User.getAllUsers(listUser => {
-        var arr_email = [];
         var arr_desktop = [];
         hashTable = new Object();
         for (i = 0; i < listUser.length; i++) {
@@ -15,17 +14,24 @@ function send(receivers, notification) {
         }
 
         for (i = 0; i < receivers.length; i++) {
-            if (hashTable[receivers[i]].isNotificationEmail === true) {
-                arr_email.push(receivers[i]);
-            }
             if (hashTable[receivers[i]].isNotificationDesktop === true) {
                 arr_desktop.push(receivers[i]);
             }
+            models.Notifications.create({
+                email: receivers[i],
+                title: notification.subject,
+                content: notification.content,
+                time: new Date(),
+                status: 1,
+                reference: notification.link
+            });
         }
+
+
+
         if (arr_desktop.length > 0)
             desktop(arr_desktop, notification.subject, notification.content, notification.link);
-        if (arr_email.length > 0)
-            email(arr_email, notification.subject, notification.content);
+
     });
 
 }

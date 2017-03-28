@@ -3,14 +3,14 @@ var onlineUsers = [];
 var models = require('../../models');
 function binarySearch(key, first, last) {
     var mid;
-
+    key = key.toUpperCase();
     while (first <= last) {
-        mid = (last + first) / 2;
-        if (key === onlineUsers[mid].email)
+        mid = Math.floor((last + first) / 2);
+        if (key === onlineUsers[mid].email.toUpperCase())
             return mid;
-        if (key > onlineUsers[mid].email)
+        if (key > onlineUsers[mid].email.toUpperCase())
             first = mid + 1;
-        if (key < onlineUsers[mid].email)
+        if (key < onlineUsers[mid].email.toUpperCase())
             last = mid - 1;
     }
     return - 1;
@@ -23,15 +23,7 @@ var desktop = {
             var index = binarySearch(receivers[i], 0, onlineUsers.length - 1)
             if (index !== -1)
                 onlineUsers[index].socket.emit('pushNotification', notification);
-                models.Notifications.create({
-                    email: receivers[i],
-                    title: subject,
-                    content: content,
-                    time: new Date(),
-                    status: 1,
-                    reference: link
-                });
-            
+
         }
     }
 }

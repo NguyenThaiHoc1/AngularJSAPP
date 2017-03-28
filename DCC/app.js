@@ -7,6 +7,7 @@ var session = require('express-session');
 var passport = require('passport');
 var models = require('./server/models');
 var http = require('http');
+var auto = require('./server/automatic');
 
 // Init App
 var app = express();
@@ -43,9 +44,8 @@ app.use('/', require('./server/routes/index.js'));
 
 //create database tables
 // models.sequelize.sync({force:false});
-
+auto.job_sendEmail.createJobSendEmail();
 // Set Port
-
 app.set('port', (process.env.PORT || 3210));
 var server = http.createServer(app);
 createServer(server);
