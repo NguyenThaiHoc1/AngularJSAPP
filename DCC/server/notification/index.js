@@ -14,7 +14,7 @@ function send(receivers, notification) {
         }
 
         for (i = 0; i < receivers.length; i++) {
-            if (hashTable[receivers[i]].isNotificationDesktop === true) {
+            if (hashTable[receivers[i]] && hashTable[receivers[i]].isNotificationDesktop === true) {
                 arr_desktop.push(receivers[i]);
             }
             models.Notifications.create({

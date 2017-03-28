@@ -109,6 +109,7 @@ myApp.controller('NotiController', ['$scope', '$rootScope', '$location', '$state
                             $anchorScroll(link[1]);
                         });
                         break;
+
                     case 'courseDetail':
                         NotificationService.getCoursebyName(link[1]).then(function(res) {
                             $state.go('courseDetail', {courseId: res.data.course.id}).then(function() {
@@ -117,6 +118,14 @@ myApp.controller('NotiController', ['$scope', '$rootScope', '$location', '$state
                             });
                         });
                         break;
+                    
+                    case 'trainee_courseRegister':
+                        $state.go('trainee_courseRegister').then(function() {
+                                $location.hash(link[1]);
+                                $anchorScroll(link[1]);
+                        });
+                        break;
+                        
                     default:
                         $state.go('home');
                 }

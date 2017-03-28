@@ -209,7 +209,7 @@ router.post('/getClass', function (req, res) {
     });
 });
 
-var receivers = [];
+
 
 router.post('/addClass', function (req, res) {
     var dataSend = {};
@@ -255,14 +255,14 @@ router.post('/addClass', function (req, res) {
 
                     models.RequestOpening.findAll({ where: { courseId: req.body.courseId } }).then(function (reqOpns) {
                         reqOpns.forEach(reqOpn => {
+                            var receivers = [];
                             models.User.findOne({ where: { id: reqOpn.userId } }).then(function (dataResults) {
                                 if (dataResults.email)
                                     receivers.push(dataResults.email);
                             }).then(function () {
-                                console.log(courseName);
                                 var noti = {
                                     subject: courseName,
-                                    content: 'You have enrolled successfully',
+                                    content: "A new " + courseName + "'s class has been opened",
                                     link: 'trainee_dashboard/requestCourse'
                                 }
                                 notification(receivers, noti);
@@ -325,6 +325,18 @@ router.post('/deleteClass', function (req, res) {
     //         classId: req.body.id
     //     }
     // });
+    if (Date.parse(req.body.startTime) >= Date.now()) {
+        var TraineeList = [];
+        req.body.traineeList.forEach(trainee => {
+            TraineeList.push(trainee.traineeMail);
+        });
+        var noti ={
+            subject:'Class canceled',
+            content: 'The ' + req.body.courseName + "'s class has been canceled",
+            link: 'trainee_courseRegister/CourseRegister'
+        };
+        notification(TraineeList, noti);
+    }
     res.send({
         success: true,
         msg: 'Delete Class success'
