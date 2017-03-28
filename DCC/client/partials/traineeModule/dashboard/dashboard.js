@@ -268,53 +268,7 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices', '$rootScope', 
             dashboardServices.sendRegisterRequest({ userId: $rootScope.userInfo.id, courseId: myCourse.id }).then(function (result) {
                 if (result.data.success) {
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
-                    //REFRESH
-                    dashboardServices.getMyTraingPrograms({ traineeId: $rootScope.userInfo.id, email: $rootScope.userInfo.email, userType: $rootScope.userInfo.userType, isExperienced: $rootScope.userInfo.isExperienced }).then(function (result) {
-                        result.data.trainingProgram.forEach(trainingProgram => {
-                            if (trainingProgram.Courses.length == 0) {
-                                trainingProgram.completePercent = 0;
-                            }
-                            else {
-                                trainingProgram.count = 0;
-
-                                trainingProgram.Courses.forEach(course => {
-                                    if (course.Classes.length != 0) {
-                                        for (var i = 0; i < course.Classes.length; i++) {
-
-                                            if (course.Classes[i].ClassRecords.length == 0) {
-                                                course.backgroundColor = '#ffb84d';
-                                                course.status = 'Not Learned';
-                                            }
-                                            else {
-                                                for (var j = 0; j < course.Classes[i].ClassRecords.length; j++) {
-                                                    if (course.Classes[i].ClassRecords[j].traineeId == $rootScope.userInfo.id) {
-                                                        course.classId = course.Classes[i].ClassRecords[j].classId;
-                                                        course.status = course.Classes[i].ClassRecords[j].status;
-                                                    }
-                                                }
-                                                if (course.status == STATUS_ENROLLED) { course.backgroundColor = '#4FC3F7' }
-                                                else if (course.status == STATUS_LEARNED) {
-                                                    course.backgroundColor = '#8BC34A';
-                                                    trainingProgram.count = trainingProgram.count + 1;
-                                                }
-                                                else {
-                                                    course.backgroundColor = '#ffb84d';
-                                                    course.status = 'Not Learned';
-                                                }
-                                            }
-                                        }
-                                    }
-                                    else {
-                                        course.backgroundColor = '#ffb84d';
-                                        course.status = 'Not Learned';
-                                    }
-                                });
-                                trainingProgram.completePercent = Math.ceil(trainingProgram.count / trainingProgram.Courses.length * 100);
-                            }
-                        });
-                        $scope.myTrainingProgramList = result.data.trainingProgram;
-                    });
-                    //--END OF REFRESH
+                    $state.go("courseDetail", { courseId: myCourse.id });
                 } else {
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
                 }
@@ -338,7 +292,7 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices', '$rootScope', 
 }]);
 
 //Request Open Course controller
-myApp.controller('requestOpenCourseCtrl', ['$scope', 'dashboardServices', '$rootScope','$state', function ($scope, dashboardServices, $rootScope,$state) {
+myApp.controller('requestOpenCourseCtrl', ['$scope', 'dashboardServices', '$rootScope', '$state', function ($scope, dashboardServices, $rootScope, $state) {
     dashboardServices.getRequestOpenCourse({ userId: $rootScope.userInfo.id }).then(function (result) {
         $scope.myRequestOpenCourseList = result.data.data;
         $scope.myRequestOpenCourseList.forEach(course => {
@@ -362,7 +316,7 @@ myApp.controller('requestOpenCourseCtrl', ['$scope', 'dashboardServices', '$root
                     $scope.myRequestOpenCourseList = result.data.data;
                 });
                 //window.location.reload();
-                $state.go("courseDetail",{courseId:requestOpenCourseId});
+                $state.go("courseDetail", { courseId: requestOpenCourseId });
             } else {
                 $rootScope.ShowPopupMessage(result.data.msg, "error");
             }
