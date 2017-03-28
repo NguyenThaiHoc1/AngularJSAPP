@@ -129,14 +129,19 @@ myApp.controller('courseRegisterCtrl', ['$sce', '$rootScope', '$scope', 'courseR
         if (openingCourseFilter) {
             $scope.trainingProgramList.forEach(trainingProgram => {
                 trainingProgram.Courses.forEach(course => {
-                    if (((course.name.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1) || (course.description.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1)) && (course.isOpening == openingCourseFilter)) courseListSearchResult.push(course);
+                    if (((course.name.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1) ||
+                         (course.description.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1)) &&
+                         (course.isOpening == openingCourseFilter))
+                        courseListSearchResult.push(course);
                 });
             });
         }
         else {
             $scope.trainingProgramList.forEach(trainingProgram => {
                 trainingProgram.Courses.forEach(course => {
-                    if ((course.name.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1) || (course.description.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1)) courseListSearchResult.push(course);
+                    if ((course.name.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1) ||
+                        (course.description.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1))
+                        courseListSearchResult.push(course);
                 });
             });
         }

@@ -247,5 +247,5 @@ myApp.controller('userProfileCtrl', ['$scope', 'userServices', '$location', '$ro
     $scope.cancel = function () {
         $rootScope.ShowPopupMessage("Ignore all changes", "info");
         $location.path("/userProfile");
-    }
+    };
 }]);

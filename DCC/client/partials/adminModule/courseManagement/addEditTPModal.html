@@ -33,7 +33,8 @@
                     <div class="form-group" ng-class="{ 'has-error' : addEditForm.description.$invalid && !addEditForm.description.$pristine }">
                         <center><label>Description</label></center><br>
                         <div text-angular ng-model="adminTrainingProgramModel.description"  required></div>
-                        <p ng-show="addEditForm.description.$invalid && !addEditForm.description.$pristine" class="help-block">Training Program Description is required.</p>
+                        <p ng-show="addEditForm.description.$invalid && !addEditForm.description.$pristine" class="help-block">
+                            Training Program Description is required.</p>
                     </div>
                 </div>
                 <div class="modal-footer">

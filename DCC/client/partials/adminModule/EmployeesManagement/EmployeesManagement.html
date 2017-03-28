@@ -24,7 +24,6 @@
                     <span class="glyphicon glyphicon-plus"></span>&nbspAdd User
                 </div>
             </blockquote>
-            <!--<div class="container-fluid">-->
             <div class="row" style="word-wrap: normal; font-size: 16px;cursor: pointer; margin: 0;">
                 <div class="col-md-3 col-xs-3" style="text-indent: 0.7em;">
                     <a ng-click="sortbyName()"><i class="glyphicon glyphicon-user"></i><b>&nbsp Name</b></a>
@@ -37,6 +36,9 @@
                 </div>
                 <div class="col-md-4 col-xs-4">
                     <a><i class="glyphicon glyphicon-envelope"></i><b>&nbsp Mail</b></a>
+                </div>
+                <div class="col-md-1 col-xs-1" ng-show="opt==3" style="padding: 0; margin-left: -30px; white-space: nowrap;">
+                    <a ng-click="sortbyStatus()"><i class="glyphicon glyphicon-ok"></i><b>&nbsp Status</b></a>
                 </div>
             </div>
                 <!--Employees list-->
@@ -60,8 +62,12 @@
                             </div>
                             <div class="col-md-1 col-xs-1" style="padding-left: 0px">
                                 <!--deactivate user, not delete-->
-                                <button class="btn btn-danger" data-toggle="modal" data-target="#ActivationModal" ng-show="user.status=='activated'" ng-click="showUserActivationForm(user)"><span class="glyphicon glyphicon-trash"></span></button>
-                                <a class="btn btn-success" data-toggle="modal" data-target="#ActivationModal" ng-show="user.status=='deactivated'" ng-click="showUserActivationForm(user)"><span class="glyphicon glyphicon-repeat"></span></a>
+                                <button class="btn btn-danger" data-toggle="modal" data-target="#ActivationModal" ng-show="user.status=='activated'" ng-click="showUserActivationForm(user)">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                                <a class="btn btn-success" data-toggle="modal" data-target="#ActivationModal" ng-show="user.status=='deactivated'" ng-click="showUserActivationForm(user)">
+                                    <span class="glyphicon glyphicon-repeat"></span>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -71,39 +77,30 @@
                         <div class="col-md-1"></div>
                         <div class="col-md-9 col-sm-8" style="border-left:2px none;" class="row" style="padding-bottom:10px; margin-left: 90px;
                             margin-right: 10px; border: 2px solid; border-radius: 100px 5px 5px 100px; background-color: #f7f7f7;">
-                            <!--<blockquote class="blockquote">-->
                             <div class="panel-body">
                                 <div class=" col-md-9 col-lg-9 col-sm-8" style="border-left: 4px solid #D3D3D3">
                                     <table class="table " id="shady-lady">
                                         <tbody>
                                             <tr style="border: hidden">
                                                 <td><b>Date of Birth</b></td>
-                                                <td>
-                                                    <font ng-bind-html="highlight(user.dob, userSearchKey)"></font>
-                                                </td>
+                                                <td><font ng-bind-html="highlight(user.dob, userSearchKey)"></font></td>
                                             </tr>
                                             <tr style="border: hidden">
                                                 <td><b>Phone</b></td>
-                                                <td>
-                                                    <font ng-bind-html="highlight(user.phone, userSearchKey)"></font>
-                                                </td>
+                                                <td><font ng-bind-html="highlight(user.phone, userSearchKey)"></font></td>
                                             </tr>
                                             <tr style="border: hidden">
                                                 <td><b>Location</b></td>
-                                                <td>
-                                                    <font ng-bind-html="highlight(user.location, userSearchKey)"></font>
-                                                </td>
+                                                <td><font ng-bind-html="highlight(user.location, userSearchKey)"></font></td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                            <!--</blockquote>-->
                         </div>
                     </div>
                 </div>
             </div>
-            <!--</div>-->
         </div>
     </div>
 </div>

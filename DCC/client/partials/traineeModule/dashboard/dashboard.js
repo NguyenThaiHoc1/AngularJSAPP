@@ -69,7 +69,6 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices', '$rootScope', 
     $scope.actionTwoText[STATUS_ENROLLED] = 'Un-enroll';
     $scope.actionOneText[STATUS_NOT_LEARNED] = 'Register or Enroll';
 
-
     //get all courses and training programs - REFRESH
     dashboardServices.getMyTraingPrograms({ traineeId: $rootScope.userInfo.id, email: $rootScope.userInfo.email, userType: $rootScope.userInfo.userType, isExperienced: $rootScope.userInfo.isExperienced }).then(function (result) {
         result.data.trainingProgram.forEach(trainingProgram => {
@@ -81,7 +80,6 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices', '$rootScope', 
                 trainingProgram.Courses.forEach(course => {
                     if (course.Classes.length != 0) {
                         for (var i = 0; i < course.Classes.length; i++) {
-
                             if (course.Classes[i].ClassRecords.length == 0) {
                                 course.backgroundColor = '#ffb84d';
                                 course.status = 'Not Learned';
@@ -339,13 +337,6 @@ myApp.controller('requestOpenCourseCtrl', ['$scope', 'dashboardServices', '$root
     };
 }]);
 
-//Feedback controller
-myApp.controller('FeedbackCtrl', ['$scope', 'dashboardServices', '$rootScope', function ($scope, dashboardServices, $rootScope) {
-
-
-}]);
-
-
 myApp.controller('viewScheduleCtrl', function ($scope, dashboardServices, $rootScope) {
     $scope.events = [];
     $scope.eventSources = [$scope.events];
@@ -359,7 +350,6 @@ myApp.controller('viewScheduleCtrl', function ($scope, dashboardServices, $rootS
                 start: new Date(value.start),
                 end: new Date(value.end),
                 location: value.location,
-                // allDay: value.IsFullDay,
                 stick: true
             });
         });
