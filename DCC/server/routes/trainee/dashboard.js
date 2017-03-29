@@ -86,6 +86,7 @@ router.post('/getRequestOpenCourse', function (req, res) {
             msg: 'send list success',
             data: course
         };
+
         res.send(datasend);
     });
 });
