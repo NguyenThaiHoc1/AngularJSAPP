@@ -43,7 +43,6 @@ describe('<Unit test for trainee-dashboard>', function () {
                 email: 'qwe@gmail.com',
             });
             req.end(function (err, res) {
-
                 assert.equal(res.body.success, true);
                 if (err) return done(err);
                 done();
@@ -60,7 +59,6 @@ describe('<Unit test for trainee-dashboard>', function () {
                 email: 'newuser@email.com',
             });
             req.end(function (err, res) {
-
                 assert.equal(res.body.success, true);
                 if (err) return done(err);
                 done();
@@ -76,12 +74,22 @@ describe('<Unit test for trainee-dashboard>', function () {
             req.send({ userId: 1 });
             req.end(function (err, res) {
                 assert.equal(res.body.success, true);
-                console.log(err);
                 if (err) return done(err);
                 done();
             });
         });
     });
 
-
+    describe('Test case 3: Enroll class', function () {
+        return it('Should return success = true', function (done) {
+            var req = request(DCC_Server).post('/trainee/dashboard/enrollClass')
+            req.cookies = Cookies
+            req.send({ userId: 1, courseId: 3 })
+            req.end(function (err, res) {
+                assert.equal(res.body.success, true)
+                if (err) return done(err)
+                done()
+            })
+        })
+    })
 });
