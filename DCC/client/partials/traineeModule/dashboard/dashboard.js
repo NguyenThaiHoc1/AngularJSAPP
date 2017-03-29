@@ -60,6 +60,7 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices', '$rootScope', 
     const STATUS_ENROLLED = 'Enrolled';
     const STATUS_LEARNED = 'Learned';
     const STATUS_NOT_LEARNED = 'Not Learned';
+    const STATUS_NOT_LEARNED_NOT_OPEN = 'Not Learned ';
 
     //Init action text of button base on status of a course
     $scope.actionOneText = {}; $scope.actionTwoText = {};
@@ -67,7 +68,8 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices', '$rootScope', 
     $scope.actionTwoText[STATUS_LEARNED] = 'Re-enroll';
     $scope.actionOneText[STATUS_ENROLLED] = 'View Schedule';
     $scope.actionTwoText[STATUS_ENROLLED] = 'Un-enroll';
-    $scope.actionOneText[STATUS_NOT_LEARNED] = 'Register or Enroll';
+    $scope.actionOneText[STATUS_NOT_LEARNED] = 'Enroll';
+    $scope.actionOneText[STATUS_NOT_LEARNED_NOT_OPEN] = 'Request Class';
 
     //get all courses and training programs - REFRESH
     dashboardServices.getMyTraingPrograms({ traineeId: $rootScope.userInfo.id, email: $rootScope.userInfo.email, userType: $rootScope.userInfo.userType, isExperienced: $rootScope.userInfo.isExperienced }).then(function (result) {
@@ -79,10 +81,19 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices', '$rootScope', 
                 trainingProgram.count = 0;
                 trainingProgram.Courses.forEach(course => {
                     if (course.Classes.length != 0) {
+                        //Default
+                        course.backgroundColor = '#ff704d';
+                        course.status = 'Not Learned ';
                         for (var i = 0; i < course.Classes.length; i++) {
                             if (course.Classes[i].ClassRecords.length == 0) {
-                                course.backgroundColor = '#ffb84d';
-                                course.status = 'Not Learned';
+                                if ((Date.parse(course.Classes[i].startTime) > Date.now())) {
+                                    course.backgroundColor = '#ffb84d';
+                                    course.status = 'Not Learned';
+                                }
+                                else {
+                                    course.backgroundColor = '#ff704d';
+                                    course.status = 'Not Learned ';
+                                }
                             }
                             else {
                                 for (var j = 0; j < course.Classes[i].ClassRecords.length; j++) {
@@ -108,15 +119,21 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices', '$rootScope', 
                                     trainingProgram.count = trainingProgram.count + 1;
                                 }
                                 else {
-                                    course.backgroundColor = '#ffb84d';
-                                    course.status = 'Not Learned';
+                                    if ((Date.parse(course.Classes[i].startTime) > Date.now())) {
+                                        course.backgroundColor = '#ffb84d';
+                                        course.status = 'Not Learned';
+                                    }
+                                    else {
+                                        course.backgroundColor = '#ff704d';
+                                        course.status = 'Not Learned ';
+                                    }
                                 }
                             }
                         }
                     }
                     else {
-                        course.backgroundColor = '#ffb84d';
-                        course.status = 'Not Learned';
+                        course.backgroundColor = '#ff704d';
+                        course.status = 'Not Learned ';
                     }
                 });
                 trainingProgram.completePercent = Math.ceil(trainingProgram.count / trainingProgram.Courses.length * 100);
