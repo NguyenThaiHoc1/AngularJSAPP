@@ -373,6 +373,7 @@ describe('<Unit test for admin-course>', function () {
             req.cookies = Cookies;
             req.send({
                 id: 1,
+                startTime: '2017-02-03 17:00:00',
             });
             req.end(function (err, res) {
 
