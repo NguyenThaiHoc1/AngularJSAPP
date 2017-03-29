@@ -418,6 +418,8 @@ describe('<Unit test for admin-course>', function () {
             req.send({
                 id: 1,
                 startTime: '2018-03-30T03:00:00.000Z',
+                courseName: 'CoreMW Overview',
+                traineeList: {},
             });
             req.end(function (err, res) {
 
