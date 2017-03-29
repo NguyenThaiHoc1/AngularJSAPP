@@ -252,11 +252,7 @@ describe('<Unit test for trainee-courseRegister>', function () {
         });
     });
 
-<<<<<<< HEAD
     describe('Test case 12: get Course by Name /trainee/courseRegister/getCoursebyName', function () {
-=======
-    describe('Test case 11: get Course by Name /trainee/courseRegister/getCoursebyName', function () {
->>>>>>> fb56c0565079efcd73a614c7edf3a08a519b7da1
         return it('Should return id==1', function (done) {
             var req = request(DCC_Server).post('/trainee/courseRegister/getCoursebyName');
             req.cookies = Cookies;
