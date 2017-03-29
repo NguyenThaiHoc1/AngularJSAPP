@@ -126,7 +126,7 @@ describe('<Unit test for trainee-courseRegister>', function () {
                         where: {
                             courseId: 10
                         }
-                    })
+                    });
                     if (err) return done(err);
                     done();
                 });
@@ -145,9 +145,10 @@ describe('<Unit test for trainee-courseRegister>', function () {
                     assert.equal(res.body.success, true);
                     models.ClassRecord.destroy({
                         where: {
-                            courseId: 8
+                            classId: 20,
+                            traineeId: 1
                         }
-                    })
+                    });
                     if (err) return done(err);
                     done();
                 });
