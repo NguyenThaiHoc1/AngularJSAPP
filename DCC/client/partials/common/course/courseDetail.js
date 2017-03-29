@@ -37,7 +37,8 @@ myApp.factory('courseDetailServices', ['$http', function ($http) {
         },
         deleteClass: function (Class) {
             return $http.post('/admin/courses/deleteClass', Class).success(function (data) { return data; });
-        }
+        },
+
     }
 
     return factoryDefinitions;
@@ -56,22 +57,6 @@ myApp.controller('courseDetailCtrl', ['$scope', '$rootScope', '$stateParams', 'c
     courseDetailServices.getClassByCourseID($stateParams.courseId).then(function (result) {
         $rootScope.classList = result.data.data;
     });
-
-    //
-    // $scope.giveFeedback = function(){
-    //     var req = {
-    //         email: $rootScope.userInfo.email,
-    //         courseId: $scope.courseDetail.id,
-    //         rating: $scope.rate
-    //     };
-    //     courseDetailServices.sendFeedback(req).then(function(result){
-    //         if(result.data.success){
-    //             $rootScope.popUpMessage("Rating success", "success");
-    //         }else{
-    //             $rootScope.popUpMessage("Rating fail", "error");
-    //         }
-    //     });
-    // }
 
     //Rating
     $scope.rate = 1;
@@ -153,6 +138,7 @@ myApp.controller('courseDetailCtrl', ['$scope', '$rootScope', '$stateParams', 'c
     $scope.DeleteClass = function () {
         var Class = $rootScope.classDelete;
         var courseID = Class.courseId;
+        Class.courseName = $scope.courseDetail.name;
         courseDetailServices.deleteClass(Class).then(function (result) {
             if (result.data.success) {
                 courseDetailServices.getClassByCourseID(Class.courseId).then(function (result) {

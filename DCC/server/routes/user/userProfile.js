@@ -3,8 +3,8 @@ var models = require('../../models');
 var log = require('../../config/config')["log"];
 var md5 = require('md5');
 const fs = require('fs');
-var notification = require('../../notification');
-
+var notification = require('../../notification/email');
+var auto = require('../../automatic')
 // Upload file setting
 var multer = require('multer');
 var storage = multer.diskStorage({
@@ -30,8 +30,10 @@ router.post('/getUserInfo', function (req, res) {
             currentRole = 1;
         } else if (user.isTrainer) {
             currentRole = 2;
-        } else {
+        } else if (user.isTrainee) {
             currentRole = 3;
+        } else {
+            currentRole = 0;
         }
         res.send({
             id: user.id,
@@ -53,7 +55,9 @@ router.post('/getUserInfo', function (req, res) {
             success: true,
             getCurrentRole: true,
             isNotificationDesktop: user.isNotificationDesktop,
-            isNotificationEmail: user.isNotificationEmail
+            isNotificationEmail: user.isNotificationEmail,
+            EmailPeriod: user.EmailPeriod,
+            TimeOption: user.TimeOption
         });
     });
 });
@@ -64,19 +68,20 @@ router.post('/updateUserProfile', function (req, res) {
     models.User.update(
         {
             username: req.body.username,
-            // userType: req.body.userType,
             avatar: req.body.avatar,
             dob: req.body.dob,
             phone: req.body.phone,
-            //role: req.body.role,
             status: req.body.status,
             isNotificationDesktop: req.body.isNotificationDesktop,
-            isNotificationEmail: req.body.isNotificationEmail
+            isNotificationEmail: req.body.isNotificationEmail,
+            EmailPeriod: req.body.EmailPeriod,
+            TimeOption: req.body.TimeOption
         },
         {
             where: { email: req.body.email }
         }
     ).then(function () {
+        auto.job_sendEmail.updateJobs(req.body.email);
         res.send({
             success: true,
             msg: "Update your profile Success"
@@ -89,6 +94,8 @@ router.post('/changePasswordMD5', function (req, res) {
     models.User.update(
         {
             password: md5(req.body.password),
+            status: 'activated',
+            isTrainee: true
         },
         {
             where: { email: req.body.email }
@@ -103,7 +110,6 @@ router.post('/changePasswordMD5', function (req, res) {
 
 router.post('/photo', function (req, res) {
     log.info('/routes/users: Upload avatar');
-    // upload avatar
     upload(req, res, function () {
 
         models.User.getUserByEmail(req.user.email, function (user) {
@@ -139,7 +145,6 @@ router.post('/addUser', function (req, res) {
     models.User.sync({
         force: false
     }).then(function () {
-        // this function check if the courseName is already existed
         models.User.getUserByEmail(req.body.email, function (result) {
             if (result) {
                 res.send({
@@ -148,8 +153,8 @@ router.post('/addUser', function (req, res) {
                 });
             } else {
                 models.User.create({
-                    username: 'Your Name',
-                    status: 'activated',
+                    username: req.body.username,
+                    status: 'newuser',
                     dob: '01/01/2001',
                     phone: '0000 000 000',
                     location: 'DEK Vietnam',
@@ -158,22 +163,18 @@ router.post('/addUser', function (req, res) {
                     avatar: '/img/profiles/defaultProfile.jpg',
                     isAdmin: false,
                     isTrainer: false,
-                    isTrainee: true, //default user is a trainee
-                    belong2Team: 'Innova',
+                    isTrainee: false,
+                    belong2Team: req.body.team,
                     isExperienced: 0,
                     userType: req.body.userType,
                 }).then(function () {
                     res.send({
                         success: true,
-                        msg: "Add User Success",
+                        msg: "Register New User Successfully",
                     });
-                    var subject = "Account Information";
-                    var content = "Your account has been registered as " + req.body.email + " with password: " + req.body.password;
-                    notification.email([req.body.email], subject, content, function (error, info) {
-                        // if (error)
-                        //     console.log(error);
-                        // else
-                        //     console.log("Sent");
+                    var subject = "Register - Account Information";
+                    var content = "Your account has been registered as " + req.body.username + " using the email: " + req.body.email + "with the auto-generated password of: " + req.body.password + " . You must change your password the first time you login otherwise you won't be able to access other features.";
+                    notification([req.body.email], subject, content, function (error, info) {
                     });
                 });
             }

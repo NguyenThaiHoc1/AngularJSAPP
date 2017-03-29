@@ -53,7 +53,7 @@ router.post('/sendRegisterRequest', function (req, res) {
     var userId = req.body.userId;
     //If request is already existed, don't add request to request_course table
     //If not, add request to request_course table
-    models.RequestOpening.findOne({ where: { userId: userId, courseId: courseId } }).then(function (requestOpening) {
+    models.RequestOpening.findRequestOpenningCourse(userId, courseId, requestOpening => {
         if (requestOpening) {
             var datasend = {
                 success: false,
@@ -65,13 +65,24 @@ router.post('/sendRegisterRequest', function (req, res) {
                 //If class is opening, add user request to request_course table with requestType = "enroll"
                 //If not, add user request to request_course table with requestType = "register"
                 if (openingClass) {
-                    models.ClassRecord.enrollCourse(userId, openingClass.id, function () {
+                models.ClassRecord.findTraineeEnrolledClass(userId, openingClass.id, result => {
+                   if (result) {
+                     var datasend = {
+                            success: false,
+                            msg: 'You Have Already Enrolled'
+                        };
+                        res.send(datasend);
+                   }
+                   else {
+                        models.ClassRecord.enrollCourse(userId, openingClass.id, function () {
                         var datasend = {
                             success: true,
                             msg: 'Enroll Successfully'
                         };
                         res.send(datasend);
                     });
+                   }
+                })
                 } else {
                     models.RequestOpening.addRequestRegister(userId, courseId, function () {
                         var datasend = {
@@ -153,6 +164,15 @@ router.post('/updateClassRecordStatus', function (req, res) {
             });
         });
 });
+
+router.post('/getCoursebyName', function(req, res) {
+    models.Course.getByName(req.body.name, function (result) {
+        res.send({
+            course: result
+        })
+    });
+});
+
 
 
 module.exports = router;

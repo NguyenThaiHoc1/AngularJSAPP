@@ -1,8 +1,8 @@
-var email_config = require('./email_config.json');
+var email_config = require('../../../settings').email;
 var request = require('request');
 var email = {
 
-    send: function (receivers, subject, content, callback) {
+    send: function (receivers, subject, content) {
 
         const nodemailer = require('nodemailer');
         var transporter = nodemailer.createTransport({
@@ -17,13 +17,13 @@ var email = {
             }
         });
         var mailOptions = {
-            from: '"DEK Notification System" <dektech@dekemail.com>',
+            from: '"DEK Notification System" <dektech.dcc@gmail.com>',
             to: receivers.toString(),
             subject: subject,
             text: content,
         };
         transporter.sendMail(mailOptions, (error, info) => {
-            callback(error, info);
+            //callback(error, info);
         });
     }
 }

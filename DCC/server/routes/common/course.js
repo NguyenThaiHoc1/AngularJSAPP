@@ -38,7 +38,7 @@ router.post('/getClassByCourseID', function (req, res) {
                 traineeList.push({
                     traineeName: classRecord.User.username,
                     traineeAvatar: classRecord.User.avatar,
-                    //status: classRecord.status
+                    traineeMail: classRecord.User.email,
                     comment: classRecord.comments,
                     rating: classRecord.rating,
                 });

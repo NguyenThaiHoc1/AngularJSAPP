@@ -1,21 +1,4 @@
 <div ng-controller="NotiController">
-<div class="container" >
-    <div class="widget widget-nopad">
-        <div class="widget-header">
-            <h3 >Notification</h3>
-            <h3 class="pull-right">
-                <a data-toggle="modal" data-target="#NotiSetting" ng-click="getNotificationSetting()" style="color: white; cursor: pointer;">
-                    <span class="glyphicon glyphicon-cog"></span>
-                </a>
-            </h3>
-        </div>
-        <div class="widget-content">
-            <!--List of notification here-->
-        </div>
-    </div>
-</div>
-
-<div>
     <div class="modal fade" id="NotiSetting" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
@@ -27,19 +10,45 @@
                     </div>
                     <div class="modal-body">
                         <div class="col-xs-1"></div>
-                        <input type="checkbox" name="NotiSettingOption" ng-model="NotiSetting.desktop"><label class="control-label">&nbsp Desktop</label></br>
+                        <label class="control-label"><input type="checkbox" name="NotiSettingOption" ng-model="userInfo.isNotificationDesktop">&nbsp Desktop</label><br>
                         <div class="col-xs-1"></div>
-                        <input type="checkbox" name="NotiSettingOption" ng-model="NotiSetting.email"><label class="control-label">&nbsp Email</label></br>
+                        <label class="control-label"><input type="checkbox" name="NotiSettingOption" ng-model="userInfo.isNotificationEmail">&nbsp Email</label><br>
+                        <div ng-show="userInfo.isNotificationEmail" class="row" style="position: relative;">
+                            <div class="col-xs-1"></div>
+                            <div class="col-xs-3">
+                                <div class="col-xs-2" ng-show="userInfo.isNotificationEmail"></div>
+                                <label><input type="radio" name="MailPeriod" value="Daily" ng-model="userInfo.EmailPeriod"/>&nbsp Daily </label><br/>
+                                <div class="col-xs-2" ng-show="userInfo.isNotificationEmail"></div>
+                                <label><input type="radio" name="MailPeriod" value="Weekly" ng-model="userInfo.EmailPeriod"/>&nbsp Weekly</label ><br/>
+                                <div class="col-xs-2" ng-show="userInfo.isNotificationEmail"></div>
+                                <label><input type="radio" name="MailPeriod" value="Monthly" ng-model="userInfo.EmailPeriod"/>&nbsp Monthly</label ><br/>
+                                <!--<div class="col-xs-2" ng-show="userInfo.isNotificationEmail"></div>
+                                <label><input type="radio" name="MailPeriod" value="Custom" ng-model="userInfo.EmailPeriod" disabled/>&nbsp Custom</label ><br/>-->
+                            </div>
+                            <div class="col-xs-8">
+                                <div class="col-xs-4" ng-show="userInfo.EmailPeriod">
+                                    <div uib-timepicker ng-model="userInfo.TimeOption" hour-step="1" minute-step="1" show-meridian="false"></div>
+                                </div>
+                                <div class="col-xs-4"  style="margin-top: 40px;" uib-dropdown ng-show="userInfo.EmailPeriod == 'Weekly'">
+                                    <select ng-init="Weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']"
+                                            ng-model="userInfo.WeekdayOption" ng-options="Weekdays.indexOf(weekday) as weekday for weekday in Weekdays">
+                                    </select>
+                                </div>
+                                <div class="col-xs-4" style="margin-top: 40px;" uib-dropdown ng-show="userInfo.EmailPeriod == 'Monthly'">
+                                    <select ng-model="userInfo.DateOption" ng-options="date as date for date in Dates"><!--date == value-->
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-xs-1"></div>
-                        <input type="checkbox" name="NotiSettingOption" ng-model="NotiSetting.SMS" disabled><label class="control-label">&nbsp SMS</label></br>
+                        <input type="checkbox" name="NotiSettingOption" ng-model="userInfo.isNotificationSMS" disabled><label class="control-label">&nbsp SMS</label></br>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-success" ng-click="SaveSetting()" data-dismiss="modal" ng-disabled="NotiSettingForm.$invalid">Save</button>
+                        <button type="submit" class="btn btn-success" ng-click="SaveSetting()" data-dismiss="modal" ng-disabled="NotiSettingForm.$invalid || (userInfo.isNotificationEmail && userInfo.EmailPeriod === null)">Save</button>
                         <button class="btn btn-default" data-dismiss="modal" ng-disabled="NotiSettingForm.$invalid">Cancel</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-</div>
 </div>

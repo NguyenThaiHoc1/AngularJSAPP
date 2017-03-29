@@ -63,7 +63,7 @@ myApp.factory('courseManagementServices', ['$http', function ($http) {
 ]);
 var temp;
 //controller
-myApp.controller('courseManagementCtrl', ['$scope', '$rootScope', 'courseManagementServices', function ($scope, $rootScope, courseManagementServices, $location) {
+myApp.controller('courseManagementCtrl', ['$sce', '$scope', '$rootScope', 'courseManagementServices', function ($sce, $scope, $rootScope, courseManagementServices, $location) {
     //GetTrainingProgram
     courseManagementServices.getTrainingProgramList().then(function (result) {
         result.data.trainingProgram.forEach(traningProgram => {
@@ -134,9 +134,9 @@ myApp.controller('courseManagementCtrl', ['$scope', '$rootScope', 'courseManagem
             id: trainingProgram.id,
             name: trainingProgram.name,
             description: trainingProgram.description,
-            courseTypeId: { id:trainingProgram.courseTypeId}
+            courseTypeId: { id: trainingProgram.courseTypeId }
         };
-     };
+    };
     $scope.showDeleteCourseForm = function (course) {
         $rootScope.deleteClickId = 1;
         //course
@@ -182,6 +182,22 @@ myApp.controller('courseManagementCtrl', ['$scope', '$rootScope', 'courseManagem
             endTime: $rootScope.endTimePicker,
             maxAttendant: '',
         };
+    };
+    $scope.findCourse = function (courseSearchKey) {
+        var courseListSearchResult = []
+        var listSearchResult = []
+        $rootScope.adminTrainingProgramList.forEach(trainingProgram => {
+            trainingProgram.Courses.forEach(course => {
+                if ((course.name.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1) || (course.description.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1)) courseListSearchResult.push(course);
+            });
+        });
+        $scope.courseListSearchResult = courseListSearchResult;
+    };
+    $scope.highlight = function (text, search) {
+        if (!search) {
+            return $sce.trustAsHtml(text);
+        }
+        return $sce.trustAsHtml(text.replace(new RegExp(search, 'gi'), '<span class="highlightedText">$&</span>'));
     };
 }]);
 
@@ -362,16 +378,20 @@ myApp.controller('addEditClassCtrl', ['$scope', '$rootScope', 'courseDetailServi
 
             courseDetailServices.addClass($rootScope.adminClassModel).then(function (result) {
                 if (result.data.success) {
+
                     //Get Class List
                     courseDetailServices.getClassByCourseID($rootScope.adminClassModel.courseId).then(function (result) {
                         $rootScope.classList = result.data.data;
+
                     });
                     // $location.path("/userProfile");
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
                 } else {
                     $rootScope.ShowPopupMessage('Add Class Info FAIL!', "error");
                 }
+
             });
+
         }
     };
 }]);

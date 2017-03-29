@@ -1,7 +1,7 @@
 var request = require('supertest');
 var assert = require('chai').assert;
 var expect = require('chai').expect;
-process.env.NODE_ENV = 'inMemoryDB';
+process.env.NODE_ENV = require('../../../settings.js').testDatabase;
 var DCC_Server = require('../../../app.js');
 var models = require('../../../server/models');
 
@@ -285,49 +285,52 @@ describe('<Unit test for admin-course>', function () {
             req.cookies = Cookies;
 
             models.RequestOpening.create({
+                courseId: 10,
                 userId: 1,
-                courseId: 1,
-                requestType: "register"
             });
 
             req.send({
-                courseId: 1,
-                location: 'test create loc',
-                startTime: '2017-02-03 17:00:00',
-                duration: '2',
-                maxAttendant: '12',
-                note: 'test create note'
+                courseId: 10,
+                startTime: '2018-08-03 17:00:00',
             });
             req.end(function (err, res) {
                 assert.equal(res.body.success, true);
-
-
+                models.Class.destroy({
+                    where: { courseId: 10 }
+                })
+                models.RequestOpening.destroy({
+                    where: {
+                        courseId: 10, userId: 1
+                    }
+                });
                 if (err) return done(err);
                 done();
             });
         });
     });
 
-    // describe('Test case 11.1 : Post /admin/courses/addClass Failed', function () {
-    //     return it('Should return success==false', function (done) {
-    //         var req = request(DCC_Server).post('/admin/courses/addClass');
-    //         req.cookies = Cookies;
-    //         req.send({
-    //             location: 'test create loc',
-    //             startTime: '2017-02-03 17:00:00',
-    //             duration: '2',
-    //             maxAttendant: '12',
-    //             note: 'test create note'
-    //         });
-    //         req.end(function (err, res) {
-    //             assert.equal(res.body.success, false);
-    //             if (err) return done(err);
-    //             done();
-    //         });
-    //     });
-    // });
-
-
+    describe('Test case 11.1 : Post /admin/courses/addClass Fail', function () {
+        return it('Should return success==false', function (done) {
+            var req = request(DCC_Server).post('/admin/courses/addClass');
+            req.cookies = Cookies;
+            models.Class.create({
+                courseId: 4,
+                startTime: '2018-02-03 14:00:00',
+            });
+            req.send({
+                courseId: 4,
+                startTime: '2018-02-03 18:00:00',
+            });
+            req.end(function (err, res) {
+                assert.equal(res.body.success, false);
+                models.Class.destroy({
+                    where: { courseId: 4 }
+                })
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
 
     describe('Test case 12 : Post /admin/courses/updateClass', function () {
         return it('Should return success==true', function (done) {

@@ -69,8 +69,10 @@ router.post('/login', function (req, res, next) {
                                 currentRole = 1;
                             } else if (_user.isTrainer) {
                                 currentRole = 2;
+                            } else if (_user.isTrainee) {
+                                currentRole = 3;
                             } else {
-                                currentRole = 3
+                                currentRole = 0;
                             }
 
                             res.send({
@@ -94,6 +96,8 @@ router.post('/login', function (req, res, next) {
                                 userType: _user.userType,
                                 isNotificationDesktop: _user.isNotificationDesktop,
                                 isNotificationEmail: _user.isNotificationEmail,
+                                EmailPeriod: _user.EmailPeriod,
+                                TimeOption: _user.TimeOption,
 
                                 success: true,
                                 msg: 'You are authenticated!'
@@ -142,8 +146,8 @@ router.post('/login', function (req, res, next) {
                                 avatar: '/img/profiles/defaultProfile.jpg',
                                 isAdmin: false,
                                 isTrainer: false,
-                                isTrainee: true, //default user is a trainee
-                                belong2Team: 'Team 7Up',
+                                isTrainee: false, //default user is a trainee
+                                belong2Team: 'Team Innova',
                                 isExperienced: 0,
                                 courseTypeId: 'CBA'
                             }
@@ -154,8 +158,10 @@ router.post('/login', function (req, res, next) {
                                     currentRole = 1;
                                 } else if (user[0].dataValues.isTrainer) {
                                     currentRole = 2;
+                                } else if (user[0].dataValues.isTrainee) {
+                                    currentRole = 3;
                                 } else {
-                                    currentRole = 3
+                                    currentRole = 0;
                                 }
 
                                 res.send({
@@ -179,6 +185,8 @@ router.post('/login', function (req, res, next) {
                                     userType: user[0].dataValues.userType,
                                     isNotificationDesktop: user[0].dataValues.isNotificationDesktop,
                                     isNotificationEmail: user[0].dataValues.isNotificationEmail,
+                                    EmailPeriod: user[0].EmailPeriod,
+                                    TimeOption: user[0].TimeOption,
 
                                     success: true,
                                     msg: 'You are authenticated!'

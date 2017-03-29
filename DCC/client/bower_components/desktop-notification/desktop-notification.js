@@ -7,7 +7,40 @@ function connectSocket(email) {
     socket.emit('sendEmail', data);
 }
 
-socket.on('pushNoti', function (noti) {
+function pushNotification(noti) {
+
+    webNotification.showNotification(noti.title, {
+        body: noti.msg,
+        onClick: function onNotificationClicked() {
+            hide();
+        },
+        icon: '/img/logo/DEK-Logo.png',
+        autoClose: 4000 //auto close the notification after 4 seconds (you can manually close it via hide function)
+    }, function onShow(error, hide) {
+        if (error) {
+            window.alert('Unable to show notification: ' + error.message);
+        } else {
+            setTimeout(function hideNotification() {
+                hide(); //manually close the notification (you can skip this if you use the autoClose option)
+            }, 5000);
+        }
+    });
+};
+
+socket.on('NewNotifications', function (numberNotification) {
+    if (numberNotification > 0) {
+        var noti = {
+            title: 'Thông Báo',
+            msg: 'Bạn có ' + numberNotification + ' thông báo mới'
+        }
+        pushNotification(noti);
+    }
+
+});
+
+
+
+socket.on('pushNotification', function (noti) {
     webNotification.showNotification(noti.title, {
         body: noti.msg,
         onClick: function onNotificationClicked() {

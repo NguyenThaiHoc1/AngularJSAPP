@@ -20,6 +20,25 @@ module.exports = function (sequelize) {
                     status: "Enrolled",
                 };
                 Classrecord.create(query).then(cb);
+            },
+            findTraineeEnrolledClass: function(traineeId, classId, cb) {
+                var query = {
+                    where: {
+                        traineeId: traineeId,
+                        classId: classId,
+                        status: 'Enrolled'
+                    }
+                };
+                Classrecord.findOne(query).then(cb);
+            },
+            getTraineeClassbyId: function(traineeId, classId, cb) {
+                var query = {
+                    where: {
+                        traineeId: traineeId,
+                        classId: classId
+                    }
+                };
+                Classrecord.findOne(query).then(cb);
             }
         },
         tableName: 'class_record',

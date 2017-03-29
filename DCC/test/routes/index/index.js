@@ -1,7 +1,7 @@
 var request = require('supertest');
 var assert = require('chai').assert;
 var expect = require('chai').expect;
-process.env.NODE_ENV = 'inMemoryDB';
+process.env.NODE_ENV = require('../../../settings.js').testDatabase;
 var DCC_Server = require('../../../app.js');
 
 describe('<Unit test for Login>', function () {
@@ -82,7 +82,25 @@ describe('<Unit test for Login>', function () {
                 });
         });
     });
-
+    describe('Test case 1.4 : Login success, role = newuser', function () {
+        return it('Should return success==true', function (done) {
+            request(DCC_Server)
+                .post('/login')
+                .send({
+                    username: 'daviondawn3108@gmail.com',
+                    password: 'Nam123456'
+                })
+                .end(function (err, res) {
+                    if (res.body.success === true)
+                        assert.equal(res.body.role, 0);
+                    else
+                        assert.equal(res.body.success, true);
+                    // globalCookies = res.headers['set-cookie'].pop().split(';')[0];
+                    if (err) return done(err);
+                    done();
+                });
+        });
+    });
     describe('Test case 2 : Login fail, username true, password false', function () {
         return it('Should return success==false', function (done) {
             request(DCC_Server)
@@ -220,17 +238,6 @@ describe('<Unit test for Logout>', function () {
             });
     });
 });
-// describe('Test case 5: Get Events', function () {
-//     return it('Should return success==true', function (done) {
-//         request(DCC_Server)
-//             .get('/getEvents')
-//             .end(function (err, res) {
-//                 assert.equal(res.body.success, true);
-//                 if (err) return done(err);
-//                 done();
-//             });
-//     });
-// });
 
 describe('Test case 6: get homepage', function () {
     return it('Should return success==true', function (done) {
@@ -285,30 +292,3 @@ describe('<Unit test for isLogin success>', function () {
 
 
 });
-//
-// describe('', function() {
-//     var Cookies;
-//     return it('Test case 0.1 : Check authenticated: Not Logged in', function(done) {
-//         var req = request(DCC_Server).get('/isLogged');
-//         req.cookies = Cookies;
-//         req.set('Accept', 'application/json')
-//         .end(function(err, res) {
-//             assert.equal(res.text, '');
-//             if(err)
-//             return done(err);
-//             done();
-//         });
-//     });
-// });
-//
-// return it('Test case 0 : Check authenticated: Logged in', function(done) {
-//     var req = request(DCC_Server).get('/isLogged');
-//     req.cookies = Cookies;
-//     req.set('Accept', 'application/json')
-//     .end(function(err, res) {
-//         assert.equal(res.text, 'qwe@gmail.com');
-//         if(err)
-//         return done(err);
-//         done();
-//     });
-// });

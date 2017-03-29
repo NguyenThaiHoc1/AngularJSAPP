@@ -31,6 +31,15 @@ module.exports = function (sequelize) {
                     }
                 };
                 RequestOpening.destroy(query).then(cb);
+            },
+            findRequestOpenningCourse: function(userId, courseId, cb) {
+                var query = {
+                    where: {
+                        userId: userId,
+                        courseId: courseId
+                    }
+                };
+                RequestOpening.findOne(query).then(cb);
             }
         },
         tableName: 'request_opening',

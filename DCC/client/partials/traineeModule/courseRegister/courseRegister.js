@@ -129,14 +129,19 @@ myApp.controller('courseRegisterCtrl', ['$sce', '$rootScope', '$scope', 'courseR
         if (openingCourseFilter) {
             $scope.trainingProgramList.forEach(trainingProgram => {
                 trainingProgram.Courses.forEach(course => {
-                    if ((course.name.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1) && (course.isOpening == openingCourseFilter)) courseListSearchResult.push(course);
+                    if (((course.name.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1) ||
+                         (course.description.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1)) &&
+                         (course.isOpening == openingCourseFilter))
+                        courseListSearchResult.push(course);
                 });
             });
         }
         else {
             $scope.trainingProgramList.forEach(trainingProgram => {
                 trainingProgram.Courses.forEach(course => {
-                    if (course.name.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1) courseListSearchResult.push(course);
+                    if ((course.name.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1) ||
+                        (course.description.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1))
+                        courseListSearchResult.push(course);
                 });
             });
         }
@@ -168,7 +173,9 @@ myApp.controller('courseRegisterCtrl', ['$sce', '$rootScope', '$scope', 'courseR
         courseRegisterServices.sendRegisterRequest(request).then(
             function (result) {
                 if (result.data.msg) {
+                    if (result.data.success)
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
+                    else $rootScope.ShowPopupMessage(result.data.msg, "error");
                     for (var i = $scope.trainingProgramList.length - 1; i >= 0; i--) {
                         for (var j = $scope.trainingProgramList[i].Courses.length - 1; j >= 0; j--) {
                             if ($scope.trainingProgramList[i].Courses[j].id == courseId) {

@@ -3,13 +3,7 @@ var models = require('../../models');
 var log = require('../../config/config')["log"];
 
 router.post ('/getMyFeedbackByClass', function(req, res){
-    var query = {
-        where: {
-            traineeId: req.body.traineeId,
-            classId: req.body.classId
-        }
-    };
-    models.ClassRecord.findOne(query).then(function(feedback) {
+    models.ClassRecord.getTraineeClassbyId(req.body.traineeId, req.body.classId, feedback => {
         if(!feedback){
             var datasend = {
                 success: true,

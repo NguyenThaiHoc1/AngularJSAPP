@@ -2,7 +2,7 @@ var request = require('supertest');
 var assert = require('chai').assert;
 var expect = require('chai').expect;
 var md5 = require('md5');
-process.env.NODE_ENV = 'inMemoryDB';
+process.env.NODE_ENV = require('../../../settings.js').testDatabase;
 var DCC_Server = require('../../../app.js');
 var models = require('../../../server/models');
 
@@ -136,8 +136,9 @@ describe('<Unit test for user profile>', function () {
             var req = request(DCC_Server).post('/user/userProfile/addUser');
             req.send({
                 email: 'xyz@gmail.com',
-                password: '123',
-                userType: 'CBA'
+                username: 'newuser',
+                password: '12345',
+                userType: 'Intern'
             });
             req.cookies = Cookies;
             req.end(function (err, res) {

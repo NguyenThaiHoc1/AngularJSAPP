@@ -1,3 +1,5 @@
+<div ng-include="'partials/notification/notification.html'"></div>
+
 <nav class="navbar navbar-dcc navbar-fixed-top topnav" role="navigation">
     <div class="container container-fluid">
         <div class="navbar-header">
@@ -15,7 +17,7 @@
         <div class="collapse  navbar-collapse" id="loginNavbar">
             <ul class="nav navbar-nav navbar-right" style="margin-top: 8px;">
 
-                <li ng-show="$state.current.name == 'home'">
+                <li ng-show="($state.current.name == 'home')&&(userInfo.status != 'newuser')">
                     <a ng-show="userInfo.role == 3" id="button-dashboard" href="#trainee_dashboard">Dashboard</a>
                     <a ng-show="userInfo.role == 2" id="button-dashboard" href="#trainer_dashboard">Dashboard</a>
                     <a ng-show="userInfo.role == 1" id="button-dashboard" href="#admin_dashboard">Dashboard</a>
@@ -36,23 +38,23 @@
                             {{userInfo.username}} &nbsp <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu" style="margin: 2px;">
-                        <li ng-show="userInfo.role == 3">
+                        <li ng-show="(userInfo.role == 3)&&(userInfo.status != 'newuser')">
                             <a href="#trainee_dashboard">
                                 <font size="3"><span class="glyphicon glyphicon-dashboard">&nbsp</span>Dashboard</font>
                             </a>
                         </li>
-                        <li ng-show="userInfo.role == 2">
+                        <li ng-show="(userInfo.role == 2)&&(userInfo.status != 'newuser')">
                             <a href="#trainer_dashboard">
                                 <font size="3"><span class="glyphicon glyphicon-dashboard">&nbsp</span>Dashboard</font>
                             </a>
                         </li>
-                        <li ng-show="userInfo.role == 1">
+                        <li ng-show="(userInfo.role == 1)&&(userInfo.status != 'newuser')">
                             <a href="#admin_dashboard">
                                 <font size="3"><span class="glyphicon glyphicon-dashboard">&nbsp</span>Dashboard</font>
                             </a>
                         </li>
 
-                        <li>
+                        <li ng-show="userInfo.status != 'newuser'">
                             <a href="#userProfile">
                                 <font size="3"><span class="glyphicon glyphicon-user">&nbsp</span>Profile</font>
                             </a>
@@ -69,6 +71,35 @@
                                 <font size="3"><span class="glyphicon glyphicon-log-out">&nbsp</span>Logout</font>
                             </a>
                         </li>
+                    </ul>
+                </li>
+                <li class="brand dropdown" ng-show="userInfo" id="userMenu" ng-controller="NotiController">
+                    <a class="dropdown-toggle" data-toggle="dropdown" ng-click="getNotificationsList()">
+                        <span class="glyphicon glyphicon-bell"></span>
+                        <sup id="NotifyCounter" ng-show="userInfo.NumberofNewNotification > 0">{{userInfo.NumberofNewNotification}}</sup>
+                    </a>
+                    <ul class="dropdown-menu" id="NotificationCard">
+                        <li id="NotificationCardHeader">
+                            <span style="font-size: 18px;">Notifications</span>
+                            <a data-toggle="modal" data-target="#NotiSetting" class="pull-right" ng-click="SyncNotificationSetting()">
+                                <span class="glyphicon glyphicon-cog" style="font-size: initial;"></span>
+                            </a>
+                        </li>
+                        <li class="divider" style="margin: 0;"></li>
+                        <div style="max-height: 300px; overflow-y: auto">
+                            <li ng-show="userInfo.userNotifications.length == 0">
+                                <center>No notification</center>
+                            </li>
+                            <li ng-repeat="notification in userInfo.userNotifications" ng-style="{'background-color': notification.status ? '#EAEAEF' : 'white'}"
+                                ng-click="UpdateNotificationStatus(notification)">
+                                <div style="padding-left: 20px; padding-right: 20px;">
+                                    <font>{{notification.title}}</font>
+                                    <p class="pull-right">{{notification.time}}</p>
+                                    <p style="color:darkgrey;" ng-bind-html="notification.content"></p>
+                                </div>
+                                <div class="divider" style="margin: 0;"></div>
+                            </li>
+                        </div>
                     </ul>
                 </li>
             </ul>
@@ -159,12 +190,13 @@
                             </div>
                         </div>
                         <!--Enter new password-->
-                        <div class="form-group" ng-class="{ 'has-error' : changePasswordForm.newPassword.$invalid && !changePasswordForm.newPassword.$pristine }">
+                        <div class="form-group" ng-class="{ 'has-error' : (changePasswordForm.newPassword.$invalid && !changePasswordForm.newPassword.$pristine) || passStrengthError }">
                             <label class="col-xs-3 control-label">New Password</label>
                             <div class="col-xs-8">
-                                <input type="password" class="form-control" name="newPassword" ng-model="changePassword.newPassword" placeholder="Type your new password"
-                                    required>
-                                    <p ng-show="changePasswordForm.newPassword.$invalid && !changePasswordForm.newPassword.$pristine" class="help-block">Your new password is required!</p>
+                                <input type="password" class="form-control" name="newPassword" ng-model="changePassword.newPassword" ng-change="passwordMeasure(changePassword.newPassword,changePassword.oldPassword)"
+                                    placeholder="Type your new password" required>
+                                    <p ng-show="(changePasswordForm.newPassword.$invalid && !changePasswordForm.newPassword.$pristine) || passStrengthError"
+                                        class="help-block">{{passMeasuremessage}}</p>
                             </div>
                         </div>
                         <!--Confirm your password-->

@@ -14,6 +14,10 @@ module.exports = function(sequelize) {
                     }
                 };
                 Trainingprogram.findOne(query).then(cb);
+            },
+
+            getAll: function (cb) {
+                Trainingprogram.findAll().then(cb);
             }
         },
         tableName: 'training_program',

@@ -45,6 +45,9 @@ myApp.factory('dashboardServices', ['$http', function ($http) {
         },
         getEnrolledCourseList: function (userId) {
             return $http.post('trainee/viewSchedule/getEnrolledCourseList', userId).success(function (data) { return data; });
+        },
+        enrollClass: function (classId, userId) {
+            return $http.post('trainee/dashboard/enrollClass', classId, userId).success(function (data) { return data; })
         }
     }
 
@@ -57,6 +60,7 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices', '$rootScope', 
     const STATUS_ENROLLED = 'Enrolled';
     const STATUS_LEARNED = 'Learned';
     const STATUS_NOT_LEARNED = 'Not Learned';
+    const STATUS_NOT_LEARNED_NOT_OPEN = 'Not Learned ';
 
     //Init action text of button base on status of a course
     $scope.actionOneText = {}; $scope.actionTwoText = {};
@@ -64,7 +68,8 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices', '$rootScope', 
     $scope.actionTwoText[STATUS_LEARNED] = 'Re-enroll';
     $scope.actionOneText[STATUS_ENROLLED] = 'View Schedule';
     $scope.actionTwoText[STATUS_ENROLLED] = 'Un-enroll';
-
+    $scope.actionOneText[STATUS_NOT_LEARNED] = 'Enroll';
+    $scope.actionOneText[STATUS_NOT_LEARNED_NOT_OPEN] = 'Request Class';
 
     //get all courses and training programs - REFRESH
     dashboardServices.getMyTraingPrograms({ traineeId: $rootScope.userInfo.id, email: $rootScope.userInfo.email, userType: $rootScope.userInfo.userType, isExperienced: $rootScope.userInfo.isExperienced }).then(function (result) {
@@ -76,11 +81,19 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices', '$rootScope', 
                 trainingProgram.count = 0;
                 trainingProgram.Courses.forEach(course => {
                     if (course.Classes.length != 0) {
+                        //Default
+                        course.backgroundColor = '#ff704d';
+                        course.status = 'Not Learned ';
                         for (var i = 0; i < course.Classes.length; i++) {
-
                             if (course.Classes[i].ClassRecords.length == 0) {
-                                course.backgroundColor = '#ffb84d';
-                                course.status = 'Not Learned';
+                                if ((Date.parse(course.Classes[i].startTime) > Date.now())) {
+                                    course.backgroundColor = '#ffb84d';
+                                    course.status = 'Not Learned';
+                                }
+                                else {
+                                    course.backgroundColor = '#ff704d';
+                                    course.status = 'Not Learned ';
+                                }
                             }
                             else {
                                 for (var j = 0; j < course.Classes[i].ClassRecords.length; j++) {
@@ -106,15 +119,21 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices', '$rootScope', 
                                     trainingProgram.count = trainingProgram.count + 1;
                                 }
                                 else {
-                                    course.backgroundColor = '#ffb84d';
-                                    course.status = 'Not Learned';
+                                    if ((Date.parse(course.Classes[i].startTime) > Date.now())) {
+                                        course.backgroundColor = '#ffb84d';
+                                        course.status = 'Not Learned';
+                                    }
+                                    else {
+                                        course.backgroundColor = '#ff704d';
+                                        course.status = 'Not Learned ';
+                                    }
                                 }
                             }
                         }
                     }
                     else {
-                        course.backgroundColor = '#ffb84d';
-                        course.status = 'Not Learned';
+                        course.backgroundColor = '#ff704d';
+                        course.status = 'Not Learned ';
                     }
                 });
                 trainingProgram.completePercent = Math.ceil(trainingProgram.count / trainingProgram.Courses.length * 100);
@@ -260,6 +279,15 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices', '$rootScope', 
             dashboardServices.getMyFeedbackByClass(myCourse).then(function (result) {
                 $rootScope.courseFeedbackModel = result.data.feedback;
             });
+        } else {
+            dashboardServices.sendRegisterRequest({ userId: $rootScope.userInfo.id, courseId: myCourse.id }).then(function (result) {
+                if (result.data.success) {
+                    $rootScope.ShowPopupMessage(result.data.msg, "success");
+                    $state.go("courseDetail", { courseId: myCourse.id });
+                } else {
+                    $rootScope.ShowPopupMessage(result.data.msg, "success");
+                }
+            })
         }
     };
 
@@ -279,15 +307,41 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices', '$rootScope', 
 }]);
 
 //Request Open Course controller
-myApp.controller('requestOpenCourseCtrl', ['$scope', 'dashboardServices', '$rootScope', function ($scope, dashboardServices, $rootScope) {
+myApp.controller('requestOpenCourseCtrl', ['$scope', 'dashboardServices', '$rootScope', '$state', function ($scope, dashboardServices, $rootScope, $state) {
     dashboardServices.getRequestOpenCourse({ userId: $rootScope.userInfo.id }).then(function (result) {
         $scope.myRequestOpenCourseList = result.data.data;
+        $scope.myRequestOpenCourseList.forEach(course => {
+            course.haveClass = false;
+            if (Date.parse(course.Classes[course.Classes.length - 1].startTime) > Date.parse(Date(Date.now()))) {
+                course.haveClass = true;
+            }
+        })
     });
+
+    $scope.checkDate = function (startTime) {
+        return Date.parse(startTime) > Date.parse(Date(Date.now())) ? true : false;
+    }
+
+    $scope.enrollClassClick = function (classID, requestOpenCourseId) {
+        dashboardServices.enrollClass({ classId: classID, userId: $rootScope.userInfo.id }).then(function (result) {
+            if (result.data.success) {
+                $rootScope.ShowPopupMessage("Enroll class successfully", "success");
+                dashboardServices.deleteRequestOpenCourse({ courseId: requestOpenCourseId, userId: $rootScope.userInfo.id });
+                dashboardServices.getRequestOpenCourse({ userId: $rootScope.userInfo.id }).then(function (result) {
+                    $scope.myRequestOpenCourseList = result.data.data;
+                });
+                //window.location.reload();
+                $state.go("courseDetail", { courseId: requestOpenCourseId });
+            } else {
+                $rootScope.ShowPopupMessage(result.data.msg, "error");
+            }
+        })
+    }
 
     $scope.cancelRequestClick = function (requestOpenCourseId) {
         dashboardServices.deleteRequestOpenCourse({ courseId: requestOpenCourseId, userId: $rootScope.userInfo.id }).then(function (result) {
             if (result.data.success) {
-                $rootScope.ShowPopupMessage(result.data.msg, "success");
+
 
                 //refesh the request open course list
                 dashboardServices.getRequestOpenCourse({ userId: $rootScope.userInfo.id }).then(function (result) {
@@ -299,13 +353,6 @@ myApp.controller('requestOpenCourseCtrl', ['$scope', 'dashboardServices', '$root
         });
     };
 }]);
-
-//Feedback controller
-myApp.controller('FeedbackCtrl', ['$scope', 'dashboardServices', '$rootScope', function ($scope, dashboardServices, $rootScope) {
-
-
-}]);
-
 
 myApp.controller('viewScheduleCtrl', function ($scope, dashboardServices, $rootScope) {
     $scope.events = [];
@@ -320,7 +367,6 @@ myApp.controller('viewScheduleCtrl', function ($scope, dashboardServices, $rootS
                 start: new Date(value.start),
                 end: new Date(value.end),
                 location: value.location,
-                // allDay: value.IsFullDay,
                 stick: true
             });
         });

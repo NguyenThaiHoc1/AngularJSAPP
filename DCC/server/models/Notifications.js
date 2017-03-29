@@ -16,7 +16,16 @@ module.exports = function (sequelize) {
                 };
                 Notifications.findAll(query).then(cb);
             },
-            getNewNotificationByEmail: function (userEmail, cb) {
+            getNumberofNewNotification: function (userEmail, cb) {
+                var query = {
+                    where: {
+                        email: userEmail,
+                        status: 1
+                    }
+                };
+                Notifications.findAndCountAll(query).then(cb);
+            },
+            getAllNewNotifications: function(userEmail, cb) {
                 var query = {
                     where: {
                         email: userEmail,
@@ -24,6 +33,15 @@ module.exports = function (sequelize) {
                     }
                 };
                 Notifications.findAll(query).then(cb);
+            },
+            getNotificationbyIdnEmail: function(notificatinIdnEmail, cb) {
+                var query = {
+                    where: {
+                        id: notificatinIdnEmail.id,
+                        email: notificatinIdnEmail.email
+                    }
+                };
+                Notifications.findOne(query).then(cb);
             },
         },
         tableName: 'notification',

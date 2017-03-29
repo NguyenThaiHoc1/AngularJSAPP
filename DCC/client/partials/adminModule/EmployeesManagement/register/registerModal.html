@@ -18,23 +18,11 @@
                             <p ng-show="frmregister.$error.email || (frmregister.userEmail.$invalid && !frmregister.userEmail.$pristine)" class="help-block">Not a valid email!</p>
                         </div>
                     </div>
-
-                    <div class="form-group" ng-class="{ 'has-error' : (frmregister.userPassword.$invalid && !frmregister.userPassword.$pristine) || passStrengthError}">
-                        <label class="col-xs-3 control-label">Password</label>
+                    <div class="form-group" ng-class="{ 'has-error' : frmregister.userName.$invalid && !frmregister.userName.$pristine }">
+                        <label class="col-xs-3 control-label">User Name</label>
                         <div class="col-xs-8">
-                            <input type="password" class="form-control" name="userPassword" ng-model="userPassword" ng-change="passwordMeasure(userPassword)"
-                                placeholder="Enter password..." required>
-                            <p ng-show="(frmregister.userPassword.$invalid && !frmregister.userPassword.$pristine) || passStrengthError" class="help-block">{{passMeasuremessage}}</p>
-                        </div>
-                    </div>
-
-                    <div class="form-group" ng-class="{ 'has-error' : (frmregister.passwordAgain.$invalid && !frmregister.passwordAgain.$pristine)  || ((passwordAgain != userPassword) && !frmregister.passwordAgain.$pristine) }">
-                        <label class="col-xs-3 control-label">Confirm Password</label>
-                        <div class="col-xs-8">
-                            <input type="password" class="form-control" name="passwordAgain" ng-model="passwordAgain" placeholder="Re-enter password..."
-                                required>
-                            <p ng-show="(frmregister.passwordAgain.$invalid && !frmregister.passwordAgain.$pristine)  || ((passwordAgain != userPassword) && !frmregister.passwordAgain.$pristine)"
-                                class="help-block"> These passwords don' t match!</p>
+                            <input type="text" class="form-control" name="userName" ng-model="userName" placeholder="Enter a name..." required>
+                            <p ng-show="(frmregister.userName.$invalid && !frmregister.userName.$pristine)" class="help-block">No blank please!</p>
                         </div>
                     </div>
                     <div class="form-group" ng-class="{ 'has-error' : (frmregister.Team.$invalid && !frmregister.Team.$pristine)}">
@@ -44,19 +32,6 @@
                             <p ng-show="(frmregister.Team.$invalid && !frmregister.Team.$pristine)" class="help-block"> You must have a team!</p>
                         </div>
                     </div>
-
-                    <!--<div class="form-group" ng-class="{ 'has-error' : (frmregister.passwordAgain.$invalid && !frmregister.passwordAgain.$pristine)  || ((passwordAgain != userPassword) && !frmregister.passwordAgain.$pristine) }">
-                        <label class="col-xs-3 control-label">Area</label>
-                        <div class="col-xs-8">
-                            <select class="form-control" id="courseType" ng-model="courseTypeId" name="courseType">
-                            <option value="CBA">CBA Team</option>
-                            <option value="IMS">IMS Team</option>
-                            <option value="AXE">AXE Team</option>
-                            <option value="Intern">New Intern</option>
-                            </select>
-                        </div>
-                    </div>-->
-
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-success" ng-click="applyValue()" data-dismiss="modal" ng-disabled="frmregister.$invalid">Add</button>

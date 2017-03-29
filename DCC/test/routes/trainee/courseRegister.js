@@ -1,7 +1,7 @@
 var request = require('supertest');
 var assert = require('chai').assert;
 var expect = require('chai').expect;
-process.env.NODE_ENV = 'inMemoryDB';
+process.env.NODE_ENV = require('../../../settings.js').testDatabase;
 var DCC_Server = require('../../../app.js');
 var models = require('../../../server/models');
 
@@ -91,32 +91,31 @@ describe('<Unit test for trainee-courseRegister>', function () {
         });
     });
 
-    describe('Test case 5 : Send Register Request: Request is not existed, request-type is join (class is opening)', function () {
+    describe('Test case 5 : Send Register Request: Request is not existed, request-type is join (class is not opening)', function () {
         return it('Should return success==true', function (done) {
             var req = request(DCC_Server)
                 .post('/trainee/courseRegister/sendRegisterRequest');
             req.cookies = Cookies;
             req.set('Accept', 'application/json')
-                .send({ userId: 1, courseId: 1 })
+                .send({ userId: 1, courseId: 36 })
                 .end(function (err, res) {
                     assert.equal(res.body.success, true);
-                    models.RequestOpening.destroy({ where: { userId: 1, courseId: 1 } });
+                    models.RequestOpening.destroy({ where: { userId: 1, courseId: 36 } });
                     if (err) return done(err);
                     done();
                 });
         });
     });
 
-    describe('Test case 6 : Send Register Request: Request is not existed, request-type is register (class is not opening)', function () {
-        return it('Should return success==true', function (done) {
+    describe('Test case 6 : Send Register Request: Request is already existed, request-type is register (class is not opening)', function () {
+        return it('Should return success==false', function (done) {
             var req = request(DCC_Server)
                 .post('/trainee/courseRegister/sendRegisterRequest');
             req.cookies = Cookies;
             req.set('Accept', 'application/json')
-                .send({ userId: 1, courseId: 13 })
+                .send({ userId: 1, courseId: 3 })
                 .end(function (err, res) {
-                    assert.equal(res.body.success, true);
-                    models.RequestOpening.destroy({ where: { userId: 1, courseId: 13 } });
+                    assert.equal(res.body.success, false);
                     if (err) return done(err);
                     done();
                 });
@@ -187,4 +186,24 @@ describe('<Unit test for trainee-courseRegister>', function () {
         });
     });
 
+    describe('Test case 11: get Course by Name /trainee/courseRegister/getCoursebyName' ,function() {
+        return it('Should return id==1', function(done) {
+            var req = request(DCC_Server).post('/trainee/courseRegister/getCoursebyName');
+            req.cookies = Cookies;
+            req.send({
+                name: 'Training Overview'
+            })
+            .end(function(err, res) {
+                if (err)
+                    return done(err);
+                try {
+                    assert.equal(res.body.course.id, 1); //Training Overview has id = 1
+                } catch(error) {
+                    return done(error);
+                }
+                done();
+            });
+
+        });
+    });
 });

@@ -71,6 +71,22 @@ myApp.controller('getProfilesController', ['$scope', '$rootScope', '$sce', 'Empl
         });
     };
 
+    $scope.sortbyStatus = function() {
+        var head = 0, tail = $scope.UsersList.length - 1;
+        var statusValues = ($scope.UsersList.sortOrder == 1) ? ['deactivated', 'activated'] : ['activated','deactivated'];
+        while(head < tail) {
+            while ($scope.UsersList[head].status == statusValues[0]) head++;
+            while ($scope.UsersList[tail].status == statusValues[1]) tail--;
+            //swap
+            if (head < tail) {
+                var temp = $scope.UsersList[head];
+                $scope.UsersList[head] = $scope.UsersList[tail];
+                $scope.UsersList[tail] = temp;
+            }
+        }
+        $scope.UsersList.sortOrder = ($scope.UsersList.sortOrder == 1) ? 0 : 1;
+    };
+
     $scope.showUserActivationForm = function(user) {
         $rootScope.selectedActivationUser = user;
     };
