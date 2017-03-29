@@ -91,6 +91,7 @@ describe('<Unit test for trainee-courseRegister>', function () {
         });
     });
 
+
     describe('Test case 5 : Send Register Request: Request is not existed, request-type is join (class is not opening)', function () {
         return it('Should return success==true', function (done) {
             var req = request(DCC_Server)
@@ -112,8 +113,58 @@ describe('<Unit test for trainee-courseRegister>', function () {
             var req = request(DCC_Server)
                 .post('/trainee/courseRegister/sendRegisterRequest');
             req.cookies = Cookies;
+            models.RequestOpening.create({
+                userId: 1,
+                courseId: 10,
+                requestType: "register"
+            })
+            req.set('Accept', 'application/json')
+                .send({ userId: 1, courseId: 10 })
+                .end(function (err, res) {
+                    assert.equal(res.body.success, false);
+                    models.RequestOpening.destroy({
+                        where: {
+                            courseId: 10
+                        }
+                    })
+                    if (err) return done(err);
+                    done();
+                });
+
+        });
+    });
+
+    describe('Test case 6.1 : Send Register Request: class is opening', function () {
+        return it('Should return success==true', function (done) {
+            var req = request(DCC_Server)
+                .post('/trainee/courseRegister/sendRegisterRequest');
+            req.cookies = Cookies;
+            models.Class.create({
+                courseId: 3,
+                startTime: "2018-02-03 10:00:00.000 +00:00"
+            })
             req.set('Accept', 'application/json')
                 .send({ userId: 1, courseId: 3 })
+                .end(function (err, res) {
+                    assert.equal(res.body.success, true);
+                    if (err) return done(err);
+                    done();
+                });
+            models.Class.destroy({
+                where: {
+                    courseId: 3
+                }
+            })
+        });
+    });
+
+    describe('Test case 6.2 : Send Register Request: Class is opening, You Have Already Enrolled', function () {
+        return it('Should return success==true', function (done) {
+            var req = request(DCC_Server)
+                .post('/trainee/courseRegister/sendRegisterRequest');
+            req.cookies = Cookies;
+            req.set('Accept', 'application/json')
+                .send({ userId: 1, courseId: 1 })
                 .end(function (err, res) {
                     assert.equal(res.body.success, false);
                     if (err) return done(err);
@@ -121,6 +172,8 @@ describe('<Unit test for trainee-courseRegister>', function () {
                 });
         });
     });
+
+
 
     describe('Test case 7 : Delete Request Course', function () {
         return it('Should return success==true', function (done) {
@@ -186,23 +239,23 @@ describe('<Unit test for trainee-courseRegister>', function () {
         });
     });
 
-    describe('Test case 11: get Course by Name /trainee/courseRegister/getCoursebyName' ,function() {
-        return it('Should return id==1', function(done) {
+    describe('Test case 11: get Course by Name /trainee/courseRegister/getCoursebyName', function () {
+        return it('Should return id==1', function (done) {
             var req = request(DCC_Server).post('/trainee/courseRegister/getCoursebyName');
             req.cookies = Cookies;
             req.send({
                 name: 'Training Overview'
             })
-            .end(function(err, res) {
-                if (err)
-                    return done(err);
-                try {
-                    assert.equal(res.body.course.id, 1); //Training Overview has id = 1
-                } catch(error) {
-                    return done(error);
-                }
-                done();
-            });
+                .end(function (err, res) {
+                    if (err)
+                        return done(err);
+                    try {
+                        assert.equal(res.body.course.id, 1); //Training Overview has id = 1
+                    } catch (error) {
+                        return done(error);
+                    }
+                    done();
+                });
 
         });
     });
