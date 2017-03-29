@@ -420,8 +420,11 @@ describe('<Unit test for admin-course>', function () {
                 startTime: '2018-03-30T03:00:00.000Z',
                 courseName: 'Training Overview',
                 traineeList: {
-                    trainee: {
+                    'trainee1': {
                         traineeMail: 'qwe@gmail.com'
+                    },
+                    'trainee2': {
+                        traineeMail: 'thach@gmail.com'
                     }
                 },
             });
