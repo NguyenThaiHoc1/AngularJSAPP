@@ -373,7 +373,6 @@ describe('<Unit test for admin-course>', function () {
             req.cookies = Cookies;
             req.send({
                 id: 1,
-                startTime: '2017-02-03 17:00:00',
             });
             req.end(function (err, res) {
 
@@ -392,7 +391,31 @@ describe('<Unit test for admin-course>', function () {
             });
         });
     });
+    describe('Test case 14 : Post /admin/courses/deleteClass', function () {
+        return it('Should return success==true', function (done) {
+            var req = request(DCC_Server).post('/admin/courses/deleteClass');
+            req.cookies = Cookies;
+            req.send({
+                id: 1,
+                startTime: '2018-03-30T03:00:00.000Z',
+            });
+            req.end(function (err, res) {
 
+                assert.equal(res.body.success, true);
+                models.Class.create({
+                    id: 1,
+                    courseId: '1',
+                    location: 'L09',
+                    startTime: '2017-02-03 17:00:00',
+                    duration: '2',
+                    maxAttendant: '12',
+                    note: ''
+                });
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
     describe('Test case 15 : get /admin/courses/getAllTP', function () {
         return it('Should return success==true', function (done) {
             var req = request(DCC_Server).get('/admin/courses/getAllTP');
