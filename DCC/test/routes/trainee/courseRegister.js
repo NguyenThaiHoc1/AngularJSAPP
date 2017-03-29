@@ -134,42 +134,24 @@ describe('<Unit test for trainee-courseRegister>', function () {
         });
     });
 
-    describe('Test case 6.1 : Send Register Request: class is opening', function () {
+    describe('Test case 6.1 : Send Register Request: class is opening, enroll success', function () {
         return it('Should return success==true', function (done) {
             var req = request(DCC_Server)
                 .post('/trainee/courseRegister/sendRegisterRequest');
             req.cookies = Cookies;
-            models.Class.create({
-                courseId: 3,
-                startTime: "2018-02-03 10:00:00.000 +00:00"
-            })
             req.set('Accept', 'application/json')
-                .send({ userId: 1, courseId: 3 })
+                .send({ userId: 1, courseId: 8 })
                 .end(function (err, res) {
                     assert.equal(res.body.success, true);
+                    models.ClassRecord.destroy({
+                        where: {
+                            courseId: 8
+                        }
+                    })
                     if (err) return done(err);
                     done();
                 });
-            models.Class.destroy({
-                where: {
-                    courseId: 3
-                }
-            })
-        });
-    });
 
-    describe('Test case 6.2 : Send Register Request: Class is opening, You Have Already Enrolled', function () {
-        return it('Should return success==true', function (done) {
-            var req = request(DCC_Server)
-                .post('/trainee/courseRegister/sendRegisterRequest');
-            req.cookies = Cookies;
-            req.set('Accept', 'application/json')
-                .send({ userId: 1, courseId: 1 })
-                .end(function (err, res) {
-                    assert.equal(res.body.success, false);
-                    if (err) return done(err);
-                    done();
-                });
         });
     });
 
