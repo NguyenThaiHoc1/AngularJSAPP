@@ -25,7 +25,7 @@ module.exports = function (sequelize) {
                 };
                 Notifications.findAndCountAll(query).then(cb);
             },
-            getAllNewNotifications: function(userEmail, cb) {
+            getAllNewNotifications: function (userEmail, cb) {
                 var query = {
                     where: {
                         email: userEmail,
@@ -34,7 +34,8 @@ module.exports = function (sequelize) {
                 };
                 Notifications.findAll(query).then(cb);
             },
-            getNotificationbyIdnEmail: function(notificatinIdnEmail, cb) {
+
+            getNotificationbyIdnEmail: function (notificatinIdnEmail, cb) {
                 var query = {
                     where: {
                         id: notificatinIdnEmail.id,
