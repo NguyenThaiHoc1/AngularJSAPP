@@ -134,42 +134,19 @@ describe('<Unit test for trainee-courseRegister>', function () {
         });
     });
 
-    describe('Test case 6.1 : Send Register Request: class is opening', function () {
+    describe('Test case 6.1 : Send Register Request: class is opening, enroll success', function () {
         return it('Should return success==true', function (done) {
             var req = request(DCC_Server)
                 .post('/trainee/courseRegister/sendRegisterRequest');
             req.cookies = Cookies;
-            models.Class.create({
-                courseId: 3,
-                startTime: "2018-02-03 10:00:00.000 +00:00"
-            })
             req.set('Accept', 'application/json')
-                .send({ userId: 1, courseId: 3 })
+                .send({ userId: 1, courseId: 5 })
                 .end(function (err, res) {
                     assert.equal(res.body.success, true);
                     if (err) return done(err);
                     done();
                 });
-            models.Class.destroy({
-                where: {
-                    courseId: 3
-                }
-            })
-        });
-    });
 
-    describe('Test case 6.2 : Send Register Request: Class is opening, You Have Already Enrolled', function () {
-        return it('Should return success==true', function (done) {
-            var req = request(DCC_Server)
-                .post('/trainee/courseRegister/sendRegisterRequest');
-            req.cookies = Cookies;
-            req.set('Accept', 'application/json')
-                .send({ userId: 1, courseId: 1 })
-                .end(function (err, res) {
-                    assert.equal(res.body.success, false);
-                    if (err) return done(err);
-                    done();
-                });
         });
     });
 
@@ -252,11 +229,7 @@ describe('<Unit test for trainee-courseRegister>', function () {
         });
     });
 
-<<<<<<< HEAD
     describe('Test case 12: get Course by Name /trainee/courseRegister/getCoursebyName', function () {
-=======
-    describe('Test case 11: get Course by Name /trainee/courseRegister/getCoursebyName', function () {
->>>>>>> fb56c0565079efcd73a614c7edf3a08a519b7da1
         return it('Should return id==1', function (done) {
             var req = request(DCC_Server).post('/trainee/courseRegister/getCoursebyName');
             req.cookies = Cookies;
