@@ -173,9 +173,22 @@ describe('<Unit test for trainee-courseRegister>', function () {
         });
     });
 
+    describe('Test case 7 : Send Register Request: Request enroll fail, user aleardy enrolled (class is not opening)', function () {
+        return it('Should return success==false', function (done) {
+            var req = request(DCC_Server)
+                .post('/trainee/courseRegister/sendRegisterRequest');
+            req.cookies = Cookies;
+            req.set('Accept', 'application/json')
+                .send({ userId: 1, courseId: 2 })
+                .end(function (err, res) {
+                    assert.equal(res.body.success, false);
+                    if (err) return done(err);
+                    done();
+                });
+        });
+    });
 
-
-    describe('Test case 7 : Delete Request Course', function () {
+    describe('Test case 8 : Delete Request Course', function () {
         return it('Should return success==true', function (done) {
             var req = request(DCC_Server)
                 .post('/trainee/courseRegister/deleteRequestOpening');
@@ -191,7 +204,7 @@ describe('<Unit test for trainee-courseRegister>', function () {
         });
     });
 
-    describe('Test case 8 : Un-enroll Course', function () {
+    describe('Test case 9 : Un-enroll Course', function () {
         return it('Should return success==true', function (done) {
             var req = request(DCC_Server)
                 .post('/trainee/courseRegister/unEnrollCourse');
@@ -207,7 +220,7 @@ describe('<Unit test for trainee-courseRegister>', function () {
         });
     });
 
-    describe('Test case 9 : Get my enroll class', function () {
+    describe('Test case 10 : Get my enroll class', function () {
         return it('Should return success==true', function (done) {
             var req = request(DCC_Server)
                 .post('/trainee/courseRegister/getMyEnrolledClass');
@@ -221,7 +234,7 @@ describe('<Unit test for trainee-courseRegister>', function () {
         });
     });
 
-    describe('Test case 10 : update ClassRecord status from Enrolled to Learned', function () {
+    describe('Test case 11 : update ClassRecord status from Enrolled to Learned', function () {
         return it('Should return success==true', function (done) {
             var req = request(DCC_Server)
                 .post('/trainee/courseRegister/updateClassRecordStatus');
@@ -239,7 +252,7 @@ describe('<Unit test for trainee-courseRegister>', function () {
         });
     });
 
-    describe('Test case 11: get Course by Name /trainee/courseRegister/getCoursebyName', function () {
+    describe('Test case 12: get Course by Name /trainee/courseRegister/getCoursebyName', function () {
         return it('Should return id==1', function (done) {
             var req = request(DCC_Server).post('/trainee/courseRegister/getCoursebyName');
             req.cookies = Cookies;
