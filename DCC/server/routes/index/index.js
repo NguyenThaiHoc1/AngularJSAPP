@@ -52,7 +52,7 @@ router.post('/login', function (req, res, next) {
                             email: email
                         });
                     });
-                    return req.login(_user, function (err) {
+                    return req.login(_user, function () {
                         log.info('User login: ' + _user.email);
                         var currentRole = _user.isAdmin ? 1 :
                             _user.isTrainer ? 2 :
@@ -109,7 +109,7 @@ router.post('/login', function (req, res, next) {
             });
 
             // else login success
-            return req.login(user, function (err) {
+            return req.login(user, function () {
                 log.info('User login: ' + user.mail);
                 models.User.findOrCreate({
                     where: { email: req.user.mail },
