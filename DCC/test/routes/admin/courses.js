@@ -283,13 +283,6 @@ describe('<Unit test for admin-course>', function () {
 
             var req = request(DCC_Server).post('/admin/courses/addClass');
             req.cookies = Cookies;
-
-            models.RequestOpening.create({
-                courseId: 10,
-                userId: 1,
-                requestType: 'register'
-            });
-
             req.send({
                 courseId: 10,
                 startTime: '2018-08-03 17:00:00',
@@ -298,11 +291,6 @@ describe('<Unit test for admin-course>', function () {
                 assert.equal(res.body.success, true);
                 models.Class.destroy({
                     where: { courseId: 10 }
-                })
-                models.RequestOpening.destroy({
-                    where: {
-                        courseId: 10, userId: 1
-                    }
                 });
                 if (err) return done(err);
                 done();
