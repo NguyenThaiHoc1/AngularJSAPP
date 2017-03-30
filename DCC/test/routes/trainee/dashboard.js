@@ -72,7 +72,7 @@ describe('<Unit test for trainee-dashboard>', function () {
             req.send({
                 userType: 'IMS',
                 isExperienced: '1',
-                email: 'experienced@email.com',
+                email: 'qwe@email.com',
             });
             req.end(function (err, res) {
                 assert.equal(res.body.success, true);
