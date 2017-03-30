@@ -38,12 +38,6 @@ router.post('/login', function (req, res, next) {
         // using session to save user's credentials
         session: true
     }, function (err, user) {
-        // if err, log err
-        // if (err) {
-        //     log.error(err);
-        //     return next();
-        // }
-        // else {
         // if user does not exist, login fail
         if (!user) {
 
@@ -59,10 +53,6 @@ router.post('/login', function (req, res, next) {
                         });
                     });
                     return req.login(_user, function (err) {
-                        // if (err) {
-                        //     log.error(err);
-                        //     return next();
-                        // }
                         log.info('User login: ' + _user.email);
                         var currentRole = _user.isAdmin ? 1 :
                             _user.isTrainer ? 2 :
@@ -81,7 +71,7 @@ router.post('/login', function (req, res, next) {
                             role: currentRole,
                             isAdmin: _user.isAdmin,
                             isTrainer: _user.isTrainer,
-                            isTrainee: _user.isTrainee, //default user is a trainee
+                            isTrainee: _user.isTrainee,
                             trainer: _user.trainer,
                             trainee: _user.trainee,
                             belong2Team: _user.belong2Team,
@@ -120,11 +110,6 @@ router.post('/login', function (req, res, next) {
 
             // else login success
             return req.login(user, function (err) {
-                // if (err) {
-                //     log.error(err);
-                //     return next();
-                // }
-                // else {
                 log.info('User login: ' + user.mail);
                 models.User.findOrCreate({
                     where: { email: req.user.mail },
@@ -135,11 +120,10 @@ router.post('/login', function (req, res, next) {
                         phone: '0000 000 000',
                         location: 'DEK Vietnam',
                         email: req.user.mail,
-                        //password: '',     //password null 
                         avatar: '/img/profiles/defaultProfile.jpg',
                         isAdmin: false,
                         isTrainer: false,
-                        isTrainee: false, //default user is a trainee
+                        isTrainee: false,
                         belong2Team: 'Team Innova',
                         isExperienced: 0,
                         courseTypeId: 'CBA'
@@ -149,7 +133,6 @@ router.post('/login', function (req, res, next) {
                         var currentRole = user[0].dataValues.isAdmin ? 1 :
                             user[0].dataValues.isTrainer ? 2 :
                                 user[0].dataValues.isTrainee ? 3 : 0;
-
                         res.send({
                             id: user[0].dataValues.id,
                             username: user[0].dataValues.username,
@@ -163,7 +146,7 @@ router.post('/login', function (req, res, next) {
                             role: currentRole,
                             isAdmin: user[0].dataValues.isAdmin,
                             isTrainer: user[0].dataValues.isTrainer,
-                            isTrainee: user[0].dataValues.isTrainee, //default user is a trainee
+                            isTrainee: user[0].dataValues.isTrainee,
                             trainer: user[0].dataValues.trainer,
                             trainee: user[0].dataValues.trainee,
                             belong2Team: user[0].dataValues.belong2Team,
@@ -178,10 +161,8 @@ router.post('/login', function (req, res, next) {
                             msg: 'You are authenticated!'
                         });
                     });
-                // }
             });
         }
-        // }
     })(req, res, next);
 });
 
