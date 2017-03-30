@@ -64,16 +64,9 @@ router.post('/login', function (req, res, next) {
                                 return next();
                             }
                             log.info('User login: ' + _user.email);
-                            var currentRole;
-                            if (_user.isAdmin) {
-                                currentRole = 1;
-                            } else if (_user.isTrainer) {
-                                currentRole = 2;
-                            } else if (_user.isTrainee) {
-                                currentRole = 3;
-                            } else {
-                                currentRole = 0;
-                            }
+                            var currentRole = _user.isAdmin ? 1 :
+                                              _user.isTrainer ? 2 :
+                                              _user.isTrainee ? 3 : 0;
 
                             res.send({
                                 id: _user.id,
@@ -153,16 +146,9 @@ router.post('/login', function (req, res, next) {
                             }
                         })
                             .then(function (user) {
-                                var currentRole;
-                                if (user[0].dataValues.isAdmin) {
-                                    currentRole = 1;
-                                } else if (user[0].dataValues.isTrainer) {
-                                    currentRole = 2;
-                                } else if (user[0].dataValues.isTrainee) {
-                                    currentRole = 3;
-                                } else {
-                                    currentRole = 0;
-                                }
+                                var currentRole = user[0].dataValues.isAdmin ? 1 :
+                                                  user[0].dataValues.isTrainer ? 2 :
+                                                  user[0].dataValues.isTrainee ? 3 : 0;
 
                                 res.send({
                                     id: user[0].dataValues.id,
