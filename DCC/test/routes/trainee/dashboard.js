@@ -65,7 +65,22 @@ describe('<Unit test for trainee-dashboard>', function () {
             });
         });
     });
-
+    describe('Test case 1.3 : Get training programs by TP Type: experienced', function () {
+        return it('Should return success==true', function (done) {
+            var req = request(DCC_Server).post('/trainee/dashboard/getTrainingProgramByTPType');
+            req.cookies = Cookies;
+            req.send({
+                userType: 'IMS',
+                isExperienced: '1',
+                email: 'experienced@email.com',
+            });
+            req.end(function (err, res) {
+                assert.equal(res.body.success, true);
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
     describe('Test case 2 : Get request open course', function () {
         return it('Should return success==true', function (done) {
             var req = request(DCC_Server)
