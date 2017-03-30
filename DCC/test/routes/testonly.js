@@ -30,5 +30,21 @@ describe('<UNIT TEST FOR ENVIROMENT>', function () {
         request(DCC_Server).get('/logout')
         done();
     });
+    describe('Test case 1 : Get /user/userProfile/getUserInfo', function () {
+        return it('Should return success==true', function (done) {
+            var req = request(DCC_Server).post('/user/userProfile/getUserInfo');
+            req.send(
+                {
+                    email: "qwe@gmail.com"
+                }
+            );
+            req.cookies = Cookies;
+            req.end(function (err, res) {
+                assert.equal(res.body.success, true);
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
 
 });
