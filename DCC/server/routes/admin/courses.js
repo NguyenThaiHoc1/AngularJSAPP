@@ -314,16 +314,6 @@ router.post('/updateClass', function (req, res) {
 // Delete Class
 router.post('/deleteClass', function (req, res) {
     log.info('Get Delete Command');
-    // models.Class.destroy({
-    //     where: {
-    //         id: req.body.id
-    //     }
-    // });
-    // models.ClassRecord.destroy({
-    //     where:{
-    //         classId: req.body.id
-    //     }
-    // });
     models.Class.findOne({
         where: {
             id: req.body.id,

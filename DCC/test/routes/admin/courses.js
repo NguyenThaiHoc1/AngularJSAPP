@@ -18,6 +18,18 @@ describe('<Unit test for admin-course>', function () {
             })
             .end(function (err, res) {
                 Cookies = res.headers['set-cookie'].pop().split(';')[0];
+                //create class
+                var date = new Date();
+                date.setDate(date.getDate() + 1);
+                models.Class.create({
+                    id: 17,
+                    location: 'Test Case 16',
+                    courseId: 2,
+                    startTime: date,
+                    duration: 2,
+                    maxAttendant: 17
+                });
+
                 if (err)
                     return done(err);
                 done();
@@ -419,6 +431,29 @@ describe('<Unit test for admin-course>', function () {
             var req = request(DCC_Server).get('/admin/courses/getAllTP');
             req.cookies = Cookies;
             req.end(function (err, res) {
+                assert.equal(res.body.success, true);
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
+    describe('Test case 16 : Post /admin/courses/deleteClass', function () {
+        return it('Should return success==true', function (done) {
+            var req = request(DCC_Server).post('/admin/courses/deleteClass');
+            req.cookies = Cookies;
+
+            req.send({
+                id: 17,
+                courseName: 'Training Overview',
+                traineeList: {
+                    'trainee1': {
+                        traineeMail: 'qwe@gmail.com'
+                    }
+                },
+            });
+
+            req.end(function (err, res) {
+
                 assert.equal(res.body.success, true);
                 if (err) return done(err);
                 done();
