@@ -24,7 +24,7 @@ describe('<Unit test for admin-course>', function () {
                 models.Class.create({
                     id: 17,
                     location: 'Test Case 16',
-                    courseId: 2,
+                    courseId: 1,
                     startTime: date,
                     duration: 2,
                     maxAttendant: 17
@@ -441,19 +441,13 @@ describe('<Unit test for admin-course>', function () {
         return it('Should return success==true', function (done) {
             var req = request(DCC_Server).post('/admin/courses/deleteClass');
             req.cookies = Cookies;
-
             req.send({
                 id: 17,
                 courseName: 'Training Overview',
-                traineeList: {
-                    'trainee1': {
-                        traineeMail: 'qwe@gmail.com'
-                    }
-                },
+                traineeList: [{ traineeMail: 'thach@gmail.com' }],
             });
 
             req.end(function (err, res) {
-
                 assert.equal(res.body.success, true);
                 if (err) return done(err);
                 done();

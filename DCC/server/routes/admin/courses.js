@@ -322,27 +322,42 @@ router.post('/deleteClass', function (req, res) {
                 $gt: Date.now()
             }
         }
-    }).then(function () {
-        var TraineeList = [];
-        req.body.traineeList.forEach(trainee => {
-            TraineeList.push(trainee.traineeMail);
-        });
-        var noti = {
-            subject: 'Class canceled',
-            content: 'The ' + req.body.courseName + "'s class has been canceled",
-            link: 'trainee_courseRegister/CourseRegister'
-        };
-        notification(TraineeList, noti);
-        models.Class.destroy({
-            where: {
-                id: req.body.id
-            }
-        });
+    }).then(cb => {
+        if (cb && cb != null) {
+            var TraineeList = [];
+            req.body.traineeList.forEach(trainee => {
+                TraineeList.push(trainee.traineeMail);
+            });
+            var noti = {
+                subject: 'Class canceled',
+                content: 'The ' + req.body.courseName + "'s class has been canceled",
+                link: 'trainee_courseRegister/CourseRegister'
+            };
+            notification(TraineeList, noti);
+            models.Class.destroy({
+                where: {
+                    id: req.body.id
+                }
+            }).then(function () {
+                res.send({
+                    success: true,
+                    msg: 'Delete Class success'
+                });
+            });
+        } else {
+            models.Class.destroy({
+                where: {
+                    id: req.body.id
+                }
+            }).then(function () {
+                res.send({
+                    success: true,
+                    msg: 'Delete Class success'
+                });
+            });
+        }
     });
-    res.send({
-        success: true,
-        msg: 'Delete Class success'
-    });
+
 });
 
 
