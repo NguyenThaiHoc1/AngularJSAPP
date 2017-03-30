@@ -37,7 +37,7 @@ router.post('/login', function (req, res, next) {
     passport.authenticate('ldapauth', {
         // using session to save user's credentials
         session: true
-    }, function (err, user) {
+    }, function (user) {
         // if user does not exist, login fail
         if (!user) {
 
