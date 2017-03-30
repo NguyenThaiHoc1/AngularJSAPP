@@ -359,7 +359,7 @@ describe('<Unit test for manual added user profile>', function () {
         });
 
     });
-    describe('Test case 5: post /user/userProfile/changePasswordMd5', function () {
+    describe('Test case 5: post /models/class/getUserInClass', function () {
         return it('Should return success = true', function () {
             var req = models.Class.getUserInClass(16, 1);
         });
