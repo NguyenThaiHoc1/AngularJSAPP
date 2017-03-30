@@ -71,14 +71,20 @@ describe('<Unit test for notification>', function () {
             });
 
             req.end(function (err, res) {
-                assert.equal(res.body.data.length, 4);  //total 3 notifications created for this test
-                models.Notifications.destroy({
+                models.Notifications.findAndCountAll({
                     where: {
-                        email: 'qwe@gmail.com'
+                        email: 'qwe@gmail.com',
                     }
+                }).then(cb => {
+                    assert.equal(res.body.data.length, cb.count);  //total 3 notifications created for this test
+                    models.Notifications.destroy({
+                        where: {
+                            email: 'qwe@gmail.com'
+                        }
+                    });
+                    if (err) return done(err);
+                    done();
                 });
-                if (err) return done(err);
-                done();
             });
         });
     });
@@ -92,14 +98,22 @@ describe('<Unit test for notification>', function () {
             });
 
             req.end(function (err, res) {
-                assert.equal(res.body.data, 2); //2 new notifications created for this test
-                models.Notifications.destroy({
+                models.Notifications.findAndCountAll({
                     where: {
-                        email: 'qwe@gmail.com'
+                        email: 'qwe@gmail.com',
+                        status: 1
                     }
+                }).then(cb => {
+
+                    assert.equal(res.body.data, cb.count); //2 new notifications created for this test
+                    models.Notifications.destroy({
+                        where: {
+                            email: 'qwe@gmail.com'
+                        }
+                    });
+                    if (err) return done(err);
+                    done();
                 });
-                if (err) return done(err);
-                done();
             });
         });
     });
