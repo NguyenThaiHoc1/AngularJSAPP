@@ -248,7 +248,7 @@ router.post('/addClass', function (req, res) {
                     var noti = {
                         subject: course.name,
                         content: "Your " + req.body.courseId + " class has been openned and scheduled to start tomorrow at location: " + req.body.location + ". Please be on time, thank you.",
-                        link:'courseDetail/' + course.name
+                        link: 'courseDetail/' + course.name
                     };
                     Job.job_sendnoti_ClassStart(date, cb.id, noti);
 
@@ -314,28 +314,41 @@ router.post('/updateClass', function (req, res) {
 // Delete Class
 router.post('/deleteClass', function (req, res) {
     log.info('Get Delete Command');
-    models.Class.destroy({
-        where: {
-            id: req.body.id
-        }
-    });
+    // models.Class.destroy({
+    //     where: {
+    //         id: req.body.id
+    //     }
+    // });
     // models.ClassRecord.destroy({
     //     where:{
     //         classId: req.body.id
     //     }
     // });
-    if (Date.parse(req.body.startTime) >= Date.now()) {
+    models.Class.findOne({
+        where: {
+            id: req.body.id,
+            startTime:
+            {
+                $gt: Date.now()
+            }
+        }
+    }).then(function () {
         var TraineeList = [];
         req.body.traineeList.forEach(trainee => {
             TraineeList.push(trainee.traineeMail);
         });
-        var noti ={
-            subject:'Class canceled',
+        var noti = {
+            subject: 'Class canceled',
             content: 'The ' + req.body.courseName + "'s class has been canceled",
             link: 'trainee_courseRegister/CourseRegister'
         };
         notification(TraineeList, noti);
-    }
+        models.Class.destroy({
+            where: {
+                id: req.body.id
+            }
+        });
+    });
     res.send({
         success: true,
         msg: 'Delete Class success'

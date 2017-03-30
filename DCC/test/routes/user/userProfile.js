@@ -83,6 +83,22 @@ describe('<Unit test for user profile>', function () {
             });
         });
     });
+    describe('Test case 1.3 : Get /user/userProfile/getUserInfo for currentRole = 0 ', function () {
+        return it('Should return success==true', function (done) {
+            var req = request(DCC_Server).post('/user/userProfile/getUserInfo');
+            req.send(
+                {
+                    email: "daviondawn3108@gmail.com"
+                }
+            );
+            req.cookies = Cookies;
+            req.end(function (err, res) {
+                assert.equal(res.body.role, 0);
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
     // describe('Test case 2 : post /user/userProfile/updateUserProfile', function () {
     //     return it('Should return success==true', function (done) {
     //         var req = request(DCC_Server).post('/user/userProfile/updateUserProfile');
@@ -340,6 +356,12 @@ describe('<Unit test for manual added user profile>', function () {
                 if (err) return done(err);
                 done();
             });
+        });
+
+    });
+    describe('Test case 5: post /models/class/getUserInClass', function () {
+        return it('Should return success = true', function () {
+            var req = models.Class.getUserInClass(16, 1);
         });
 
     });

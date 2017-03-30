@@ -283,12 +283,6 @@ describe('<Unit test for admin-course>', function () {
 
             var req = request(DCC_Server).post('/admin/courses/addClass');
             req.cookies = Cookies;
-
-            models.RequestOpening.create({
-                courseId: 10,
-                userId: 1,
-            });
-
             req.send({
                 courseId: 10,
                 startTime: '2018-08-03 17:00:00',
@@ -297,11 +291,6 @@ describe('<Unit test for admin-course>', function () {
                 assert.equal(res.body.success, true);
                 models.Class.destroy({
                     where: { courseId: 10 }
-                })
-                models.RequestOpening.destroy({
-                    where: {
-                        courseId: 10, userId: 1
-                    }
                 });
                 if (err) return done(err);
                 done();
@@ -391,7 +380,40 @@ describe('<Unit test for admin-course>', function () {
             });
         });
     });
+    describe('Test case 14 : Post /admin/courses/deleteClass', function () {
+        return it('Should return success==true', function (done) {
+            var req = request(DCC_Server).post('/admin/courses/deleteClass');
+            req.cookies = Cookies;
+            req.send({
+                id: 1,
+                startTime: '2018-03-30T03:00:00.000Z',
+                courseName: 'Training Overview',
+                traineeList: {
+                    'trainee1': {
+                        traineeMail: 'qwe@gmail.com'
+                    },
+                    'trainee2': {
+                        traineeMail: 'thach@gmail.com'
+                    }
+                },
+            });
+            req.end(function (err, res) {
 
+                assert.equal(res.body.success, true);
+                models.Class.create({
+                    id: 1,
+                    courseId: '1',
+                    location: 'L09',
+                    startTime: '2017-02-03 17:00:00',
+                    duration: '2',
+                    maxAttendant: '12',
+                    note: ''
+                });
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
     describe('Test case 15 : get /admin/courses/getAllTP', function () {
         return it('Should return success==true', function (done) {
             var req = request(DCC_Server).get('/admin/courses/getAllTP');
