@@ -158,6 +158,11 @@
                                 <p ng-show="loginForm.password.$invalid && !loginForm.password.$pristine" class="help-block">Password is required!</p>
                             </div>
                         </div>
+                        <!--Remember account option-->
+                        <div>
+                            <div class="col-xs-3"></div>
+                            <label><input type="checkbox" name="loginCookie" ng-model="RememberMe">&nbsp Remember me</label></br>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-success" ng-click="doLogin()" data-dismiss="modal" ng-disabled="loginForm.$invalid">Login</button>
