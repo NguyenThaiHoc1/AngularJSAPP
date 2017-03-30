@@ -71,7 +71,7 @@ describe('<Unit test for notification>', function () {
             });
 
             req.end(function (err, res) {
-                assert.equal(res.body.data.length, 3);  //total 3 notifications created for this test
+                assert.equal(res.body.data.length, 4);  //total 3 notifications created for this test
                 models.Notifications.destroy({
                     where: {
                         email: 'qwe@gmail.com'
