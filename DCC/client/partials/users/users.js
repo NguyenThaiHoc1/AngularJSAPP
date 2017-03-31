@@ -128,7 +128,7 @@ myApp.controller('loginController', ['$scope', 'userServices', '$location', '$ro
                 $rootScope.userInfo.role = $rootScope.userInfo.isAdmin ? 1 :
                                            $rootScope.userInfo.isTrainer ? 2 :
                                            $rootScope.userInfo.isTrainee ? 3 : 0;
-                window.sessionStorage["userInfo"] = $rootScope.userInfo;
+                window.sessionStorage["userInfo"] = JSON.stringify($rootScope.userInfo);
                 loginSucessDestination();
             });
         }
