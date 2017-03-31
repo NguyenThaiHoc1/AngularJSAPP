@@ -104,12 +104,12 @@ myApp.controller('loginController', ['$scope', 'userServices', '$location', '$ro
         });
     }
 
-    window.onload = function() {
+    window.onload = function () {
         function getCookie(cname) {
             var name = cname + "=";
             var decodedCookie = decodeURIComponent(document.cookie);
             var ca = decodedCookie.split(';');
-            for(var i = 0; i < ca.length; i++) {
+            for (var i = 0; i < ca.length; i++) {
                 var c = ca[i];
                 while (c.charAt(0) == ' ') {
                     c = c.substring(1);
@@ -121,13 +121,13 @@ myApp.controller('loginController', ['$scope', 'userServices', '$location', '$ro
             return "";
         }
 
-        var userEmail=getCookie("email");
+        var userEmail = getCookie("email");
         if (userEmail != "") {
-            userServices.getUserProfile({email: userEmail}).then(function(userData) {
+            userServices.getUserProfile({ email: userEmail }).then(function (userData) {
                 $rootScope.userInfo = userData.data;
                 $rootScope.userInfo.role = $rootScope.userInfo.isAdmin ? 1 :
-                                           $rootScope.userInfo.isTrainer ? 2 :
-                                           $rootScope.userInfo.isTrainee ? 3 : 0;
+                    $rootScope.userInfo.isTrainer ? 2 :
+                        $rootScope.userInfo.isTrainee ? 3 : 0;
                 window.sessionStorage["userInfo"] = JSON.stringify($rootScope.userInfo);
                 loginSucessDestination();
             });
@@ -139,18 +139,18 @@ myApp.controller('loginController', ['$scope', 'userServices', '$location', '$ro
             userServices.login($scope.login).then(function (result) {
                 $scope.data = result;
                 if (result.data.success) {
-                    window.sessionStorage["userInfo"] = JSON.stringify(result.data);
+                    window.sessionStorage["userInfo"] = JSON.stringify(result.data.data);
                     $rootScope.userInfo = JSON.parse(window.sessionStorage["userInfo"]);
+                    $rootScope.userInfo.role = result.data.role;
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
                     loginSucessDestination();
                     //set the cookie to remember account
-                    if ($scope.RememberMe && document.cookie)
-                    {
+                    if ($scope.RememberMe && document.cookie) {
                         var time = new Date();
                         time.setFullYear(9999);//cookie never expires
                         document.cookie = "email=" + $rootScope.userInfo.email + ";" +
-                                          "expires=" + time + ";" +
-                                          "path=/";
+                            "expires=" + time + ";" +
+                            "path=/";
                     }
                 } else {
                     $rootScope.ShowPopupMessage(result.data.msg, "error");

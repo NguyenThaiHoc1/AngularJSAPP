@@ -31,6 +31,25 @@ passport.use(new LdapStrategy(BASE_OPTS, function (user, callback) {
     return callback(null, user);
 }));
 
+var userDefault = function (email) {
+    var userDef = {
+        username: 'Your Name',
+        status: 'activated',
+        dob: '01/01/2001',
+        phone: '0000 000 000',
+        location: 'DEK Vietnam',
+        email: email,
+        avatar: '/img/profiles/defaultProfile.jpg',
+        isAdmin: false,
+        isTrainer: false,
+        isTrainee: true,
+        belong2Team: 'Team Innova',
+        isExperienced: 0,
+        userType: 'CBA'
+    }
+    return userDef;
+
+};
 
 router.post('/login', function (req, res, next) {
     log.info('Post /login');
@@ -40,7 +59,6 @@ router.post('/login', function (req, res, next) {
     }, function (err, user) {
         // if user does not exist, login fail
         if (!user) {
-
             models.User.getUserByEmailAndPassword(req.body.username, md5(req.body.password), function (_user) {
                 if (_user && _user.status !== 'deactivated') {
                     passport.serializeUser(function (_user, done) {
@@ -57,33 +75,12 @@ router.post('/login', function (req, res, next) {
                         var currentRole = _user.isAdmin ? 1 :
                             _user.isTrainer ? 2 :
                                 _user.isTrainee ? 3 : 0;
-
                         res.send({
-                            id: _user.id,
-                            username: _user.username,
-                            status: _user.status,
-                            dob: _user.dob,
-                            phone: _user.phone,
-                            location: _user.location,
-                            email: _user.email,
-                            password: _user.password,
-                            avatar: _user.avatar,
                             role: currentRole,
-                            isAdmin: _user.isAdmin,
-                            isTrainer: _user.isTrainer,
-                            isTrainee: _user.isTrainee,
-                            trainer: _user.trainer,
-                            trainee: _user.trainee,
-                            belong2Team: _user.belong2Team,
-                            isExperienced: _user.isExperienced,
-                            userType: _user.userType,
-                            isNotificationDesktop: _user.isNotificationDesktop,
-                            isNotificationEmail: _user.isNotificationEmail,
-                            EmailPeriod: _user.EmailPeriod,
-                            TimeOption: _user.TimeOption,
-
+                            data: _user,
                             success: true,
                             msg: 'You are authenticated!'
+
                         });
                     });
                 } else {
@@ -112,53 +109,19 @@ router.post('/login', function (req, res, next) {
             return req.login(user, function () {
                 log.info('User login: ' + user.mail);
                 models.User.findOrCreate({
-                    where: { email: req.user.mail },
-                    defaults: {
-                        username: 'Your Name',
-                        status: 'activated',
-                        dob: '01/01/2001',
-                        phone: '0000 000 000',
-                        location: 'DEK Vietnam',
-                        email: req.user.mail,
-                        avatar: '/img/profiles/defaultProfile.jpg',
-                        isAdmin: false,
-                        isTrainer: false,
-                        isTrainee: false,
-                        belong2Team: 'Team Innova',
-                        isExperienced: 0,
-                        courseTypeId: 'CBA'
-                    }
+                    where: { email: user.mail },
+                    defaults: userDefault(user.mail),
                 })
                     .then(function (user) {
                         var currentRole = user[0].dataValues.isAdmin ? 1 :
                             user[0].dataValues.isTrainer ? 2 :
                                 user[0].dataValues.isTrainee ? 3 : 0;
                         res.send({
-                            id: user[0].dataValues.id,
-                            username: user[0].dataValues.username,
-                            status: user[0].dataValues.status,
-                            dob: user[0].dataValues.dob,
-                            phone: user[0].dataValues.phone,
-                            location: user[0].dataValues.location,
-                            email: user[0].dataValues.email,
-                            password: user[0].dataValues.password,
-                            avatar: user[0].dataValues.avatar,
                             role: currentRole,
-                            isAdmin: user[0].dataValues.isAdmin,
-                            isTrainer: user[0].dataValues.isTrainer,
-                            isTrainee: user[0].dataValues.isTrainee,
-                            trainer: user[0].dataValues.trainer,
-                            trainee: user[0].dataValues.trainee,
-                            belong2Team: user[0].dataValues.belong2Team,
-                            isExperienced: user[0].dataValues.isExperienced,
-                            userType: user[0].dataValues.userType,
-                            isNotificationDesktop: user[0].dataValues.isNotificationDesktop,
-                            isNotificationEmail: user[0].dataValues.isNotificationEmail,
-                            EmailPeriod: user[0].EmailPeriod,
-                            TimeOption: user[0].TimeOption,
-
+                            data: user[0].dataValues,
                             success: true,
                             msg: 'You are authenticated!'
+
                         });
                     });
             });
