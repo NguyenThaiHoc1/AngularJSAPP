@@ -3,6 +3,14 @@ var models = require('../../models');
 
 router.post('/getNotifications', function (req, res) {
     models.Notifications.getAllNotificationByEmail(req.body.email, notifications => {
+        models.Notifications.update({
+            status: 2
+        },{
+            where: {
+                email: req.body.email,
+                status: 1,
+            }
+        });
         res.send({
             data: notifications,
             msg: 'got ' + notifications.length + ' notifications'
@@ -28,7 +36,7 @@ router.post('/updateNotificationStatus', function(req, res) {
         {
             where: {
                 email: req.body.email,
-                status: 1,
+                status: {$ne: 0},
                 id: req.body.id
             }
         }
@@ -48,7 +56,7 @@ router.post('/getAllNewNotificationsAndUpdateStatus', function(req, res) {
             {
                 where: {
                     email: req.body.email,
-                    status: 1,
+                    status: {$ne: 0},
                 }
             }
         ).then(function() {

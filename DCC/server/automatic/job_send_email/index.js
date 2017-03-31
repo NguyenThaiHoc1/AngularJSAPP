@@ -16,7 +16,7 @@ var sendNewNotificationToEmail = function (email, EmailPeriod) {
                 {
                     where: {
                         email: email,
-                        status: 1,
+                        status: {$ne: 0},
                     }
                 }
             );
