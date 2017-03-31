@@ -1,10 +1,10 @@
 
 var schedule = require('node-schedule');
 var sendEmail = require('../../notification/email');
-var models = require('../../models')
+var models = require('../../models');
 var Jobs;
 var os = require('os');
-
+var settings = require('../../../settings.js');
 
 var sendNewNotificationToEmail = function (email, EmailPeriod) {
     models.Notifications.getAllNewNotifications(email, notifications => {
@@ -65,20 +65,17 @@ function insertItem(item) {
 
 function createRule(date, EmailPeriod) {
     var rule = new schedule.RecurrenceRule();
+    var EmailTime = settings.NotificationEmailTime.split(':');
+    rule.hour = parseInt(EmailTime[0]);
+    rule.minute = parseInt(EmailTime[1]);
     switch (EmailPeriod) {
         case 'Daily':
-            rule.hour = date.getHours();
-            rule.minute = date.getMinutes();
             break;
         case 'Weekly':
             rule.dayOfWeek = [date.getDay()];
-            rule.hour = date.getHours();
-            rule.minute = date.getMinutes();
             break;
         case 'Monthly':
             rule.date = date.getDate();
-            rule.hour = date.getHours();
-            rule.minute = date.getMinutes();
             break;
         default:
     }
