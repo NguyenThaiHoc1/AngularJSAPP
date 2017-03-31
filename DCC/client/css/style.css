@@ -681,6 +681,20 @@ ul.messages_layout .dropdown-menu  li {
     }
 }
 
+/*------------------------------------------------------------------
+[1. Min Width: 480px]
+*/
+
+
+@media screen and (min-width: 992px) and (max-device-width:1199px) { 
+    #forfun{
+        width:290px;
+    }
+    #forfun2{
+        width:500px;
+    }
+    /* STYLES HERE */
+}
 
 
 
