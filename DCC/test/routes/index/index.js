@@ -282,7 +282,7 @@ describe('<Unit test for isLogin success>', function () {
 
 
 });
-describe('Test case 6: get homepage', function () {
+describe('Test case 0: get homepage', function () {
     return it('Should return success==true', function (done) {
         request(DCC_Server)
             .get('/')

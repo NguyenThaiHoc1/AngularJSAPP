@@ -42,22 +42,22 @@
                                 <center>
                                     <div class="dropdown col-xs-12 col-md-12 tooltipMod">
                                         <div class="tooltiptext" style="text-align: left">
-                                              <div ng-show="'{{myCourse.status}}' =='Learned'">
+                                            <div ng-show="'{{myCourse.status}}' =='Learned'">
                                                 <img style="display: inline-block; margin-left: 5px; border-radius: 50%; border: 1px solid #8BC34A; background-color: #8BC34A; width:20px !important; height:20px !important"
-                                                class="img-responsive">&nbsp: Already learned this course</br>
-                                              </div>
-                                               <div  ng-show="'{{myCourse.status}}' =='Enrolled'">
-                                                    <img style="display: inline-block; margin-left: 5px; border-radius: 50%; border: 1px solid #4FC3F7; background-color: #4FC3F7; width:20px !important; height:20px !important"
+                                                    class="img-responsive">&nbsp: Already learned this course</br>
+                                            </div>
+                                            <div ng-show="'{{myCourse.status}}' =='Enrolled'">
+                                                <img style="display: inline-block; margin-left: 5px; border-radius: 50%; border: 1px solid #4FC3F7; background-color: #4FC3F7; width:20px !important; height:20px !important"
                                                     class="img-responsive">&nbsp: Currently enrolled in</br>
-                                               </div>
-                                                <div  ng-show="'{{myCourse.status}}' =='Not Learned'">
-                                                    <img style="display: inline-block; margin-left: 5px; border-radius: 50%; border: 1px solid #ffb84d; background-color: #ffb84d; width:20px !important; height:20px !important"
+                                            </div>
+                                            <div ng-show="'{{myCourse.status}}' =='Not Learned'">
+                                                <img style="display: inline-block; margin-left: 5px; border-radius: 50%; border: 1px solid #ffb84d; background-color: #ffb84d; width:20px !important; height:20px !important"
                                                     class="img-responsive">&nbsp: There is class available</br>
-                                                </div>
-                                                <div  ng-show="'{{myCourse.status}}' =='Not Learned '">
-                                                    <img style="display: inline-block; margin-left: 5px; border-radius: 50%; border: 1px solid #ff704d; background-color: #ff704d; width:20px !important; height:20px !important"
+                                            </div>
+                                            <div ng-show="'{{myCourse.status}}' =='Not Learned '">
+                                                <img style="display: inline-block; margin-left: 5px; border-radius: 50%; border: 1px solid #ff704d; background-color: #ff704d; width:20px !important; height:20px !important"
                                                     class="img-responsive">&nbsp: No available classes now </br>
-                                                </div>
+                                            </div>
                                         </div>
                                         <a class="dropdown-toggle btn col-xs-12 col-md-12" style="background-color: {{myCourse.backgroundColor}}" data-toggle="dropdown">
                                             {{myCourse.status}} &nbsp <i class="fa fa-caret-down" aria-hidden="true"></i>
@@ -84,7 +84,7 @@
             <h3>My Request Open Course</h3>
         </div>
         <div class="widget-content" style="background-color: #f9f6f1">
-            <center ng-show="myRequestOpenCourseList.length == 0">
+            <center ng-show="myRequestOpenCourseList.length == 0" style="background-color: #fff">
                 <h4>You did not request to open any course.</h4>
                 <h5>To request to open new course, go to register menu and choose a course.</h5>
             </center>

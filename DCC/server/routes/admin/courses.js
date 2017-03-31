@@ -256,8 +256,7 @@ router.post('/addClass', function (req, res) {
                         reqOpns.forEach(reqOpn => {
                             var receivers = [];
                             models.User.findOne({ where: { id: reqOpn.userId } }).then(function (dataResults) {
-                                if (dataResults.email)
-                                    receivers.push(dataResults.email);
+                                receivers.push(dataResults.email);
                             }).then(function () {
                                 var noti = {
                                     subject: courseName,
