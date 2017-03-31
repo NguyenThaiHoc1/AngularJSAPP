@@ -350,6 +350,7 @@ describe('<Unit test for manual added user profile>', function () {
                 email: "huy@gmail.com",
                 password: "Soledad00"
             });
+
             req.cookies = Cookies;
             req.end(function (err, res) {
                 assert.equal(res.body.success, true);

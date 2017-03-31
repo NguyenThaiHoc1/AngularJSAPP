@@ -232,7 +232,7 @@ router.post('/addClass', function (req, res) {
             models.Class.create({
                 courseId: req.body.courseId,
                 location: req.body.location,
-                // trainerId: req.body.trainerId.id,
+                trainerId: req.body.trainer.id,
                 startTime: req.body.startTime,
                 endTime: req.body.endTime,
                 maxAttendant: req.body.maxAttendant,
@@ -293,7 +293,7 @@ router.post('/updateClass', function (req, res) {
     }).then(function () {
         models.Class.update({
             location: req.body.location,
-            // trainerId: req.body.trainerId,
+            trainerId: req.body.trainer.id,
             startTime: req.body.startTime,
             endTime: req.body.endTime,
             maxAttendant: req.body.maxAttendant
@@ -359,6 +359,20 @@ router.post('/deleteClass', function (req, res) {
 
 });
 
+router.get('/getAllTrainer', function (req, res) {
+   models.User.findAll({
+       where:{
+           isTrainer: true,
+           status: 'activated'
+        }}).then(function (trainer) {
+        var datasend = {
+            success: true,
+            msg: 'send list success',
+            trainer: trainer
+        };
+        res.send(datasend);
+    });
+});
 
 router.get('/getAllCourse', function (req, res) {
     models.Course.getAll(data => {
