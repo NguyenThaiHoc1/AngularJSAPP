@@ -19,6 +19,16 @@
                         </div>
                     </div>
 
+                    <div class="form-group" ng-class="{ 'has-error' : addEditForm.trainerID.$invalid && !addEditForm.trainerID.$pristine }">
+                        <label class="col-sm-4 control-label">Trainer</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" name="trainerID"
+                            ng-init="getTrainerList()"
+                            ng-options ="trainer.username for trainer in trainerList track by trainer.id "
+                            ng-model="adminClassModel.trainer">
+                        </select>
+                        </div>
+                    </div>
 
                     <div class="form-group" ng-class="{ 'has-error' : addEditForm.dayOfStart.$invalid && !addEditForm.dayOfStart.$pristine }">
                         <label class="col-sm-4 control-label" style="margin-top: 33px">Start time</label>

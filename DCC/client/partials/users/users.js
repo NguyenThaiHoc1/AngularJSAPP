@@ -81,36 +81,77 @@ myApp.factory('userServices', ['$http', '$rootScope', function ($http, $rootScop
 //Controllers
 myApp.controller('loginController', ['$scope', 'userServices', '$location', '$rootScope', function ($scope, userServices, $location, $rootScope) {
     //$scope.login = {"username":"qwe@gmail.com", "password": "qwe"};
+    function loginSucessDestination() {
+        if ($rootScope.userInfo.status == 'newuser') {
+            $('#firstPassword').modal({
+                backdrop: 'static',
+                keyboard: false
+            })
+            $('#firstPassword').modal('show');
+        }
+        else {
+            if ($rootScope.userInfo.role == 3) {
+                $location.path("/trainee_dashboard");
+            } else if ($rootScope.userInfo.role == 2) {
+                $location.path("/trainer_dashboard");
+            } else if ($rootScope.userInfo.role == 1) {
+                $location.path("/admin_dashboard");
+            }
+        }
+        connectSocket($rootScope.userInfo.email);
+        userServices.getNumberofNewNotifications().then(function (NewNotification) {
+            $rootScope.userInfo.NumberofNewNotification = NewNotification.data.data;
+        });
+    }
+
+    window.onload = function() {
+        function getCookie(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for(var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+        var userEmail=getCookie("email");
+        if (userEmail != "") {
+            userServices.getUserProfile({email: userEmail}).then(function(userData) {
+                $rootScope.userInfo = userData.data;
+                $rootScope.userInfo.role = $rootScope.userInfo.isAdmin ? 1 :
+                                           $rootScope.userInfo.isTrainer ? 2 :
+                                           $rootScope.userInfo.isTrainee ? 3 : 0;
+                window.sessionStorage["userInfo"] = $rootScope.userInfo;
+                loginSucessDestination();
+            });
+        }
+    }
     $scope.login = {};
     $scope.doLogin = function () {
         if ($scope.loginForm.$valid) {
             userServices.login($scope.login).then(function (result) {
                 $scope.data = result;
-
                 if (result.data.success) {
                     window.sessionStorage["userInfo"] = JSON.stringify(result.data);
                     $rootScope.userInfo = JSON.parse(window.sessionStorage["userInfo"]);
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
-                    if ($rootScope.userInfo.status == 'newuser') {
-                        $('#firstPassword').modal({
-                            backdrop: 'static',
-                            keyboard: false
-                        })
-                        $('#firstPassword').modal('show');
+                    loginSucessDestination();
+                    //set the cookie to remember account
+                    if ($scope.RememberMe && document.cookie)
+                    {
+                        var time = new Date();
+                        time.setFullYear(9999);//cookie never expires
+                        document.cookie = "email=" + $rootScope.userInfo.email + ";" +
+                                          "expires=" + time + ";" +
+                                          "path=/";
                     }
-                    else {
-                        if ($rootScope.userInfo.role == 3) {
-                            $location.path("/trainee_dashboard");
-                        } else if ($rootScope.userInfo.role == 2) {
-                            $location.path("/trainer_dashboard");
-                        } else if ($rootScope.userInfo.role == 1) {
-                            $location.path("/admin_dashboard");
-                        }
-                    }
-                    connectSocket($rootScope.userInfo.email);
-                    userServices.getNumberofNewNotifications().then(function (NewNotification) {
-                        $rootScope.userInfo.NumberofNewNotification = NewNotification.data.data;
-                    });
                 } else {
                     $rootScope.ShowPopupMessage(result.data.msg, "error");
                 }
@@ -213,6 +254,8 @@ myApp.controller('logoutController', ['$scope', 'userServices', '$location', '$r
         $rootScope.userInfo = false;
         $rootScope.ShowPopupMessage("Logout successfully", "success");
         $location.path("/home");
+        //erase cookie
+        document.cookie = "email=;expires=" + (Date.now() - 1000) + ";path=/";
     })
 }]);
 

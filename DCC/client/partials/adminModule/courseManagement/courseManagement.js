@@ -55,7 +55,10 @@ myApp.factory('courseManagementServices', ['$http', function ($http) {
         },
         deleteClass: function (Class) {
             return $http.post('/admin/courses/deleteClass', Class).success(function (data) { return data; });
-        }
+        },
+        getTrainerList:function() {
+            return $http.get('/admin/courses/getAllTrainer').success(function (data) { return data; });
+        },
     }
 
     return factoryDefinitions;
@@ -64,6 +67,12 @@ myApp.factory('courseManagementServices', ['$http', function ($http) {
 var temp;
 //controller
 myApp.controller('courseManagementCtrl', ['$sce', '$scope', '$rootScope', 'courseManagementServices', function ($sce, $scope, $rootScope, courseManagementServices, $location) {
+    $rootScope.getTrainerList = function() {
+    courseManagementServices.getTrainerList().then(function (result) {
+      $rootScope.trainerList = result.data.trainer;
+    });
+    }
+
     //GetTrainingProgram
     courseManagementServices.getTrainingProgramList().then(function (result) {
         result.data.trainingProgram.forEach(traningProgram => {
@@ -333,8 +342,9 @@ myApp.controller('deleteCtrl', ['$scope', '$rootScope', 'courseManagementService
 }]);
 
 
-myApp.controller('addEditClassCtrl', ['$scope', '$rootScope', 'courseDetailServices', '$stateParams', function ($scope, $rootScope, courseDetailServices, $location, $stateParams) {
+myApp.controller('addEditClassCtrl', ['$scope', '$rootScope','courseManagementServices', 'courseDetailServices', '$stateParams', function ($scope, $rootScope,courseManagementServices, courseDetailServices, $location, $stateParams) {
 
+    
     //Class
     $scope.addEditClassClick = function () {
 
