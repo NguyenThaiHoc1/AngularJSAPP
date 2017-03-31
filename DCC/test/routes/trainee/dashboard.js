@@ -70,7 +70,7 @@ describe('<Unit test for trainee-dashboard>', function () {
             var req = request(DCC_Server).post('/trainee/dashboard/getTrainingProgramByTPType');
             req.cookies = Cookies;
             req.send({
-                userType: 'AXE',
+                userType: 'IMS',
                 isExperienced: '1',
                 email: 'qwe@email.com',
             });

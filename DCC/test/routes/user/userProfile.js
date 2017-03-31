@@ -34,7 +34,7 @@ describe('<Unit test for user profile>', function () {
         request(DCC_Server).get('/logout')
         done();
     });
-    describe('Test case 1 : Get /user/userProfile/getUserInfo for currentRole =1', function () {
+    describe('Test case 1 : Get /user/userProfile/getUserInfo for currentRole = 1', function () {
         return it('Should return success==true', function (done) {
             var req = request(DCC_Server).post('/user/userProfile/getUserInfo');
             req.send(
