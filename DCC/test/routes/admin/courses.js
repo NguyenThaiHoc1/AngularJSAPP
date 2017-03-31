@@ -18,6 +18,18 @@ describe('<Unit test for admin-course>', function () {
             })
             .end(function (err, res) {
                 Cookies = res.headers['set-cookie'].pop().split(';')[0];
+                //create class
+                var date = new Date();
+                date.setDate(date.getDate() + 1);
+                models.Class.create({
+                    id: 17,
+                    location: 'Test Case 16',
+                    courseId: 1,
+                    startTime: date,
+                    duration: 2,
+                    maxAttendant: 17
+                });
+
                 if (err)
                     return done(err);
                 done();
@@ -34,6 +46,17 @@ describe('<Unit test for admin-course>', function () {
     describe('Test case 14 : get /admin/courses/getAllCourse', function () {
         return it('Should return success==true', function (done) {
             var req = request(DCC_Server).get('/admin/courses/getAllCourse');
+            req.cookies = Cookies;
+            req.end(function (err, res) {
+                assert.equal(res.body.success, true);
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
+     describe('Test case 15 : get /admin/courses/getAllTrainer', function () {
+        return it('Should return success==true', function (done) {
+            var req = request(DCC_Server).get('/admin/courses/getAllTrainer');
             req.cookies = Cookies;
             req.end(function (err, res) {
                 assert.equal(res.body.success, true);
@@ -286,6 +309,9 @@ describe('<Unit test for admin-course>', function () {
             req.send({
                 courseId: 10,
                 startTime: '2018-08-03 17:00:00',
+                trainer: {
+                    id: 1
+                }
             });
             req.end(function (err, res) {
                 assert.equal(res.body.success, true);
@@ -304,10 +330,14 @@ describe('<Unit test for admin-course>', function () {
             req.cookies = Cookies;
             models.Class.create({
                 courseId: 4,
+               trainerId: 2,
                 startTime: '2018-02-03 14:00:00',
             });
             req.send({
                 courseId: 4,
+                trainer: {
+                    id: 1
+                },
                 startTime: '2018-02-03 18:00:00',
             });
             req.end(function (err, res) {
@@ -333,6 +363,9 @@ describe('<Unit test for admin-course>', function () {
                 location: 'test update loc',
                 startTime: '2017-02-03 17:00:00',
                 duration: '2',
+                trainer: {
+                    id: 1
+                },
                 maxAttendant: '12',
                 note: 'test crat note'
             });
@@ -418,6 +451,23 @@ describe('<Unit test for admin-course>', function () {
         return it('Should return success==true', function (done) {
             var req = request(DCC_Server).get('/admin/courses/getAllTP');
             req.cookies = Cookies;
+            req.end(function (err, res) {
+                assert.equal(res.body.success, true);
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
+    describe('Test case 16 : Post /admin/courses/deleteClass', function () {
+        return it('Should return success==true', function (done) {
+            var req = request(DCC_Server).post('/admin/courses/deleteClass');
+            req.cookies = Cookies;
+            req.send({
+                id: 17,
+                courseName: 'Training Overview',
+                traineeList: [{ traineeMail: 'thach@gmail.com' }],
+            });
+
             req.end(function (err, res) {
                 assert.equal(res.body.success, true);
                 if (err) return done(err);
