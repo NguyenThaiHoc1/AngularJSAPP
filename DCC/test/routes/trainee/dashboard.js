@@ -56,7 +56,7 @@ describe('<Unit test for trainee-dashboard>', function () {
             req.send({
                 userType: 'IMS',
                 isExperienced: '0',
-                email: 'newuser@email.com',
+                email: 'qwe@gmail.com',
             });
             req.end(function (err, res) {
                 assert.equal(res.body.success, true);
@@ -70,7 +70,7 @@ describe('<Unit test for trainee-dashboard>', function () {
             var req = request(DCC_Server).post('/trainee/dashboard/getTrainingProgramByTPType');
             req.cookies = Cookies;
             req.send({
-                userType: 'IMS',
+                userType: 'AXE',
                 isExperienced: '1',
                 email: 'qwe@email.com',
             });
