@@ -38,7 +38,9 @@ myApp.factory('courseDetailServices', ['$http', function ($http) {
         deleteClass: function (Class) {
             return $http.post('/admin/courses/deleteClass', Class).success(function (data) { return data; });
         },
-
+        getTrainerList:function() {
+            return $http.get('/admin/courses/getAllTrainer').success(function (data) { return data; });
+        }
     }
 
     return factoryDefinitions;
@@ -116,13 +118,16 @@ myApp.controller('courseDetailCtrl', ['$scope', '$rootScope', '$stateParams', 'c
         $rootScope.timeOfEnd.setHours(Class.endTime.getHours());
         $rootScope.timeOfEnd.setMinutes(Class.endTime.getMinutes());
         $rootScope.location = Class.location;
-
         $rootScope.adminClassModel = {
             dayOfStart: $rootScope.dayOfStart,
             timeOfStart: $rootScope.timeOfStart,
             dayOfEnd: $rootScope.dayOfEnd,
             timeOfEnd: $rootScope.timeOfEnd,
             id: Class.id,
+            trainer:{
+                username: Class.trainerName,
+                id: Class.trainerId
+            },
             maxAttendant: Class.maxAttendant,
             location: Class.location,
             courseId: {
