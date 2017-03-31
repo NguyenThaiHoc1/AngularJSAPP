@@ -99,6 +99,17 @@
                             </div>
                             <div ng-hide="!course.isOpening&&openingCourseFilter" class="col-md-2 col-sm-4">
                                 <center>
+                                     <div class="dropdown col-xs-12 col-md-12 tooltipMod">
+                                        <div class="tooltiptext" style="text-align: left">
+                                            <div  ng-show="'{{course.buttonName}}' =='Request'">
+                                            <img style="display: inline-block; margin-left: 5px; border-radius: 50%; border: 1px solid #8BC34A; background-color: #8BC34A; width:20px !important; height:20px !important"
+                                                class="img-responsive">&nbsp: Class is not opening, send &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp request to   admin</br>
+                                            </div>
+                                            <div  ng-show="'{{course.buttonName}}' =='Enroll'">
+                                            <img style="display: inline-block; margin-left: 5px; border-radius: 50%; border: 1px solid #4FC3F7; background-color: #4FC3F7; width:20px !important; height:20px !important"
+                                                class="img-responsive">&nbsp: Class is opening, enroll class &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp now</br>
+                                            </div>
+                                        </div>
                                     <div class="btn-group col-xs-12 col-md-12">
                                         <button ng-click="registerCourse(course.id,courseRegisterStatus)" style="background-color: {{course.buttonColor}}" class="btn col-xs-12 col-md-12 "
                                             type="button" aria-haspopup="true" aria-expanded="true">
