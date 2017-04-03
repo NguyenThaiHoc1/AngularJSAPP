@@ -74,6 +74,9 @@ router.post('/updateUserProfile', function (req, res) {
             status: req.body.status,
             isNotificationDesktop: req.body.isNotificationDesktop,
             isNotificationEmail: req.body.isNotificationEmail,
+            isAdmin: req.body.isAdmin,
+            isTrainer: req.body.isTrainer,
+            isExperienced: req.body.isExperienced,
             EmailPeriod: req.body.EmailPeriod,
             TimeOption: req.body.TimeOption
         },

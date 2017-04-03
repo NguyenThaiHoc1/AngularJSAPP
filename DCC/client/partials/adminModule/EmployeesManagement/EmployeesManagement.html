@@ -78,7 +78,7 @@
                         <div class="col-md-9 col-sm-8" style="border-left:2px none;" class="row" style="padding-bottom:10px; margin-left: 90px;
                             margin-right: 10px; border: 2px solid; border-radius: 100px 5px 5px 100px; background-color: #f7f7f7;">
                             <div class="panel-body">
-                                <div class=" col-md-9 col-lg-9 col-sm-8" style="border-left: 4px solid #D3D3D3">
+                                <div class=" col-md-8 col-lg-8 col-sm-7" style="border-left: 4px solid #D3D3D3">
                                     <table class="table " id="shady-lady">
                                         <tbody>
                                             <tr style="border: hidden">
@@ -95,6 +95,15 @@
                                             </tr>
                                         </tbody>
                                     </table>
+                                </div>
+                                <div class="col-md-3 col-lg-3 col-sm-4" ng-show="user.status=='activated'">
+                                    <label class="control-label"><input type="checkbox" name="RoleSetting" ng-model="user.isAdmin">&nbsp Admin</label></br>
+                                    <label class="control-label"><input type="checkbox" name="RoleSetting" ng-model="user.isTrainer">&nbsp Trainer</label></br>
+                                    <label class="control-label"><input type="checkbox" name="RoleSetting" ng-model="user.isExperienced">&nbsp Experienced</label></br>
+                                </div>
+                                <div class="col-md-1 col-lg-1 col-sm-1" ng-show="user.status=='activated'">
+                                    <br/>
+                                    <button type="button" class="btn btn-success" ng-click="updateUserRole(user)">Save</button>
                                 </div>
                             </div>
                         </div>
