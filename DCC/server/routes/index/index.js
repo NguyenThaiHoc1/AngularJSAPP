@@ -13,7 +13,11 @@ var md5 = require('md5');
 
 // get homepage
 router.get('/', function (req, res) {
-    res.render('./index');
+    res.render('./index').then( function(result) {
+        res.send({
+            data: result
+        });
+    });
 });
 
 router.get('/getEvents', function (req, res) {

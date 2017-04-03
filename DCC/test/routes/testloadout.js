@@ -9,7 +9,8 @@ describe('Test case 0: get homepage without logging in', function () {
         request(DCC_Server)
             .get('/')
             .end(function (err, res) {
-                assert.equal(res.status, '200');
+                if(res.status == '200')
+                    assert.notEqual(res.body, null);
                 if (err) return done(err);
                 done();
             });
