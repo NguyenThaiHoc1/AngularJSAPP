@@ -47,18 +47,17 @@ module.exports = function (sequelize) {
                     imgLink: '/img/courses/training-icon-1.svg'
                 }).then(cb);
             },
-            edit: function (id, name, description, duration, test, documents, trainingProgramID, cb) {
+            edit: function (courseDetail, cb) {
                 Course.update({
-                    name: name,
-                    description: description,
-                    duration: duration,
-                    test: test,
-                    documents: documents,
-                    trainingProgramId: trainingProgramID
+                    name: courseDetail.name,
+                    description: courseDetail.description,
+                    duration: courseDetail.duration,
+                    test: courseDetail.test,
+                    documents: courseDetail.documents,
                 },
                     {
                         where: {
-                            id: id
+                            id: courseDetail.id
                         }
                     }).then(cb)
             }

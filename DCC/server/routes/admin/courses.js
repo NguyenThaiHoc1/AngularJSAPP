@@ -46,14 +46,16 @@ router.post('/updateCourse', function (req, res) {
                     msg: 'Name already existed. Update failed!'
                 });
             } else {
+                var courseDetail = {
+                    id: req.body.id,
+                    name: req.body.name,
+                    description: req.body.description,
+                    duration: req.body.duration,
+                    test: req.body.test,
+                    documents: req.body.documents,
+                }
                 models.Course.edit(
-                    req.body.id,
-                    req.body.name,
-                    req.body.description,
-                    req.body.duration,
-                    req.body.test,
-                    req.body.documents,
-                    req.body.trainingProgramId,
+                    courseDetail,
                     function () {
                         res.send({
                             success: true,
@@ -163,7 +165,7 @@ router.post('/updateTrainingProgram', function (req, res) {
                 req.body.name,
                 req.body.description,
                 req.body.courseTypeId.id,
-                cb => {
+                function () {
                     res.send({
                         success: true,
                         msg: "Updating Training Program Successes"
