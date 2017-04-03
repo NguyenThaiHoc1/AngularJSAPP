@@ -132,6 +132,11 @@ myApp.controller('loginController', ['$scope', 'userServices', '$location', '$ro
                 loginSucessDestination();
             });
         }
+        if ($rootScope.userInfo) {
+            $rootScope.userInfo.role = $rootScope.userInfo.isAdmin ? 1 :
+                            $rootScope.userInfo.isTrainer ? 2 :
+                                $rootScope.userInfo.isTrainee ? 3 : 0;
+        }
     }
     $scope.login = {};
     $scope.doLogin = function () {
