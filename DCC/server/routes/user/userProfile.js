@@ -172,9 +172,7 @@ router.post('/addUser', function (req, res) {
                         success: true,
                         msg: "Register New User Successfully",
                     });
-                    var subject = "Register - Account Information";
-                    var content = "Your account has been registered as " + req.body.username + " using the email: " + req.body.email + "with the auto-generated password of: " + req.body.password + " . You must change your password the first time you login otherwise you won't be able to access other features.";
-                    notification([req.body.email], subject, content);
+                    notification([req.body.email], "Register - Account Information", "Your account has been registered as " + req.body.username + " using the email: " + req.body.email + "with the auto-generated password of: " + req.body.password + " . You must change your password the first time you login otherwise you won't be able to access other features.", null);
                 });
             }
         });
