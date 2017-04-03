@@ -38,5 +38,10 @@ var settings = {
         "USER_ACCESS_TOKEN": "ya29.GlsXBKtapW12VeEXUil-kRM3vpdq6dkmY7-J00vnYbDSoNZwO86BmpOZRJm-aqX1hJvhPEvl1oNY7uoTbvHxVDkkGSUYChdcJy9pJjH6EqVc1A0YXkqymV7E972_",
         "USER_REFRESH_TOKEN": "1/boN86F0olFg8TbihDAJRPkeJWKuAWp7Ik3HSV0s3nXE"
     },
+
+    /**       
+    *---------- NOTIFICATION EMAIL TIME ------------
+    */
+    NotificationEmailTime: '8:00',   // hour:minute,  24h format
 };
 module.exports = settings;

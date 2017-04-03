@@ -1,10 +1,10 @@
 
 var schedule = require('node-schedule');
 var sendEmail = require('../../notification/email');
-var models = require('../../models')
+var models = require('../../models');
 var Jobs;
 var os = require('os');
-
+var settings = require('../../../settings.js');
 
 var sendNewNotificationToEmail = function (email, EmailPeriod) {
     models.Notifications.getAllNewNotifications(email, notifications => {
@@ -16,7 +16,7 @@ var sendNewNotificationToEmail = function (email, EmailPeriod) {
                 {
                     where: {
                         email: email,
-                        status: 1,
+                        status: {$ne: 0},
                     }
                 }
             );
@@ -25,7 +25,7 @@ var sendNewNotificationToEmail = function (email, EmailPeriod) {
                 content: '[DEK] In this ' + EmailPeriod + 'new notifications ' + os.EOL
             }
             for (var i = 0; i < notifications.length; i++) {
-                noti.content += (i + 1) + '. ' + notifications[i].content + os.EOL;
+                noti.content += (i + 1) + '. ' + notifications[i].title + ' : ' + notifications[i].content + os.EOL;
             }
             noti.content += 'Regards,';
             sendEmail([email], noti.subject, noti.content);
@@ -65,20 +65,17 @@ function insertItem(item) {
 
 function createRule(date, EmailPeriod) {
     var rule = new schedule.RecurrenceRule();
+    var EmailTime = settings.NotificationEmailTime.split(':');
+    rule.hour = parseInt(EmailTime[0]);
+    rule.minute = parseInt(EmailTime[1]);
     switch (EmailPeriod) {
         case 'Daily':
-            rule.hour = date.getHours();
-            rule.minute = date.getMinutes();
             break;
         case 'Weekly':
             rule.dayOfWeek = [date.getDay()];
-            rule.hour = date.getHours();
-            rule.minute = date.getMinutes();
             break;
         case 'Monthly':
             rule.date = date.getDate();
-            rule.hour = date.getHours();
-            rule.minute = date.getMinutes();
             break;
         default:
     }
@@ -91,9 +88,9 @@ var automatic = {
             for (var i = 0; i < users.length; i++) {
                 var date = new Date(users[i].TimeOption);
                 var rule = createRule(date, users[i].EmailPeriod);
-                var j = schedule.scheduleJob(rule, function () {
-                    sendNewNotificationToEmail(users[i].email, users[i].EmailPeriod);
-                });
+                var j = schedule.scheduleJob(rule, function (email, EmailPeriod) {
+                    sendNewNotificationToEmail(email, EmailPeriod);
+                }.bind(null, users[i].email, users[i].EmailPeriod));
                 var item = {
                     email: users[i].email.toUpperCase(),
                     job: j,
@@ -115,9 +112,9 @@ var automatic = {
                     var rule = createRule(date, user.EmailPeriod);
 
                     Jobs[index].job.cancel();
-                    Jobs[index].job = schedule.scheduleJob(rule, function () {
-                        sendNewNotificationToEmail(user.email, user.EmailPeriod);
-                    });
+                    Jobs[index].job = schedule.scheduleJob(rule, function (email, EmailPeriod) {
+                        sendNewNotificationToEmail(email, user.EmailPeriod);
+                    }.bind(null, user.email, user.EmailPeriod));
                 }
             });
         } else {
@@ -125,9 +122,9 @@ var automatic = {
                 if (user.isNotificationEmail === 1) {
                     var date = new Date(user.TimeOption);
                     var rule = createRule(date, user.EmailPeriod);
-                    var j = schedule.scheduleJob(rule, function () {
-                        sendNewNotificationToEmail(user.email, user.EmailPeriod);
-                    });
+                    var j = schedule.scheduleJob(rule, function (email, EmailPeriod) {
+                        sendNewNotificationToEmail(email, EmailPeriod);
+                    }.bind(null, user.email, user.EmailPeriod));
                     var item = {
                         email: user.email.toUpperCase(),
                         job: j,

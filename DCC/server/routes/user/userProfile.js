@@ -74,6 +74,9 @@ router.post('/updateUserProfile', function (req, res) {
             status: req.body.status,
             isNotificationDesktop: req.body.isNotificationDesktop,
             isNotificationEmail: req.body.isNotificationEmail,
+            isAdmin: req.body.isAdmin,
+            isTrainer: req.body.isTrainer,
+            isExperienced: req.body.isExperienced,
             EmailPeriod: req.body.EmailPeriod,
             TimeOption: req.body.TimeOption
         },
@@ -172,9 +175,7 @@ router.post('/addUser', function (req, res) {
                         success: true,
                         msg: "Register New User Successfully",
                     });
-                    var subject = "Register - Account Information";
-                    var content = "Your account has been registered as " + req.body.username + " using the email: " + req.body.email + "with the auto-generated password of: " + req.body.password + " . You must change your password the first time you login otherwise you won't be able to access other features.";
-                    notification([req.body.email], subject, content);
+                    notification([req.body.email], "Register - Account Information", "Your account has been registered as " + req.body.username + " using the email: " + req.body.email + "with the auto-generated password of: " + req.body.password + " . You must change your password the first time you login otherwise you won't be able to access other features.", null);
                 });
             }
         });

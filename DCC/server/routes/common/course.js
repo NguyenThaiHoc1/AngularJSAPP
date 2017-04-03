@@ -47,6 +47,7 @@ router.post('/getClassByCourseID', function (req, res) {
             resData.push({
                 id: classByCourseId.id,
                 location: classByCourseId.location,
+                trainerId: classByCourseId.User ? classByCourseId.User.id : 1,
                 trainerName: classByCourseId.User ? classByCourseId.User.username : "Not Assigned",
                 startTime: classByCourseId.startTime,
                 endTime: classByCourseId.endTime,

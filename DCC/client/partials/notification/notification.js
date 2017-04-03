@@ -61,7 +61,7 @@ myApp.controller('NotiController', ['$scope', '$rootScope', '$location', '$state
     };
 
     $scope.SyncNotificationSetting = function () {
-        $rootScope.userInfo.TimeOption = new Date($rootScope.userInfo.TimeOption);
+        $rootScope.userInfo.TimeOption = $rootScope.userInfo.TimeOption ? (new Date($rootScope.userInfo.TimeOption)) : (new Date());
         $rootScope.userInfo.WeekdayOption = $rootScope.userInfo.TimeOption.getDay();
         $rootScope.userInfo.DateOption = $rootScope.userInfo.TimeOption.getDate();
     };

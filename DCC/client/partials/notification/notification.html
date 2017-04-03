@@ -10,7 +10,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="col-xs-1"></div>
-                        <label class="control-label"><input type="checkbox" name="NotiSettingOption" ng-model="userInfo.isNotificationDesktop">&nbsp Desktop</label><br>
+                        <label class="control-label"><input type="checkbox" name="NotiSettingOption" ng-model="userInfo.isNotificationDesktop">&nbsp Web push notifications</label><br>
                         <div class="col-xs-1"></div>
                         <label class="control-label"><input type="checkbox" name="NotiSettingOption" ng-model="userInfo.isNotificationEmail">&nbsp Email</label><br>
                         <div ng-show="userInfo.isNotificationEmail" class="row" style="position: relative;">
@@ -26,16 +26,13 @@
                                 <label><input type="radio" name="MailPeriod" value="Custom" ng-model="userInfo.EmailPeriod" disabled/>&nbsp Custom</label ><br/>-->
                             </div>
                             <div class="col-xs-8">
-                                <div class="col-xs-4" ng-show="userInfo.EmailPeriod">
-                                    <div uib-timepicker ng-model="userInfo.TimeOption" hour-step="1" minute-step="1" show-meridian="false"></div>
+                                <div class="col-xs-4"  style="margin-top: 35px;" uib-dropdown ng-show="userInfo.EmailPeriod == 'Weekly'">
+                                    <select class="NotificationSettingCombobox" ng-init="Weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']"
+                                            ng-model="userInfo.WeekdayOption" ng-options="Weekdays.indexOf(weekday) as weekday for weekday in Weekdays"/>
+                                   
                                 </div>
-                                <div class="col-xs-4"  style="margin-top: 40px;" uib-dropdown ng-show="userInfo.EmailPeriod == 'Weekly'">
-                                    <select ng-init="Weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']"
-                                            ng-model="userInfo.WeekdayOption" ng-options="Weekdays.indexOf(weekday) as weekday for weekday in Weekdays">
-                                    </select>
-                                </div>
-                                <div class="col-xs-4" style="margin-top: 40px;" uib-dropdown ng-show="userInfo.EmailPeriod == 'Monthly'">
-                                    <select ng-model="userInfo.DateOption" ng-options="date as date for date in Dates"><!--date == value-->
+                                <div class="col-xs-4" style="margin-top: 35px;" uib-dropdown ng-show="userInfo.EmailPeriod == 'Monthly'">
+                                    <select class="NotificationSettingCombobox" ng-model="userInfo.DateOption" ng-options="date as date for date in Dates"><!--date == value-->
                                     </select>
                                 </div>
                             </div>

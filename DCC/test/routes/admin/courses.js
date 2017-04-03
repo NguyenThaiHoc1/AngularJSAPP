@@ -54,6 +54,17 @@ describe('<Unit test for admin-course>', function () {
             });
         });
     });
+     describe('Test case 15 : get /admin/courses/getAllTrainer', function () {
+        return it('Should return success==true', function (done) {
+            var req = request(DCC_Server).get('/admin/courses/getAllTrainer');
+            req.cookies = Cookies;
+            req.end(function (err, res) {
+                assert.equal(res.body.success, true);
+                if (err) return done(err);
+                done();
+            });
+        });
+    });
 
     describe('Test case 1 : Post /admin/courses/addCourse', function () {
         return it('Should return success==true', function (done) {
@@ -291,9 +302,16 @@ describe('<Unit test for admin-course>', function () {
 
             var req = request(DCC_Server).post('/admin/courses/addClass');
             req.cookies = Cookies;
+            models.RequestOpening.create({
+                courseId: 10,
+                userId: 1
+            });
             req.send({
                 courseId: 10,
                 startTime: '2018-08-03 17:00:00',
+                trainer: {
+                    id: 1
+                }
             });
             req.end(function (err, res) {
                 assert.equal(res.body.success, true);
@@ -312,10 +330,14 @@ describe('<Unit test for admin-course>', function () {
             req.cookies = Cookies;
             models.Class.create({
                 courseId: 4,
+               trainerId: 2,
                 startTime: '2018-02-03 14:00:00',
             });
             req.send({
                 courseId: 4,
+                trainer: {
+                    id: 1
+                },
                 startTime: '2018-02-03 18:00:00',
             });
             req.end(function (err, res) {
@@ -341,6 +363,9 @@ describe('<Unit test for admin-course>', function () {
                 location: 'test update loc',
                 startTime: '2017-02-03 17:00:00',
                 duration: '2',
+                trainer: {
+                    id: 1
+                },
                 maxAttendant: '12',
                 note: 'test crat note'
             });

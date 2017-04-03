@@ -29,7 +29,7 @@ module.exports = function (sequelize) {
                 var query = {
                     where: {
                         email: userEmail,
-                        status: 1
+                        status: {$ne: 0}
                     }
                 };
                 Notifications.findAll(query).then(cb);

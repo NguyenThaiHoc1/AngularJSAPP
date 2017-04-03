@@ -124,29 +124,32 @@ myApp.controller('courseRegisterCtrl', ['$sce', '$rootScope', '$scope', 'courseR
         return true;
     }
     $scope.findCourse = function (courseSearchKey, openingCourseFilter) {
-        var courseListSearchResult = []
-        var listSearchResult = []
-        if (openingCourseFilter) {
-            $scope.trainingProgramList.forEach(trainingProgram => {
-                trainingProgram.Courses.forEach(course => {
-                    if (((course.name.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1) ||
-                        (course.description.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1)) &&
-                        (course.isOpening == openingCourseFilter))
-                        courseListSearchResult.push(course);
+        if ((courseSearchKey != 'r') && (courseSearchKey != 'p') && (courseSearchKey != '<') && (courseSearchKey != '>')) {
+            var courseListSearchResult = []
+            var listSearchResult = []
+            if (openingCourseFilter) {
+                $scope.trainingProgramList.forEach(trainingProgram => {
+                    trainingProgram.Courses.forEach(course => {
+                        if (((course.name.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1) ||
+                            (course.description.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1)) &&
+                            (course.isOpening == openingCourseFilter))
+                            courseListSearchResult.push(course);
+                    });
                 });
-            });
-        }
-        else {
-            $scope.trainingProgramList.forEach(trainingProgram => {
-                trainingProgram.Courses.forEach(course => {
-                    if ((course.name.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1) ||
-                        (course.description.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1))
-                        courseListSearchResult.push(course);
+            }
+            else {
+                $scope.trainingProgramList.forEach(trainingProgram => {
+                    trainingProgram.Courses.forEach(course => {
+                        if ((course.name.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1) ||
+                            (course.description.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1))
+                            courseListSearchResult.push(course);
+                    });
                 });
-            });
+            }
         }
         $scope.courseListSearchResult = courseListSearchResult;
     };
+
     $scope.highlight = function (text, search) {
         if (!search) {
             return $sce.trustAsHtml(text);

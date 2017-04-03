@@ -19,7 +19,7 @@ myApp.factory('EmployeesManagementService', ['$http', function($http) {
             return $http.get('/user/userProfile/getAllUsers').success(function(data) { return data; });
         },
 
-        updateUserStatus: function(user) {    //change status to "deactivated"
+        updateUserStatus: function(user) {
             return $http.post('/user/userProfile/updateUserProfile', user).success(function (data) { return data; });
         }
     }
@@ -108,6 +108,17 @@ myApp.controller('getProfilesController', ['$scope', '$rootScope', '$sce', 'Empl
         }
 
         return checkStatus && checkSearch;
+    };
+    
+    $scope.updateUserRole = function(user) {
+        EmployeesManagementService.updateUserStatus(user).then(function (result) {
+            if (result.data.success) {
+                $rootScope.ShowPopupMessage("Role Saved", "success");
+            }
+            else {
+                $rootScope.ShowPopupMessage(result.data.msg, "error");
+            }
+        });
     };
 }]);
 
