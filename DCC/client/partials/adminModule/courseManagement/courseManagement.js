@@ -193,6 +193,8 @@ myApp.controller('courseManagementCtrl', ['$sce', '$scope', '$rootScope', 'cours
         };
     };
     $scope.findCourse = function (courseSearchKey) {
+        if((courseSearchKey!='r')&&(courseSearchKey!='p')&&(courseSearchKey!='<')&&(courseSearchKey!='>'))
+        {
         var courseListSearchResult = []
         var listSearchResult = []
         $rootScope.adminTrainingProgramList.forEach(trainingProgram => {
@@ -200,6 +202,7 @@ myApp.controller('courseManagementCtrl', ['$sce', '$scope', '$rootScope', 'cours
                 if ((course.name.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1) || (course.description.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1)) courseListSearchResult.push(course);
             });
         });
+        }
         $scope.courseListSearchResult = courseListSearchResult;
     };
     $scope.highlight = function (text, search) {
