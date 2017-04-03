@@ -222,7 +222,6 @@ router.post('/addClass', function (req, res) {
                     msg: "Class is already opening!"
                 }
             }
-<<<<<<< HEAD
             else {
                 var courseName;
                 models.Class.add(
@@ -264,38 +263,7 @@ router.post('/addClass', function (req, res) {
                                     })
 
                                 });
-
-=======
-        }
-        else {
-            var courseName;
-            models.Class.create({
-                courseId: req.body.courseId,
-                location: req.body.location,
-                trainerId: req.body.trainer.id,
-                startTime: req.body.startTime,
-                endTime: req.body.endTime,
-                maxAttendant: req.body.maxAttendant,
-            }).then(cb => {
-                models.Course.findOne({
-                    where: {
-                        id: req.body.courseId
-                    }
-                }).then(function (course) {
-                    var date = new Date(req.body.startTime);
-                    date.setDate(date.getDate() - 1);
-                    courseName = course.name;
-                    Job.job_sendnoti_ClassStart(date, cb.id, course.name, "Your " + req.body.courseId + " class has been openned and scheduled to start tomorrow at location: " + req.body.location + ". Please be on time, thank you.", 'courseDetail/' + course.name);
-                    models.RequestOpening.findAll({ where: { courseId: req.body.courseId } }).then(function (reqOpns) {
-                        reqOpns.forEach(reqOpn => {
-                            var receivers = [];
-                            models.User.findOne({ where: { id: reqOpn.userId } }).then(function (dataResults) {
-                                receivers.push(dataResults.email);
-                            }).then(function () {
-                                notification(receivers, courseName, "A new " + courseName + "'s class has been opened", 'trainee_dashboard/requestCourse');
->>>>>>> ed6e2f45c99d3145b731e0760599ee6ca2864bc1
                             });
-
                     });
                 //.then(function (ClassDetail) {
                 dataSend = {
@@ -303,22 +271,10 @@ router.post('/addClass', function (req, res) {
                     msg: "Add class successfully",
                 }
 
-<<<<<<< HEAD
                 // });
             }
             res.send(dataSend);
         })
-=======
-                });
-            });
-            dataSend = {
-                success: true,
-                msg: "Add class successfully",
-            }
-        }
-        res.send(dataSend);
-    })
->>>>>>> ed6e2f45c99d3145b731e0760599ee6ca2864bc1
 });
 
 //Update Class
@@ -328,7 +284,6 @@ router.post('/updateClass', function (req, res) {
     models.Class.sync({
         force: false
     }).then(function () {
-<<<<<<< HEAD
         models.Class.edit(
             req.body.id,
             req.body.location,
@@ -337,19 +292,6 @@ router.post('/updateClass', function (req, res) {
             req.body.endTime,
             req.body.maxAttendant,
             function () {
-=======
-        models.Class.update({
-            location: req.body.location,
-            trainerId: req.body.trainer.id,
-            startTime: req.body.startTime,
-            endTime: req.body.endTime,
-            maxAttendant: req.body.maxAttendant
-        }, {
-                where: {
-                    id: req.body.id,
-                }
-            }).then(function () {
->>>>>>> ed6e2f45c99d3145b731e0760599ee6ca2864bc1
                 res.send({
                     success: true,
                     msg: 'Edit Class Info success!'
@@ -361,7 +303,6 @@ router.post('/updateClass', function (req, res) {
 // Delete Class
 router.post('/deleteClass', function (req, res) {
     log.info('Get Delete Command');
-<<<<<<< HEAD
     models.Class.getOpeningClassByID(
         req.body.id,
         cb => {
@@ -369,31 +310,6 @@ router.post('/deleteClass', function (req, res) {
                 var TraineeList = [];
                 req.body.traineeList.forEach(trainee => {
                     TraineeList.push(trainee.traineeMail);
-=======
-    models.Class.findOne({
-        where: {
-            id: req.body.id,
-            startTime:
-            {
-                $gt: Date.now()
-            }
-        }
-    }).then(cb => {
-        if (cb && cb != null) {
-            var TraineeList = [];
-            req.body.traineeList.forEach(trainee => {
-                TraineeList.push(trainee.traineeMail);
-            });
-            notification(TraineeList, 'Class canceled', 'The ' + req.body.courseName + "'s class has been canceled", 'trainee_courseRegister/CourseRegister');
-            models.Class.destroy({
-                where: {
-                    id: req.body.id
-                }
-            }).then(function () {
-                res.send({
-                    success: true,
-                    msg: 'Delete Class success'
->>>>>>> ed6e2f45c99d3145b731e0760599ee6ca2864bc1
                 });
                 var noti = {
                     subject: 'Class canceled',
