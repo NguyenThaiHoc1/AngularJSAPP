@@ -46,7 +46,7 @@
                                     </a>
                                 </div>
                                 <div data-toggle="collapse" data-target="#collapse{{trainingProgram.id}}" ng-click="trainingProgram.collapsed = !trainingProgram.collapsed">
-                                    <p style="color:darkgrey; white-space: nowrap" ng-bind-html="trainingProgram.description"> </p>
+                                    <p class="TrainingItemsDescription" ng-bind-html="trainingProgram.description"> </p>
                                     <center ng-hide="trainingProgram.collapsed"><span class="glyphicon glyphicon-menu-down"></span></center>
                                     <center ng-show="trainingProgram.collapsed"><span class="glyphicon glyphicon-menu-up"></span></center>
                                 </div>
@@ -67,7 +67,7 @@
                                                 <font ng-bind-html="highlight(course.name, courseSearchKey)"></font>
                                                 <p style="visibility:hidden">Just to keep space</p>
                                                 <p style="visibility:hidden">Just to keep space</p>
-                                                <p style="color:darkgrey; white-space: nowrap" ng-bind-html="highlight(course.description, courseSearchKey)"></p>
+                                                <p class="TrainingItemsDescription" ng-bind-html="highlight(course.description, courseSearchKey)"></p>
                                         </a>
                                     </blockquote>
                                 </div>
@@ -102,7 +102,7 @@
                                 <a class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" ng-click="showDeleteTPForm(trainingProgram)"><span class="glyphicon glyphicon-trash"></span></a>
                             </div>
                             <div data-toggle="collapse" data-target="#collapse{{trainingProgram.id}}" ng-click="trainingProgram.collapsed = !trainingProgram.collapsed">
-                                <p style="color:darkgrey; white-space: nowrap" ng-bind-html="trainingProgram.description"> </p>
+                                <p class="TrainingItemsDescription" ng-bind-html="trainingProgram.description"> </p>
                                 <center ng-hide="trainingProgram.collapsed"><span class="glyphicon glyphicon-menu-down"></span></center>
                                 <center ng-show="trainingProgram.collapsed"><span class="glyphicon glyphicon-menu-up"></span></center>
                             </div>
