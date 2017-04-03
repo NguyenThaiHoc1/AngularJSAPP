@@ -36,9 +36,9 @@ router.get('/getOpeningClass', function (req, res) {
     });
 });
 
-router.post('/getRequestedOpeningCourse', function (req, res) {
+router.post('/getByUserID', function (req, res) {
     var userId = req.body.userId;
-    models.RequestOpening.getRequestedOpeningCourse(userId, function (requestedOpeningCourse) {
+    models.RequestOpening.getByUserID(userId, function (requestedOpeningCourse) {
         var datasend = {
             success: true,
             msg: 'Get Requested Opening Course Success',
@@ -65,24 +65,24 @@ router.post('/sendRegisterRequest', function (req, res) {
                 //If class is opening, add user request to request_course table with requestType = "enroll"
                 //If not, add user request to request_course table with requestType = "register"
                 if (openingClass) {
-                models.ClassRecord.findTraineeEnrolledClass(userId, openingClass.id, result => {
-                   if (result) {
-                     var datasend = {
-                            success: false,
-                            msg: 'You Have Already Enrolled'
-                        };
-                        res.send(datasend);
-                   }
-                   else {
-                        models.ClassRecord.enrollCourse(userId, openingClass.id, function () {
-                        var datasend = {
-                            success: true,
-                            msg: 'Enroll Successfully'
-                        };
-                        res.send(datasend);
-                    });
-                   }
-                })
+                    models.ClassRecord.findTraineeEnrolledClass(userId, openingClass.id, result => {
+                        if (result) {
+                            var datasend = {
+                                success: false,
+                                msg: 'You Have Already Enrolled'
+                            };
+                            res.send(datasend);
+                        }
+                        else {
+                            models.ClassRecord.enrollCourse(userId, openingClass.id, function () {
+                                var datasend = {
+                                    success: true,
+                                    msg: 'Enroll Successfully'
+                                };
+                                res.send(datasend);
+                            });
+                        }
+                    })
                 } else {
                     models.RequestOpening.addRequestRegister(userId, courseId, function () {
                         var datasend = {
@@ -165,7 +165,7 @@ router.post('/updateClassRecordStatus', function (req, res) {
         });
 });
 
-router.post('/getCoursebyName', function(req, res) {
+router.post('/getCoursebyName', function (req, res) {
     models.Course.getByName(req.body.name, function (result) {
         res.send({
             course: result

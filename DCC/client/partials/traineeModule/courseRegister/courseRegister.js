@@ -28,8 +28,8 @@ myApp.factory('courseRegisterServices', ['$http', function ($http) {
         sendRegisterRequest: function (request) {
             return $http.post('/trainee/courseRegister/sendRegisterRequest', request).success(function (data) { return data; });
         },
-        getRequestedOpeningCourse: function (request) {
-            return $http.post('/trainee/courseRegister/getRequestedOpeningCourse', request).success(function (data) { return data; });
+        getByUserID: function (request) {
+            return $http.post('/trainee/courseRegister/getByUserID', request).success(function (data) { return data; });
         },
     }
     return factoryDefinitions;
@@ -48,7 +48,7 @@ myApp.controller('courseRegisterCtrl', ['$sce', '$rootScope', '$scope', 'courseR
         });
         $scope.myEnrolledCourse = myEnrolledCourse;
     }).then(function () {
-        courseRegisterServices.getRequestedOpeningCourse({ userId: $rootScope.userInfo.id }).then(function (result) {
+        courseRegisterServices.getByUserID({ userId: $rootScope.userInfo.id }).then(function (result) {
             $scope.requestedOpeningCourse = {};
             $scope.requestedOpeningCourse = result.data.requestedOpeningCourse;
         });
@@ -130,8 +130,8 @@ myApp.controller('courseRegisterCtrl', ['$sce', '$rootScope', '$scope', 'courseR
             $scope.trainingProgramList.forEach(trainingProgram => {
                 trainingProgram.Courses.forEach(course => {
                     if (((course.name.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1) ||
-                         (course.description.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1)) &&
-                         (course.isOpening == openingCourseFilter))
+                        (course.description.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1)) &&
+                        (course.isOpening == openingCourseFilter))
                         courseListSearchResult.push(course);
                 });
             });
@@ -174,7 +174,7 @@ myApp.controller('courseRegisterCtrl', ['$sce', '$rootScope', '$scope', 'courseR
             function (result) {
                 if (result.data.msg) {
                     if (result.data.success)
-                    $rootScope.ShowPopupMessage(result.data.msg, "success");
+                        $rootScope.ShowPopupMessage(result.data.msg, "success");
                     else $rootScope.ShowPopupMessage(result.data.msg, "error");
                     for (var i = $scope.trainingProgramList.length - 1; i >= 0; i--) {
                         for (var j = $scope.trainingProgramList[i].Courses.length - 1; j >= 0; j--) {

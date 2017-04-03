@@ -23,6 +23,49 @@ module.exports = function (sequelize) {
                     + 'where cl.id = :classId and cl.id = clr.classId and us.id = clr.traineeId',
                     { replacements: { classId: classId }, type: sequelize.QueryTypes.SELECT }
                 ).then(cb);
+            },
+            deleteClassByCourseID: function (courseID, cb) {
+                Class.destroy({ where: { courseId: courseID } }).then(cb)
+            },
+            add: function (courseId, location, startTime, endTime, maxAttendant, cb) {
+                Class.create({
+                    courseId: courseId,
+                    location: location,
+                    startTime: startTime,
+                    endTime: endTime,
+                    maxAttendant: maxAttendant
+                }).then(cb);
+            },
+            getClassByID: function (id, cb) {
+                Class.findOne({ where: { id: id } }).then(cb);
+            },
+            edit: function (id, location, startTime, endTime, maxAttendant, cb) {
+                Class.update(
+                    {
+                        location: location,
+                        startTime: startTime,
+                        endTime: endTime,
+                        maxAttendant: maxAttendant
+                    },
+                    {
+                        where: {
+                            id: id
+                        }
+                    }).then(cb);
+            },
+            getOpeningClassByID: function (id, cb) {
+                Class.findOne({
+                    where: {
+                        id: id,
+                        startTime:
+                        {
+                            $gt: Date.now()
+                        }
+                    }
+                }).then(cb);
+            },
+            deleteClassByID: function (id, cb) {
+                Class.destroy({ where: { id: id } }).then(cb)
             }
         },
         tableName: 'class',
