@@ -36,9 +36,6 @@ module.exports = function (sequelize) {
                     maxAttendant: maxAttendant
                 }).then(cb);
             },
-            getClassByID: function (id, cb) {
-                Class.findOne({ where: { id: id } }).then(cb);
-            },
             edit: function (id, location, startTime, endTime, maxAttendant, cb) {
                 Class.update(
                     {
