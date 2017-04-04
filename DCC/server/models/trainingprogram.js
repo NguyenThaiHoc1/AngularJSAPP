@@ -19,6 +19,10 @@ module.exports = function (sequelize) {
             getAll: function (cb) {
                 Trainingprogram.findAll().then(cb);
             },
+            getNestedTPBy: function (query, cb) {
+                Trainingprogram.findAll(query).then(cb);
+            }
+            ,
             deleteTrainingProgramByID: function (id, cb) {
                 Trainingprogram.destroy({ where: { id: id } }).then(cb);
             },

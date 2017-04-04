@@ -5,7 +5,7 @@ var sequelize = require("sequelize");
 
 router.get('/getTrainingProgram', function (req, res) {
     var query = { include: [models.Course] };
-    models.TrainingProgram.findAll(query).then(function (trainingProgram) {
+    models.TrainingProgram.getNestedTPBy(query, function (trainingProgram) {
         var datasend = {
             success: true,
             msg: 'send list success',
