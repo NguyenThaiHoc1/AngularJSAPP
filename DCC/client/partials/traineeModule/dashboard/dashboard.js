@@ -282,7 +282,7 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices', '$rootScope', 
         } else {
             dashboardServices.sendRegisterRequest({ userId: $rootScope.userInfo.id, courseId: myCourse.id }).then(function (result) {
                 if (result.data.success) {
-                    $rootScope.ShowPopupMessage(result.data.msg, "success");
+                    $rootScope.ShowPopupMessage("Send Request Successfully", "success");
                     $state.go("courseDetail", { courseId: myCourse.id });
                 } else {
                     $rootScope.ShowPopupMessage(result.data.msg, "success");

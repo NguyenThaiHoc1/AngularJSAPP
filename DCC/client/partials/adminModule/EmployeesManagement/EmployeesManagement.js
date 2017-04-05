@@ -116,7 +116,7 @@ myApp.controller('getProfilesController', ['$scope', '$rootScope', '$sce', 'Empl
                 $rootScope.ShowPopupMessage("Role Saved", "success");
             }
             else {
-                $rootScope.ShowPopupMessage(result.data.msg, "error");
+                $rootScope.ShowPopupMessage("Fail to Update Role", "error");
             }
         });
     };
@@ -135,7 +135,7 @@ myApp.controller('activateUserCtrl',['$scope', '$rootScope', 'EmployeesManagemen
                 $rootScope.selectedActivationUser = undefined;
             }
             else {
-                $rootScope.ShowPopupMessage(result.data.msg, "error");
+                $rootScope.ShowPopupMessage("Fail to Update Status", "error");
             }
         });
     };

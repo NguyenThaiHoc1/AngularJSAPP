@@ -188,7 +188,7 @@ myApp.controller('courseRegisterCtrl', ['$sce', '$rootScope', '$scope', 'courseR
                     }
                 }
                 else
-                    $rootScope.ShowPopupMessage("Register Error", "error");
+                    $rootScope.ShowPopupMessage(result.data.msg, "error");
             }
         );
 

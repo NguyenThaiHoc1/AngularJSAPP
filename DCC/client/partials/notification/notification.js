@@ -90,10 +90,10 @@ myApp.controller('NotiController', ['$scope', '$rootScope', '$location', '$state
         }
         NotificationService.updateNotificationSetting().then(function (result) {
             if (result.data.success) {
-                $rootScope.ShowPopupMessage("Setting saved", "success");
+                $rootScope.ShowPopupMessage("Settings saved", "success");
             }
             else {
-                $rootScope.ShowPopupMessage(result.data.msg, "error");
+                $rootScope.ShowPopupMessage("Fail to Update Settings", "error");
             }
         });
     };

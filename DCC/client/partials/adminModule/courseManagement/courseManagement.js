@@ -229,10 +229,10 @@ myApp.controller('addEditCourseCtrl', ['$scope', '$rootScope', 'courseManagement
                     courseManagementServices.getTrainingProgramList().then(function (result) {
                         $rootScope.adminTrainingProgramList = result.data.trainingProgram;
                     });
-                    $rootScope.ShowPopupMessage(result.data.msg, "success");
+                    $rootScope.ShowPopupMessage("Edit Course Successfully", "success");
                     // $location.path("#admin_courseManagement");
                 } else {
-                    $rootScope.ShowPopupMessage(result.data.msg, "error");
+                    $rootScope.ShowPopupMessage("Fail to Edit Course", "error");
                 }
             });
         }
@@ -245,9 +245,9 @@ myApp.controller('addEditCourseCtrl', ['$scope', '$rootScope', 'courseManagement
                         $rootScope.adminTrainingProgramList = result.data.trainingProgram;
                     });
                     // $location.path("/userProfile");
-                    $rootScope.ShowPopupMessage(result.data.msg, "success");
+                    $rootScope.ShowPopupMessage("Add Course Successfully", "success");
                 } else {
-                    $rootScope.ShowPopupMessage(result.data.msg, "error");
+                    $rootScope.ShowPopupMessage("Fail to Add Course", "error");
                 }
             });
         }
@@ -271,10 +271,10 @@ myApp.controller('addEditTPCtrl', ['$scope', '$rootScope', 'courseManagementServ
                     courseManagementServices.getTrainingProgramList().then(function (result) {
                         $rootScope.adminTrainingProgramList = result.data.trainingProgram;
                     });
-                    $rootScope.ShowPopupMessage(result.data.msg, "success");
+                    $rootScope.ShowPopupMessage("Edit Training Program Successfully", "success");
                     // $location.path("#admin_courseManagement");
                 } else {
-                    $rootScope.ShowPopupMessage('Edit Training Program FAIL!', "error");
+                    $rootScope.ShowPopupMessage('Fail to Edit Training Program !', "error");
                 }
             });
         }
@@ -287,9 +287,9 @@ myApp.controller('addEditTPCtrl', ['$scope', '$rootScope', 'courseManagementServ
                         $rootScope.adminTrainingProgramList = result.data.trainingProgram;
                     });
                     // $location.path("/userProfile");
-                    $rootScope.ShowPopupMessage(result.data.msg, "success");
+                    $rootScope.ShowPopupMessage("Add Training Program Successfully", "success");
                 } else {
-                    $rootScope.ShowPopupMessage('Add Training Program FAIL!', "error");
+                    $rootScope.ShowPopupMessage('Fail to Add Training Program', "error");
                 }
             });
         }
@@ -308,9 +308,9 @@ myApp.controller('deleteCtrl', ['$scope', '$rootScope', 'courseManagementService
                     courseManagementServices.getTrainingProgramList().then(function (result) {
                         $rootScope.adminTrainingProgramList = result.data.trainingProgram;
                     });
-                    $rootScope.ShowPopupMessage(result.data.msg, "success");
+                    $rootScope.ShowPopupMessage("Delete Course Successfully", "success");
                 } else {
-                    $rootScope.ShowPopupMessage(result.data.msg, "error");
+                    $rootScope.ShowPopupMessage("Fail to Delete Course", "error");
                 }
             });
         } else if ($rootScope.deleteClickId == 2) {
@@ -321,9 +321,9 @@ myApp.controller('deleteCtrl', ['$scope', '$rootScope', 'courseManagementService
                     courseManagementServices.getTrainingProgramList().then(function (result) {
                         $rootScope.adminTrainingProgramList = result.data.trainingProgram;
                     });
-                    $rootScope.ShowPopupMessage(result.data.msg, "success");
+                    $rootScope.ShowPopupMessage("Delete Training Program Successfully", "success");
                 } else {
-                    $rootScope.ShowPopupMessage(result.data.msg, "error");
+                    $rootScope.ShowPopupMessage("Fail to Delete Training Program", "error");
                 }
             });
         } else if ($rootScope.deleteClickId == 3) {
@@ -334,9 +334,9 @@ myApp.controller('deleteCtrl', ['$scope', '$rootScope', 'courseManagementService
                     courseManagementServices.getTrainingProgramList().then(function (result) {
                         $rootScope.adminTrainingProgramList = result.data.trainingProgram;
                     });
-                    $rootScope.ShowPopupMessage(result.data.msg, "success");
+                    $rootScope.ShowPopupMessage("Delete Class Successfully", "success");
                 } else {
-                    $rootScope.ShowPopupMessage(result.data.msg, "error");
+                    $rootScope.ShowPopupMessage("Fail to Delete Class", "error");
                 }
             });
         }
@@ -370,10 +370,10 @@ myApp.controller('addEditClassCtrl', ['$scope', '$rootScope','courseManagementSe
                         $rootScope.classList = result.data.data;
                     });
 
-                    $rootScope.ShowPopupMessage(result.data.msg, "success");
+                    $rootScope.ShowPopupMessage("Edit Class Successfully", "success");
                     //$location.path("#courseDetail");
                 } else {
-                    $rootScope.ShowPopupMessage('Edit Class FAIL!', "error");
+                    $rootScope.ShowPopupMessage('Fail to Edit Class!', "error");
                 }
             });
         }
@@ -398,9 +398,9 @@ myApp.controller('addEditClassCtrl', ['$scope', '$rootScope','courseManagementSe
 
                     });
                     // $location.path("/userProfile");
-                    $rootScope.ShowPopupMessage(result.data.msg, "success");
+                    $rootScope.ShowPopupMessage("Add Class Successfully", "success");
                 } else {
-                    $rootScope.ShowPopupMessage('Add Class Info FAIL!', "error");
+                    $rootScope.ShowPopupMessage('Class Already Existed', "error");
                 }
 
             });
