@@ -282,7 +282,7 @@ myApp.controller('MyCoursesCtrl', ['$scope', 'dashboardServices', '$rootScope', 
         } else {
             dashboardServices.sendRegisterRequest({ userId: $rootScope.userInfo.id, courseId: myCourse.id }).then(function (result) {
                 if (result.data.success) {
-                    $rootScope.ShowPopupMessage("Send Request Successfully", "success");
+                    $rootScope.ShowPopupMessage(result.data.msg, "success");
                     $state.go("courseDetail", { courseId: myCourse.id });
                 } else {
                     $rootScope.ShowPopupMessage(result.data.msg, "success");
@@ -333,7 +333,7 @@ myApp.controller('requestOpenCourseCtrl', ['$scope', 'dashboardServices', '$root
                 //window.location.reload();
                 $state.go("courseDetail", { courseId: requestOpenCourseId });
             } else {
-                $rootScope.ShowPopupMessage(result.data.msg, "error");
+                $rootScope.ShowPopupMessage("Fail to Enroll Class", "error");
             }
         })
     }
@@ -348,7 +348,7 @@ myApp.controller('requestOpenCourseCtrl', ['$scope', 'dashboardServices', '$root
                     $scope.myRequestOpenCourseList = result.data.data;
                 });
             } else {
-                $rootScope.ShowPopupMessage(result.data.msg, "error");
+                $rootScope.ShowPopupMessage("Fail to Cancel Request", "error");
             }
         });
     };

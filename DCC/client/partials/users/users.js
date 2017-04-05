@@ -147,7 +147,7 @@ myApp.controller('loginController', ['$scope', 'userServices', '$location', '$ro
                     window.sessionStorage["userInfo"] = JSON.stringify(result.data.data);
                     $rootScope.userInfo = JSON.parse(window.sessionStorage["userInfo"]);
                     $rootScope.userInfo.role = result.data.role;
-                    $rootScope.ShowPopupMessage(result.data.msg, "success");
+                    $rootScope.ShowPopupMessage("You Are Authenticated", "success");
                     loginSucessDestination();
                     //set the cookie to remember account
                     if ($scope.RememberMe && document.cookie) {
@@ -158,7 +158,7 @@ myApp.controller('loginController', ['$scope', 'userServices', '$location', '$ro
                             "path=/";
                     }
                 } else {
-                    $rootScope.ShowPopupMessage(result.data.msg, "error");
+                    $rootScope.ShowPopupMessage("Fail to Login", "error");
                 }
             });
         }
@@ -181,7 +181,7 @@ myApp.controller('changePasswordController', ['$scope', 'userServices', '$locati
                             userServices.getUserProfile($scope.userDetail).then(function (userData) {
                                 $rootScope.userInfo = userData.data;
                                 window.sessionStorage["userInfo"] = JSON.stringify($rootScope.userInfo);
-                                $rootScope.ShowPopupMessage(result.data.msg, "success");
+                                $rootScope.ShowPopupMessage("Change Password Successfully", "success");
                                 $location.path("/userProfile");
                             })
                         }
@@ -204,12 +204,12 @@ myApp.controller('changePasswordController', ['$scope', 'userServices', '$locati
                 userServices.getUserProfile($rootScope.userInfo).then(function (userData) {
                     $rootScope.userInfo = userData.data;
                     window.sessionStorage["userInfo"] = JSON.stringify($rootScope.userInfo);
-                    $rootScope.ShowPopupMessage(result.data.msg, "success");
+                    $rootScope.ShowPopupMessage("Change Password Successfully", "success");
                     $location.path("/userProfile");
                 })
             }
             else {
-                $rootScope.ShowPopupMessage(result.data.msg, "error");
+                $rootScope.ShowPopupMessage("Fail to Change Password", "error");
             }
         });
     };
@@ -281,12 +281,12 @@ myApp.controller('userProfileCtrl', ['$scope', 'userServices', '$location', '$ro
                 userServices.getUserProfile($scope.userDetail).then(function (userData) {
                     $rootScope.userInfo = userData.data;
                     window.sessionStorage["userInfo"] = JSON.stringify($rootScope.userInfo);
-                    $rootScope.ShowPopupMessage(result.data.msg, "success");
+                    $rootScope.ShowPopupMessage("Update User Profile Successfully", "success");
                     $location.path("/userProfile");
                 })
 
             } else {
-                $rootScope.ShowPopupMessage(result.data.msg, "error");
+                $rootScope.ShowPopupMessage("Fail to Update User Profile", "error");
             }
 
         });
