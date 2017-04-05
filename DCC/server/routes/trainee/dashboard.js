@@ -41,13 +41,11 @@ router.post('/getTrainingProgramByTPType', function (req, res) {
                     course.Classes.forEach(classes => {
                         classes.ClassRecords.forEach(classRecord => {
                             if (classRecord.User.email === req.body.email) {
-                                checkForEnrolledCourses = 1;
                                 resDataCourse.push(course);
                             }
                         });
                     });
                 });
-                if (checkForEnrolledCourses === 1) {
                     resData.push({
                         id: trainingProgram.id,
                         name: trainingProgram.name,
@@ -58,9 +56,7 @@ router.post('/getTrainingProgramByTPType', function (req, res) {
                         Courses: resDataCourse
                     });
                 }
-            }
-
-        });
+        })
         var datasend = {
             success: true,
             msg: 'send list success',
