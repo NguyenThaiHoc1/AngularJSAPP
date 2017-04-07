@@ -35,7 +35,7 @@
                         <ul class="list-group">
                             <li class="row" style="background-color: #fff" ng-repeat="course in courseListSearchResult" ng-hide="(!course.isOpening&&openingCourseFilter)||(course.trainingProgramId != trainingProgram.id)">
                                 <div class="col-md-1"></div>
-                                <div class="col-md-9 col-sm-8" style="border-left:2px solid{{course.buttonColor}}" class="row">
+                                <div class="col-md-9 col-sm-8" style="border-left:2px solid{{course.buttonColor}}; margin-bottom: 10px" class="row">
 
                                     <blockquote class="blockquote">
                                         <a ui-sref="courseDetail({courseId: course.id})">
@@ -86,7 +86,7 @@
                     <ul class="list-group">
                         <li class="row" ng-repeat="course in trainingProgram.Courses" ng-hide="!course.isOpening&&openingCourseFilter" style="background-color: #fff">
                             <div class="col-md-1"></div>
-                            <div class="col-md-9 col-sm-8" style="border-left:2px solid{{course.buttonColor}};" class="row">
+                            <div class="col-md-9 col-sm-8" style="border-left:2px solid{{course.buttonColor}}; margin-bottom: 10px" class="row">
 
                                 <blockquote class="blockquote">
                                     <a ui-sref="courseDetail({courseId: course.id})">
@@ -99,29 +99,31 @@
                             </div>
                             <div ng-hide="!course.isOpening&&openingCourseFilter" class="col-md-2 col-sm-4">
                                 <center>
-                                     <div class="dropdown col-xs-12 col-md-12 tooltipMod">
+                                    <div class="dropdown col-xs-12 col-md-12 tooltipMod">
                                         <div class="tooltiptext" style="text-align: left">
-                                            <div  ng-show="'{{course.buttonName}}' =='Request'">
-                                            <img style="display: inline-block; margin-left: 5px; border-radius: 50%; border: 1px solid #8BC34A; background-color: #8BC34A; width:20px !important; height:20px !important"
-                                                class="img-responsive">&nbsp: Class is not opening, send &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp request to   admin</br>
+                                            <div ng-show="'{{course.buttonName}}' =='Request'">
+                                                <img style="display: inline-block; margin-left: 5px; border-radius: 50%; border: 1px solid #8BC34A; background-color: #8BC34A; width:20px !important; height:20px !important"
+                                                    class="img-responsive">&nbsp: Class is not opening, send &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                                    request to admin</br>
                                             </div>
-                                            <div  ng-show="'{{course.buttonName}}' =='Enroll'">
-                                            <img style="display: inline-block; margin-left: 5px; border-radius: 50%; border: 1px solid #4FC3F7; background-color: #4FC3F7; width:20px !important; height:20px !important"
-                                                class="img-responsive">&nbsp: Class is opening, enroll class &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp now</br>
+                                            <div ng-show="'{{course.buttonName}}' =='Enroll'">
+                                                <img style="display: inline-block; margin-left: 5px; border-radius: 50%; border: 1px solid #4FC3F7; background-color: #4FC3F7; width:20px !important; height:20px !important"
+                                                    class="img-responsive">&nbsp: Class is opening, enroll class &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                                    now</br>
                                             </div>
                                         </div>
-                                    <div class="btn-group col-xs-12 col-md-12">
-                                        <button ng-click="registerCourse(course.id,courseRegisterStatus)" style="background-color: {{course.buttonColor}}" class="btn col-xs-12 col-md-12 "
-                                            type="button" aria-haspopup="true" aria-expanded="true">
-                                            {{course.buttonName}}<i aria-hidden="true"></i>
-                                            </button>
-                                    </div>
+                                        <div class="btn-group col-xs-12 col-md-12">
+                                            <button ng-click="registerCourse(course.id,courseRegisterStatus)" style="background-color: {{course.buttonColor}}" class="btn col-xs-12 col-md-12 "
+                                                type="button" aria-haspopup="true" aria-expanded="true">
+                                                {{course.buttonName}}<i aria-hidden="true"></i>
+                                                </button>
+                                        </div>
                                 </center>
-                            </div>
+                                </div>
                         </li>
                     </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
