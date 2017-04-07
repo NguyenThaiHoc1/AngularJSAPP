@@ -15,7 +15,7 @@ function pushNotification(noti) {
             hide();
         },
         icon: '/img/logo/DEK-Logo.png',
-        autoClose: 4000 //auto close the notification after 4 seconds (you can manually close it via hide function)
+        autoClose: 14000 //auto close the notification after 4 seconds (you can manually close it via hide function)
     }, function onShow(error, hide) {
         if (error) {
             window.alert('Unable to show notification: ' + error.message);
@@ -30,8 +30,8 @@ function pushNotification(noti) {
 socket.on('NewNotifications', function (numberNotification) {
     if (numberNotification > 0) {
         var noti = {
-            title: 'Thông Báo',
-            msg: 'Bạn có ' + numberNotification + ' thông báo mới'
+            title: 'Notice',
+            msg: 'You have ' + numberNotification + ' new notifcations'
         }
         pushNotification(noti);
     }
@@ -47,7 +47,7 @@ socket.on('pushNotification', function (noti) {
             hide();
         },
         icon: '/img/logo/DEK-Logo.png',
-        autoClose: 4000 //auto close the notification after 4 seconds (you can manually close it via hide function)
+        autoClose: 14000 //auto close the notification after 4 seconds (you can manually close it via hide function)
     }, function onShow(error, hide) {
         if (error) {
             window.alert('Unable to show notification: ' + error.message);
