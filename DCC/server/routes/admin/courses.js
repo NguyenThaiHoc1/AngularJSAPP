@@ -178,14 +178,12 @@ router.post('/updateTrainingProgram', function (req, res) {
 //delete Training Program
 router.post('/deleteTrainingProgram', function (req, res) {
     log.info('Get Delete Command');
-    models.Course.deleteCourseByTPID(req.body.id, function () {
         models.TrainingProgram.deleteTrainingProgramByID(req.body.id, function () {
             res.send({
                 success: true,
-                msg: 'Delete Course success'
+                msg: 'Delete Training Program success'
             });
         });
-    })
 });
 
 //Get Class

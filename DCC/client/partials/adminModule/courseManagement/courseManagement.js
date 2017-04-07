@@ -157,7 +157,7 @@ myApp.controller('courseManagementCtrl', ['$sce', '$scope', '$rootScope', 'cours
     $scope.showDeleteTPForm = function (trainingProgram) {
         $rootScope.deleteClickId = 2;
         //training Program
-        $rootScope.deleteName = trainingProgram.name + 'training program';
+        $rootScope.deleteName = trainingProgram.name + ' training program';
         $rootScope.adminTrainingProgramModel = {
             id: trainingProgram.id,
         };
