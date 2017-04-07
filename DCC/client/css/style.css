@@ -44,7 +44,7 @@ input, button, select, textarea {
 .crop {
     width: 500px;
     overflow: hidden;
-    height: 40px;
+    height: 42px;
     line-height: 40px;
     color: darkgrey;
     white-space: nowrap;
