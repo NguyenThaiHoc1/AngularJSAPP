@@ -29,7 +29,7 @@
                     <ul class="list-group">
                         <li class="row" style="background-color: #fff" ng-repeat="myCourse in trainingProgram.Courses">
                             <div class="col-md-1"></div>
-                            <div class="col-md-8 col-sm-8" style="border-left:2px solid {{myCourse.backgroundColor}};" id="forfun2">
+                            <div class="col-md-8 col-sm-8" style="border-left:2px solid {{myCourse.backgroundColor}}; margin-bottom: 10px" id="forfun2">
                                 <blockquote class="blockquote">
                                     <a ui-sref="courseDetail({courseId: myCourse.id})">
                                         <img style="float:left; clear:both; margin-right:10px;" alt="course-icon" class="img-responsive" ng-src="{{myCourse.imgLink}}"
