@@ -100,6 +100,13 @@
                                     <label class="control-label"><input type="checkbox" name="RoleSetting" ng-model="user.isAdmin">&nbsp Admin</label></br>
                                     <label class="control-label"><input type="checkbox" name="RoleSetting" ng-model="user.isTrainer">&nbsp Trainer</label></br>
                                     <label class="control-label"><input type="checkbox" name="RoleSetting" ng-model="user.isExperienced">&nbsp Experienced</label></br>
+                                    <b>Area &nbsp</b>
+                                    <select class="box-group" ng-model="user.userType">
+                                        <option value="AXE">AXE</option>
+                                        <option value="CBA">CBA</option>
+                                        <option value="IMS">IMS</option>
+                                        <option value="Intern">Intern</option>
+                                    </select>
                                 </div>
                                 <div class="col-md-1 col-lg-1 col-sm-1" ng-show="user.status=='activated'">
                                     <br/>
