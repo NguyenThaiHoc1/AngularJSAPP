@@ -125,7 +125,6 @@ describe('<Unit test for admin-course>', function () {
                 test: 'test update test',
                 documents: 'test update documents',
                 trainingProgramId: 1,
-                imgLink: "/img/trainingProgram/training-icon-1.svg"
             });
             req.end(function (err, res) {
 
@@ -137,7 +136,6 @@ describe('<Unit test for admin-course>', function () {
                     test: '',
                     documents: '',
                     trainingProgramId: 1,
-                    imgLink: '/img/trainingProgram/training-icon-1.svg',
                 }, {
                         where: {
                             id: 1
@@ -157,7 +155,6 @@ describe('<Unit test for admin-course>', function () {
                 id: 36,
             });
             req.end(function (err, res) {
-
                 assert.equal(res.body.success, true);
                 models.Course.create({
                     id: 36,
@@ -248,7 +245,6 @@ describe('<Unit test for admin-course>', function () {
                 courseTypeId: 1,
             });
             req.end(function (err, res) {
-
                 assert.equal(res.body.success, true);
                 models.TrainingProgram.update({
                     name: 'General Orientation',

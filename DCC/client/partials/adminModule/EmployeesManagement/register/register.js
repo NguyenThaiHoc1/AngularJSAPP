@@ -41,7 +41,7 @@ myApp.controller('registerCtrl', ['$scope', '$rootScope', 'registerServices', fu
         };
         registerServices.addUser($scope.NewUser).then(function (result) {
             if (result.data.success) {
-                $rootScope.ShowPopupMessage(result.data.msg, "success");
+                $rootScope.ShowPopupMessage("Add User Successfully", "success");
                 $scope.userEmail = '';
                 username: $scope.userName = '';
                 $scope.userPassword = '';
@@ -49,7 +49,7 @@ myApp.controller('registerCtrl', ['$scope', '$rootScope', 'registerServices', fu
                 $scope.team = '';
                 $scope.courseTypeId = "Intern";
             } else {
-                $rootScope.ShowPopupMessage(result.data.msg, "error");
+                $rootScope.ShowPopupMessage("Fail to Add User", "error");
             }
         });
         var email = {

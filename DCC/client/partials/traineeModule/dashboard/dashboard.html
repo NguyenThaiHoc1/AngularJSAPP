@@ -108,30 +108,32 @@
                     <div class="col-md-1 col-sm-1" ng-show="checkDate(class.startTime)">
                         <center>
                             <br>
-                            <a ng-click="enrollClassClick(class.id,class.courseId)" class="btn " style="margin-top:5px; margin-left:50px; background-color: #4FC3F7;">Enroll</a>
+                            <a ng-click="enrollClassClick(class.id,class.courseId)" class="btn" style="width: 100%;margin-top:5px;background-color: #4FC3F7; color:white;">Enroll</a>
                         </center>
                     </div>
                 </div>
-                <div class="col-md-2 col-sm-1" style="float:right;">
+                <div class="col-md-1 col-sm-1">
                     <center>
                         <br>
-                        <a ng-click="cancelRequestClick(requestOpenCourse.id)" class="btn btn-warning " style="margin-top:5px; ">Cancel</a>
+                        <a ng-click="cancelRequestClick(requestOpenCourse.id)" class="btn btn-warning " style="margin-top:5px;width: 100% ">Cancel</a>
                     </center>
+                </div>
+                <div class="col-md-1 col-sm-1">
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="container " ng-controller="viewScheduleCtrl" id="mySchedule">
+<div class="container " ng-controller="viewScheduleCtrl " id="mySchedule ">
     <div class="widget ">
         <div class="widget-header ">
             <h3>My Schedule</h3>
         </div>
         <div class="widget-content ">
-            <div id="calendar" style="padding: 1em; ">
+            <div id="calendar " style="padding: 1em; ">
                 <div class="container-fluid ">
-                    <div ui-calendar="uiConfig.calendar" class="calendar " ng-model="eventSources"></div>
+                    <div ui-calendar="uiConfig.calendar " class="calendar " ng-model="eventSources "></div>
                 </div>
             </div>
         </div>

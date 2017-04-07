@@ -13,7 +13,7 @@ module.exports = function (sequelize) {
                 };
                 RequestOpening.create(query).then(cb);
             },
-            getRequestedOpeningCourse: function (userId, cb) {
+            getByUserID: function (userId, cb) {
                 var query = {
                     where:
                     {
@@ -32,7 +32,7 @@ module.exports = function (sequelize) {
                 };
                 RequestOpening.destroy(query).then(cb);
             },
-            findRequestOpenningCourse: function(userId, courseId, cb) {
+            findRequestOpenningCourse: function (userId, courseId, cb) {
                 var query = {
                     where: {
                         userId: userId,
@@ -40,7 +40,16 @@ module.exports = function (sequelize) {
                     }
                 };
                 RequestOpening.findOne(query).then(cb);
+            },
+            getByCourseID: function (courseID, cb) {
+                RequestOpening.findAll({
+                    where: {
+                        courseId: courseID
+                    }
+                }).then(cb);
+
             }
+
         },
         tableName: 'request_opening',
         timestamps: false

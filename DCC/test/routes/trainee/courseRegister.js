@@ -63,7 +63,7 @@ describe('<Unit test for trainee-courseRegister>', function () {
     describe('Test case 3 : Get Request Course', function () {
         return it('Should return success==true', function (done) {
             var req = request(DCC_Server)
-                .post('/trainee/courseRegister/getRequestedOpeningCourse');
+                .post('/trainee/courseRegister/getByUserID');
             req.cookies = Cookies;
             req.set('Accept', 'application/json')
                 .send({ userId: 2 })

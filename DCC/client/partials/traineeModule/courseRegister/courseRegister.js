@@ -28,8 +28,8 @@ myApp.factory('courseRegisterServices', ['$http', function ($http) {
         sendRegisterRequest: function (request) {
             return $http.post('/trainee/courseRegister/sendRegisterRequest', request).success(function (data) { return data; });
         },
-        getRequestedOpeningCourse: function (request) {
-            return $http.post('/trainee/courseRegister/getRequestedOpeningCourse', request).success(function (data) { return data; });
+        getByUserID: function (request) {
+            return $http.post('/trainee/courseRegister/getByUserID', request).success(function (data) { return data; });
         },
     }
     return factoryDefinitions;
@@ -48,7 +48,7 @@ myApp.controller('courseRegisterCtrl', ['$sce', '$rootScope', '$scope', 'courseR
         });
         $scope.myEnrolledCourse = myEnrolledCourse;
     }).then(function () {
-        courseRegisterServices.getRequestedOpeningCourse({ userId: $rootScope.userInfo.id }).then(function (result) {
+        courseRegisterServices.getByUserID({ userId: $rootScope.userInfo.id }).then(function (result) {
             $scope.requestedOpeningCourse = {};
             $scope.requestedOpeningCourse = result.data.requestedOpeningCourse;
         });
@@ -124,8 +124,7 @@ myApp.controller('courseRegisterCtrl', ['$sce', '$rootScope', '$scope', 'courseR
         return true;
     }
     $scope.findCourse = function (courseSearchKey, openingCourseFilter) {
-        if((courseSearchKey!='r')&&(courseSearchKey!='p')&&(courseSearchKey!='<')&&(courseSearchKey!='>'))
-        {
+        if ((courseSearchKey != 'r') && (courseSearchKey != 'p') && (courseSearchKey != '<') && (courseSearchKey != '>')) {
             var courseListSearchResult = []
             var listSearchResult = []
             if (openingCourseFilter) {
@@ -178,7 +177,7 @@ myApp.controller('courseRegisterCtrl', ['$sce', '$rootScope', '$scope', 'courseR
             function (result) {
                 if (result.data.msg) {
                     if (result.data.success)
-                    $rootScope.ShowPopupMessage(result.data.msg, "success");
+                        $rootScope.ShowPopupMessage(result.data.msg, "success");
                     else $rootScope.ShowPopupMessage(result.data.msg, "error");
                     for (var i = $scope.trainingProgramList.length - 1; i >= 0; i--) {
                         for (var j = $scope.trainingProgramList[i].Courses.length - 1; j >= 0; j--) {
@@ -189,7 +188,7 @@ myApp.controller('courseRegisterCtrl', ['$sce', '$rootScope', '$scope', 'courseR
                     }
                 }
                 else
-                    $rootScope.ShowPopupMessage("Register Error", "error");
+                    $rootScope.ShowPopupMessage(result.data.msg, "error");
             }
         );
 

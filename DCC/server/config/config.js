@@ -52,7 +52,7 @@ module.exports =
         },
         "inMemoryDB": {
             dialect: "sqlite",
-            storage: "database/database.sqlite"
+            storage: "test/IMDB/database.sqlite"
         },
         // LDAP server config , port 389
         server: {

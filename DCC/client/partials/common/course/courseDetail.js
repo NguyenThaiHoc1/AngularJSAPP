@@ -149,10 +149,10 @@ myApp.controller('courseDetailCtrl', ['$scope', '$rootScope', '$stateParams', 'c
                 courseDetailServices.getClassByCourseID(Class.courseId).then(function (result) {
                     $rootScope.classList = result.data.data;
                 });
-                $rootScope.ShowPopupMessage(result.data.msg, "success");
+                $rootScope.ShowPopupMessage("Delete Class Successfully", "success");
                 //$location.path("#courseDetail");
             } else {
-                $rootScope.ShowPopupMessage('Delete Class FAIL!', "error");
+                $rootScope.ShowPopupMessage('Fail to Delete Class!', "error");
             }
 
         });
