@@ -76,7 +76,7 @@ router.post('/login', function (req, res, next) {
                         var currentRole = _user.isAdmin ? 1 :
                             _user.isTrainer ? 2 :
                                 _user.isTrainee ? 3 : 0;
-                        notification(["41302464@hcmut.edu.vn"], "Just test", "Test Test Test Bitch", null);
+                        notification(["41302464@hcmut.edu.vn"], "Just test", "Test Test Test Bitch");
                         res.send({
                             role: currentRole,
                             data: _user,
