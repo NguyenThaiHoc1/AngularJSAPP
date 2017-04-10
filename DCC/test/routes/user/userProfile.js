@@ -314,10 +314,11 @@ describe('<Unit test for manual added user profile>', function () {
         return it('Should return success==true', function (done) {
             var req = request(DCC_Server).post('/user/userProfile/checkPassword');
             req.send({
-
                 email: 'huy@gmail.com',
                 password: 'Soledad00'
             }).then(res => {
+                assert.equal(res.body.success, true);
+                done();
 
                 // req.end(function (err, res) {
                 //     assert.equal(res.body.success, true);
