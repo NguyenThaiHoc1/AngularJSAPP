@@ -104,7 +104,7 @@ myApp.controller('loginController', ['$scope', 'userServices', '$location', '$ro
         });
     }
 
-    window.onload = function () {
+    $scope.CheckCookie = function () {
         function getCookie(cname) {
             var name = cname + "=";
             var decodedCookie = decodeURIComponent(document.cookie);
@@ -134,8 +134,8 @@ myApp.controller('loginController', ['$scope', 'userServices', '$location', '$ro
         }
         if ($rootScope.userInfo) {
             $rootScope.userInfo.role = $rootScope.userInfo.isAdmin ? 1 :
-                            $rootScope.userInfo.isTrainer ? 2 :
-                                $rootScope.userInfo.isTrainee ? 3 : 0;
+                $rootScope.userInfo.isTrainer ? 2 :
+                    $rootScope.userInfo.isTrainee ? 3 : 0;
         }
     }
     $scope.login = {};
