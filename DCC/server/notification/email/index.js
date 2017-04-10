@@ -1,5 +1,5 @@
 var email_config = require('../../../settings').email;
-var request = require('request');
+// var request = require('request');
 var email = {
 
     send: function (receivers, subject, content) {
