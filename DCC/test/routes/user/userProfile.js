@@ -151,9 +151,9 @@ describe('<Unit test for user profile>', function () {
         return it('Should return success==true', function (done) {
             var req = request(DCC_Server).post('/user/userProfile/addUser');
             req.send({
-                email: 'xyz@gmail.com',
-                username: 'newuser',
-                password: '12345',
+                email: '41302464@hcmut.edu.vn',
+                username: 'Nam',
+                password: 'Nam12345',
                 userType: 'Intern'
             });
             req.cookies = Cookies;
