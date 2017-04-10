@@ -263,7 +263,7 @@ describe('<Unit test for manual added user profile>', function () {
             .set('Accept', 'application/json')
             .send({
                 username: 'huy@gmail.com',
-                password: 'Soledad00'
+                password: 'soledad'
             })
             .end(function (err, res) {
                 Cookies = res.headers['set-cookie'].pop().split(';')[0];
@@ -315,13 +315,14 @@ describe('<Unit test for manual added user profile>', function () {
             var req = request(DCC_Server).post('/user/userProfile/checkPassword');
             req.send({
                 email: 'huy@gmail.com',
-                password: 'Soledad00'
+                password: 'soledad'
             });
             req.cookies = Cookies;
             req.end(function (err, res) {
                 assert.equal(res.body.success, true);
                 if (err) return done(err);
-            }).then(done());
+                done();
+            });
         });
     });
     //test checkPassword, case : password incorrect
@@ -347,7 +348,7 @@ describe('<Unit test for manual added user profile>', function () {
             var req = request(DCC_Server).post('/user/userProfile/changePasswordMd5');
             req.send({
                 email: "huy@gmail.com",
-                password: "Soledad00"
+                password: "soledad"
             });
 
             req.cookies = Cookies;
