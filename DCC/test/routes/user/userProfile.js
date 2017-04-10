@@ -314,57 +314,58 @@ describe('<Unit test for manual added user profile>', function () {
         return it('Should return success==true', function (done) {
             var req = request(DCC_Server).post('/user/userProfile/checkPassword');
             req.send({
-                email: 'tranhoangnam3108@gmail.com',
-                password: 'Nam12345'
-            });
-            req.cookies = Cookies;
-            req.end(function (err, res) {
-                assert.equal(res.body.success, true);
-                if (err) return done(err);
-                done();
-            });
-        });
-    });
 
-    //test checkPassword, case : password incorrect
-    describe('Test case 3 : post /user/userProfile/checkPassword', function () {
-        return it('Should return success==false', function (done) {
-            var req = request(DCC_Server).post('/user/userProfile/checkPassword');
-            req.send({
-                email: 'tranhoangnam3108@gmail.com',
-                password: '1234'
-            });
-            req.cookies = Cookies;
-            req.end(function (err, res) {
-                assert.equal(res.body.success, false);
-                if (err) return done(err);
-                done();
-            });
-        });
-    });
+                email: 'huy@gmail.com',
+                password: 'Soledad00'
+            }).then(res => {
 
-    // test changePasswordMd5, case: correct password
-    describe('Test case 4: post /user/userProfile/changePasswordMd5', function () {
-        return it('Should return success = true', function (done) {
-            var req = request(DCC_Server).post('/user/userProfile/changePasswordMd5');
-            req.send({
-                email: "tranhoangnam3108@gmail.com",
-                password: "Nam12345"
-            });
-
-            req.cookies = Cookies;
-            req.end(function (err, res) {
-                assert.equal(res.body.success, true);
-                if (err) return done(err);
-                done();
+                // req.end(function (err, res) {
+                //     assert.equal(res.body.success, true);
+                //     if (err) return done(err);
+                //     done();
+                // });
             });
         });
 
-    });
-    describe('Test case 5: post /models/class/getUserInClass', function () {
-        return it('Should return success = true', function () {
-            var req = models.Class.getUserInClass(16, 1);
+        //test checkPassword, case : password incorrect
+        describe('Test case 3 : post /user/userProfile/checkPassword', function () {
+            return it('Should return success==false', function (done) {
+                var req = request(DCC_Server).post('/user/userProfile/checkPassword');
+                req.send({
+                    email: 'tranhoangnam3108@gmail.com',
+                    password: '1234'
+                });
+                req.cookies = Cookies;
+                req.end(function (err, res) {
+                    assert.equal(res.body.success, false);
+                    if (err) return done(err);
+                    done();
+                });
+            });
         });
 
+        // test changePasswordMd5, case: correct password
+        describe('Test case 4: post /user/userProfile/changePasswordMd5', function () {
+            return it('Should return success = true', function (done) {
+                var req = request(DCC_Server).post('/user/userProfile/changePasswordMd5');
+                req.send({
+                    email: "tranhoangnam3108@gmail.com",
+                    password: "Nam12345"
+                });
+
+                req.cookies = Cookies;
+                req.end(function (err, res) {
+                    assert.equal(res.body.success, true);
+                    if (err) return done(err);
+                    done();
+                });
+            });
+
+        });
+        describe('Test case 5: post /models/class/getUserInClass', function () {
+            return it('Should return success = true', function () {
+                var req = models.Class.getUserInClass(16, 1);
+            });
+
+        });
     });
-});
