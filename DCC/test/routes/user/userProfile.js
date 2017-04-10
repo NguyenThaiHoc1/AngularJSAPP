@@ -325,6 +325,7 @@ describe('<Unit test for manual added user profile>', function () {
             });
         });
     });
+
     //test checkPassword, case : password incorrect
     describe('Test case 3 : post /user/userProfile/checkPassword', function () {
         return it('Should return success==false', function (done) {
