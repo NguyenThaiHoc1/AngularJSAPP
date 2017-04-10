@@ -162,7 +162,7 @@ describe('<Unit test for user profile>', function () {
                 //xoa user 
                 models.User.destroy({
                     where: {
-                        email: 'xyz@gmail.com'
+                        email: '41302464@hcmut.edu.vn'
                     }
                 });
 
@@ -262,8 +262,8 @@ describe('<Unit test for manual added user profile>', function () {
             .post('/login')
             .set('Accept', 'application/json')
             .send({
-                username: 'tranhoangnam3108@gmail.com',
-                password: 'Nam12345'
+                username: 'huy@gmail.com',
+                password: 'Soledad00'
             })
             .end(function (err, res) {
                 Cookies = res.headers['set-cookie'].pop().split(';')[0];
@@ -285,7 +285,7 @@ describe('<Unit test for manual added user profile>', function () {
         return it('Should return success==true', function (done) {
             var req = request(DCC_Server).post('/user/userProfile/updateUserProfile');
             req.send({
-                email: 'tranhoangnam3108@gmail.com',
+                email: 'huy@gmail.com',
                 username: 'Nam Tran',
                 status: 'test status',
                 avatar: '/img/profiles/userPhoto-1488169863745developer-icon.jpg',
@@ -302,7 +302,7 @@ describe('<Unit test for manual added user profile>', function () {
                     dob: '31/08/1995',
                     phone: '0123456789',
                 }, {
-                        where: { email: 'tranhoangnam3108@gmail.com' }
+                        where: { email: 'huy@gmail.com' }
                     });
                 if (err) return done(err);
                 done();
@@ -314,14 +314,17 @@ describe('<Unit test for manual added user profile>', function () {
         return it('Should return success==true', function (done) {
             var req = request(DCC_Server).post('/user/userProfile/checkPassword');
             req.send({
-                email: 'tranhoangnam3108@gmail.com',
-                password: 'Nam12345'
-            });
-            req.cookies = Cookies;
-            req.end(function (err, res) {
+                email: 'huy@gmail.com',
+                password: 'Soledad00'
+            }).then(res => {
                 assert.equal(res.body.success, true);
-                if (err) return done(err);
                 done();
+
+                // req.end(function (err, res) {
+                //     assert.equal(res.body.success, true);
+                //     if (err) return done(err);
+                //     done();
+                // });
             });
         });
     });
@@ -331,7 +334,7 @@ describe('<Unit test for manual added user profile>', function () {
         return it('Should return success==false', function (done) {
             var req = request(DCC_Server).post('/user/userProfile/checkPassword');
             req.send({
-                email: 'tranhoangnam3108@gmail.com',
+                email: 'huy@gmail.com',
                 password: '1234'
             });
             req.cookies = Cookies;
@@ -348,8 +351,8 @@ describe('<Unit test for manual added user profile>', function () {
         return it('Should return success = true', function (done) {
             var req = request(DCC_Server).post('/user/userProfile/changePasswordMd5');
             req.send({
-                email: "tranhoangnam3108@gmail.com",
-                password: "Nam12345"
+                email: "huy@gmail.com",
+                password: "Soledad00"
             });
 
             req.cookies = Cookies;

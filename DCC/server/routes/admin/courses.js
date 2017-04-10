@@ -238,31 +238,18 @@ router.post('/addClass', function (req, res) {
                                 var date = new Date(req.body.startTime);
                                 date.setDate(date.getDate() - 1);
                                 courseName = course.name;
-                                var noti = {
-                                    subject: course.name,
-                                    content: "Your " + req.body.courseId + " class has been openned and scheduled to start tomorrow at location: " + req.body.location + ". Please be on time, thank you.",
-                                    link: 'courseDetail/' + course.name
-                                };
-                                Job.job_sendnoti_ClassStart(date, cb.id, noti);
-
+                                Job.job_sendnoti_ClassStart(date, cb.id, course.name, "Your " + req.body.courseId + " class has been openned and scheduled to start tomorrow at location: " + req.body.location + ". Please be on time, thank you.", 'courseDetail/' + course.name);
                                 models.RequestOpening.getByCourseID(req.body.courseId, function (reqOpns) {
                                     reqOpns.forEach(reqOpn => {
-                                        var receivers = [];
-                                        models.User.getByUserID(reqOpn.userId,
+                                        models.User.getUserByID(reqOpn.userId,
                                             function (dataResults) {
                                                 if (dataResults.email)
-                                                    receivers.push(dataResults.email);
-                                            }).then(function () {
-                                                var noti = {
-                                                    subject: courseName,
-                                                    content: "A new " + courseName + "'s class has been opened",
-                                                    link: 'trainee_dashboard/requestCourse'
-                                                }
-                                                notification(receivers, noti);
+                                                    notification([dataResults.email], courseName, "A new " + courseName + "'s class has been opened", 'trainee_dashboard/requestCourse');
                                             });
-                                    })
-
+                                    });
+                                    
                                 });
+                                
                             });
                     });
                 //.then(function (ClassDetail) {
@@ -311,12 +298,8 @@ router.post('/deleteClass', function (req, res) {
                 req.body.traineeList.forEach(trainee => {
                     TraineeList.push(trainee.traineeMail);
                 });
-                var noti = {
-                    subject: 'Class canceled',
-                    content: 'The ' + req.body.courseName + "'s class has been canceled",
-                    link: 'trainee_courseRegister/CourseRegister'
-                };
-                notification(TraineeList, noti);
+                
+                notification(TraineeList, 'Class canceled', 'The ' + req.body.courseName + "'s class has been canceled", 'trainee_courseRegister/CourseRegister');
                 models.Class.deleteClassByID(
                     req.body.id,
                     function () {
