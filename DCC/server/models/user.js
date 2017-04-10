@@ -28,6 +28,14 @@ module.exports = function (sequelize) {
             },
             getEmailUsers: function (cb) {
                 sequelize.query('SELECT * FROM user us where us.isNotificationEmail = 1 order by us.email', { type: sequelize.QueryTypes.SELECT }).then(cb);
+            },
+            getUserByID : function(userID, cb){
+                var query = {
+                    where: {
+                        id: userID
+                    }
+                };
+                User.findOne(query).then(cb);
             }
         },
         tableName: 'user',
