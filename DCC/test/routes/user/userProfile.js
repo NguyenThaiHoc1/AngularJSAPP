@@ -262,8 +262,8 @@ describe('<Unit test for manual added user profile>', function () {
             .post('/login')
             .set('Accept', 'application/json')
             .send({
-                username: 'huy@gmail.com',
-                password: 'Soledad00'
+                username: 'tranhoangnam3108@gmail.com',
+                password: 'Nam12345'
             })
             .end(function (err, res) {
                 Cookies = res.headers['set-cookie'].pop().split(';')[0];
@@ -285,8 +285,8 @@ describe('<Unit test for manual added user profile>', function () {
         return it('Should return success==true', function (done) {
             var req = request(DCC_Server).post('/user/userProfile/updateUserProfile');
             req.send({
-                email: 'huy@gmail.com',
-                username: 'Huy test',
+                email: 'tranhoangnam3108@gmail.com',
+                username: 'Nam Tran',
                 status: 'test status',
                 avatar: '/img/profiles/userPhoto-1488169863745developer-icon.jpg',
                 dob: '31/08/1995',
@@ -296,13 +296,13 @@ describe('<Unit test for manual added user profile>', function () {
             req.end(function (err, res) {
                 assert.equal(res.body.success, true);
                 models.User.update({
-                    username: 'Huy Lam',
+                    username: 'Nam Tran',
                     status: 'activated',
                     avatar: '/img/profiles/userPhoto-1488169863745developer-icon.jpg',
                     dob: '31/08/1995',
                     phone: '0123456789',
                 }, {
-                        where: { email: 'huy@gmail.com' }
+                        where: { email: 'tranhoangnam3108@gmail.com' }
                     });
                 if (err) return done(err);
                 done();
@@ -314,8 +314,8 @@ describe('<Unit test for manual added user profile>', function () {
         return it('Should return success==true', function (done) {
             var req = request(DCC_Server).post('/user/userProfile/checkPassword');
             req.send({
-                email: 'huy@gmail.com',
-                password: 'Soledad00'
+                email: 'tranhoangnam3108@gmail.com',
+                password: 'Nam12345'
             });
             req.cookies = Cookies;
             req.end(function (err, res) {
@@ -330,8 +330,8 @@ describe('<Unit test for manual added user profile>', function () {
         return it('Should return success==false', function (done) {
             var req = request(DCC_Server).post('/user/userProfile/checkPassword');
             req.send({
-                email: 'huy@gmail.com',
-                password: '123'
+                email: 'tranhoangnam3108@gmail.com',
+                password: '1234'
             });
             req.cookies = Cookies;
             req.end(function (err, res) {
@@ -347,8 +347,8 @@ describe('<Unit test for manual added user profile>', function () {
         return it('Should return success = true', function (done) {
             var req = request(DCC_Server).post('/user/userProfile/changePasswordMd5');
             req.send({
-                email: "huy@gmail.com",
-                password: "Soledad00"
+                email: "tranhoangnam3108@gmail.com",
+                password: "Nam12345"
             });
 
             req.cookies = Cookies;
