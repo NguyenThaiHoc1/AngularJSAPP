@@ -53,7 +53,6 @@ var userDefault = function (email) {
 };
 
 router.post('/login', function (req, res, next) {
-    notification(["banhquocdanh.2011@gmail.com"], "Just test", "Test Test Test Bitch");
     log.info('Post /login');
     passport.authenticate('ldapauth', {
         // using session to save user's credentials
