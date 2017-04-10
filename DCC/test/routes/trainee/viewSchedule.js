@@ -13,8 +13,8 @@ describe('<Unit test for view schedule function>', function () {
             .post('/login')
             .set('Accept', 'application/json')
             .send({
-                username: 'thach@gmail.com',
-                password: '123456'
+                username: 'qwe@gmail.com',
+                password: 'qwe'
             })
             .end(function (err, res) {
                 Cookies = res.headers['set-cookie'].pop().split(';')[0];
