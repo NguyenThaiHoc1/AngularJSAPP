@@ -321,8 +321,7 @@ describe('<Unit test for manual added user profile>', function () {
             req.end(function (err, res) {
                 assert.equal(res.body.success, true);
                 if (err) return done(err);
-                done();
-            });
+            }).then(done());
         });
     });
     //test checkPassword, case : password incorrect
