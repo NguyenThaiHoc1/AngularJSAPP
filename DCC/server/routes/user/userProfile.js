@@ -171,6 +171,7 @@ router.post('/addUser', function (req, res) {
                     isExperienced: 0,
                     userType: req.body.userType,
                 }).then(function () {
+
                     sendEmail([req.body.email], "Register - Account Information", "Your account has been registered as " + req.body.username + " using the email: " + req.body.email + " with the auto-generated password of: " + req.body.password + " . You must change your password the first time you login otherwise you won't be able to access other features.");
                     res.send({
                         success: true,
@@ -182,11 +183,16 @@ router.post('/addUser', function (req, res) {
     });
 });
 router.post('/checkPassword', function (req, res) {
-    models.User.findOne({ where: { email: req.body.email, password: md5(req.body.password) } }).then(function (result) {
+    models.User.findOne({
+        where:
+        {
+            email: req.body.email, password: md5(req.body.password)
+        }
+    }).then(result => {
         if (result)
             res.send({ success: true });
         else res.send({ success: false });
-    })
+    });
 });
 
 module.exports = router;
