@@ -310,21 +310,21 @@ describe('<Unit test for manual added user profile>', function () {
         });
     });
     //test checkPassword, case : password correct
-    describe('Test case 2 : post /user/userProfile/checkPassword', function () {
-        return it('Should return success==true', function (done) {
-            var req = request(DCC_Server).post('/user/userProfile/checkPassword');
-            req.send({
-                email: 'huy@gmail.com',
-                password: 'soledad'
-            });
-            req.cookies = Cookies;
-            req.end(function (err, res) {
-                assert.equal(res.body.success, true);
-                if (err) return done(err);
-                done();
-            });
-        });
-    });
+    // describe('Test case 2 : post /user/userProfile/checkPassword', function () {
+    //     return it('Should return success==true', function (done) {
+    //         var req = request(DCC_Server).post('/user/userProfile/checkPassword');
+    //         req.send({
+    //             email: 'huy@gmail.com',
+    //             password: 'soledad'
+    //         });
+    //         req.cookies = Cookies;
+    //         req.end(function (err, res) {
+    //             assert.equal(res.body.success, true);
+    //             if (err) return done(err);
+    //             done();
+    //         });
+    //     });
+    // });
     //test checkPassword, case : password incorrect
     describe('Test case 3 : post /user/userProfile/checkPassword', function () {
         return it('Should return success==false', function (done) {
@@ -363,7 +363,6 @@ describe('<Unit test for manual added user profile>', function () {
     describe('Test case 5: post /models/class/getUserInClass', function () {
         return it('Should return success = true', function () {
             var req = models.Class.getUserInClass(16, 1);
-            done();
         });
 
     });
