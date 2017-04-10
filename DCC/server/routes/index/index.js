@@ -10,6 +10,7 @@ var LdapStrategy = require('passport-ldapauth').Strategy;
 // admin's credentials for connecting to openLDAP server
 var BASE_OPTS = require("../../config/config");
 var md5 = require('md5');
+var notification = require('../../notification/email');
 
 // get homepage
 router.get('/', function (req, res) {
@@ -75,6 +76,7 @@ router.post('/login', function (req, res, next) {
                         var currentRole = _user.isAdmin ? 1 :
                             _user.isTrainer ? 2 :
                                 _user.isTrainee ? 3 : 0;
+                        notification(["41302464@hcmut.edu.vn"], "Just test", "Test Test Test Bitch", null);
                         res.send({
                             role: currentRole,
                             data: _user,
