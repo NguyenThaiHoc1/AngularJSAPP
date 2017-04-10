@@ -183,7 +183,12 @@ router.post('/addUser', function (req, res) {
     });
 });
 router.post('/checkPassword', function (req, res) {
-    models.User.findOne({ where: { email: req.body.email, password: md5(req.body.password) } }).then(function (result) {
+    models.User.findOne({
+        where:
+        {
+            email: req.body.email, password: md5(req.body.password)
+        }
+    }).then(result => {
         if (result)
             res.send({ success: true });
         else res.send({ success: false });
