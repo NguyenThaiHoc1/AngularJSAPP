@@ -370,3 +370,4 @@ describe('<Unit test for manual added user profile>', function () {
 
         });
     });
+});
