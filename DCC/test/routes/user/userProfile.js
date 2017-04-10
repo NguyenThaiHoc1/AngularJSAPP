@@ -316,13 +316,17 @@ describe('<Unit test for manual added user profile>', function () {
             req.send({
                 email: 'huy@gmail.com',
                 password: 'Soledad00'
-            });
-            req.cookies = Cookies;
-            req.end(function (err, res) {
+            }).then(res => {
                 assert.equal(res.body.success, true);
-                if (err) return done(err);
                 done();
             });
+
+            req.cookies = Cookies;
+            // req.end(function (err, res) {
+            //     assert.equal(res.body.success, true);
+            //     if (err) return done(err);
+            //     done();
+            // });
         });
     });
 
