@@ -3,7 +3,7 @@ var settings = {
     /**       
     / ---------- DATABASE CONFIG ------------
     */
-    databaseHost: "192.168.122.23", //127.0.0.1
+    databaseHost: "192.168.122.20", //127.0.0.1
     databasePort: 3306, //3306
     databaseUserName: "root", // root
     databasePassword: "dekvn@123321", // dekvn@123321 or root
