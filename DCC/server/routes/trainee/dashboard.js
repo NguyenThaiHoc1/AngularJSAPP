@@ -48,7 +48,7 @@ router.post('/getTrainingProgramByTPType', function (req, res) {
                         });
                     });
                 });
-                if (checkLearnedOptionalClass == 1) {
+                if (checkLearnedOptionalClass === 1) {
                     resData.push({
                         id: trainingProgram.id,
                         name: trainingProgram.name,
