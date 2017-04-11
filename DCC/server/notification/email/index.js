@@ -5,8 +5,7 @@ var email = {
     send: function (receivers, subject, content) {
 
         const nodemailer = require('nodemailer');
-        const smtpTransport = require('nodemailer-smtp-transport');
-        var transporter = nodemailer.createTransport(smtpTransport({
+        var transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
                 type: 'OAuth2',
@@ -16,7 +15,7 @@ var email = {
                 refreshToken: email_config.USER_REFRESH_TOKEN,
                 accessToken: email_config.USER_ACCESS_TOKEN,
             }
-        }));
+        });
         var mailOptions = {
             from: '"DEK Notification System" <dektech.dcc@gmail.com>',
             to: receivers.toString(),
