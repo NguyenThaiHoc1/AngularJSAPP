@@ -25,6 +25,8 @@ var email = {
         };
         transporter.sendMail(mailOptions, (error, info) => {
             //callback(error, info);
+            console.log(error);
+            console.log(info);
         });
     }
 }
