@@ -29,7 +29,11 @@ myApp.factory('EmployeesManagementService', ['$http', function($http) {
 
 myApp.controller('getProfilesController', ['$scope', '$rootScope', '$sce', 'EmployeesManagementService', function($scope, $rootScope, $sce, EmployeesManagementService) {
     EmployeesManagementService.getProfilesList().then(function(userData) {
-        $scope.UsersList = userData.data.data;
+        $scope.UsersList = [];
+        userData.data.data.forEach(function(user) {
+            if (user.status != 'newuser')
+                $scope.UsersList.push(user);
+        });
         $scope.sortbyName();
         $scope.opt = '1';
     });
@@ -75,8 +79,8 @@ myApp.controller('getProfilesController', ['$scope', '$rootScope', '$sce', 'Empl
         var head = 0, tail = $scope.UsersList.length - 1;
         var statusValues = ($scope.UsersList.sortOrder == 1) ? ['deactivated', 'activated'] : ['activated','deactivated'];
         while(head < tail) {
-            while ($scope.UsersList[head].status == statusValues[0]) head++;
-            while ($scope.UsersList[tail].status == statusValues[1]) tail--;
+            while ($scope.UsersList[head].status == statusValues[0] && head < tail) head++;
+            while ($scope.UsersList[tail].status == statusValues[1] && head < tail) tail--;
             //swap
             if (head < tail) {
                 var temp = $scope.UsersList[head];

@@ -28,7 +28,9 @@ router.post('/getTrainingProgramByTPType', function (req, res) {
         };
     models.TrainingProgram.findAll(query).then(function (trainingPrograms) {
         var resData = [];
+        var checkLearnedOptionalClass;
         trainingPrograms.forEach(trainingProgram => {
+            checkLearnedOptionalClass = 0;
             if (trainingProgram.CourseType.name === req.body.userType ||
                 trainingProgram.CourseType.name === 'EVERYONE' ||
                 (!req.body.isExperienced && trainingProgram.CourseType.name === 'OPTIONAL')) {
@@ -40,11 +42,13 @@ router.post('/getTrainingProgramByTPType', function (req, res) {
                     course.Classes.forEach(classes => {
                         classes.ClassRecords.forEach(classRecord => {
                             if (classRecord.User.email === req.body.email) {
+                                checkLearnedOptionalClass = 1;
                                 resDataCourse.push(course);
                             }
                         });
                     });
                 });
+                if (checkLearnedOptionalClass === 1) {
                     resData.push({
                         id: trainingProgram.id,
                         name: trainingProgram.name,
@@ -55,6 +59,7 @@ router.post('/getTrainingProgramByTPType', function (req, res) {
                         Courses: resDataCourse
                     });
                 }
+            }
         })
         var datasend = {
             success: true,
