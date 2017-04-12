@@ -35,13 +35,13 @@ var settings = {
         "USER_EMAIL": "dektech.dcc@gmail.com",
         "USER_CLIENT_ID": "985840088773-5s0rmeo36dd1v2h15h658c8flikvu63j.apps.googleusercontent.com",
         "USER_CLIENT_SECRET": "Zk2q9G6IDYLATjkLCB0-R9P3",
-        "USER_ACCESS_TOKEN": "ya29.GlspBL5M5LoN9Pq137IoHkNhcwG8BoqRXO5mArcOme7rECTkYvUoSlhpbfyGvQOp9gXD6AF1rloYWmgCtvN3_oceB8SaYacLhyDDdZVe6if5FzDmeVdRTwf-IS51",
-        "USER_REFRESH_TOKEN": "1/tstn10cRC_UPiSHQ9oo5jKwpXDvkQZjjlLvHBkxPFxU"
+        "USER_ACCESS_TOKEN": "ya29.GlsrBHekNjK-vsiQN7ZtuyXa8QVdds_hs4sSJJzHWYAgST1JMSsjrxpoN2ZBfWSDVhZLCyXQwIZOmYpUc3F-p99_dG4eegVy1QbDP8GsqVkVm9UU32iys3GP1Klb",
+        "USER_REFRESH_TOKEN": "1/zjzjkdiE1ympZLRQ0qhi3vybO4u3mm_o4gbcZLq5PYg"
     },
 
     /**       
     *---------- NOTIFICATION EMAIL TIME ------------
     */
-    NotificationEmailTime: '8:00',   // hour:minute,  24h format
+    NotificationEmailTime: '14:00',   // hour:minute,  24h format
 };
 module.exports = settings;
