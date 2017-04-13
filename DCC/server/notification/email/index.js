@@ -3,7 +3,7 @@ var email_config = require('../../../settings').email;
 var email = {
 
     send: function (receivers, subject, content) {
-        
+
         const nodemailer = require('nodemailer');
         // const smtpTransport = require('nodemailer-smtp-transport');
         var transporter = nodemailer.createTransport({
@@ -17,7 +17,6 @@ var email = {
                 accessToken: email_config.USER_ACCESS_TOKEN,
             }
         });
-        console.log(transporter);
         var mailOptions = {
             from: '"DEK Notification System" <dektech.dcc@gmail.com>',
             to: receivers.toString(),
@@ -25,9 +24,6 @@ var email = {
             text: content,
         };
         transporter.sendMail(mailOptions, (error, info) => {
-            //callback(error, info);
-            console.log(error);
-            console.log(info);
         });
     }
 }

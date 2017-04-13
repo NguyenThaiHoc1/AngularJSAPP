@@ -56,7 +56,7 @@ myApp.factory('courseManagementServices', ['$http', function ($http) {
         deleteClass: function (Class) {
             return $http.post('/admin/courses/deleteClass', Class).success(function (data) { return data; });
         },
-        getTrainerList:function() {
+        getTrainerList: function () {
             return $http.get('/admin/courses/getAllTrainer').success(function (data) { return data; });
         },
     }
@@ -67,10 +67,10 @@ myApp.factory('courseManagementServices', ['$http', function ($http) {
 var temp;
 //controller
 myApp.controller('courseManagementCtrl', ['$sce', '$scope', '$rootScope', 'courseManagementServices', function ($sce, $scope, $rootScope, courseManagementServices, $location) {
-    $rootScope.getTrainerList = function() {
-    courseManagementServices.getTrainerList().then(function (result) {
-      $rootScope.trainerList = result.data.trainer;
-    });
+    $rootScope.getTrainerList = function () {
+        courseManagementServices.getTrainerList().then(function (result) {
+            $rootScope.trainerList = result.data.trainer;
+        });
     }
 
     //GetTrainingProgram
@@ -193,15 +193,14 @@ myApp.controller('courseManagementCtrl', ['$sce', '$scope', '$rootScope', 'cours
         };
     };
     $scope.findCourse = function (courseSearchKey) {
-        if((courseSearchKey!='r')&&(courseSearchKey!='p')&&(courseSearchKey!='<')&&(courseSearchKey!='>'))
-        {
-        var courseListSearchResult = []
-        var listSearchResult = []
-        $rootScope.adminTrainingProgramList.forEach(trainingProgram => {
-            trainingProgram.Courses.forEach(course => {
-                if ((course.name.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1) || (course.description.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1)) courseListSearchResult.push(course);
+        if ((courseSearchKey != 'r') && (courseSearchKey != 'p') && (courseSearchKey != '<') && (courseSearchKey != '>')) {
+            var courseListSearchResult = []
+            var listSearchResult = []
+            $rootScope.adminTrainingProgramList.forEach(trainingProgram => {
+                trainingProgram.Courses.forEach(course => {
+                    if ((course.name.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1) || (course.description.toUpperCase().indexOf(courseSearchKey.toUpperCase()) !== -1)) courseListSearchResult.push(course);
+                });
             });
-        });
         }
         $scope.courseListSearchResult = courseListSearchResult;
     };
@@ -230,7 +229,6 @@ myApp.controller('addEditCourseCtrl', ['$scope', '$rootScope', 'courseManagement
                         $rootScope.adminTrainingProgramList = result.data.trainingProgram;
                     });
                     $rootScope.ShowPopupMessage("Edit Course Successfully", "success");
-                    // $location.path("#admin_courseManagement");
                 } else {
                     $rootScope.ShowPopupMessage("Fail to Edit Course", "error");
                 }
@@ -244,7 +242,6 @@ myApp.controller('addEditCourseCtrl', ['$scope', '$rootScope', 'courseManagement
                     courseManagementServices.getTrainingProgramList().then(function (result) {
                         $rootScope.adminTrainingProgramList = result.data.trainingProgram;
                     });
-                    // $location.path("/userProfile");
                     $rootScope.ShowPopupMessage("Add Course Successfully", "success");
                 } else {
                     $rootScope.ShowPopupMessage("Fail to Add Course", "error");
@@ -272,7 +269,6 @@ myApp.controller('addEditTPCtrl', ['$scope', '$rootScope', 'courseManagementServ
                         $rootScope.adminTrainingProgramList = result.data.trainingProgram;
                     });
                     $rootScope.ShowPopupMessage("Edit Training Program Successfully", "success");
-                    // $location.path("#admin_courseManagement");
                 } else {
                     $rootScope.ShowPopupMessage('Fail to Edit Training Program !', "error");
                 }
@@ -286,7 +282,6 @@ myApp.controller('addEditTPCtrl', ['$scope', '$rootScope', 'courseManagementServ
                     courseManagementServices.getTrainingProgramList().then(function (result) {
                         $rootScope.adminTrainingProgramList = result.data.trainingProgram;
                     });
-                    // $location.path("/userProfile");
                     $rootScope.ShowPopupMessage("Add Training Program Successfully", "success");
                 } else {
                     $rootScope.ShowPopupMessage('Fail to Add Training Program', "error");
@@ -345,9 +340,9 @@ myApp.controller('deleteCtrl', ['$scope', '$rootScope', 'courseManagementService
 }]);
 
 
-myApp.controller('addEditClassCtrl', ['$scope', '$rootScope','courseManagementServices', 'courseDetailServices', '$stateParams', function ($scope, $rootScope,courseManagementServices, courseDetailServices, $location, $stateParams) {
+myApp.controller('addEditClassCtrl', ['$scope', '$rootScope', 'courseManagementServices', 'courseDetailServices', '$stateParams', function ($scope, $rootScope, courseManagementServices, courseDetailServices, $location, $stateParams) {
 
-    
+
     //Class
     $scope.addEditClassClick = function () {
 
@@ -371,7 +366,6 @@ myApp.controller('addEditClassCtrl', ['$scope', '$rootScope','courseManagementSe
                     });
 
                     $rootScope.ShowPopupMessage("Edit Class Successfully", "success");
-                    //$location.path("#courseDetail");
                 } else {
                     $rootScope.ShowPopupMessage('Fail to Edit Class!', "error");
                 }
@@ -397,7 +391,6 @@ myApp.controller('addEditClassCtrl', ['$scope', '$rootScope','courseManagementSe
                         $rootScope.classList = result.data.data;
 
                     });
-                    // $location.path("/userProfile");
                     $rootScope.ShowPopupMessage("Add Class Successfully", "success");
                 } else {
                     $rootScope.ShowPopupMessage('Class Already Existed', "error");
