@@ -1,5 +1,5 @@
 var settings = {
-
+	// This is Comment
     /**       
     / ---------- DATABASE CONFIG ------------
     */
