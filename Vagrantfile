@@ -51,8 +51,6 @@ Vagrant.configure("2") do |config|
      apt-get install -y apache2
 	 curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
 	 sudo apt-get install -y nodejs
-	 cd /home/DCC/DCC
-	 npm install
-	 npm start
+	 node -v
    SHELL
 end
