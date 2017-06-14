@@ -1,0 +1,17 @@
+{
+  "root": "/home/vagrant/.forever",
+  "pidPath": "/home/vagrant/.forever/pids",
+  "sockPath": "/home/vagrant/.forever/sock",
+  "loglength": 100,
+  "logstream": false,
+  "columns": [
+    "uid",
+    "command",
+    "script",
+    "forever",
+    "pid",
+    "id",
+    "logfile",
+    "uptime"
+  ]
+}
