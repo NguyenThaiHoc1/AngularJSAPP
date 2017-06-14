@@ -7,10 +7,10 @@
 # you're doing.
 Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/trusty64"
-  #config.ssh.username = 'vagrant'
-  #config.ssh.password = 'vagrant'
-  #config.ssh.insert_key = false
-  config.vm.network "forwarded_port", guest: 80, host: 1234
+  config.ssh.username = 'vagrant'
+  config.ssh.password = 'vagrant'
+  config.ssh.insert_key = false
+  config.vm.network "forwarded_port", guest: 80, host: 80
   #config.vm.network "forwarded_port", guest: 8081, host: 1234
   #config.vm.network "forwarded_port", guest: 3210, host: 3210
   #config.vm.network "forwarded_port", guest: 636, host: 1636
