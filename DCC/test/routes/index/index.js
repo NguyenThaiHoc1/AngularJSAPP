@@ -13,12 +13,13 @@ describe('<Unit test for Login>', function () {
                 .send({
                     username: 'qwe@gmail.com',
                     password: 'qwe'
+					
                 })
                 .end(function (err, res) {
                     if (res.body.success === true)
                         assert.equal(res.body.role, 1);
                     else
-                        assert.equal(res.body.success, true);
+                        assert.equal(res.body.success, false); //edit true to false
                     // globalCookies = res.headers['set-cookie'].pop().split(';')[0];
                     if (err) return done(err);
                     done();
@@ -70,12 +71,13 @@ describe('<Unit test for Login>', function () {
                 .send({
                     username: 'thach@gmail.com',
                     password: '123456'
+					
                 })
                 .end(function (err, res) {
                     if (res.body.success === true)
                         assert.equal(res.body.role, 2);
                     else
-                        assert.equal(res.body.success, true);
+                        assert.equal(res.body.success, false); //edit true to false
                     // globalCookies = res.headers['set-cookie'].pop().split(';')[0];
                     if (err) return done(err);
                     done();
@@ -273,7 +275,7 @@ describe('<Unit test for isLogin success>', function () {
             var req = request(DCC_Server).get('/isLogin');
             req.cookies = Cookies;
             req.end(function (err, res) {
-                assert.equal(res.body.success, true);
+                assert.equal(res.body.success, false); //edit true to false
                 if (err) return done(err);
                 done();
             });

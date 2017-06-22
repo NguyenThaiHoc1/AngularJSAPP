@@ -57,9 +57,9 @@ module.exports =
         // LDAP server config , port 389
         server: {
             url: settings.LDAPurl,
-            bindDn: 'cn=admin,dc=dcc,dc=vn,dc=dektech,dc=internal',
+            bindDn: 'cn=admin,dc=dcc,dc=com',
             bindCredentials: 'root',
-            searchBase: 'dc=dcc,dc=vn,dc=dektech,dc=internal',
+            searchBase: 'dc=dcc,dc=com',
             searchFilter: '(mail={{username}})'
         },
         //Log config

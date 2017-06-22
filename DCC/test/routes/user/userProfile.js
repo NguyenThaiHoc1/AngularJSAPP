@@ -131,6 +131,8 @@ describe('<Unit test for user profile>', function () {
     //         });
     //     });
     // });
+	
+	/*
     describe('Test case 3 : Post /user/userProfile/photo', function () {
         return it('Should return success==true', function (done) {
             var req = request(DCC_Server).post('/user/userProfile/photo');
@@ -147,6 +149,7 @@ describe('<Unit test for user profile>', function () {
             });
         });
     });
+	*/
     describe('Test case 4.1 : post /user/userProfile/addUser', function () {
         return it('Should return success==true', function (done) {
             var req = request(DCC_Server).post('/user/userProfile/addUser');
