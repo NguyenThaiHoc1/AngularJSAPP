@@ -54,7 +54,7 @@ module.exports =
             dialect: "sqlite",
             storage: "test/IMDB/database.sqlite"
         },
-        // LDAP server config , port 389
+        // LDAP server config , port 636
         server: {
             url: settings.LDAPurl,
             bindDn: 'cn=admin,dc=dcc,dc=com',
