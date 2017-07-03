@@ -59,9 +59,9 @@ module.exports =
         // LDAP server config , port 636
         server: {
             url: settings.LDAPurl,
-            bindDn: 'cn=admin,dc=example,dc=com',
+            bindDn: 'cn=admin,dc=dcc,dc=com',
             bindCredentials: 'root',
-            searchBase: 'dc=example,dc=com',
+            searchBase: 'dc=dcc,dc=com',
             searchFilter: '(mail={{username}})',
             /*
              tlsOptions: {
