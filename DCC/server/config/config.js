@@ -1,5 +1,6 @@
 var settings = require('../../settings.js');
-//var basicAuth=require('basic-auth');
+var basicAuth=require('basic-auth');
+var fs=require('fs');
 var logConfigOptions = {
     logDirectory: settings.logDirectory,
     fileNamePattern: settings.fileNamePattern,
@@ -62,16 +63,16 @@ module.exports =
             bindCredentials: 'root',
             searchBase: 'dc=dcc,dc=com',
             searchFilter: '(mail={{username}})',
-            /*
+            
              tlsOptions: {
                 ca:[
                     fs.readFileSync('/etc/ldap/ssl/mycert.pem'),
                     ],   
             
             },
-            */
+            
         },
-        //credentialsLookup: basicAuth,
+        credentialsLookup: basicAuth,
         //Log config
         "log": require('simple-node-logger').createLogManager(logConfigOptions).createLogger()
     }
