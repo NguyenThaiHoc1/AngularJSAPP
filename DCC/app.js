@@ -47,9 +47,7 @@ app.use('/', require('./server/routes/index.js'));
 auto.job_sendEmail.createJobSendEmail();
 // Set Port
 app.set('port', (process.env.PORT || 3210));
-var server = http.createServer(app);
-createServer(server);
-server.listen(app.get('port'), function () {
+var server = http.createServer(app).listen(app.get('port'), function () {
     console.log('Server started on port ' + app.get('port'));
 });
 module.exports = server;
