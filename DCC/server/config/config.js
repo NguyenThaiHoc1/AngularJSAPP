@@ -63,12 +63,14 @@ module.exports =
             bindCredentials: 'root',
             searchBase: 'dc=dcc,dc=com',
             searchFilter: '(mail={{username}})',
+            /*
             tlsOptions: {
                 ca:[
                     fs.readFileSync('/etc/ldap/ssl/mycert.pem'),
                     ],   
             
             },
+            */
         },
         //credentialsLookup: basicAuth,
         //Log config
