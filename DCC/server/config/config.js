@@ -1,5 +1,5 @@
 var settings = require('../../settings.js');
-var basicAuth=require('basic-auth');
+//var basicAuth=require('basic-auth');
 var fs=require('fs');
 var logConfigOptions = {
     logDirectory: settings.logDirectory,
