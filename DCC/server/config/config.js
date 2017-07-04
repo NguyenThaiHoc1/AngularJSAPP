@@ -70,7 +70,7 @@ module.exports =
             
             },
         },
-        credentialsLookup: basicAuth,
+        //credentialsLookup: basicAuth,
         //Log config
         "log": require('simple-node-logger').createLogManager(logConfigOptions).createLogger()
     }
