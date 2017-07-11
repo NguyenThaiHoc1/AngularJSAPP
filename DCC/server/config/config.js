@@ -65,7 +65,7 @@ module.exports =
             searchFilter: '(uid={{username}})',
             tlsOptions: {
                 ca:[
-                    fs.readFileSync('/etc/ssl/certs/ca-certificates.crt'),
+                    fs.readFileSync('/etc/ssl/certs/Izenpe.com.pem'),
                     ],   
             
             },
