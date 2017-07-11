@@ -72,7 +72,7 @@ module.exports =
         },*/
 
         server: {
-            url: 'ldap://192.168.122.20:636',
+            url: 'ldaps://192.168.122.20:636',
             bindDn: 'cn=admin,dc=dcc,dc=com',
             bindCredentials: 'root',
             searchBase: 'dc=dcc,dc=com',
@@ -83,7 +83,7 @@ module.exports =
                     ],   
             
             },
-        }
+        },
         //credentialsLookup: basicAuth,
         //Log config
         "log": require('simple-node-logger').createLogManager(logConfigOptions).createLogger()
