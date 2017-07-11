@@ -11,6 +11,9 @@ var auto = require('./server/automatic');
 
 // Init App
 var app = express();
+
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
 // set view engine
 app.use(expressLayouts);
 app.engine('html', require('ejs').renderFile);
