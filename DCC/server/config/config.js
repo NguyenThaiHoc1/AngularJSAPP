@@ -65,7 +65,7 @@ module.exports =
             searchFilter: '(mail={{username}})',
             tlsOptions: {
                 ca:[
-                    fs.readFileSync('/etc/ssl/certs/cacert.pem'),
+                    fs.readFileSync('/etc/ssl/certs/ca-certificates.crt'),
                     ],   
             
             },
