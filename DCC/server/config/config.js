@@ -65,7 +65,7 @@ module.exports =
             searchFilter: '(uid={{username}})',
             tlsOptions: {
                 ca:[
-                    fs.readFileSync('/etc/ssl/private/cakey.pem'),
+                    fs.readFileSync('/etc/ssl/private/ldap01_slapd_key.pem'),
                     ],   
             
             },
