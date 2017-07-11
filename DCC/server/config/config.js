@@ -57,7 +57,7 @@ module.exports =
             storage: "test/IMDB/database.sqlite"
         },
         // LDAP server config , port 636
-        server: {
+        /*server: {
             url: settings.LDAPurl,
             bindDn: 'cn=admin,dc=dcc,dc=com',
             bindCredentials: 'root',
@@ -69,7 +69,21 @@ module.exports =
                     ],   
             
             },
-        },
+        },*/
+
+        server: {
+            url: 'ldaps://192.168.122.20:636',
+            bindDn: 'cn=admin,dc=dcc,dc=com',
+            bindCredentials: 'root',
+            searchBase: 'dc=dcc,dc=com',
+            searchFilter: '(uid={{username}})',
+            tlsOptions: {
+                ca:[
+                    fs.readFileSync('/etc/ssl/private/ca-certificates.crt'),
+                    ],   
+            
+            },
+        }
         //credentialsLookup: basicAuth,
         //Log config
         "log": require('simple-node-logger').createLogManager(logConfigOptions).createLogger()
