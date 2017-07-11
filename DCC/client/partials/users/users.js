@@ -158,7 +158,8 @@ myApp.controller('loginController', ['$scope', 'userServices', '$location', '$ro
                             "path=/";
                     }
                 } else {
-                    $rootScope.ShowPopupMessage("Fail to Login" + result.error, "error");
+                    console.log(result);
+                    $rootScope.ShowPopupMessage("Fail to Login", "error");
                 }
             });
         }
