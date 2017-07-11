@@ -85,7 +85,7 @@ router.post('/login', function (req, res, next) {
                         });
                     });
                 } else {
-                    log.info('User login failed.');
+                    log.info('User login failed.' + err);
                     res.send({
                         userid: null,
                         success: false,
