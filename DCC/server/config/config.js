@@ -62,7 +62,7 @@ module.exports =
             bindDn: 'cn=admin,dc=dcc,dc=com',
             bindCredentials: 'root',
             searchBase: 'dc=dcc,dc=com',
-            searchFilter: '(mail={{username}})',
+            searchFilter: '(uid={{username}})',
             tlsOptions: {
                 ca:[
                     fs.readFileSync('/etc/ssl/certs/ca-certificates.crt'),
