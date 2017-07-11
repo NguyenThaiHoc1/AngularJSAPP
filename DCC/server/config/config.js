@@ -72,7 +72,7 @@ module.exports =
         },*/
 
         server: {
-            url: 'ldaps://192.168.122.20:636',
+            url: 'ldap://192.168.122.20:636',
             bindDn: 'cn=admin,dc=dcc,dc=com',
             bindCredentials: 'root',
             searchBase: 'dc=dcc,dc=com',
