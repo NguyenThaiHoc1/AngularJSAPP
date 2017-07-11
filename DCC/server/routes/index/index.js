@@ -85,11 +85,12 @@ router.post('/login', function (req, res, next) {
                         });
                     });
                 } else {
-                    log.info('User login failed.' + err);
+                    log.info('User login failed.');
                     res.send({
                         userid: null,
                         success: false,
                         msg: 'Wrong email or password',
+                        error: err
                     });
                 }
             })
