@@ -63,12 +63,6 @@ module.exports =
             bindCredentials: 'root',
             searchBase: 'dc=dcc,dc=com',
             searchFilter: '(uid={{username}})',
-            tlsOptions: {
-                ca:[
-                    fs.readFileSync('/etc/ssl/private/ldap01_slapd_key.pem'),
-                    ],   
-            
-            },
         },*/
 
         server: {
