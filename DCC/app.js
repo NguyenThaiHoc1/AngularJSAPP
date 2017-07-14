@@ -12,7 +12,7 @@ var auto = require('./server/automatic');
 // Init App
 var app = express();
 
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"; // what is this ? It used process ldaps port 636 : open tls then use ssl in server 
 
 // set view engine
 app.use(expressLayouts);
