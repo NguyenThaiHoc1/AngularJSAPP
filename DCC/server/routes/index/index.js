@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var gcal = require('../../config/google_api/gcal.js');
 var log = require('../../config/config')["log"];
 var Sequelize = require('sequelize');
 var ldap = require('ldapjs');
@@ -17,14 +16,6 @@ router.get('/', function (req, res) {
     res.render('./index');
 });
 
-router.get('/getEvents', function (req, res) {
-    gcal.getEvents(function (eventList) {
-        res.send({
-            success: true,
-            eventList: eventList
-        });
-    });
-});
 
 // passport Strategy
 passport.use(new LdapStrategy(BASE_OPTS, function (user, callback) {
