@@ -275,7 +275,7 @@ describe('<Unit test for isLogin success>', function () {
             var req = request(DCC_Server).get('/isLogin');
             req.cookies = Cookies;
             req.end(function (err, res) {
-                assert.equal(res.body.success, true); 
+                assert.equal(res.body.success, false); 
                 if (err) return done(err);
                 done();
             });
