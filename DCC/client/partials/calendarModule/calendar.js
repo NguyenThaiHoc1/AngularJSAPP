@@ -12,20 +12,9 @@ myApp.config(function($stateProvider) {
 });
 
 //Factories
-myApp.factory('calendarServices', ['$http', function($http) {
-
-    var factoryDefinitions = {
-        getEvents: function() {
-            return $http.get('/getEvents').success(function(res) { return res; });
-        },
-
-    }
-
-    return factoryDefinitions;
-}]);
 
 //Controllers
-myApp.controller('calendarController', ['$scope', 'calendarServices', '$location', '$rootScope', function($scope, calendarServices, $compile, $timeout, uiCalendarConfig) {
+myApp.controller('calendarController', ['$scope', '$location', '$rootScope', function($scope, $compile, $timeout, uiCalendarConfig) {
 
     /* config object */
     $scope.uiConfig = {
@@ -45,18 +34,6 @@ myApp.controller('calendarController', ['$scope', 'calendarServices', '$location
     /* event sources array*/
     $scope.eventSources = [$scope.events]; // Calendar may have many sources
 
-    calendarServices.getEvents().then(function(result){
-        result.data.eventList.forEach(function(event){
-            $scope.events.push({
-                title: event.summary,
-                description: event.description,
-                start: event.start.dateTime,
-                end: event.end.dateTime,
-                location: event.location,
-                stick: true,
-            });
-        });
-    });
     $scope.alertOnEventClick = function( date, jsEvent, view){
         $scope.alertMessage = (date.title + ' was clicked ');
     };
